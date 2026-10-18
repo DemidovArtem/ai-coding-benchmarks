@@ -18,7 +18,7 @@ uv pip install --python .venv/bin/python -r requirements-setup.txt
 .venv/bin/python -m experiment.audit --output reports/environment.json
 ```
 
-Аудит подтверждает readiness baseline smoke по текущим pins и сохранённым gates; это не проверка завершённости всего v1. Runtime storage проверяется отдельно от заполненного рабочего раздела. Аудит не запускает агента, не скачивает образы, не меняет глобальные настройки Codex, Docker или firewall. Он сохраняет версии, хеши и только разрешённые признаки загрязнения профиля. Содержимое `auth.json` не читается.
+Аудит проверяет source pins и setup; текущую квоту проверяет trial runner отдельно. Успешный static audit не разрешает обход quota gate и не доказывает завершённость v1. Runtime storage проверяется отдельно от заполненного рабочего раздела. Аудит не запускает агента, не скачивает образы, не меняет глобальные настройки Codex, Docker или firewall. Он сохраняет версии, хеши и только разрешённые признаки загрязнения профиля. Содержимое `auth.json` не читается.
 
 ## Восстановление исходников
 
@@ -77,3 +77,5 @@ Collector не запускает grader заново. Он проверяет s
 ```
 
 Каждый следующий запуск выполняется только после проверки terminal state предыдущего и текущей квоты. Planner failure не запускает executor. Output directories не перезаписываются.
+
+Текущий [partial Phase 2 report](reports/phase2_progress.md): measured baseline resolved=true; plan/goal_plan пока не запускались из-за quota stop threshold. Frozen execution inputs остаются прежними.

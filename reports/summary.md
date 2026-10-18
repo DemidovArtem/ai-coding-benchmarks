@@ -5,7 +5,8 @@ Dependent milestones form trajectories; they are not independent statistical sam
 
 | Trial | Variant | Resolved | Production + / - | Churn delta vs baseline | Failure |
 | --- | --- | --- | --- | --- | --- |
-| baseline_smoke_001 | baseline | True | 74 / 24 | 0 | null |
+| baseline_smoke_001 | baseline | True | 74 / 24 | null | null |
+| phase2_baseline_001 | baseline | True | 79 / 29 | 0 | null |
 
 Paired deltas require one baseline with identical task, repetition, starting tree, model, effort, dataset and setup fingerprint.
 A delta does not imply correctness. Inspect correctness and footprint together; no failed rows are dropped.

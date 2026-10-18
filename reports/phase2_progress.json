@@ -1,0 +1,18 @@
+{
+  "phase": "phase2",
+  "status": "quota_gated",
+  "completed_trials": [
+    "phase2_baseline_001"
+  ],
+  "not_started": [
+    "phase2_plan_001",
+    "phase2_goal_plan_001"
+  ],
+  "stop_threshold_percent": 85,
+  "observed_used_percent": 89,
+  "observation": "2026-10-18T22:49:03.220014+00:00",
+  "reset_at_utc": "2026-10-19T00:24:01+00:00",
+  "reset_at_local": "2026-10-19T02:24:01+02:00",
+  "next_action": "Read a fresh quota snapshot after reset; keep prompts/code/pins unchanged and run plan, then goal_plan sequentially.",
+  "goal_complete": false
+}
