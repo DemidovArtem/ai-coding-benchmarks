@@ -44,14 +44,15 @@ def verify_snapshot(snapshot, sidecar, repo):
 
 def collect(run, config):
     metadata = load(run / "run_metadata.json", {})
+    config = load(run / "experiment.json", config)
     if metadata.get("state") not in ("finished", "failed"):
         raise ValueError("Trial is not terminal; do not collect a live run")
     raw = load(run / "evaluation/evaluation_result.json", {})
     proof = load(run / "effective_profile.json", {})
     sidecar = load(run / "evaluation/source_snapshot.integrity.json", {})
     record = {"experiment_id": config["experiment_id"], "trial_id": run.name,
-              "trial_kind": "smoke", "measured_comparison": False,
-              "variant": "baseline", "repo": config["benchmark"]["repo"],
+              "trial_kind": metadata.get("trial_kind", "smoke"), "measured_comparison": metadata.get("measured_comparison", False),
+              "variant": metadata.get("variant", "baseline"), "repo": config["benchmark"]["repo"],
               "milestone_id": config["benchmark"]["smoke_milestone"], "repetition": 1,
               "dataset_version": config["benchmark"]["version"], "dataset_commit": config["pins"]["git_commits"]["results/setup/dataset"],
               "model": metadata.get("model"), "reasoning_effort": metadata.get("reasoning_effort"),
@@ -59,8 +60,8 @@ def collect(run, config):
               "starting_tree": None, "effective_profile": proof,
               "duration_seconds": metadata.get("duration_seconds"),
               "sonar": {"analysis_ok": None, "new_maintainability_issues": None, "status": "not_run"},
-              "quota": {"before": load(ROOT / "reports/quota_before_baseline_smoke.json"),
-                        "after": load(ROOT / "reports/quota_after_baseline_smoke.json")},
+              "quota": {"before": load(run / "quota_before.json", load(ROOT / "reports/quota_before_baseline_smoke.json")),
+                        "after": load(run / "quota_after.json", load(ROOT / "reports/quota_after_baseline_smoke.json"))},
               "artifacts_path": str(run), "snapshot_sha256": sidecar.get("snapshot_sha256"),
               "implementation_commit": metadata.get("implementation_commit"),
               "collection_errors": [], **normalize_grader(raw)}
@@ -78,12 +79,22 @@ def collect(run, config):
                 continue
     record["usage"] = {"planner": {"used": False, "input_tokens": 0, "output_tokens": 0, "cached_input_tokens": 0},
                        "executor": codex_usage(events)}
+    planner_audit = load(run / "planner/audit.json", {})
+    if record["variant"] in ("plan", "goal_plan"):
+        planner_stdout = run / "planner/log/agent_stdout.txt"
+        planner_events = [json.loads(line) for line in planner_stdout.read_text().splitlines() if line.startswith("{")] if planner_stdout.exists() else []
+        record["usage"]["planner"] = {"used": True, **codex_usage(planner_events)}
+        record["preparation"] = planner_audit
+        record["session_isolation"] = load(run / "session_isolation.json")
+    record["usage"]["total"] = {key: sum(record["usage"][phase][key] for phase in ("planner", "executor"))
+        if all(record["usage"][phase].get(key) is not None for phase in ("planner", "executor")) else None
+        for key in ("input_tokens", "output_tokens", "cached_input_tokens")}
     stats = load(run / "agent_stats.json", {}).get("summary", {})
     record["native_usage_observations"] = {key: stats.get(key) for key in ("total_turns", "total_tool_calls", "wall_clock_ms")}
-    record["durations_seconds"] = {"planner": 0, "executor": stats["wall_clock_ms"] / 1000 if stats.get("wall_clock_ms") is not None else None,
-                                    "evaluation": None, "sonar": None}
+    record["durations_seconds"] = {"planner": planner_audit.get("duration_seconds", 0 if record["variant"] == "baseline" else None), "executor": stats["wall_clock_ms"] / 1000 if stats.get("wall_clock_ms") is not None else None,
+                                    "evaluation": load(run / "durations.json", {}).get("evaluation"), "sonar": None}
     setup = {key: config[key] for key in ("codex", "benchmark", "pins")}
-    record["setup_fingerprint"] = hashlib.sha256(json.dumps(setup, sort_keys=True).encode()).hexdigest()
+    record["setup_fingerprint"] = metadata.get("setup_fingerprint") or hashlib.sha256(json.dumps(setup, sort_keys=True).encode()).hexdigest()
     if record["starting_commit"] and record["ending_commit"] and raw.get("agent_created_tag") is True:
         try:
             repo = run / "metrics_repository"
@@ -104,10 +115,10 @@ def collect(run, config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("run", type=Path)
+    parser.add_argument("run", type=Path, nargs="+")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     sys.path.insert(0, str(ROOT / "vendor/SWE-Milestone"))
-    record = collect(args.run.resolve(), load(ROOT / "experiment.yaml"))
-    export([record], args.output)
-    print(json.dumps({key: record.get(key) for key in ("trial_id", "resolved", "added_prod_loc", "deleted_prod_loc", "failure_category", "collection_errors")}))
+    records = [collect(run.resolve(), load(ROOT / "experiment.yaml")) for run in args.run]
+    export(records, args.output)
+    print(json.dumps([{key: record.get(key) for key in ("trial_id", "resolved", "added_prod_loc", "deleted_prod_loc", "failure_category", "collection_errors")} for record in records]))

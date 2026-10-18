@@ -1,7 +1,7 @@
 {
   "experiment_id": "ripgrep-workflows-v1-pilot",
-  "stage": "phase1_complete",
-  "measurement_started": false,
+  "stage": "phase2_collecting",
+  "measurement_started": true,
   "codex": {
     "version": "0.163.0",
     "model": "gpt-6.1-sol",
@@ -30,7 +30,8 @@
       "dispatch_planning_implemented": false,
       "selection_mechanism": "trial-local selected_milestone_ids.txt override; integration pending",
       "dependency": "Strong FUNC edge, included in dependencies.csv; no additional incoming prerequisites"
-    }
+    },
+    "common_starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358"
   },
   "variants": [
     "baseline",
@@ -47,11 +48,11 @@
       "evidence": "results/trials/baseline_smoke_001/effective_profile.json"
     },
     "plan": {
-      "status": "not_implemented",
+      "status": "implemented_activation_pending",
       "activation_verified": false
     },
     "goal_plan": {
-      "status": "not_implemented",
+      "status": "implemented_activation_pending",
       "activation_verified": false
     },
     "ponytail": {
@@ -87,7 +88,8 @@
     "proposed_runtime_root": "/tmp/ai-coding-experiment",
     "runtime_root_approved": false,
     "runtime_root": "/tmp/ai-coding-experiment",
-    "runtime_root_selection": "agent-selected reversible temporary smoke storage; artifacts require later durable copy"
+    "runtime_root_selection": "agent-selected reversible temporary smoke storage; artifacts require later durable copy",
+    "quota_stop_percent": 85
   },
   "images": [
     {
@@ -134,7 +136,16 @@
       "vendor/SWE-Milestone/harness/e2e/agent_runner.py": "325997767fbe8b1ce3a946384b1d741310af36018affdeaebeea2286ef8d0814",
       "vendor/SWE-Milestone/harness/e2e/run_milestone.py": "fbdebfa8e6d3ddcfc4d08665d5e6ca134c2d04731e98c88728af6651b974cdd2",
       "vendor/SWE-Milestone/harness/e2e/prompt/milestone_v1.md": "473545f3f8d050e0c2b422bc865006cadf1f109817313677f5d25b31531f55b1",
-      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/maintenance_fixes_1_sub-01/SRS.md": "57655bafaa9b2e10cef09e6fcd16efb3024b4a0ef9285d1825127c43ecebcd26"
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/maintenance_fixes_1_sub-01/SRS.md": "57655bafaa9b2e10cef09e6fcd16efb3024b4a0ef9285d1825127c43ecebcd26",
+      "prompts/planner.md": "b198d9f0e0329620e765140cc52ccc83d3ec2ee01ebb2433eb447f400bc3c395",
+      "prompts/executor.md": "2d8b4d81b6a5bbcef13cc2b89187c42ccfaecb51571a1930450f81be7b916560",
+      "profiles/plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/goal_plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "experiment/runner.py": "d73de2508abc30b8573cb8c48c4e62eee083b1c124e8db4cf35895b38a1baa42",
+      "experiment/profiles.py": "a03c4db04b65fd28d248f24168a596a4941b0dc1af68ca85ba63be09f5050e58",
+      "experiment/planning.py": "a2edebfe2900523e9435ca78fcb57cd28eacd42b097d35a35e6ba92864e94f19",
+      "experiment/security.py": "81b4aca0310089d03d44b03296b0ad0cd1b3aa65236fd80f5d824f0a098cda26",
+      "experiment/quota.py": "466c37ae0160010be591e0ed71f3dc65b62740012f7bb41627e7e94a470a9f8d"
     },
     "upstream_base_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
     "upstream_patch": "patches/swe-milestone-oauth.patch",
@@ -142,5 +153,28 @@
     "git_trees": {
       "vendor/SWE-Milestone": "656bed23ae57d4ed4e2532447588399628f2ddb0"
     }
+  },
+  "planning": {
+    "timeout_seconds": 180,
+    "max_output_bytes": 12000,
+    "max_list_entries": 12,
+    "max_item_characters": 1000,
+    "readonly_enforcement": "separate quarantined container with kernel read-only repository bind mount",
+    "native_sandbox_unavailable": "unprivileged user namespaces denied; no host settings changed"
+  },
+  "phase2": {
+    "order": [
+      "baseline",
+      "plan",
+      "goal_plan"
+    ],
+    "repetition": 1,
+    "trial_ids": {
+      "baseline": "phase2_baseline_001",
+      "plan": "phase2_plan_001",
+      "goal_plan": "phase2_goal_plan_001"
+    },
+    "prompt_freeze": "before first measured trial; SHA-256 pins below",
+    "smoke_baseline_reused": false
   }
 }

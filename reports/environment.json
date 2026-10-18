@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-18T22:30:31.598592+00:00",
+  "observed_at": "2026-10-18T22:42:13.231562+00:00",
   "versions": {
     "codex": "codex-cli 0.163.0",
     "docker": "Docker version 29.6.0, build fb59821",
@@ -24,10 +24,10 @@
     "proxy_env_present": false
   },
   "cpu_count": 22,
-  "workspace_free_bytes": 2546503680,
+  "workspace_free_bytes": 2457436160,
   "runtime_root": "/tmp/ai-coding-experiment",
-  "runtime_free_bytes": 40827330560,
-  "root_free_bytes": 40827330560,
+  "runtime_free_bytes": 40800612352,
+  "root_free_bytes": 40800612352,
   "pin_and_environment_failures": [],
   "phase1_blockers": [],
   "ready_for_smoke": true

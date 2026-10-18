@@ -1,6 +1,7 @@
 """One OAuth host smoke or one actual, protected SWE-Milestone baseline smoke."""
 
 import argparse
+import fcntl
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -38,6 +39,42 @@ def save(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n")
 
 
+def check_quota(snapshot, limit):
+    if snapshot.get("status") != "observed" or not snapshot.get("rate_limits"):
+        raise RuntimeError("Current quota unavailable; a verified snapshot is required")
+    for quota in snapshot["rate_limits"].values():
+        if quota.get("rateLimitReachedType") or quota.get("spendControlReached"):
+            raise RuntimeError("Quota pressure: stop before a model request")
+        for window in ("primary", "secondary"):
+            value = quota.get(window)
+            if value is not None and value["usedPercent"] >= limit:
+                raise RuntimeError("Quota pressure: configured stop threshold reached")
+
+
+def trial_lock(directory):
+    directory.mkdir(parents=True, exist_ok=True)
+    handle = (directory / ".trial.lock").open("a")
+    try:
+        fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        handle.close()
+        raise RuntimeError("Another experiment model trial is active") from None
+    return handle
+
+
+def setup_fingerprint(config):
+    conditions = {key: config[key] for key in ("codex", "benchmark", "pins")}
+    conditions["planning"] = config.get("planning")
+    return hashlib.sha256(json.dumps(conditions, sort_keys=True).encode()).hexdigest(), conditions
+
+
+def session_isolation(planner, executor):
+    if not planner or not executor or planner == executor:
+        raise RuntimeError("Planner and executor sessions are not isolated")
+    return {"planner_session_id": planner, "executor_session_id": executor,
+            "separate_containers": True, "separate_sessions": True}
+
+
 def host_smoke(config, output):
     """No tools requested; user/project profiles are absent in the temporary home."""
     auth = Path.home() / ".codex/auth.json"
@@ -72,52 +109,35 @@ def host_smoke(config, output):
         return 0 if success else 2
 
 
-def milestone_smoke(config, output):
+def milestone_smoke(config, output, variant="baseline"):
     sys.path.insert(0, str(ROOT / "vendor/SWE-Milestone"))
     from harness.e2e.run_milestone import MilestoneRunner
-
-    profile = ROOT / "profiles/baseline/config.toml"
-    expected_hash = hashlib.sha256(profile.read_bytes()).hexdigest()
 
     class BaselineRunner(MilestoneRunner):
         def _load_prompt(self):
             prompt = super()._load_prompt()
-            subprocess.run(["docker", "cp", str(profile), self.container_name + ":/home/fakeroot/.codex/config.toml"], check=True, capture_output=True)
-            subprocess.run(["docker", "exec", self.container_name, "chown", "fakeroot:fakeroot", "/home/fakeroot/.codex/config.toml"], check=True, capture_output=True)
-            script = '''
-import hashlib,json,pathlib,shutil,subprocess,sys,tomllib
-p=pathlib.Path('/home/fakeroot/.codex/config.toml')
-assert hashlib.sha256(p.read_bytes()).hexdigest()==sys.argv[1], 'profile hash mismatch'
-c=tomllib.loads(p.read_text())
-assert c['forced_login_method']=='chatgpt'
-assert not c.get('mcp_servers') and not c.get('hooks') and not c.get('plugins')
-assert c['web_search']=='disabled' and all(v is False for v in c['features'].values())
-for path in ('/AGENTS.md','/home/AGENTS.md','/home/fakeroot/AGENTS.md','/testbed/AGENTS.md','/testbed/.codex','/testbed/.agents','/testbed/.serena','/home/fakeroot/.agents','/home/fakeroot/.codex/AGENTS.md','/home/fakeroot/.codex/hooks.json'):
- assert not pathlib.Path(path).exists(), 'unexpected instruction or memory artifact: '+path
-if shutil.which('sudo'):
- assert subprocess.run(['sudo','-n','true'],capture_output=True).returncode != 0, 'sudo privileges remain available'
-print(json.dumps({'config_sha256':sys.argv[1],'effective_config':c,'instruction_audit':'clean','serena_memories':0}))
-'''
-            proof = subprocess.run(["docker", "exec", "--user", "fakeroot", "-e", "HOME=/home/fakeroot", self.container_name,
-                                    "python3", "-c", script, expected_hash], check=True, capture_output=True, text=True)
-            mounts = json.loads(subprocess.check_output(["docker", "inspect", "--format", "{{json .Mounts}}", self.container_name], text=True))
-            allowed = {"/tmp/host-codex/auth.json"}
-            if any(m["Destination"] not in allowed or m["RW"] for m in mounts):
-                raise RuntimeError("Unexpected host mount in baseline container")
-            if self.runtime_policy_binding.mode != "protected":
-                raise RuntimeError("Protected quarantine is required")
-            self.container_setup.verify_network_lockdown()
-            audit = json.loads(proof.stdout)
-            audit["profile_config"] = audit["effective_config"].copy()
-            audit["effective_config"]["sandbox_mode"] = "danger-full-access"
-            audit["cli_overrides"] = {"sandbox_bypass_inside_isolated_container": True,
-                                      "web_search": "disabled"}
-            audit.update(quarantine="protected", requested_cli_version=config["codex"]["version"],
-                         actual_cli_version=self.container_setup.get_agent_version(verify_requested=True),
-                         starting_commit=self._snapshot_baseline_commit,
-                         host_mounts=[{"destination": m["Destination"], "read_only": not m["RW"]} for m in mounts])
-            save(output / "effective_profile.json", audit)
+            from experiment.profiles import activate_profile
+            activate_profile(self.container_setup, output, config, variant)
+            tree = self.container_setup.docker_exec_git("rev-parse", "HEAD^{tree}").stdout.strip()
+            if benchmark.get("common_starting_tree") and tree != benchmark["common_starting_tree"]:
+                raise RuntimeError("Starting tree differs from the frozen matched baseline")
+            if variant in ("plan", "goal_plan"):
+                from experiment.planning import prepare
+                prepared = prepare(self, prompt, config, output, variant)
+                from experiment.quota import read_quota
+                quota = read_quota()
+                save(output / "planner/quota_after.json", quota)
+                check_quota(quota, config["resources"]["quota_stop_percent"])
+                return prepared
+            (output / "original_task.txt").write_text(prompt)
             return prompt
+
+        def _run_evaluation(self, snapshot_path):
+            started = time.monotonic()
+            try:
+                return super()._run_evaluation(snapshot_path)
+            finally:
+                save(output / "durations.json", {"evaluation": time.monotonic() - started})
 
     benchmark = config["benchmark"]
     workspace = (ROOT / benchmark["dataset_root"] / benchmark["repo"]).resolve()
@@ -128,6 +148,10 @@ print(json.dumps({'config_sha256':sys.argv[1],'effective_config':c,'instruction_
         reasoning_effort=config["codex"]["reasoning_effort"], timeout_ms=benchmark["timeout_seconds"] * 1000,
         main_branch=benchmark["main_branch"], keep_container=True, trial_name=output.name, max_retries=1)
     result = runner.run()
+    planner_audit = output / "planner/audit.json"
+    if planner_audit.exists():
+        planner_session = json.loads(planner_audit.read_text()).get("session_id")
+        save(output / "session_isolation.json", session_isolation(planner_session, runner.agent_runner.session_id))
     # Preserve authoritative refs for Git metrics, including unresolved submissions.
     bundle = "/tmp/experiment-submission.bundle"
     subprocess.run(["docker", "exec", "-w", "/testbed", runner.container_name, "git", "-c", "safe.directory=/testbed", "bundle", "create", bundle, "--all"], check=True, capture_output=True)
@@ -137,32 +161,55 @@ print(json.dumps({'config_sha256':sys.argv[1],'effective_config':c,'instruction_
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=("host-smoke", "milestone-smoke"))
+    parser.add_argument("phase", choices=("host-smoke", "milestone-smoke", "trial"))
+    parser.add_argument("--variant", choices=("baseline", "plan", "goal_plan"), default="baseline")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     config = json.loads((ROOT / "experiment.yaml").read_text())
     validate(config)
+    if args.phase == "host-smoke" and args.variant != "baseline":
+        parser.error("Host auth smoke only supports baseline")
+    lock = trial_lock(Path(config["resources"]["runtime_root"]))
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     output.chmod(0o700)
     logging.basicConfig(level=logging.INFO, handlers=[logging.FileHandler(output / "orchestrator.log")])
     started = time.monotonic()
     metadata = {"phase": args.phase, "state": "running", "started_at": datetime.now(timezone.utc).isoformat(),
+                "variant": args.variant, "trial_kind": "measured" if args.phase == "trial" else "smoke",
+                "measured_comparison": args.phase == "trial",
                 "model": config["codex"]["model"], "reasoning_effort": config["codex"]["reasoning_effort"],
                 "implementation_commit": command("git", "rev-parse", "HEAD", cwd=ROOT),
                 "experiment_sha256": hashlib.sha256((ROOT / "experiment.yaml").read_bytes()).hexdigest()}
+    metadata["setup_fingerprint"], conditions = setup_fingerprint(config)
+    save(output / "experiment.json", config)
+    save(output / "comparison_conditions.json", conditions)
     save(output / "run_metadata.json", metadata)
-    secrets = credential_values(Path.home() / ".codex/auth.json")
+    secrets = set()
     try:
-        code = host_smoke(config, output) if args.phase == "host-smoke" else milestone_smoke(config, output)
+        secrets = credential_values(Path.home() / ".codex/auth.json")
+        if args.phase == "trial":
+            from experiment.quota import read_quota
+            before = read_quota()
+            save(output / "quota_before.json", before)
+            check_quota(before, config["resources"]["quota_stop_percent"])
+        code = host_smoke(config, output) if args.phase == "host-smoke" else milestone_smoke(config, output, args.variant)
         metadata.update(state="finished", returncode=code)
     except Exception as error:
-        metadata.update(state="failed", failure_category="infrastructure_failure", error=redact(str(error), secrets))
+        category = "quota_pressure" if str(error).startswith("Quota pressure") else "infrastructure_failure"
+        preparation = output / "planner/audit.json"
+        if preparation.exists() and category != "quota_pressure":
+            category = json.loads(preparation.read_text()).get("failure_category", "preparation_failure")
+        metadata.update(state="failed", failure_category=category, error=redact(str(error), secrets))
         code = 2
     finally:
         metadata["duration_seconds"] = time.monotonic() - started
+        if args.phase == "trial":
+            from experiment.quota import read_quota
+            save(output / "quota_after.json", read_quota())
         save(output / "run_metadata.json", metadata)
         redact_artifacts(output, secrets)
+        lock.close()
     print(json.dumps(metadata))
     return code
 

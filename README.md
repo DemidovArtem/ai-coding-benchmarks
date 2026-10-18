@@ -65,3 +65,15 @@ Phase 6 требует отдельного разрешения после pilo
 ```
 
 Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) сейчас содержат один smoke без A/B выводов.
+
+## Matched planning trials
+
+[Замороженный протокол Phase 2](reports/phase2_protocol.md) описывает read-only mount, session isolation и quota gates. Запускать по одному:
+
+```bash
+.venv/bin/python -m experiment.runner trial --variant baseline --output /tmp/ai-coding-experiment/phase2_baseline_001
+.venv/bin/python -m experiment.runner trial --variant plan --output /tmp/ai-coding-experiment/phase2_plan_001
+.venv/bin/python -m experiment.runner trial --variant goal_plan --output /tmp/ai-coding-experiment/phase2_goal_plan_001
+```
+
+Каждый следующий запуск выполняется только после проверки terminal state предыдущего и текущей квоты. Planner failure не запускает executor. Output directories не перезаписываются.

@@ -9,7 +9,8 @@ from pathlib import Path
 FIELDS = ("trial_id", "repo", "milestone_id", "variant", "repetition", "starting_commit", "ending_commit",
           "resolved", "added_prod_loc", "deleted_prod_loc", "net_prod_loc", "churn_prod_loc", "changed_prod_files",
           "cumulative_prod_loc", "failure_category", "duration_seconds", "planner_input_tokens", "planner_output_tokens",
-          "executor_input_tokens", "executor_output_tokens", "executor_cached_input_tokens", "sonar_analysis_ok")
+          "planner_cached_input_tokens", "executor_input_tokens", "executor_output_tokens", "executor_cached_input_tokens",
+          "total_input_tokens", "total_output_tokens", "total_cached_input_tokens", "sonar_analysis_ok")
 
 
 def paired_key(row):
@@ -25,7 +26,7 @@ def export(rows, directory):
         writer.writeheader()
         for row in rows:
             flat = dict(row)
-            for phase in ("planner", "executor"):
+            for phase in ("planner", "executor", "total"):
                 usage = row.get("usage", {}).get(phase, {})
                 flat.update({phase + "_" + key: usage.get(key) for key in ("input_tokens", "output_tokens", "cached_input_tokens")})
             flat["sonar_analysis_ok"] = row.get("sonar", {}).get("analysis_ok")
@@ -33,7 +34,7 @@ def export(rows, directory):
                              for field in FIELDS})
     baselines = {}
     for row in rows:
-        if row.get("variant") == "baseline":
+        if row.get("variant") == "baseline" and row.get("measured_comparison") is not False:
             baselines.setdefault(paired_key(row), []).append(row)
     text = ["# Experiment results", "", "All collected trials are retained, including failures. Missing values are `null`.",
             "Dependent milestones form trajectories; they are not independent statistical samples.", "",
@@ -41,7 +42,7 @@ def export(rows, directory):
             "| --- | --- | --- | --- | --- | --- |"]
     for row in rows:
         candidates = baselines.get(paired_key(row), [])
-        complete_key = all(value is not None for value in paired_key(row))
+        complete_key = all(value is not None for value in paired_key(row)) and row.get("measured_comparison") is not False
         baseline = candidates[0] if len(candidates) == 1 and complete_key else None
         delta = None
         if baseline and row.get("churn_prod_loc") is not None and baseline.get("churn_prod_loc") is not None:

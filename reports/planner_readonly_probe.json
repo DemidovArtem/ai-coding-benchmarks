@@ -1,0 +1,9 @@
+{
+  "probe": {
+    "write_errno": 30,
+    "read_only": true
+  },
+  "source_unchanged": true,
+  "network": "none",
+  "model_requests": 0
+}
