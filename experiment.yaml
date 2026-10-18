@@ -1,6 +1,6 @@
 {
   "experiment_id": "ripgrep-workflows-v1-pilot",
-  "stage": "phase0",
+  "stage": "phase1",
   "measurement_started": false,
   "codex": {
     "version": "0.163.0",
@@ -42,7 +42,7 @@
   ],
   "profiles": {
     "baseline": {
-      "status": "not_implemented",
+      "status": "implemented_smoke_pending",
       "activation_verified": false
     },
     "plan": {
@@ -82,9 +82,11 @@
     "parallel_trials": 1,
     "min_workspace_free_bytes": 5000000000,
     "docker_free_reserve_bytes": 12000000000,
-    "image_download_approved": false,
+    "image_download_approved": true,
     "proposed_runtime_root": "/tmp/ai-coding-experiment",
-    "runtime_root_approved": false
+    "runtime_root_approved": false,
+    "runtime_root": "/tmp/ai-coding-experiment",
+    "runtime_root_selection": "agent-selected reversible temporary smoke storage; artifacts require later durable copy"
   },
   "images": [
     {
@@ -107,21 +109,17 @@
     "audit": "reports/environment.json"
   },
   "phase1_blockers": [
-    "owner_approval_for_2_images_required",
-    "runtime_storage_location_required",
-    "single_milestone_cli_version_pin_missing",
-    "host_config_mount_must_be_removed",
     "container_profile_and_quarantine_activation_unverified"
   ],
   "pins": {
     "git_commits": {
-      "vendor/SWE-Milestone": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+      "vendor/SWE-Milestone": "f4e1a18a1bc15281f06e62cf6b616be36235fae5",
       "results/setup/dataset": "3500478e740d42583277c2658aa7729eb36e10f4"
     },
     "file_sha256": {
       "vendor/SWE-Milestone/manifests/BENCHMARK_VERSION": "9362e356dc70deb5e30e3de8caca220d85d7034be0a1b708b9c9f1981de36135",
       "vendor/SWE-Milestone/manifests/digests-v1.0.2.tsv": "79a28d303627cc3ca536ead11fc7141d16b678db82452355f3d430b9222cbe9b",
-      "vendor/SWE-Milestone/harness/e2e/agents/codex.py": "07b76c2aff5e471364984a1d19915fe7d704618905e195b7abda38fa1c1887d3",
+      "vendor/SWE-Milestone/harness/e2e/agents/codex.py": "812db5ebf0b9cdf2810a2cfeabd97c51006fd4a5b5d2f3c63ba433dd46588c9c",
       "vendor/SWE-Milestone/harness/e2e/e2e_config.yaml": "7a67dacab0b86d6b8007147759c1971b1e45caaac9b7add06461183f068283cd",
       "vendor/SWE-Milestone/quarantine_configs/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
       "results/setup/dataset/config/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
@@ -131,7 +129,13 @@
       "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/milestones.csv": "2a8975321e7412fbc87c19007ba97a916f63ecefe13f55b29dd097296bcdd5bf",
       "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/selected_milestone_ids.txt": "f3a2f5792d5db4af7ed07e4e7ad6e98ac2e5f580a07716ef6a5aacba65d10b8c",
       "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/additional_dependencies.csv": "0f04a6e2510c34e4bdc3e819ddc2640be2e6c3785622f62a052f50345185016b",
-      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/non-graded_milestone_ids.txt": "11a003a706a35093d1b8d7338de42a2fab88061023b3ec6ad4279173620ac849"
-    }
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/non-graded_milestone_ids.txt": "11a003a706a35093d1b8d7338de42a2fab88061023b3ec6ad4279173620ac849",
+      "patches/swe-milestone-oauth.patch": "5e5e6274027ff7e0abc78877e58517e73ede1d20dcb27e95858d23f93602fc86",
+      "profiles/baseline/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "vendor/SWE-Milestone/harness/e2e/agent_runner.py": "325997767fbe8b1ce3a946384b1d741310af36018affdeaebeea2286ef8d0814",
+      "vendor/SWE-Milestone/harness/e2e/run_milestone.py": "fbdebfa8e6d3ddcfc4d08665d5e6ca134c2d04731e98c88728af6651b974cdd2"
+    },
+    "upstream_base_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+    "upstream_patch": "patches/swe-milestone-oauth.patch"
   }
 }

@@ -1,5 +1,6 @@
 usage: run_milestone.py [-h] --workspace-root WORKSPACE_ROOT
                         --milestone-id MILESTONE_ID --srs-path SRS_PATH
+                        [--agent-version AGENT_VERSION]
                         [--output-dir OUTPUT_DIR] [--image IMAGE]
                         [--unprotected] [--model MODEL]
                         [--agent {claude-code,codex,gemini-cli,openhands}]
@@ -20,6 +21,9 @@ options:
   --milestone-id MILESTONE_ID
                         Milestone ID (e.g., M001)
   --srs-path SRS_PATH   Path to SRS document
+  --agent-version AGENT_VERSION
+                        Exact agent CLI version to install and verify before
+                        execution.
   --output-dir OUTPUT_DIR
                         Output directory (default:
                         workspace/mstone_trial/{trial}/{mid})

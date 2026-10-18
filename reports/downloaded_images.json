@@ -1,0 +1,20 @@
+[
+  {
+    "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58",
+    "local_ref": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__base-offline:v1.0.2",
+    "image_id": "sha256:06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+    "size_bytes": 2911337365,
+    "repo_digests": [
+      "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58"
+    ]
+  },
+  {
+    "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01@sha256:3157aa5b52406ddc6e48df65bf8f5003d650327c83cf89b11874c7f01113b425",
+    "local_ref": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01:v1.0.2",
+    "image_id": "sha256:556dd58cb2791993a26f229389cdc963fc02ab7192e061f0bc3c94eda49e9140",
+    "size_bytes": 3346881962,
+    "repo_digests": [
+      "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01@sha256:3157aa5b52406ddc6e48df65bf8f5003d650327c83cf89b11874c7f01113b425"
+    ]
+  }
+]

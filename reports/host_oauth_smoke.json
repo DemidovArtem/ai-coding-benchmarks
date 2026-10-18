@@ -1,0 +1,30 @@
+{
+  "auth": "chatgpt_oauth_only",
+  "success": true,
+  "returncode": 0,
+  "duration_seconds": 4.128993029000412,
+  "usage_events": [
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 10810,
+        "cached_input_tokens": 9088,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "tool_calls": 0,
+  "run_metadata": {
+    "phase": "host-smoke",
+    "state": "finished",
+    "started_at": "2026-10-18T22:16:56.094459+00:00",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "experiment_sha256": "beeb1a0dc894ab101bd6fdb1c2d9ce6d8af2e36190da08de0ba960d4262094fb",
+    "returncode": 0,
+    "duration_seconds": 4.131483835997642
+  },
+  "artifacts_path": "/tmp/ai-coding-experiment/host_oauth_smoke_001"
+}

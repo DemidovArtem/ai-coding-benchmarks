@@ -1,5 +1,7 @@
 # Аудит среды — Phase 0
 
+**Обновление Phase 1:** загрузка двух образов согласована владельцем и завершена; [image identities](reports/downloaded_images.json). [Host OAuth smoke](reports/host_oauth_smoke.json) успешен. Agent-only patch и runner реализованы; container/grader smoke ещё не завершён. Ниже сохранён исходный снимок Phase 0.
+
 Наблюдения: 19 октября 2026, Europe/Zurich; машинные timestamp сохранены в UTC. Цель v1 остаётся активной. Benchmark inference, host `codex exec` и grader не запускались. Phase 0 не расходовала benchmark-квоту; работа самого Codex в этой беседе расходует обычную квоту подписки.
 
 ## Проверенная среда

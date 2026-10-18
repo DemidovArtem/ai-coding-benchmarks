@@ -1,0 +1,181 @@
+diff --git a/harness/e2e/agent_runner.py b/harness/e2e/agent_runner.py
+index d04dfca..8dbcecf 100644
+--- a/harness/e2e/agent_runner.py
++++ b/harness/e2e/agent_runner.py
+@@ -652,7 +652,6 @@ class AgentRunner:
+         """Copy fresh Codex OAuth files from host into container."""
+         host_codex_dir = Path.home() / ".codex"
+         host_auth = host_codex_dir / "auth.json"
+-        host_config = host_codex_dir / "config.toml"
+ 
+         if not host_auth.exists():
+             self.logger.warning("No host Codex auth file found at %s", host_auth)
+@@ -669,9 +668,6 @@ class AgentRunner:
+             if not self._copy_host_file_to_container(host_auth, "/home/fakeroot/.codex/auth.json"):
+                 return False
+ 
+-            if host_config.exists():
+-                self._copy_host_file_to_container(host_config, "/home/fakeroot/.codex/config.toml")
+-
+             self.logger.info("🔑 Refreshed Codex OAuth credentials from host")
+             self._append_session_history({"event": "credentials_refreshed", "provider": "codex"})
+             return True
+diff --git a/harness/e2e/agents/codex.py b/harness/e2e/agents/codex.py
+index e47d369..beb4b69 100644
+--- a/harness/e2e/agents/codex.py
++++ b/harness/e2e/agents/codex.py
+@@ -95,7 +95,6 @@ class CodexFramework(AgentFramework):
+         self.reasoning_effort = reasoning_effort or "xhigh"
+         self._agent_version = validate_agent_cli_version(agent_version, agent_label="Codex")
+         self._codex_auth_file = Path.home() / ".codex" / "auth.json"
+-        self._codex_config_file = Path.home() / ".codex" / "config.toml"
+ 
+     def get_requested_version(self) -> Optional[str]:
+         return self._agent_version
+@@ -176,8 +175,6 @@ class CodexFramework(AgentFramework):
+             # Minimal OAuth credential mount (API mode passes the key via env).
+             if self._codex_auth_file.exists():
+                 mounts.extend(["-v", f"{self._codex_auth_file}:/tmp/host-codex/auth.json:ro"])
+-                if self._codex_config_file.exists():
+-                    mounts.extend(["-v", f"{self._codex_config_file}:/tmp/host-codex/config.toml:ro"])
+             else:
+                 logger.warning("No API key and no ~/.codex/auth.json found - Codex authentication may fail")
+ 
+@@ -377,6 +374,7 @@ try:
+ 
+ except Exception as e:
+     print(f"Error setting up Codex OAuth files: {e}")
++    raise
+ """
+         return script.replace(
+             "__CODEX_AGENT_VERSION__", repr(self._agent_version)
+diff --git a/harness/e2e/run_milestone.py b/harness/e2e/run_milestone.py
+index a35ed42..436736f 100644
+--- a/harness/e2e/run_milestone.py
++++ b/harness/e2e/run_milestone.py
+@@ -210,6 +210,7 @@ class MilestoneRunner:
+         unprotected: bool = False,
+         repo_config_binding: Optional[RepoConfigBinding] = None,
+         runtime_policy_binding: Optional[RuntimePolicyBinding] = None,
++        agent_version: Optional[str] = None,
+     ):
+         """Initialize MilestoneRunner.
+ 
+@@ -229,6 +230,7 @@ class MilestoneRunner:
+             test_masking: Enable test masking (default: True)
+             trial_name: Trial name for unique container naming
+             max_retries: Max agent execution retry attempts (default: 5)
++            agent_version: Exact agent CLI version to install and verify.
+         """
+         self.workspace_root = Path(workspace_root)
+         self.milestone_id = milestone_id
+@@ -245,6 +247,7 @@ class MilestoneRunner:
+         self.reasoning_effort = reasoning_effort
+         self.trial_name = trial_name
+         self.max_retries = max_retries
++        self.agent_version = agent_version
+         self.unprotected = unprotected
+         self._snapshot_baseline_commit: Optional[str] = None
+ 
+@@ -378,6 +381,7 @@ class MilestoneRunner:
+             workdir="/testbed",
+             agent_name=self.agent_name,
+             agent_framework_name=self.agent_name,
++            agent_version=self.agent_version,
+             repo_name=self.repo_name,  # authoritative repo id (F2)
+             runtime_policy_binding=self.runtime_policy_binding,
+         )
+@@ -427,6 +431,8 @@ class MilestoneRunner:
+             logger.info(f"Image: {self.image_name}")
+             logger.info(f"Container: {self.container_name}")
+             self.container_setup.start_container(force=self.force)
++            if self.agent_version:
++                self.container_setup.get_agent_version(verify_requested=True)
+ 
+             # Phase 2: Truncate git history
+             logger.info("")
+@@ -2195,6 +2201,10 @@ Output Structure:
+     )
+ 
+     # Optional arguments
++    parser.add_argument(
++        "--agent-version",
++        help="Exact agent CLI version to install and verify before execution.",
++    )
+     parser.add_argument(
+         "--output-dir",
+         type=Path,
+@@ -2330,6 +2340,7 @@ Output Structure:
+         model=args.model,
+         timeout_ms=args.timeout * 1000,
+         agent_name=args.agent,
++        agent_version=args.agent_version,
+         keep_container=args.keep,
+         force=args.force,
+         main_branch=args.main_branch,
+diff --git a/tests/e2e/test_codex_framework.py b/tests/e2e/test_codex_framework.py
+index 1be249f..0c8be4b 100644
+--- a/tests/e2e/test_codex_framework.py
++++ b/tests/e2e/test_codex_framework.py
+@@ -1,6 +1,36 @@
+ """Focused tests for the Codex agent adapter."""
+ 
+ from harness.e2e.agents.codex import CodexFramework
++from pathlib import Path
++from harness.e2e.agent_runner import AgentRunner
++
++
++def test_oauth_refresh_preserves_experiment_configuration(tmp_path, monkeypatch):
++    monkeypatch.setattr(Path, "home", lambda: tmp_path)
++    (tmp_path / ".codex").mkdir()
++    (tmp_path / ".codex/auth.json").write_text('{"tokens": {"access_token": "test"}}')
++    (tmp_path / ".codex/config.toml").write_text("private-global-settings")
++    runner = AgentRunner("test", agent_name="codex")
++    copied = []
++    monkeypatch.setattr(runner, "_copy_host_file_to_container", lambda src, dst: copied.append(dst) or True)
++    monkeypatch.setattr(runner, "_append_session_history", lambda event: None)
++    assert runner._refresh_codex_credentials()
++    assert copied == ["/home/fakeroot/.codex/auth.json"]
++
++
++def test_oauth_mount_never_exposes_host_configuration(tmp_path, monkeypatch):
++    monkeypatch.delenv("UNIFIED_API_KEY", raising=False)
++    monkeypatch.delenv("UNIFIED_BASE_URL", raising=False)
++    monkeypatch.setattr(Path, "home", lambda: tmp_path)
++    (tmp_path / ".codex").mkdir()
++    (tmp_path / ".codex/auth.json").write_text("secret-auth")
++    (tmp_path / ".codex/config.toml").write_text("secret-config")
++    framework = CodexFramework()
++    monkeypatch.setattr(framework, "get_quarantine_mounts", lambda: [])
++
++    assert framework.get_container_mounts() == [
++        "-v", f"{tmp_path}/.codex/auth.json:/tmp/host-codex/auth.json:ro",
++    ]
+ 
+ 
+ def test_codex_oauth_reports_chatgpt_network_endpoint(monkeypatch):
+diff --git a/tests/e2e/test_run_milestone_runtime_policy.py b/tests/e2e/test_run_milestone_runtime_policy.py
+index 7c30ac1..e90ac50 100644
+--- a/tests/e2e/test_run_milestone_runtime_policy.py
++++ b/tests/e2e/test_run_milestone_runtime_policy.py
+@@ -25,6 +25,20 @@ class _Noop:
+         pass
+ 
+ 
++def test_single_milestone_passes_cli_pin_to_container(tmp_path, monkeypatch):
++    workspace = _workspace(tmp_path)
++    output = workspace / "mstone_trial" / "trial_001" / "M001"
++    binding = _binding(output, RUNTIME_POLICY_MODE_ABSENT)
++    _patch_runners(monkeypatch)
++    observed = {}
++    monkeypatch.setattr(run_milestone, "ContainerSetup", lambda **kw: observed.update(kw))
++    run_milestone.MilestoneRunner(
++        workspace_root=workspace, milestone_id="M001", srs_path=workspace / "SRS.md",
++        output_dir=output, runtime_policy_binding=binding, agent_version="0.163.0",
++    )
++    assert observed["agent_version"] == "0.163.0"
++
++
+ def _workspace(tmp_path: Path) -> Path:
+     workspace = tmp_path / "data" / REPO
+     workspace.mkdir(parents=True)

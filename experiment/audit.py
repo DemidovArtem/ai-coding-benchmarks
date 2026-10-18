@@ -81,13 +81,18 @@ def collect(root, config):
         failures.append("paid_api_environment_present")
     if command("docker", "info", "--format", "{{.ServerVersion}}") is None:
         failures.append("docker_daemon_unavailable")
-    free = shutil.disk_usage(root).free
+    runtime_root = Path(config["resources"].get("runtime_root", str(root)))
+    storage = runtime_root
+    while not storage.exists():
+        storage = storage.parent
+    free = shutil.disk_usage(storage).free
     if free < config["resources"]["min_workspace_free_bytes"]:
-        failures.append("insufficient_workspace_disk")
+        failures.append("insufficient_runtime_disk")
     return {
         "observed_at": datetime.now(timezone.utc).isoformat(),
         "versions": versions, "chatgpt_login_verified": oauth, "host_summary": host,
-        "cpu_count": os.cpu_count(), "workspace_free_bytes": free,
+        "cpu_count": os.cpu_count(), "workspace_free_bytes": shutil.disk_usage(root).free,
+        "runtime_root": str(runtime_root), "runtime_free_bytes": free,
         "root_free_bytes": shutil.disk_usage("/").free,
         "pin_and_environment_failures": failures,
         "phase1_blockers": config["phase1_blockers"],

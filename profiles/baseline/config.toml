@@ -1,0 +1,17 @@
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+forced_login_method = "chatgpt"
+web_search = "disabled"
+approval_policy = "never"
+sandbox_mode = "read-only"
+
+[features]
+apps = false
+browser_use = false
+browser_use_external = false
+browser_use_full_cdp_access = false
+computer_use = false
+image_generation = false
+in_app_browser = false
+plugins = false
+remote_plugin = false

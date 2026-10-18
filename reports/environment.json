@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-18T22:11:31.154782+00:00",
+  "observed_at": "2026-10-18T22:18:09.217217+00:00",
   "versions": {
     "codex": "codex-cli 0.163.0",
     "docker": "Docker version 29.6.0, build fb59821",
@@ -24,16 +24,12 @@
     "proxy_env_present": false
   },
   "cpu_count": 22,
-  "workspace_free_bytes": 1974722560,
-  "root_free_bytes": 47248424960,
-  "pin_and_environment_failures": [
-    "insufficient_workspace_disk"
-  ],
+  "workspace_free_bytes": 1946574848,
+  "runtime_root": "/tmp/ai-coding-experiment",
+  "runtime_free_bytes": 43548753920,
+  "root_free_bytes": 43548753920,
+  "pin_and_environment_failures": [],
   "phase1_blockers": [
-    "owner_approval_for_2_images_required",
-    "runtime_storage_location_required",
-    "single_milestone_cli_version_pin_missing",
-    "host_config_mount_must_be_removed",
     "container_profile_and_quarantine_activation_unverified"
   ],
   "ready_for_smoke": false
