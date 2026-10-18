@@ -1,0 +1,8 @@
+{
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "f838fd6e05edd5e4832760a68b02c6c9c492f214",
+  "direct_git_numstat": "21\t0\tCargo.lock\n4\t1\tcrates/core/flags/hiargs.rs\n16\t12\tcrates/core/search.rs\n1\t0\tcrates/globset/Cargo.toml\n20\t1\tcrates/globset/src/glob.rs\n87\t2\tcrates/globset/src/lib.rs\n57\t361\tcrates/printer/src/summary.rs\n47\t0\ttests/regression.rs\n",
+  "all_raw_file_counts_match": true,
+  "production_inline_test_filter": "pinned benchmark Rust AST helper; per-file stripped diff uses git --no-index",
+  "fixture_proof": "tests/test_metrics.py"
+}

@@ -1,0 +1,76 @@
+{
+  "experiment_id": "ripgrep-workflows-v1-pilot",
+  "trial_id": "baseline_smoke_001",
+  "trial_kind": "smoke",
+  "measured_comparison": false,
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "maintenance_fixes_1_sub-01",
+  "variant": "baseline",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "f838fd6e05edd5e4832760a68b02c6c9c492f214",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "snapshot_sha256": "184930e84c07ff9888bf120ec6cabf260fb62a5e6722392a9a40ca8ec1c7a34b",
+  "verified_snapshot_rust_files": 79,
+  "resolved": true,
+  "added_prod_loc": 74,
+  "deleted_prod_loc": 24,
+  "net_prod_loc": 50,
+  "churn_prod_loc": 98,
+  "changed_prod_files": 5,
+  "cumulative_prod_loc": 33739,
+  "duration_seconds": 315.41576073000033,
+  "failure_category": null,
+  "collection_errors": [],
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 1011952,
+      "output_tokens": 9196,
+      "cached_input_tokens": 952960,
+      "reasoning_output_tokens": 1508,
+      "session_ids": [
+        "01a1511a-99c5-74b0-993a-b2d4976d001b"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 32
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": 22,
+    "total_tool_calls": 21,
+    "wall_clock_ms": 168749
+  },
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/baseline_smoke_001",
+  "test_summary": {
+    "total": 1117,
+    "passed": 1101,
+    "failed": 15,
+    "error": 0,
+    "skipped": 1,
+    "fail_to_pass_required": 2,
+    "fail_to_pass_achieved": 2,
+    "none_to_pass_required": 2,
+    "none_to_pass_achieved": 2,
+    "pass_to_pass_required": 1093,
+    "pass_to_pass_achieved": 1093,
+    "pass_to_pass_failed": 0,
+    "pass_to_pass_missing": 0,
+    "none_to_pass_missing": 0
+  }
+}

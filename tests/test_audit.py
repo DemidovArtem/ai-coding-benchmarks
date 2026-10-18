@@ -55,6 +55,15 @@ class AuditTests(unittest.TestCase):
             failures = check_pins(Path("."), {"file_sha256": {}, "git_commits": {"vendor": "commit"}})
         self.assertEqual(failures, ["checkout_dirty:vendor"])
 
+    def test_patched_source_can_be_recommitted_with_exact_tree_and_base(self):
+        pins = {"file_sha256": {}, "git_commits": {"vendor": "upstream-base"}, "git_trees": {"vendor": "patched-tree"}}
+        with patch("experiment.audit.command", side_effect=["patched-tree", "", ""]):
+            self.assertEqual(check_pins(Path("."), pins), [])
+        with patch("experiment.audit.command", side_effect=["different-tree"]):
+            self.assertEqual(check_pins(Path("."), pins), ["git_tree_mismatch:vendor"])
+        with patch("experiment.audit.command", side_effect=["patched-tree", None]):
+            self.assertEqual(check_pins(Path("."), pins), ["git_base_mismatch:vendor"])
+
     def test_paid_environment_blocks_smoke(self):
         config = {"pins": {"file_sha256": {}, "git_commits": {}},
                   "codex": {"version": "0.163.0"},

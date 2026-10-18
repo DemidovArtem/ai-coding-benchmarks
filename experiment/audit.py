@@ -57,7 +57,15 @@ def check_pins(root, pins):
         if actual != expected:
             failures.append(f"file_pin_mismatch:{name}")
     for name, expected in pins["git_commits"].items():
-        if command("git", "rev-parse", "HEAD", cwd=root / name) != expected:
+        tree = pins.get("git_trees", {}).get(name)
+        if tree:
+            if command("git", "rev-parse", "HEAD^{tree}", cwd=root / name) != tree:
+                failures.append(f"git_tree_mismatch:{name}")
+            elif command("git", "merge-base", "--is-ancestor", expected, "HEAD", cwd=root / name) is None:
+                failures.append(f"git_base_mismatch:{name}")
+            elif command("git", "status", "--porcelain", "--untracked-files=normal", cwd=root / name) != "":
+                failures.append(f"checkout_dirty:{name}")
+        elif command("git", "rev-parse", "HEAD", cwd=root / name) != expected:
             failures.append(f"git_pin_mismatch:{name}")
         elif command("git", "status", "--porcelain", "--untracked-files=normal", cwd=root / name) != "":
             failures.append(f"checkout_dirty:{name}")
