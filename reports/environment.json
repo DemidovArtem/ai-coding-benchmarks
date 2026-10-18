@@ -1,0 +1,40 @@
+{
+  "observed_at": "2026-10-18T22:11:31.154782+00:00",
+  "versions": {
+    "codex": "codex-cli 0.163.0",
+    "docker": "Docker version 29.6.0, build fb59821",
+    "git": "git version 2.43.0",
+    "git_lfs": null,
+    "uv": "uv 0.12.7 (x86_64-unknown-linux-gnu)"
+  },
+  "chatgpt_login_verified": true,
+  "host_summary": {
+    "config_status": "parsed",
+    "mcp_server_count": 4,
+    "plugins_configured": true,
+    "hooks_configured": true,
+    "global_agents_present": true,
+    "global_skills_present": true,
+    "auth_file_present": true,
+    "paid_key_env_present": {
+      "OPENAI_API_KEY": false,
+      "CODEX_API_KEY": false,
+      "UNIFIED_API_KEY": false
+    },
+    "proxy_env_present": false
+  },
+  "cpu_count": 22,
+  "workspace_free_bytes": 1974722560,
+  "root_free_bytes": 47248424960,
+  "pin_and_environment_failures": [
+    "insufficient_workspace_disk"
+  ],
+  "phase1_blockers": [
+    "owner_approval_for_2_images_required",
+    "runtime_storage_location_required",
+    "single_milestone_cli_version_pin_missing",
+    "host_config_mount_must_be_removed",
+    "container_profile_and_quarantine_activation_unverified"
+  ],
+  "ready_for_smoke": false
+}

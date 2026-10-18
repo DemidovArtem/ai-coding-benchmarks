@@ -1,0 +1,14 @@
+[
+  {
+    "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__base-offline:v1.0.2",
+    "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58",
+    "compressed_bytes": 954017008,
+    "layer_count": 18
+  },
+  {
+    "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01:v1.0.2",
+    "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01@sha256:3157aa5b52406ddc6e48df65bf8f5003d650327c83cf89b11874c7f01113b425",
+    "compressed_bytes": 1164863467,
+    "layer_count": 26
+  }
+]

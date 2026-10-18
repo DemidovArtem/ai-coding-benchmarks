@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-18T22:01:39.228047+00:00",
+  "source": "codex app-server account/rateLimits/read",
+  "approximate": true,
+  "rate_limits": {
+    "codex": {
+      "primary": {
+        "usedPercent": 33,
+        "windowDurationMins": 300,
+        "resetsAt": 1792369441
+      },
+      "secondary": {
+        "usedPercent": 33,
+        "windowDurationMins": 10080,
+        "resetsAt": 1792885249
+      },
+      "rateLimitReachedType": null,
+      "spendControlReached": false
+    }
+  },
+  "status": "observed"
+}

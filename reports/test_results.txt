@@ -1,0 +1,11 @@
+test_broken_config_does_not_dump_parser_input (test_audit.AuditTests.test_broken_config_does_not_dump_parser_input) ... ok
+test_codex_login_status_on_stderr_is_recognized (test_audit.AuditTests.test_codex_login_status_on_stderr_is_recognized) ... ok
+test_credentials_and_private_settings_never_enter_summary (test_audit.AuditTests.test_credentials_and_private_settings_never_enter_summary) ... ok
+test_dirty_pinned_checkout_fails (test_audit.AuditTests.test_dirty_pinned_checkout_fails) ... ok
+test_missing_or_modified_asset_fails_pin (test_audit.AuditTests.test_missing_or_modified_asset_fails_pin) ... ok
+test_paid_environment_blocks_smoke (test_audit.AuditTests.test_paid_environment_blocks_smoke) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+OK

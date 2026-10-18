@@ -1,0 +1,94 @@
+usage: run_e2e.py [-h] [--repo-name REPO_NAME]
+                  [--milestone-version MILESTONE_VERSION] [--image IMAGE]
+                  [--unprotected] [--dag-path DAG_PATH] [--srs-root SRS_ROOT]
+                  [--workspace-root WORKSPACE_ROOT]
+                  [--agent {claude-code,codex,gemini-cli,openhands}]
+                  [--model MODEL] [--agent-version AGENT_VERSION]
+                  [--prompt-version PROMPT_VERSION] [--milestones MILESTONES]
+                  [--timeout TIMEOUT]
+                  [--reasoning-effort {low,medium,high,xhigh,max,none,off}]
+                  [--config CONFIG] [--allow-partial-build-reports |
+                  --fail-closed-build-reports] [--trial-name TRIAL_NAME]
+                  [--skip-testbed-copy] [--remove-container] [--force]
+                  [--resume-trial RESUME_TRIAL] [--no-resume-session]
+
+Run End-to-End Agent Trial (Continuous Task Queue Mode with Recovery)
+
+options:
+  -h, --help            show this help message and exit
+  --repo-name REPO_NAME
+                        Repository name (required for fresh start)
+  --milestone-version MILESTONE_VERSION
+                        Milestone version string
+  --image IMAGE         Base docker image for agent (required for fresh start)
+  --unprotected         Bypass the quarantine fail-closed guard (run a repo
+                        that has a policy WITHOUT applying it — scores may be
+                        tainted). Normally you launch via scripts/run_all.py,
+                        which applies the policy and runs the gate.
+  --dag-path DAG_PATH   Path to dependencies.csv (default: {workspace-
+                        root}/dependencies.csv)
+  --srs-root SRS_ROOT   Root directory containing SRS folders (required for
+                        fresh start)
+  --workspace-root WORKSPACE_ROOT
+                        Harness workspace root (required for fresh start)
+  --agent {claude-code,codex,gemini-cli,openhands}
+                        Agent framework to use (default: claude-code)
+  --model MODEL         Claude model ID
+  --agent-version AGENT_VERSION
+                        Claude Code CLI version to install: an exact version
+                        (for example 2.1.158), stable, or latest.
+  --prompt-version PROMPT_VERSION
+                        Prompt template version (e.g., v1 or v2)
+  --milestones MILESTONES
+                        Run only a dependency-closed prefix of the milestone
+                        DAG. Accepts a count ('10') or a percentage ('50%').
+                        Selection is the first N in topological order
+                        (ascending-ID tiebreak), so prerequisites are always
+                        included; percentages round UP (ceil). Writes the
+                        chosen IDs to <trial_root>/milestone_selection.txt
+                        without touching the dataset's
+                        selected_milestone_ids.txt.
+  --timeout TIMEOUT     Agent execution timeout in seconds (default: 3600 = 1
+                        hour)
+  --reasoning-effort {low,medium,high,xhigh,max,none,off}
+                        Reasoning effort (low|medium|high|xhigh|max). Use
+                        'none' or 'off' to explicitly disable for upstreams
+                        that reject reasoning_effort (e.g. Moonshot kimi via
+                        OpenRouter returns HTTP 400 UnsupportedParamsError).
+                        Default: unset → agent uses model's built-in default
+                        (e.g. opus-4-7=xhigh, sonnet/opus-4-6=high; OpenHands
+                        auto-disables for kimi/moonshot). For claude-code,
+                        also passed via CLAUDE_CODE_EFFORT_LEVEL env to work
+                        around upstream bug #41028.
+  --config CONFIG       Path to e2e_config.yaml (default: search in workspace-
+                        root, then harness/e2e/)
+  --allow-partial-build-reports
+                        On deterministic compilation/build failures, score
+                        reports from packages/modules that completed. Timeouts
+                        and nonzero outer-runner exits remain fail-closed.
+  --fail-closed-build-reports
+                        Strict opt-in: reject partial reports after
+                        deterministic compilation/build failures.
+  --trial-name TRIAL_NAME
+                        Custom trial name base (e.g., 'v2_sonnet_urllib3').
+                        Auto-increments if exists.
+  --skip-testbed-copy   Skip copying /testbed from container to trial
+                        directory (default: copy testbed)
+  --remove-container    Remove container after trial completes (default: keep
+                        container running)
+  --force               Force remove existing container with the same name
+                        before starting a fresh trial.
+  --resume-trial RESUME_TRIAL
+                        Resume from existing trial directory (container must
+                        exist). Mutually exclusive with fresh start options.
+  --no-resume-session   In --resume-trial mode, do not attempt to resume the
+                        previous agent session (force a new session).
+
+Example:
+  python run_e2e.py \
+    --repo-name urllib3_urllib3_2.0.6_2.3.0 \
+    --image urllib3_urllib3_2.0.6_2.3.0/test_multi_stage_v2/base:latest \
+    --dag-path DATA/.../dependencies.csv \
+    --srs-root DATA/.../srs/v1 \
+    --workspace-root DATA/... \
+    --prompt-version v1

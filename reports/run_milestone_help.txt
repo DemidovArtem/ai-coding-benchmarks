@@ -1,0 +1,69 @@
+usage: run_milestone.py [-h] --workspace-root WORKSPACE_ROOT
+                        --milestone-id MILESTONE_ID --srs-path SRS_PATH
+                        [--output-dir OUTPUT_DIR] [--image IMAGE]
+                        [--unprotected] [--model MODEL]
+                        [--agent {claude-code,codex,gemini-cli,openhands}]
+                        [--timeout TIMEOUT] [--max-retries MAX_RETRIES]
+                        [--reasoning-effort {low,medium,high,xhigh,max}]
+                        [--trial-name TRIAL_NAME]
+                        [--prompt-version PROMPT_VERSION]
+                        [--main-branch MAIN_BRANCH] [--no-test-masking]
+                        [--keep] [--force]
+
+Run single milestone code generation with direct evaluation
+
+options:
+  -h, --help            show this help message and exit
+  --workspace-root WORKSPACE_ROOT
+                        Harness workspace root (e.g.,
+                        DATA/.../test_multi_stage_V2)
+  --milestone-id MILESTONE_ID
+                        Milestone ID (e.g., M001)
+  --srs-path SRS_PATH   Path to SRS document
+  --output-dir OUTPUT_DIR
+                        Output directory (default:
+                        workspace/mstone_trial/{trial}/{mid})
+  --image IMAGE         Docker image (explicit value wins; otherwise protected
+                        policies use the repo base-offline closure image,
+                        absent/unprotected runs keep the historical milestone
+                        image)
+  --unprotected         Disable a discovered runtime policy and keep the
+                        historical milestone image.
+  --model MODEL         Model to use
+  --agent {claude-code,codex,gemini-cli,openhands}
+                        Agent framework to use (default: claude-code)
+  --timeout TIMEOUT     Agent timeout in seconds (default: 1800 = 30 min)
+  --max-retries MAX_RETRIES
+                        Max agent execution retry attempts (default: 5)
+  --reasoning-effort {low,medium,high,xhigh,max}
+                        Reasoning effort level (default: per-agent,
+                        codex=xhigh, claude-code=high)
+  --trial-name TRIAL_NAME
+                        Trial name base (default: milestone_run)
+  --prompt-version PROMPT_VERSION
+                        Prompt template version (default: milestone_v1)
+  --main-branch MAIN_BRANCH
+                        Main branch name (default: main)
+  --no-test-masking     Disable test masking (default: enabled)
+  --keep                Keep container after completion
+  --force               Force mode: recreate container and overwrite existing
+                        output directory (skip trial name auto-increment)
+
+Example:
+    python harness/e2e/run_milestone.py \
+        --workspace-root DATA/harness_workspace/urllib3_urllib3_2.0.6_2.3.0/test_multi_stage_V2 \
+        --milestone-id M001 \
+        --srs-path DATA/harness_workspace/urllib3_urllib3_2.0.6_2.3.0/srs/v1/M001/SRS.md
+
+Output Structure:
+    {workspace}/mstone_trial/{trial_name}/{milestone_id}/
+        log/
+            agent_prompt.txt
+            agent_stdout.txt
+            agent_stderr.txt
+            session_id.txt
+            milestone_runner.log
+        source_snapshot.tar
+        artifacts/
+            {pid}/
+        evaluation_result.json

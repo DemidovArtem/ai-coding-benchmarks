@@ -1,0 +1,11 @@
+.idea/
+.serena/
+.venv/
+__pycache__/
+*.py[cod]
+results/
+vendor/
+.env
+.env.*
+**/auth.json
+**/*token*.private
