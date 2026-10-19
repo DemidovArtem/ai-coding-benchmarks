@@ -1,0 +1,35 @@
+{
+  "status": "candidates_only_not_runtime_verified",
+  "observed_at": "2026-10-18T23:22:14.454414+00:00",
+  "images": [
+    {
+      "role": "server",
+      "tag": "sonarqube:26.9.0.129388-community",
+      "digest_ref": "sonarqube@sha256:c0f1160bccfa435db4168c2d7df69af3c3ea7bfeb87395613014048fb33a68c1",
+      "dockerhub_full_size_bytes": 1090866467,
+      "source_url": "https://hub.docker.com/v2/repositories/library/sonarqube/tags/26.9.0.129388-community",
+      "downloaded": false
+    },
+    {
+      "role": "scanner",
+      "tag": "sonarsource/sonar-scanner-cli:12.2.0.4256_8.1.0",
+      "digest_ref": "sonarsource/sonar-scanner-cli@sha256:a3f4215076706c95a17a68c19322ee916e40a3acd081a8c1a1e839e0194afa57",
+      "dockerhub_full_size_bytes": 398843884,
+      "source_url": "https://hub.docker.com/v2/repositories/sonarsource/sonar-scanner-cli/tags/12.2.0.4256_8.1.0",
+      "downloaded": false
+    }
+  ],
+  "sum_dockerhub_full_size_bytes": 1489710351,
+  "download_approved": false,
+  "rust_coverage_verified": false,
+  "host_vm_max_map_count": 1048576,
+  "host_settings_changed": false,
+  "phase2_execution_pins_unchanged": true,
+  "remaining": [
+    "Approve exact image downloads after scanner launch/setup is reviewable",
+    "Install and verify Cargo+Clippy analysis environment",
+    "Bind scanner launch to grader snapshot and freeze source exclusions",
+    "Initialize secure loopback-only server and token",
+    "Record scanner/analyzer/rule-profile versions and run common base plus solution scans"
+  ]
+}

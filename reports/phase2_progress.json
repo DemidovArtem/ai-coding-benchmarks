@@ -14,5 +14,8 @@
   "reset_at_utc": "2026-10-19T00:24:01+00:00",
   "reset_at_local": "2026-10-19T02:24:01+02:00",
   "next_action": "Read a fresh quota snapshot after reset; keep prompts/code/pins unchanged and run plan, then goal_plan sequentially.",
-  "goal_complete": false
+  "goal_complete": false,
+  "latest_observed_used_percent": 94,
+  "latest_observation": "2026-10-18T23:17:09.000121+00:00",
+  "latest_snapshot": "reports/quota_gate_latest.json"
 }

@@ -79,3 +79,7 @@ Collector не запускает grader заново. Он проверяет s
 Каждый следующий запуск выполняется только после проверки terminal state предыдущего и текущей квоты. Planner failure не запускает executor. Output directories не перезаписываются.
 
 Текущий [partial Phase 2 report](reports/phase2_progress.md): measured baseline resolved=true; plan/goal_plan пока не запускались из-за quota stop threshold. Frozen execution inputs остаются прежними.
+
+## Sonar preparation
+
+[Sonar collector и оставшийся setup](sonar/README.md): API client и tests готовы; service/scanner не запускались, scores отсутствуют. Дополнительные image downloads пока не разрешены. Этот модуль не меняет frozen Phase 2 execution inputs.
