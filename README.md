@@ -86,6 +86,6 @@ Collector не запускает grader заново. Он проверяет s
 
 ## Skill cohort
 
-Ponytail и Caveman прошли реальные native-hook activation smokes. Для Phase 3 собран [общий runtime](profiles/runtime/README.md), проверены offline Rust symbols через Serena MCP. Все три activation smokes должны пройти на этом точном image ID, после чего замораживается отдельная конфигурация и запускаются baseline/ponytail/caveman/serena по одному. Phase 2 baseline не подменяет baseline нового окружения.
+Ponytail и Caveman прошли реальные native-hook activation smokes. Для Phase 3 собран [общий runtime](profiles/runtime/README.md), проверены offline Rust symbols через Serena MCP. Ponytail/Caveman activation на общем image подтверждена. Serena MCP PATH исправлен и проверен offline; повторный Codex smoke остановлен quota gate. [Phase 3 progress](reports/phase3_progress.md): измерения ещё не начаты. Все три activation smokes должны пройти на этом точном image ID, после чего замораживается отдельная конфигурация и запускаются baseline/ponytail/caveman/serena по одному. Phase 2 baseline не подменяет baseline нового окружения.
 
 Continuous pilot пока отложен: [точный blocker, выбранная DAG-пара и оценка 3–5 дней](reports/continuous_feasibility.md). Большой Phase 6 запуск не выполнялся.

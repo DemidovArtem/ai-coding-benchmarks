@@ -1,0 +1,58 @@
+{
+  "status": "blocked_quota_pending_corrected_env_smoke",
+  "variant": "serena",
+  "version": "1.6.1",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "mcp_activation_verified": false,
+  "mcp_process_start_verified": true,
+  "rust_lsp_verified_offline": true,
+  "observed_mcp_tool_calls": 0,
+  "first_failed_smoke": "reports/serena_activation_failed_001.json",
+  "first_failed_smoke_usage": {
+    "input_tokens": 78430,
+    "output_tokens": 184,
+    "cached_input_tokens": 65152,
+    "reasoning_output_tokens": 0,
+    "session_ids": [
+      "01a1557c-ffcb-7c92-8867-950d469f694f"
+    ],
+    "turns": 1,
+    "tool_calls": {
+      "serena": 2
+    },
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "correction": "Pin existing Cargo PATH, RUSTUP_HOME, CARGO_HOME and offline mode in the MCP child environment.",
+  "correction_offline_verified": true,
+  "correction_codex_verified": false,
+  "pending_smoke_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_activation_shared_002",
+  "pending_smoke_failure_category": "quota_pressure",
+  "pending_smoke_model_invoked": false,
+  "quota": {
+    "observed_at": "2026-10-19T18:48:42.378891+00:00",
+    "source": "codex app-server account/rateLimits/read",
+    "approximate": true,
+    "status": "observed",
+    "rate_limits": {
+      "codex": {
+        "primary": {
+          "usedPercent": 86,
+          "windowDurationMins": 300,
+          "resetsAt": 1792450342
+        },
+        "secondary": {
+          "usedPercent": 21,
+          "windowDurationMins": 10080,
+          "resetsAt": 1792908733
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    }
+  },
+  "quota_stop_percent": 85,
+  "quota_reset_local": "2026-10-20T00:52:22+02:00",
+  "memory_policy": "cold independent trial",
+  "measured_serena_trial_started": false
+}

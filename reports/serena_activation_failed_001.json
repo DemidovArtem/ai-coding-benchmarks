@@ -1,0 +1,40 @@
+{
+  "success": false,
+  "kind": "activation_smoke_not_measured",
+  "variant": "serena",
+  "failure_category": "skill_activation_failure",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "error": "Serena symbol tool activation missing",
+  "duration_seconds": 93.76828973200008,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_activation_shared_001",
+  "status": "codex_mcp_starts_rust_path_missing_not_activated",
+  "mcp_activation_verified": false,
+  "usage": {
+    "input_tokens": 78430,
+    "output_tokens": 184,
+    "cached_input_tokens": 65152,
+    "reasoning_output_tokens": 0,
+    "session_ids": [
+      "01a1557c-ffcb-7c92-8867-950d469f694f"
+    ],
+    "turns": 1,
+    "tool_calls": {
+      "serena": 2
+    },
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "mcp_calls": [
+    {
+      "server": "serena",
+      "tool": "initial_instructions",
+      "status": "completed"
+    },
+    {
+      "server": "serena",
+      "tool": "get_symbols_overview",
+      "status": "failed"
+    }
+  ],
+  "root_cause": "Codex MCP process did not inherit the image Cargo PATH and Rustup home; initial_instructions succeeded but get_symbols_overview could not locate installed rust-analyzer."
+}

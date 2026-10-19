@@ -91,12 +91,13 @@ def main():
         get_parser('codex').extract_raw_logs(setup.container_name,output/'log')
         events = [json.loads(line) for line in (output/'log/agent_stdout.txt').read_text().splitlines() if line.startswith('{')]
         usage = codex_usage(events)
+        result.update(session_id=session,usage=usage)
         messages = [e.get('item',{}).get('text','').strip() for e in events if e.get('type')=='item.completed' and e.get('item',{}).get('type')=='agent_message']
         proof = json.loads((output/'effective_profile.json').read_text())
         if args.variant=='serena':
             calls=[e['item'] for e in events if e.get('type')=='item.completed' and e.get('item',{}).get('type')=='mcp_tool_call']
             symbols=[item for item in calls if item.get('server')=='serena' and item.get('tool')=='get_symbols_overview']
-            assert ok and symbols and any('activation_fixture' in json.dumps(item.get('result')) and not item.get('error') for item in symbols), 'Serena symbol tool activation missing'
+            assert ok and symbols and any(item.get('status')=='completed' and not item.get('error') and any(block.get('type')=='text' and 'activation_fixture' in json.loads(block['text']).get('Function',[]) for block in item.get('result',{}).get('content',[])) for item in symbols), 'Serena symbol tool activation missing'
             assert any('activation_fixture' in text for text in messages), 'Model did not observe the MCP symbol'
             assert not usage['tool_calls'].get('shell'), 'Serena smoke unexpectedly invoked shell tools'
             proof.update(mcp_activation_verified=True,observed_mcp_tool_calls=len(calls))
@@ -116,7 +117,7 @@ def main():
         if args.variant!='serena':
             result.update(native_hook_activation_verified=True,audit=audit)
     except Exception as error:
-        result.update(failure_category='skill_activation_failure',error=str(error))
+        result.update(failure_category='quota_pressure' if str(error).startswith('Quota pressure') else 'skill_activation_failure',error=str(error))
     finally:
         setup.cleanup()
         result['duration_seconds']=time.monotonic()-started

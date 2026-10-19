@@ -1,0 +1,92 @@
+{
+  "status": "blocked_by_quota_before_measured_cohort",
+  "measured_trials_started": 0,
+  "phase2_config_unchanged": true,
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "rust_lsp_verified_offline": true,
+  "profile_activation": {
+    "ponytail": {
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "native_hook_activation_verified": true,
+      "mcp_activation_verified": null,
+      "status": "native_ponytail_common_runtime_activation_verified_not_measured",
+      "usage": {
+        "input_tokens": 11425,
+        "output_tokens": 230,
+        "cached_input_tokens": 9088,
+        "reasoning_output_tokens": 215,
+        "session_ids": [
+          "01a15579-5d42-7e22-b2cd-e3cd12589d62"
+        ],
+        "turns": 1,
+        "tool_calls": {},
+        "anomalies": [],
+        "counter_semantics": "last cumulative totals per thread; fields as reported"
+      }
+    },
+    "caveman": {
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "native_hook_activation_verified": true,
+      "mcp_activation_verified": null,
+      "status": "native_caveman_common_runtime_activation_verified_not_measured",
+      "usage": {
+        "input_tokens": 11858,
+        "output_tokens": 67,
+        "cached_input_tokens": 9088,
+        "reasoning_output_tokens": 50,
+        "session_ids": [
+          "01a1557b-571c-7bc3-b60f-d9a563fb709f"
+        ],
+        "turns": 1,
+        "tool_calls": {},
+        "anomalies": [],
+        "counter_semantics": "last cumulative totals per thread; fields as reported"
+      }
+    },
+    "serena": {
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "native_hook_activation_verified": null,
+      "mcp_activation_verified": false,
+      "status": "blocked_quota_pending_corrected_env_smoke",
+      "usage": null
+    }
+  },
+  "deterministic_trial_order": [
+    "baseline",
+    "ponytail",
+    "caveman",
+    "serena"
+  ],
+  "setup_fingerprint": null,
+  "frozen_config_created": false,
+  "quota": {
+    "observed_at": "2026-10-19T18:48:42.378891+00:00",
+    "source": "codex app-server account/rateLimits/read",
+    "approximate": true,
+    "status": "observed",
+    "rate_limits": {
+      "codex": {
+        "primary": {
+          "usedPercent": 86,
+          "windowDurationMins": 300,
+          "resetsAt": 1792450342
+        },
+        "secondary": {
+          "usedPercent": 21,
+          "windowDurationMins": 10080,
+          "resetsAt": 1792908733
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    }
+  },
+  "quota_stop_percent": 85,
+  "quota_reset_local": "2026-10-20T00:52:22+02:00",
+  "next_step": "After a fresh quota check below 85%, run corrected Serena OAuth activation smoke in a new directory. Freeze only after its real Rust-symbol MCP call succeeds; then run a new baseline and the three skills sequentially.",
+  "limitations": [
+    "No measured skill correctness or quality result exists yet.",
+    "Corrected Serena env works offline but is not yet verified from Codex.",
+    "Native-hook smokes are setup evidence, not measured benchmark trials."
+  ]
+}
