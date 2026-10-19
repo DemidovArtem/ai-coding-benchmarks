@@ -1,5 +1,5 @@
 {
-  "status": "awaiting_component_download_approval",
+  "status": "user_approved_components_installed",
   "toolchain": "1.88.0",
   "base_image_already_downloaded": true,
   "python_and_node_copied_locally": true,
@@ -17,5 +17,6 @@
       "compressed_bytes": 3155272
     }
   ],
-  "total_compressed_bytes": 11773236
+  "total_compressed_bytes": 11773236,
+  "registry_images_downloaded": 0
 }

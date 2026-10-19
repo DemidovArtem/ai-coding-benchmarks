@@ -1,5 +1,5 @@
 {
-  "status": "native_ponytail_activation_verified_not_measured",
+  "status": "native_ponytail_common_runtime_activation_verified_not_measured",
   "variant": "ponytail",
   "version": "5.3.2",
   "mode": "full",
@@ -7,11 +7,11 @@
   "model_observed_mode": "PONYTAIL MODE ACTIVE \u2014 level: full",
   "usage": {
     "input_tokens": 11425,
-    "output_tokens": 145,
+    "output_tokens": 230,
     "cached_input_tokens": 9088,
-    "reasoning_output_tokens": 130,
+    "reasoning_output_tokens": 215,
     "session_ids": [
-      "01a1555f-72b0-72d0-bd7f-28cd49a9b170"
+      "01a15579-5d42-7e22-b2cd-e3cd12589d62"
     ],
     "turns": 1,
     "tool_calls": {},
@@ -40,8 +40,8 @@
       "unprivileged_uid": 1000
     }
   ],
-  "duration_seconds": 79.49364835600045,
-  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ponytail_activation_001",
+  "duration_seconds": 83.03860486600024,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ponytail_activation_shared_001",
   "activation_fixture": "neutral one-file read-only fixture; no benchmark task or grader feedback",
   "quarantine": "protected",
   "plugins_enabled": false,
@@ -50,5 +50,51 @@
   "zero_model_probe": {
     "status": "configured_hook_list_only_not_activation",
     "note": "App-server thread/start without a turn listed untrusted hooks but did not execute SessionStart. This was not counted as activation."
-  }
+  },
+  "previous_base_image_activation": {
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ponytail_activation_001",
+    "usage": {
+      "input_tokens": 11425,
+      "output_tokens": 145,
+      "cached_input_tokens": 9088,
+      "reasoning_output_tokens": 130,
+      "session_ids": [
+        "01a1555f-72b0-72d0-bd7f-28cd49a9b170"
+      ],
+      "turns": 1,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "duration_seconds": 79.49364835600045
+  },
+  "success": true,
+  "kind": "activation_smoke_not_measured",
+  "failure_category": null,
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "session_id": "01a15579-5d42-7e22-b2cd-e3cd12589d62",
+  "planner_used": false,
+  "fixture_read_only": true,
+  "audit": [
+    {
+      "entrypoint": "ponytail-activate.js",
+      "event": "SessionStart",
+      "exit_code": 0,
+      "mode": "full",
+      "context_chars": 2973,
+      "context_sha256": "4b8cdb4dd84a585aaa54d931a4e31cf8b20d1d3feb57813fb5c069fe28d3cf41",
+      "full_mode_context": true,
+      "unprivileged_uid": 1000
+    },
+    {
+      "entrypoint": "ponytail-mode-tracker.js",
+      "event": "UserPromptSubmit",
+      "exit_code": 0,
+      "mode": "full",
+      "context_chars": 0,
+      "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "full_mode_context": false,
+      "unprivileged_uid": 1000
+    }
+  ]
 }

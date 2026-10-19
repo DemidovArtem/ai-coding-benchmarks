@@ -76,3 +76,17 @@ class CollectTests(unittest.TestCase):
             rejected = sonar_result(run,record,base)
             self.assertFalse(rejected["analysis_ok"])
             self.assertIsNone(rejected["metrics"])
+
+    def test_grader_success_does_not_hide_failed_profile_activation(self):
+        import json
+        with tempfile.TemporaryDirectory() as tmp:
+            run=Path(tmp)
+            (run/'evaluation').mkdir()
+            (run/'run_metadata.json').write_text(json.dumps({'state':'failed','variant':'ponytail','failure_category':'skill_trial_failure'}))
+            (run/'evaluation/evaluation_result.json').write_text(json.dumps({'resolved':True}))
+            config={'experiment_id':'test','benchmark':{'repo':'repo','smoke_milestone':'task','version':'v'},
+                'pins':{'git_commits':{'results/setup/dataset':'commit'}},'codex':{}}
+            record=collect(run,config)
+            self.assertTrue(record['resolved'])
+            self.assertEqual(record['failure_category'],'skill_trial_failure')
+            self.assertEqual(record['trial_state'],'failed')

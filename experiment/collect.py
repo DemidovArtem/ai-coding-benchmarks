@@ -111,6 +111,9 @@ def collect(run, config):
               "capture_diagnostics": {key: sidecar.get(key) for key in (
                   "uncommitted_lost_count", "uncommitted_lost_sample", "uncommitted_outside_count", "committed_outside_count")},
               "implementation_commit": metadata.get("implementation_commit"),
+              "trial_state":metadata.get("state"), "trial_failure_category":metadata.get("failure_category"),
+              "skill_state":load(run / "serena_state.json"),
+              "hook_activation_audit":load(run / "skill_activation.json"),
               "resume": metadata.get("resume"), "wall_duration_seconds":metadata.get("wall_duration_seconds"),
               "interruptions": [load(path) for path in sorted((run / "interruptions").glob("*/run_metadata.json"))],
               "collection_errors": [], **normalize_grader(raw)}
@@ -118,6 +121,8 @@ def collect(run, config):
                                          "changed_prod_files", "cumulative_prod_loc")})
     if not raw:
         record["failure_category"] = metadata.get("failure_category", "missing_grader_result")
+    elif metadata.get("state") == "failed":
+        record["failure_category"] = record["failure_category"] or metadata.get("failure_category")
     stdout = run / "log/agent_stdout.txt"
     events = []
     if stdout.exists():
@@ -140,7 +145,7 @@ def collect(run, config):
         for key in ("input_tokens", "output_tokens", "cached_input_tokens")}
     stats = load(run / "agent_stats.json", {}).get("summary", {})
     record["native_usage_observations"] = {key: stats.get(key) for key in ("total_turns", "total_tool_calls", "wall_clock_ms")}
-    record["durations_seconds"] = {"planner": planner_audit.get("duration_seconds", 0 if record["variant"] == "baseline" else None), "executor": stats["wall_clock_ms"] / 1000 if stats.get("wall_clock_ms") is not None else None,
+    record["durations_seconds"] = {"planner": planner_audit.get("duration_seconds", 0 if record["variant"] not in ("plan", "goal_plan") else None), "executor": stats["wall_clock_ms"] / 1000 if stats.get("wall_clock_ms") is not None else None,
                                     "evaluation": load(run / "durations.json", {}).get("evaluation"), "sonar": None}
     setup = {key: config[key] for key in ("codex", "benchmark", "pins")}
     record["setup_fingerprint"] = metadata.get("setup_fingerprint") or hashlib.sha256(json.dumps(setup, sort_keys=True).encode()).hexdigest()

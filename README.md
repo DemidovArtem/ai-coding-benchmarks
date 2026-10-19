@@ -2,7 +2,7 @@
 
 Реализация [плана](AI_Coding_Experiment_Codex_Handoff.md): SWE-Milestone, Codex с ChatGPT OAuth, шесть изолированных вариантов, Git и SonarQube.
 
-**Phase 1 завершена:** host и actual container/grader OAuth smoke успешны. [Результат и ограничения](reports/phase1_smoke.md). Полный v1 ещё не завершён. Raw trial сохранён в `results/trials/baseline_smoke_001`; временная копия остаётся в `/tmp/ai-coding-experiment`.
+**Phase 0–2 завершены:** baseline, plan и goal_plan прошли actual container/grader. Sonar before/after готов. Skill cohort Phase 3 ещё выполняется. [Результат и ограничения](reports/phase1_smoke.md). Полный v1 ещё не завершён. Raw trial сохранён в `results/trials/baseline_smoke_001`; временная копия остаётся в `/tmp/ai-coding-experiment`.
 
 - [Аудит среды и следующие действия](environment_report.md)
 - [Закреплённые параметры](experiment.yaml) — JSON, совместимый с YAML 1.2; неизвестные значения остаются `null`.
@@ -64,7 +64,7 @@ Phase 6 требует отдельного разрешения после pilo
 .venv/bin/python -m experiment.collect results/trials/baseline_smoke_001 --output results/baseline_smoke_report
 ```
 
-Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) сейчас содержат один smoke без A/B выводов.
+Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) содержат smoke и три завершённых Phase 2 trials. Выводы ограничены одним заданием без повторений.
 
 ## Matched planning trials
 
@@ -78,8 +78,14 @@ Collector не запускает grader заново. Он проверяет s
 
 Каждый следующий запуск выполняется только после проверки terminal state предыдущего и текущей квоты. Planner failure не запускает executor. Output directories не перезаписываются.
 
-Текущий [partial Phase 2 report](reports/phase2_progress.md): measured baseline resolved=true; plan/goal_plan пока не запускались из-за quota stop threshold. Frozen execution inputs остаются прежними.
+[Phase 2 report](reports/phase2_progress.md): baseline, plan и goal_plan завершены, у всех grader resolved=true. Goal_plan продолжен после quota pause с сохранением исходного handoff. Все результаты относятся к одному заданию, без повторений.
 
 ## Sonar preparation
 
-[Sonar collector и оставшийся setup](sonar/README.md): API client и tests готовы; service/scanner не запускались, scores отсутствуют. Дополнительные image downloads пока не разрешены. Этот модуль не меняет frozen Phase 2 execution inputs.
+[SonarQube](sonar/README.md) работает локально на 127.0.0.1:9000. Общая база и четыре решения проанализированы; [результаты и ограничения](reports/sonar_pilot.md). Raw Sonar snapshots включают разные inline tests, поэтому эти дельты нельзя считать production-only эффектом.
+
+## Skill cohort
+
+Ponytail и Caveman прошли реальные native-hook activation smokes. Для Phase 3 собран [общий runtime](profiles/runtime/README.md), проверены offline Rust symbols через Serena MCP. Все три activation smokes должны пройти на этом точном image ID, после чего замораживается отдельная конфигурация и запускаются baseline/ponytail/caveman/serena по одному. Phase 2 baseline не подменяет baseline нового окружения.
+
+Continuous pilot пока отложен: [точный blocker, выбранная DAG-пара и оценка 3–5 дней](reports/continuous_feasibility.md). Большой Phase 6 запуск не выполнялся.
