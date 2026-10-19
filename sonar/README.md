@@ -1,6 +1,6 @@
 # SonarQube integration — current state
 
-API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service и before/after analysis ещё не запускались. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
+API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service запущен и защищён. Before/after analysis ещё не выполнялся. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
 
 ## Реализовано
 
@@ -29,7 +29,7 @@ API collector реализован и проверен на local HTTP fixtures.
 
 Пользователь согласовал дополнительную загрузку 2026-10-19. Оба digest загружены для linux/amd64; local image IDs и размеры сохранены в JSON. Суммарный unpacked image size — 2430351264 bytes (общие слои не вычитаются). Scanner smoke: **8.1.0.6389**. Rust analyzer/rules ещё требуют проверки в запущенной 26.9 instance; `latest` не допускается.
 
-`compose.yaml` закрепляет digest и `pull_policy: never`, публикует только `127.0.0.1:9000` и использует отдельную internal Docker network. Создание сети и запуск service ожидают отдельного согласования; host sysctl/firewall и benchmark quarantine не меняются.
+`compose.yaml` закрепляет digest и `pull_policy: never`, публикует только `127.0.0.1:9000` и использует отдельную internal Docker network. Создание сети и запуск service отдельно согласованы пользователем 2026-10-19. Service запущен; host sysctl/firewall и benchmark quarantine не менялись. Docker 29.6.0 сохраняет PortBindings, но не публикует порт для internal-only сети. Поэтому `experiment.sonar_proxy` предоставляет loopback-only relay до IP закреплённого server container. Он проверяет image ID, running state и единственную internal network; external network не добавляется. Relay надо перезапустить после пересоздания container.
 
 `Dockerfile.clippy` добавляет только Clippy 1.88.0 к исходному benchmark image. Производный image собран отдельно; Cargo/rustc/Clippy версии подтверждены без сети и записаны в JSON. Исходный benchmark image не изменён.
 
@@ -37,7 +37,7 @@ API collector реализован и проверен на local HTTP fixtures.
 
 1. Подготовить reviewable scanner launch: immutable grader snapshot + common base, stable отдельные project keys через `project_key(trial_id, snapshot_sha256)`, одинаковые source exclusions, scanner version и rule-profile provenance.
 2. Подготовить Cargo/Clippy отдельно от процесса, которому передаётся Sonar token. Нельзя ослаблять benchmark quarantine для scanner или передавать token agent/build scripts.
-3. Загрузка согласована и завершена. После согласования отдельной internal Docker network запустить service только на `127.0.0.1`, создать защищённый admin password/token без записи в Git/CLI args.
+3. Service и loopback relay запущены. `experiment.sonar_bootstrap` сменил начальный admin password и проверил token. Credentials сохраняются атомарно в ignored private directory (0700), file 0600; значения не попадают в CLI args, reports или Git.
 4. Проверить Rust coverage, exact snapshot binding, реальные before/after measures и matched deltas; затем подключить их к canonical results. Сейчас этого доказательства нет.
 
 ## Collector interface
@@ -48,3 +48,16 @@ PYTHONPATH=vendor/SWE-Milestone .venv/bin/python -m pytest -q tests/test_sonar.p
 ```
 
 После реального scanner launch collector принимает ceTaskId, project key, exact server version и output directory. Token читается только из `SONAR_TOKEN`; его значение не передаётся в command line. Не указывать вымышленные IDs или scores. Общие/new-code metrics и сравнения добавляются только при подтверждённой семантике reference state.
+
+## Подтверждённый runtime
+
+[Runtime report](../reports/sonar_runtime.json): server **26.9.0.129388**, Rust analyzer **1.8.1.3395**, Sonar way Rust profile — **78 active rules**. Наличие analyzer/profile пока не доказывает обработку конкретного snapshot. H2 используется только для локального evaluation pilot; named volumes нужно сохранять вместе с private credentials.
+
+```bash
+docker compose -f sonar/compose.yaml up -d server
+.venv/bin/python -m experiment.sonar_proxy
+# In another terminal; do not print the credential file:
+.venv/bin/python -m experiment.sonar_bootstrap --credentials results/sonar/private/credentials.json --report reports/sonar_runtime.json
+```
+
+Bootstrap повторно проверяет сохранённые credentials и не меняет уже защищённый password. Admin token не должен передаваться Cargo/build scripts или benchmark agents; scanner получит отдельный project analysis token.
