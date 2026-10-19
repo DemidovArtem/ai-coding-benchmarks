@@ -10,7 +10,8 @@ FIELDS = ("trial_id", "repo", "milestone_id", "variant", "repetition", "starting
           "resolved", "added_prod_loc", "deleted_prod_loc", "net_prod_loc", "churn_prod_loc", "changed_prod_files",
           "cumulative_prod_loc", "failure_category", "duration_seconds", "planner_input_tokens", "planner_output_tokens",
           "planner_cached_input_tokens", "executor_input_tokens", "executor_output_tokens", "executor_cached_input_tokens",
-          "total_input_tokens", "total_output_tokens", "total_cached_input_tokens", "sonar_analysis_ok")
+          "total_input_tokens", "total_output_tokens", "total_cached_input_tokens", "sonar_analysis_ok",
+          "sonar_maintainability_issues", "sonar_remediation_effort", "sonar_ncloc", "sonar_cognitive_complexity")
 
 
 def paired_key(row):
@@ -29,7 +30,13 @@ def export(rows, directory):
             for phase in ("planner", "executor", "total"):
                 usage = row.get("usage", {}).get(phase, {})
                 flat.update({phase + "_" + key: usage.get(key) for key in ("input_tokens", "output_tokens", "cached_input_tokens")})
-            flat["sonar_analysis_ok"] = row.get("sonar", {}).get("analysis_ok")
+            sonar = row.get("sonar", {})
+            flat["sonar_analysis_ok"] = sonar.get("analysis_ok")
+            metrics = sonar.get("metrics") or {}
+            for label,key in (("maintainability_issues","software_quality_maintainability_issues"),
+                              ("remediation_effort","software_quality_maintainability_remediation_effort"),
+                              ("ncloc","ncloc"),("cognitive_complexity","cognitive_complexity")):
+                flat["sonar_"+label] = metrics.get(key) if sonar.get("analysis_ok") is True else None
             writer.writerow({field: flat[field] if isinstance(flat.get(field), str) else json.dumps(flat.get(field))
                              for field in FIELDS})
     baselines = {}
@@ -58,6 +65,7 @@ def export(rows, directory):
     text += ["", "Paired deltas require one baseline with identical task, repetition, starting tree, model, effort, dataset and setup fingerprint.",
              "A delta does not imply correctness. Inspect correctness and footprint together; no failed rows are dropped.",
              "Sonar data and raw grader/usage/profile details remain in JSONL. Missing Sonar is not a zero score.",
+             "Raw Sonar snapshots include different inline test code. Aggregate Sonar deltas are not production-only quality effects; remediation effort is not measured human review time.",
              "Token counts are not ChatGPT subscription prices or precise quota costs. Small pilots do not support broad generalizations.", ""]
     (directory / "summary.md").write_text("\n".join(text))
 

@@ -48,6 +48,19 @@ class SonarTests(unittest.TestCase):
         self.assertEqual(calls[:2], ["/api/server/version", "/api/ce/task"])
         self.assertFalse(result["snapshot_binding_verified"])
 
+    def test_real_26_9_metric_catalog_uses_top_level_pagination(self):
+        client, _ = self.fixture()
+        original = client.get
+        def get(path, **params):
+            payload = original(path, **params)
+            if path == "/api/metrics/search":
+                payload["total"] = payload.pop("paging")["total"]
+            return payload
+        client.get = get
+        with tempfile.TemporaryDirectory() as tmp:
+            result = collect(client,"task","project",Path(tmp)/"result","26.9.0.129388")
+        self.assertTrue(result["analysis_ok"])
+
     def test_failed_pending_superseded_or_unsupported_analysis_is_not_perfect_code(self):
         for kwargs in ({"status":"FAILED"},{"status":"IN_PROGRESS"},{"latest":"newer"},{"rust":False}):
             client, calls = self.fixture(**kwargs)

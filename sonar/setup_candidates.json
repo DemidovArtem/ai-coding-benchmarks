@@ -1,5 +1,5 @@
 {
-  "status": "service_secured_rust_profile_verified_scan_pending",
+  "status": "verified_base_and_measured_solution_scans",
   "observed_at": "2026-10-18T23:22:14.454414+00:00",
   "images": [
     {
@@ -27,13 +27,13 @@
   ],
   "sum_dockerhub_full_size_bytes": 1489710351,
   "download_approved": true,
-  "rust_coverage_verified": false,
+  "rust_coverage_verified": true,
   "host_vm_max_map_count": 1048576,
   "host_settings_changed": false,
   "phase2_execution_pins_unchanged": true,
   "remaining": [
-    "Bind scanner launch to grader snapshot and freeze source exclusions",
-    "Record scanner/analyzer/rule-profile versions and run common base plus solution scans"
+    "Analyze future completed solution snapshots with the frozen analysis protocol",
+    "Keep inline-test limitations beside raw aggregate deltas"
   ],
   "approval_source": "User: \u0441\u043e\u0433\u043b\u0430\u0441\u0443\u044e \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0443 \u043e\u0431\u0440\u0430\u0437\u043e\u0432 (2026-10-19)",
   "downloaded_at": "2026-10-19T17:11:01.498172+00:00",

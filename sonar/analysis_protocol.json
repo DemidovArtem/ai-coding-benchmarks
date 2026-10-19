@@ -1,0 +1,1170 @@
+{
+  "server_version": "26.9.0.129388",
+  "scanner_version": "8.1.0.6389",
+  "clippy": {
+    "image_id": "sha256:380d12919f3ebf651fddbf02bdfcc46b5b6d3e51ddfe4c054f40a75d360e516c",
+    "dockerfile_sha256": "08f2906b51a4a85fef65299b6098f1fdd73566b14faef0a4ed0134354e15f67f",
+    "versions": [
+      "cargo 1.88.0 (873a06493 2025-05-10)",
+      "rustc 1.88.0 (6b00bc388 2025-06-23)",
+      "clippy 0.1.88 (6b00bc3880 2025-06-23)"
+    ]
+  },
+  "rust_plugin": {
+    "key": "rust",
+    "name": "Rust Code Quality and Security",
+    "version": "1.8.1.3395",
+    "organizationName": "SonarSource",
+    "editionBundled": false,
+    "filename": "sonar-rust-plugin-1.8.1.3395.jar",
+    "hash": "d62ee834b4a338b45cb7522dda591453",
+    "sonarLintSupported": false,
+    "updatedAt": 1792430255427,
+    "type": "BUNDLED",
+    "requiredForLanguages": [
+      "rust"
+    ]
+  },
+  "profile": {
+    "key": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+    "name": "Sonar way",
+    "language": "rust",
+    "languageName": "Rust",
+    "isInherited": false,
+    "isDefault": true,
+    "activeRuleCount": 78,
+    "activeDeprecatedRuleCount": 0,
+    "rulesUpdatedAt": "2026-10-19T17:17:30+0000",
+    "lastUsed": "2026-10-19T17:51:30+0000",
+    "isBuiltIn": true,
+    "actions": {
+      "edit": false,
+      "setAsDefault": false,
+      "copy": true,
+      "associateProjects": false,
+      "delete": false
+    }
+  },
+  "active_rules": {
+    "rust:S107": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S1116": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S1656": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S1751": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S1858": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S1862": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S2185": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S2193": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S2198": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S2208": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S2437": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "BLOCKER"
+          }
+        ]
+      }
+    ],
+    "rust:S2479": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S2589": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S3498": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S3723": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S3776": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [
+          {
+            "key": "threshold",
+            "value": "15"
+          }
+        ],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S3807": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S4325": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S4962": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S5856": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S6466": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S6913": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7089": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7200": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S7412": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7413": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7414": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7415": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7417": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7418": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7419": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7430": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7431": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7432": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7433": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7436": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7437": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7438": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7439": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7440": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7441": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7442": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7443": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7444": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7445": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S7446": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7447": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7448": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7449": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7455": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7456": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7457": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7458": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7459": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S905": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S1488": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MINOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "LOW"
+          }
+        ]
+      }
+    ],
+    "rust:S1764": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S4275": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S6164": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "MAINTAINABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7420": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7421": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7422": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7423": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7424": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7425": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7426": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7427": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7428": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "BLOCKER",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7429": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7450": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7451": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7453": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7454": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7460": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7461": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "CRITICAL",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "HIGH"
+          }
+        ]
+      }
+    ],
+    "rust:S7462": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7463": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ],
+    "rust:S7464": [
+      {
+        "qProfile": "86d3b169-f903-41f0-ba7a-8e2b699ea331",
+        "inherit": "NONE",
+        "severity": "MAJOR",
+        "params": [],
+        "impacts": [
+          {
+            "softwareQuality": "RELIABILITY",
+            "severity": "MEDIUM"
+          }
+        ]
+      }
+    ]
+  },
+  "active_rules_sha256": "4c79170713c9e27ec2939ba5b7bcfb164cb789e6adae9471536e9313a87fa9fe",
+  "clippy_arguments": [
+    "clippy",
+    "--offline",
+    "--locked",
+    "--workspace",
+    "--lib",
+    "--bins",
+    "--message-format=json",
+    "--",
+    "--cap-lints",
+    "warn"
+  ],
+  "source_exclusions": [
+    "**/tests/**",
+    "**/benches/**",
+    "**/examples/**",
+    "**/vendor/**",
+    "**/generated/**"
+  ],
+  "source_semantics": "Exact Rust bytes of graded source snapshot, including any inline tests; distinct from AST-filtered physical LOC.",
+  "new_code_comparison_valid": false,
+  "branch_semantics": "Independent private project for each immutable snapshot; only matched aggregate deltas."
+}

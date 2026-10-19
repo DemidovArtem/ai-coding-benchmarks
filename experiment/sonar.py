@@ -112,7 +112,7 @@ def collect(client, task_id, expected_project, directory, expected_server_versio
             payload = client.get("/api/metrics/search", p=page, ps=500)
             raw["metric_catalog"].append(payload)
             available.update(row["key"] for row in payload["metrics"])
-            if page * 500 >= payload["paging"]["total"]:
+            if page * 500 >= payload.get("paging", payload)["total"]:
                 break
         else:
             raise ValueError("Sonar metrics catalog exceeds the collection budget")

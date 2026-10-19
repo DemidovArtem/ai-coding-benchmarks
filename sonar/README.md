@@ -1,6 +1,6 @@
 # SonarQube integration — current state
 
-API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service запущен и защищён. Before/after analysis ещё не выполнялся. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
+API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service запущен и защищён. Base и measured baseline/plan solution scans выполнены; snapshot binding, coverage 79 Rust-файлов и неизменность правил подтверждены. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
 
 ## Реализовано
 
@@ -14,7 +14,7 @@ API collector реализован и проверен на local HTTP fixtures.
 - сохраняет raw responses, analyzer plugin metadata и quality profiles; требует Rust profile и ncloc;
 - оставляет snapshot binding, Rust source coverage и new-code comparison **неподтверждёнными**, пока scanner launch не предоставит соответствующее доказательство.
 
-`analysis_ok` относится к завершению API task и чтению measures. Оно само по себе не подтверждает, что scanner обработал нужный grader snapshot. `snapshot_binding_verified=false` и `rust_coverage_verified=false` нельзя заменять ручным утверждением. Remediation effort не является human review time.
+`analysis_ok` относится к завершению API task и чтению measures. Оно само по себе не подтверждает, что scanner обработал нужный grader snapshot. API-only collector оставляет `snapshot_binding_verified=false` и `rust_coverage_verified=false`. `experiment.sonar_scan` выставляет их только после проверки tar SHA/tag bytes, staged source manifest, scanner task identity и полного Rust file coverage через Web API. Remediation effort не является human review time.
 
 [Официальный Web API](https://docs.sonarsource.com/sonarqube-community-build/extension-guide/web-api) документирует bearer authentication и measures. [Background tasks](https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/background-tasks) объясняет, почему scanner success ещё не означает готовность server results. [Rust analysis](https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/languages/rust) требует Cargo/Clippy и описывает external Clippy report import.
 
@@ -33,12 +33,24 @@ API collector реализован и проверен на local HTTP fixtures.
 
 `Dockerfile.clippy` добавляет только Clippy 1.88.0 к исходному benchmark image. Производный image собран отдельно; Cargo/rustc/Clippy версии подтверждены без сети и записаны в JSON. Исходный benchmark image не изменён.
 
-## Следующий полный slice
+## Scan pipeline
 
-1. Подготовить reviewable scanner launch: immutable grader snapshot + common base, stable отдельные project keys через `project_key(trial_id, snapshot_sha256)`, одинаковые source exclusions, scanner version и rule-profile provenance.
-2. Подготовить Cargo/Clippy отдельно от процесса, которому передаётся Sonar token. Нельзя ослаблять benchmark quarantine для scanner или передавать token agent/build scripts.
-3. Service и loopback relay запущены. `experiment.sonar_bootstrap` сменил начальный admin password и проверил token. Credentials сохраняются атомарно в ignored private directory (0700), file 0600; значения не попадают в CLI args, reports или Git.
-4. Проверить Rust coverage, exact snapshot binding, реальные before/after measures и matched deltas; затем подключить их к canonical results. Сейчас этого доказательства нет.
+`experiment.sonar_scan` проверяет исходный grader snapshot SHA и submission tag, восстанавливает common-base build support и накладывает только разрешённый capture. Все выбранные Rust-файлы solution сверяются byte-for-byte с graded tar. Исключённые embedded resources (completion scripts/help templates) берутся из common base и отдельно хешируются. Они нужны Cargo, но не входят в source analysis.
+
+Clippy работает в отдельном непривилегированном контейнере: network none, no-new-privileges, cap-drop ALL, source mount read-only, без credentials. Cargo запускается offline/locked для workspace lib/bin с default features. `--cap-lints warn` сохраняет все lint diagnostics и позволяет завершить обход; compilation errors остаются fatal. Временный target directory имеет exec только внутри этого контейнера, без изменения benchmark quarantine.
+
+Scanner получает отдельный project analysis token и только internal network. Build scripts с этим token не запускаются: auto Clippy выключен, импортируется сохранённый JSON report. Token отзывается в finally; ошибка отзыва фиксируется. Project private, key зависит от immutable snapshot identity. Scanner source mount read-only; JRE provisioning выключен, используется Java 21 из закреплённого image.
+
+[Analysis protocol](analysis_protocol.json) закрепляет analyzer, scanner, Clippy, exclusions и все 78 активных Rust rules с параметрами/severity. До и после scan проверяется hash правил. Collector ждёт CE SUCCESS и сверяет analysis ID, затем scan wrapper подтверждает точное множество Rust components. Raw responses, scanner/Clippy logs, manifests и normalized measures сохраняются в ignored durable results.
+
+```bash
+PYTHONPATH=vendor/SWE-Milestone .venv/bin/python -m experiment.sonar_scan results/trials/phase2_baseline_001 --kind base --output /tmp/ai-coding-sonar/unique-base-run --credentials results/sonar/private/credentials.json
+PYTHONPATH=vendor/SWE-Milestone .venv/bin/python -m experiment.sonar_scan results/trials/phase2_baseline_001 --kind solution --output /tmp/ai-coding-sonar/unique-solution-run --credentials results/sonar/private/credentials.json
+```
+
+Output directory должен быть новым; failed attempts сохраняются. Повторный scan того же snapshot использует тот же private project key; конкурирующие snapshots имеют разные keys. Перед публикацией в canonical records solution directory копируется в `results/trials/<trial>/sonar`, common base — в `results/sonar/common_base`. Collector повторно проверяет принадлежность Sonar result к graded submission и публикует matched aggregate deltas только при одинаковых starting tree/protocol/exclusions.
+
+**Ограничение:** raw Rust snapshots включают различающийся inline test-код. Это точные snapshot metrics, а не production-only quality effect. Их нельзя смешивать с AST-filtered physical LOC или объяснять разницу только workflow. Отдельные project keys не дают достоверных new-code semantics: `new_maintainability_issues=null`, `new_code_comparison_valid=false`. Remediation effort — оценка Sonar, не human review time.
 
 ## Collector interface
 

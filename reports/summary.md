@@ -13,4 +13,5 @@ Dependent milestones form trajectories; they are not independent statistical sam
 Paired deltas require one baseline with identical task, repetition, starting tree, model, effort, dataset and setup fingerprint.
 A delta does not imply correctness. Inspect correctness and footprint together; no failed rows are dropped.
 Sonar data and raw grader/usage/profile details remain in JSONL. Missing Sonar is not a zero score.
+Raw Sonar snapshots include different inline test code. Aggregate Sonar deltas are not production-only quality effects; remediation effort is not measured human review time.
 Token counts are not ChatGPT subscription prices or precise quota costs. Small pilots do not support broad generalizations.

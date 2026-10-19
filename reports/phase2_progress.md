@@ -18,4 +18,4 @@ Plan preparation валидна, repo не изменён; planner и executor �
 
 [Baseline record](phase2_baseline.json), [plan record](phase2_plan.json), [goal_plan interrupted record](phase2_goal_plan.json), [общий summary](summary.md). Canonical JSONL/CSV и raw artifacts находятся в ignored `results/`. Исходный Phase 1 smoke не входит в measured pairs.
 
-Sonar images загружены по разрешению пользователя. Loopback-only service ждёт отдельного согласования internal Docker network; actual Rust analysis и before/after measures отсутствуют. Skill A/B и continuous pilot также остаются незавершёнными.
+Sonar service запущен по отдельному разрешению. Actual common base и все существующие solution scans подтверждены; raw before/after measures и ограничения inline tests опубликованы в [Sonar pilot](sonar_pilot.md). Skill A/B и continuous pilot также остаются незавершёнными.

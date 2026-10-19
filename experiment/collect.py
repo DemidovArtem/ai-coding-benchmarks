@@ -42,6 +42,51 @@ def verify_snapshot(snapshot, sidecar, repo):
     return checked
 
 
+
+def sonar_result(run, record, common_base):
+    directory = run / "sonar"
+    sonar = load(directory / "sonar.json")
+    if sonar is None:
+        return record["sonar"]
+    sonar = {**sonar, "artifacts_path":str(directory)}
+    if sonar.get("analysis_ok") is not True:
+        return sonar
+    try:
+        binding = load(directory / "binding.json", {})
+        if not sonar.get("snapshot_binding_verified") or not sonar.get("rust_coverage_verified"):
+            raise ValueError("Sonar snapshot binding or Rust coverage is unverified")
+        if (sonar.get("snapshot_sha256") != record["snapshot_sha256"] or
+                binding.get("snapshot_sha256") != record["snapshot_sha256"] or
+                binding.get("submission_commit") != record["ending_commit"] or
+                binding.get("kind") != "solution" or binding.get("trial_id") != run.name or
+                binding.get("project_key") != sonar.get("project_key") or
+                binding.get("protocol_sha256") != sonar.get("protocol_sha256")):
+            raise ValueError("Sonar analysis does not belong to this graded submission")
+        components = load(directory / "components.json", [])
+        actual = {row["path"] for row in components if row.get("language") == "rust"}
+        if not actual or actual != set(binding["source_files"]):
+            raise ValueError("Sonar file coverage differs from the source binding")
+        sonar["comparison_limitations"] = ["Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."]
+        base = load(common_base / "sonar.json", {})
+        base_binding = load(common_base / "binding.json", {})
+        comparable = (base.get("analysis_ok") is True and base.get("snapshot_binding_verified") is True and
+            base.get("rust_coverage_verified") is True and base_binding.get("kind") == "base" and
+            base_binding.get("starting_tree") == record.get("starting_tree") and
+            base.get("protocol_sha256") == sonar.get("protocol_sha256") and
+            base.get("source_exclusions") == sonar.get("source_exclusions"))
+        sonar["common_base_comparison_verified"] = comparable
+        sonar["delta_vs_common_base"] = None
+        if comparable:
+            sonar["common_base_artifacts_path"] = str(common_base)
+            sonar["delta_vs_common_base"] = {key:value-base["metrics"][key]
+                if value is not None and base.get("metrics",{}).get(key) is not None else None
+                for key,value in sonar["metrics"].items()}
+    except (ValueError,KeyError,TypeError) as error:
+        sonar.update(analysis_ok=False,failure_category="sonar_binding_failure",error=str(error))
+        sonar["metrics"] = None
+    return sonar
+
+
 def collect(run, config):
     metadata = load(run / "run_metadata.json", {})
     config = load(run / "experiment.json", config)
@@ -112,6 +157,8 @@ def collect(run, config):
         except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
             record["collection_errors"].append(str(error))
             record["failure_category"] = record["failure_category"] or "collection_failure"
+    record["sonar"] = sonar_result(run, record, ROOT / "results/sonar/common_base")
+    record["durations_seconds"]["sonar"] = record["sonar"].get("duration_seconds")
     return record
 
 

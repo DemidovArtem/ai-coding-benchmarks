@@ -49,3 +49,30 @@ class CollectTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaisesRegex(ValueError, "not terminal"):
                 collect(Path(tmp), {})
+
+    def test_sonar_must_bind_to_the_same_graded_submission_and_keeps_missing_deltas_null(self):
+        import json
+        from experiment.collect import sonar_result
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp)/"trial"
+            (run/"sonar").mkdir(parents=True)
+            base = Path(tmp)/"base"; base.mkdir()
+            record = {"sonar":{"analysis_ok":None},"snapshot_sha256":"snapshot","ending_commit":"commit","starting_tree":"tree"}
+            result = {"analysis_ok":True,"snapshot_binding_verified":True,"rust_coverage_verified":True,
+                "snapshot_sha256":"snapshot","project_key":"project","protocol_sha256":"protocol","source_exclusions":[],
+                "metrics":{"ncloc":12,"complexity":None}}
+            binding = {"snapshot_sha256":"snapshot","submission_commit":"commit","kind":"solution","trial_id":"trial",
+                "project_key":"project","protocol_sha256":"protocol","source_files":{"file.rs":"sha"}}
+            (run/"sonar/sonar.json").write_text(json.dumps(result))
+            (run/"sonar/binding.json").write_text(json.dumps(binding))
+            (run/"sonar/components.json").write_text(json.dumps([{"path":"file.rs","language":"rust"}]))
+            (base/"sonar.json").write_text(json.dumps({**result,"metrics":{"ncloc":10,"complexity":4}}))
+            (base/"binding.json").write_text(json.dumps({"kind":"base","starting_tree":"tree"}))
+            attached = sonar_result(run,record,base)
+            self.assertTrue(attached["analysis_ok"])
+            self.assertEqual(attached["delta_vs_common_base"],{"ncloc":2,"complexity":None})
+            binding["submission_commit"] = "another trial"
+            (run/"sonar/binding.json").write_text(json.dumps(binding))
+            rejected = sonar_result(run,record,base)
+            self.assertFalse(rejected["analysis_ok"])
+            self.assertIsNone(rejected["metrics"])

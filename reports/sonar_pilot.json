@@ -1,0 +1,225 @@
+{
+  "status": "actual_raw_snapshot_scans_verified",
+  "common_base": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-327985d39e0abb726991cb36364a9e8c5571f3bd",
+    "task_id": "0c84ead0-3039-4564-b11c-911b5ca739f3",
+    "metrics": {
+      "ncloc": 31636,
+      "lines": 44468,
+      "complexity": 5057,
+      "cognitive_complexity": 2400,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6.1,
+      "code_smells": 282,
+      "sqale_index": 1438,
+      "software_quality_maintainability_issues": 282,
+      "software_quality_maintainability_remediation_effort": 1438
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "89d2bd1ea0bb4e1dd9f9193748749eda329ab6351552542f3b5d07e65589f43b",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "93a50257-8bde-4fc5-a923-e3d78e42d707",
+    "duration_seconds": 29.17797315700045,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "9aa3734da7b2e5d62a6d9580bc8a2ff38abe83543e36220eb2ce4eb5050231cb"
+  },
+  "trials": {
+    "baseline_smoke_001": {
+      "analysis_ok": true,
+      "new_maintainability_issues": null,
+      "project_key": "coding-experiment-2942e1564957904bf661f4c6fc13a5878fc6e4be",
+      "task_id": "48b75b2f-d8dc-4447-a2e6-dcca001c3cde",
+      "metrics": {
+        "ncloc": 31461,
+        "lines": 44275,
+        "complexity": 5058,
+        "cognitive_complexity": 2424,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 283,
+        "sqale_index": 1443,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1443
+      },
+      "missing_metrics": [],
+      "failure_category": null,
+      "server_version": "26.9.0.129388",
+      "snapshot_sha256": "184930e84c07ff9888bf120ec6cabf260fb62a5e6722392a9a40ca8ec1c7a34b",
+      "scanner_version": "8.1.0.6389",
+      "source_exclusions": [
+        "**/tests/**",
+        "**/benches/**",
+        "**/examples/**",
+        "**/vendor/**",
+        "**/generated/**"
+      ],
+      "snapshot_binding_verified": true,
+      "rust_coverage_verified": true,
+      "new_code_comparison_valid": false,
+      "analysis_id": "4e734ccc-9ae5-41b6-9661-33b4a9acf9cc",
+      "duration_seconds": 29.26704477000021,
+      "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+      "source_file_count": 79,
+      "clippy_returncode": 0,
+      "clippy_report_sha256": "b6c4c907430a6b23ccf73a12590e2a38b3536cd4c8b0b6eaf06d9cb519831146",
+      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/baseline_smoke_001/sonar",
+      "comparison_limitations": [
+        "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+      ],
+      "common_base_comparison_verified": true,
+      "delta_vs_common_base": {
+        "ncloc": -175,
+        "lines": -193,
+        "complexity": 1,
+        "cognitive_complexity": 24,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 1,
+        "sqale_index": 5,
+        "software_quality_maintainability_issues": 1,
+        "software_quality_maintainability_remediation_effort": 5
+      },
+      "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+    },
+    "phase2_baseline_001": {
+      "analysis_ok": true,
+      "new_maintainability_issues": null,
+      "project_key": "coding-experiment-8cc6b0b9a3c95d9f7bae6a977508ee5db9d3b5fa",
+      "task_id": "e3388487-6ff0-487a-bf80-36d93eb1b4e1",
+      "metrics": {
+        "ncloc": 31477,
+        "lines": 44291,
+        "complexity": 5058,
+        "cognitive_complexity": 2423,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 284,
+        "sqale_index": 1449,
+        "software_quality_maintainability_issues": 284,
+        "software_quality_maintainability_remediation_effort": 1449
+      },
+      "missing_metrics": [],
+      "failure_category": null,
+      "server_version": "26.9.0.129388",
+      "snapshot_sha256": "d3322c2ddd14927fb2fd4311cc085941a77689f7b65caa9bd2069a0c71be8c98",
+      "scanner_version": "8.1.0.6389",
+      "source_exclusions": [
+        "**/tests/**",
+        "**/benches/**",
+        "**/examples/**",
+        "**/vendor/**",
+        "**/generated/**"
+      ],
+      "snapshot_binding_verified": true,
+      "rust_coverage_verified": true,
+      "new_code_comparison_valid": false,
+      "analysis_id": "7a2db44e-cdc6-4530-bc26-5e2737b03c16",
+      "duration_seconds": 28.66759869499947,
+      "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+      "source_file_count": 79,
+      "clippy_returncode": 0,
+      "clippy_report_sha256": "81b7111c05d1fa4730323b1cfbda5e00eac94cd61fe38a53a5fd104f3f3425a6",
+      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_baseline_001/sonar",
+      "comparison_limitations": [
+        "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+      ],
+      "common_base_comparison_verified": true,
+      "delta_vs_common_base": {
+        "ncloc": -159,
+        "lines": -177,
+        "complexity": 1,
+        "cognitive_complexity": 23,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 2,
+        "sqale_index": 11,
+        "software_quality_maintainability_issues": 2,
+        "software_quality_maintainability_remediation_effort": 11
+      },
+      "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+    },
+    "phase2_plan_001": {
+      "analysis_ok": true,
+      "new_maintainability_issues": null,
+      "project_key": "coding-experiment-bb49387b81ef1df855e0462e04cf707663aa5805",
+      "task_id": "220b02b2-97c0-4cbb-894b-dc2f70cf2b8e",
+      "metrics": {
+        "ncloc": 31812,
+        "lines": 44670,
+        "complexity": 5080,
+        "cognitive_complexity": 2423,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "missing_metrics": [],
+      "failure_category": null,
+      "server_version": "26.9.0.129388",
+      "snapshot_sha256": "df98a5ad80662527c5816217cce26e731f307145efb26a1916079cc8e166e5ab",
+      "scanner_version": "8.1.0.6389",
+      "source_exclusions": [
+        "**/tests/**",
+        "**/benches/**",
+        "**/examples/**",
+        "**/vendor/**",
+        "**/generated/**"
+      ],
+      "snapshot_binding_verified": true,
+      "rust_coverage_verified": true,
+      "new_code_comparison_valid": false,
+      "analysis_id": "4b3a4d2e-d83e-434b-9293-2a97d056cf4d",
+      "duration_seconds": 31.274593565999567,
+      "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+      "source_file_count": 79,
+      "clippy_returncode": 0,
+      "clippy_report_sha256": "a1f14739777557a782af52d12c99928b78507b05aad1a003dfd0f6c8fcc47f8f",
+      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_plan_001/sonar",
+      "comparison_limitations": [
+        "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+      ],
+      "common_base_comparison_verified": true,
+      "delta_vs_common_base": {
+        "ncloc": 176,
+        "lines": 202,
+        "complexity": 23,
+        "cognitive_complexity": 23,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": -0.09999999999999964,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      },
+      "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+    },
+    "phase2_goal_plan_001": {
+      "analysis_ok": null,
+      "new_maintainability_issues": null,
+      "status": "not_run"
+    }
+  },
+  "limitations": [
+    "Raw snapshots include different inline tests. Sonar aggregate deltas are not production-only quality effects.",
+    "One measured task without repetitions; independent private projects do not provide valid new-code issue semantics.",
+    "Clippy covers default-feature workspace lib/bin targets; remediation effort is not actual human review time."
+  ]
+}
