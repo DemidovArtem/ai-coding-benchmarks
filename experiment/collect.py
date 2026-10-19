@@ -111,6 +111,8 @@ def collect(run, config):
               "capture_diagnostics": {key: sidecar.get(key) for key in (
                   "uncommitted_lost_count", "uncommitted_lost_sample", "uncommitted_outside_count", "committed_outside_count")},
               "implementation_commit": metadata.get("implementation_commit"),
+              "resume": metadata.get("resume"), "wall_duration_seconds":metadata.get("wall_duration_seconds"),
+              "interruptions": [load(path) for path in sorted((run / "interruptions").glob("*/run_metadata.json"))],
               "collection_errors": [], **normalize_grader(raw)}
     record.update({key: None for key in ("added_prod_loc", "deleted_prod_loc", "net_prod_loc", "churn_prod_loc",
                                          "changed_prod_files", "cumulative_prod_loc")})
