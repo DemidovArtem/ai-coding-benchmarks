@@ -1,0 +1,77 @@
+{
+  "trial_id": "phase2_plan_001",
+  "variant": "plan",
+  "resolved": true,
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "952f1ec7a570cf5e0308c4f7c9fd651df947bbda",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+  "snapshot_sha256": "df98a5ad80662527c5816217cce26e731f307145efb26a1916079cc8e166e5ab",
+  "added_prod_loc": 83,
+  "deleted_prod_loc": 28,
+  "net_prod_loc": 55,
+  "churn_prod_loc": 111,
+  "changed_prod_files": 5,
+  "duration_seconds": 583.824966842,
+  "durations_seconds": {
+    "planner": 146.634162867,
+    "executor": 247.714,
+    "evaluation": 97.48683090099996,
+    "sonar": null
+  },
+  "usage": {
+    "planner": {
+      "used": true,
+      "input_tokens": 111537,
+      "output_tokens": 2764,
+      "cached_input_tokens": 74368,
+      "reasoning_output_tokens": 537,
+      "session_ids": [
+        "01a15512-9a84-7b11-8734-b02180290b72"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 8
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "executor": {
+      "input_tokens": 1221135,
+      "output_tokens": 11258,
+      "cached_input_tokens": 1154944,
+      "reasoning_output_tokens": 2823,
+      "session_ids": [
+        "01a15513-e0b6-7043-88f0-177a257e0b25"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 31
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": 1332672,
+      "output_tokens": 14022,
+      "cached_input_tokens": 1229312
+    }
+  },
+  "failure_category": null,
+  "collection_errors": [],
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 1,
+    "uncommitted_lost_sample": [
+      "crates/printer/src/summary.rs"
+    ],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "session_isolation": {
+    "planner_session_id": "01a15512-9a84-7b11-8734-b02180290b72",
+    "executor_session_id": "01a15513-e0b6-7043-88f0-177a257e0b25",
+    "separate_containers": true,
+    "separate_sessions": true
+  },
+  "test_summary": null
+}

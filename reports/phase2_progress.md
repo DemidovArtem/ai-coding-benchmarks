@@ -1,19 +1,21 @@
 # Phase 2 — частичный результат
 
-**Baseline завершён; matched A/B ещё не завершено.** Нельзя делать выводы о plan/goal_plan до выполнения обоих вариантов.
+Baseline и plan завершены. Goal_plan остановлен после подготовки до старта executor; полный A/B gate не завершён.
 
-- Trial `phase2_baseline_001`: `resolved=true`, stable F2P 2/2, P2P 1093/1093, N2P 2/2. Raw suite сохраняет 15 failures и 1 skipped; scoring не изменялся.
-- Production footprint: **+79 / −29**, net **50**, churn **108**, 5 changed source files. Inline Rust tests исключены.
-- Starting tree совпал с frozen baseline: `ae9e34953dc822672095250a5f9a6045968f1358`.
-- Setup fingerprint: `eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd`.
-- Snapshot, submission ref и все 79 Rust-файлов сверены; collection errors отсутствуют.
-- Duration: 339.78 s; evaluation отдельно: 65.36 s.
-- [Машинный результат](phase2_baseline.json), [постоянные artifacts](../results/trials/phase2_baseline_001/), [общий summary](summary.md). Исходный smoke помечен отдельно и не используется для measured pairs.
+| Trial | Resolved | Production + / − | Churn | Outcome |
+| --- | --- | --- | --- | --- |
+| phase2_baseline_001 | true | 79 / 29 | 108 | Grader complete |
+| phase2_plan_001 | true | 83 / 28 | 111 | Grader complete |
+| phase2_goal_plan_001 | null | null / null | null | Quota gate before executor |
 
-## Quota gate
+Оба завершённых trial имеют stable F2P 2/2, P2P 1093/1093, N2P 2/2. Raw suite сохраняет 15 failures и 1 skipped; scoring не менялся. Plan относительно baseline: churn +3. Это один task без repetitions; broad conclusions не поддерживаются. Baseline и plan выполнялись в разных quota windows.
 
-После trial API сообщил **89%** пятичасового окна, выше заранее закреплённого stop threshold **85%**. Поэтому `phase2_plan_001` и `phase2_goal_plan_001` **не запускались**. Нет retries, API key fallback или изменения threshold.
+Starting tree завершённых runs: `ae9e34953dc822672095250a5f9a6045968f1358`. Frozen setup fingerprint: `eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd`. Graded snapshot SHA, submission tag и Rust bytes проверены; collection errors отсутствуют. У plan capture diagnostics сохраняют один uncommitted lost path; footprint рассчитан по verified graded tag, а не по оставшейся рабочей копии.
 
-API reset timestamp: **2026-10-19T02:24:01+02:00**, Europe/Zurich. Это прогноз окна, а не разрешение запускать модель без проверки. Следующий шаг — получить свежий quota snapshot, затем выполнить plan и goal_plan по одному, сохраняя frozen prompts/code/pins.
+Plan preparation валидна, repo не изменён; planner и executor имеют разные sessions. Goal_plan preparation также валидна, repo не изменён. После неё quota 88% превысила frozen stop threshold 85%; executor не запускался. Handoff, planner trace и prep usage сохранены. Нельзя считать этот trial успешным, удалять его из результатов или повторять prep без учёта уже понесённого расхода.
 
-Static environment audit проверяет source pins и setup, но не заменяет runtime quota gate. Полный v1 остаётся незавершённым; skill A/B, Sonar и continuous pilot ещё впереди.
+Следующий шаг: свежая проверка quota ниже 85%, затем проверяемое продолжение той же попытки с прежним handoff и pristine executor. Resume adapter ещё не реализован; старый failed outcome должен остаться в history. Нельзя просто перезапустить CLI в тот же output directory.
+
+[Baseline record](phase2_baseline.json), [plan record](phase2_plan.json), [goal_plan interrupted record](phase2_goal_plan.json), [общий summary](summary.md). Canonical JSONL/CSV и raw artifacts находятся в ignored `results/`. Исходный Phase 1 smoke не входит в measured pairs.
+
+Sonar images загружены по разрешению пользователя. Loopback-only service ждёт отдельного согласования internal Docker network; actual Rust analysis и before/after measures отсутствуют. Skill A/B и continuous pilot также остаются незавершёнными.

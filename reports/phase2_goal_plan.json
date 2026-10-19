@@ -1,0 +1,66 @@
+{
+  "trial_id": "phase2_goal_plan_001",
+  "variant": "goal_plan",
+  "resolved": null,
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": null,
+  "starting_tree": null,
+  "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+  "snapshot_sha256": null,
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "duration_seconds": 211.23119894399997,
+  "durations_seconds": {
+    "planner": 139.029203542,
+    "executor": null,
+    "evaluation": null,
+    "sonar": null
+  },
+  "usage": {
+    "planner": {
+      "used": true,
+      "input_tokens": 111696,
+      "output_tokens": 3355,
+      "cached_input_tokens": 76416,
+      "reasoning_output_tokens": 301,
+      "session_ids": [
+        "01a1551d-066a-7251-bafe-af4644101fcf"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 13
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null
+    }
+  },
+  "failure_category": "quota_pressure",
+  "collection_errors": [],
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "session_isolation": null,
+  "test_summary": null
+}

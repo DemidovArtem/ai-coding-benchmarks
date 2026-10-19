@@ -1,21 +1,21 @@
 {
   "phase": "phase2",
-  "status": "quota_gated",
+  "status": "goal_plan_executor_quota_gated",
   "completed_trials": [
-    "phase2_baseline_001"
+    "phase2_baseline_001",
+    "phase2_plan_001"
   ],
-  "not_started": [
-    "phase2_plan_001",
-    "phase2_goal_plan_001"
-  ],
+  "interrupted_trials": {
+    "phase2_goal_plan_001": {
+      "failure_category": "quota_pressure",
+      "preparation_validated": true,
+      "executor_started": false
+    }
+  },
+  "not_started": [],
   "stop_threshold_percent": 85,
-  "observed_used_percent": 89,
-  "observation": "2026-10-18T22:49:03.220014+00:00",
-  "reset_at_utc": "2026-10-19T00:24:01+00:00",
-  "reset_at_local": "2026-10-19T02:24:01+02:00",
-  "next_action": "Read a fresh quota snapshot after reset; keep prompts/code/pins unchanged and run plan, then goal_plan sequentially.",
-  "goal_complete": false,
-  "latest_observed_used_percent": 94,
-  "latest_observation": "2026-10-18T23:17:09.000121+00:00",
-  "latest_snapshot": "reports/quota_gate_latest.json"
+  "observed_used_percent": 88,
+  "observation": "2026-10-19T17:03:24.681958+00:00",
+  "next_action": "Read a fresh quota snapshot below 85%, then validate and resume the retained pristine executor with the original handoff. Preserve the interrupted outcome and all preparation usage.",
+  "goal_complete": false
 }
