@@ -1,5 +1,5 @@
 {
-  "status": "candidates_only_not_runtime_verified",
+  "status": "images_downloaded_runtime_unverified",
   "observed_at": "2026-10-18T23:22:14.454414+00:00",
   "images": [
     {
@@ -8,7 +8,10 @@
       "digest_ref": "sonarqube@sha256:c0f1160bccfa435db4168c2d7df69af3c3ea7bfeb87395613014048fb33a68c1",
       "dockerhub_full_size_bytes": 1090866467,
       "source_url": "https://hub.docker.com/v2/repositories/library/sonarqube/tags/26.9.0.129388-community",
-      "downloaded": false
+      "downloaded": true,
+      "local_image_id": "sha256:01676bb7354b8b36a5f3d6b47b106acc08c5ca9a24490f38972e38d5832b7448",
+      "platform": "linux/amd64",
+      "local_size_bytes": 1438062183
     },
     {
       "role": "scanner",
@@ -16,20 +19,33 @@
       "digest_ref": "sonarsource/sonar-scanner-cli@sha256:a3f4215076706c95a17a68c19322ee916e40a3acd081a8c1a1e839e0194afa57",
       "dockerhub_full_size_bytes": 398843884,
       "source_url": "https://hub.docker.com/v2/repositories/sonarsource/sonar-scanner-cli/tags/12.2.0.4256_8.1.0",
-      "downloaded": false
+      "downloaded": true,
+      "local_image_id": "sha256:040fa7248c0504dc6815541dffa7135eca00052bf72fa1b5b569d55e0b39dbd7",
+      "platform": "linux/amd64",
+      "local_size_bytes": 992289081
     }
   ],
   "sum_dockerhub_full_size_bytes": 1489710351,
-  "download_approved": false,
+  "download_approved": true,
   "rust_coverage_verified": false,
   "host_vm_max_map_count": 1048576,
   "host_settings_changed": false,
   "phase2_execution_pins_unchanged": true,
   "remaining": [
-    "Approve exact image downloads after scanner launch/setup is reviewable",
-    "Install and verify Cargo+Clippy analysis environment",
     "Bind scanner launch to grader snapshot and freeze source exclusions",
     "Initialize secure loopback-only server and token",
     "Record scanner/analyzer/rule-profile versions and run common base plus solution scans"
-  ]
+  ],
+  "approval_source": "User: \u0441\u043e\u0433\u043b\u0430\u0441\u0443\u044e \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0443 \u043e\u0431\u0440\u0430\u0437\u043e\u0432 (2026-10-19)",
+  "downloaded_at": "2026-10-19T17:11:01.498172+00:00",
+  "scanner_version": "8.1.0.6389",
+  "clippy": {
+    "image_id": "sha256:380d12919f3ebf651fddbf02bdfcc46b5b6d3e51ddfe4c054f40a75d360e516c",
+    "dockerfile_sha256": "08f2906b51a4a85fef65299b6098f1fdd73566b14faef0a4ed0134354e15f67f",
+    "versions": [
+      "cargo 1.88.0 (873a06493 2025-05-10)",
+      "rustc 1.88.0 (6b00bc388 2025-06-23)",
+      "clippy 0.1.88 (6b00bc3880 2025-06-23)"
+    ]
+  }
 }

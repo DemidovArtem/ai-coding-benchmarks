@@ -1,6 +1,6 @@
 # SonarQube integration — current state
 
-API collector реализован и проверен на local HTTP fixtures. Настоящий SonarQube/scanner ещё не запускался; before/after scores отсутствуют. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
+API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service и before/after analysis ещё не запускались. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
 
 ## Реализовано
 
@@ -27,13 +27,17 @@ API collector реализован и проверен на local HTTP fixtures.
 - Сумма DockerHub `full_size`: **1489710351 bytes**, примерно **1,49 GB**. Фактическая загрузка зависит от platform и общих слоёв; unpacked size ещё не измерен.
 - На Docker/root разделе было около 36 GiB свободно; MemAvailable — около 12 GiB. `vm.max_map_count=1048576`; sysctl не менялись.
 
-Это **candidates**, а не проверенный runtime pin. Rust analyzer/rules должны быть подтверждены в реально запущенной 26.9 instance; `latest` не допускается. Первоначальное разрешение владельца покрывало только два benchmark-образа, не эти образы. Пока их не скачивать.
+Пользователь согласовал дополнительную загрузку 2026-10-19. Оба digest загружены для linux/amd64; local image IDs и размеры сохранены в JSON. Суммарный unpacked image size — 2430351264 bytes (общие слои не вычитаются). Scanner smoke: **8.1.0.6389**. Rust analyzer/rules ещё требуют проверки в запущенной 26.9 instance; `latest` не допускается.
+
+`compose.yaml` закрепляет digest и `pull_policy: never`, публикует только `127.0.0.1:9000` и использует отдельную internal Docker network. Создание сети и запуск service ожидают отдельного согласования; host sysctl/firewall и benchmark quarantine не меняются.
+
+`Dockerfile.clippy` добавляет только Clippy 1.88.0 к исходному benchmark image. Производный image собран отдельно; Cargo/rustc/Clippy версии подтверждены без сети и записаны в JSON. Исходный benchmark image не изменён.
 
 ## Следующий полный slice
 
 1. Подготовить reviewable scanner launch: immutable grader snapshot + common base, stable отдельные project keys через `project_key(trial_id, snapshot_sha256)`, одинаковые source exclusions, scanner version и rule-profile provenance.
 2. Подготовить Cargo/Clippy отдельно от процесса, которому передаётся Sonar token. Нельзя ослаблять benchmark quarantine для scanner или передавать token agent/build scripts.
-3. После подготовки setup/launch согласовать конкретную дополнительную загрузку по §0 handoff; запустить service только на `127.0.0.1`, создать защищённый admin password/token без записи в Git/CLI args.
+3. Загрузка согласована и завершена. После согласования отдельной internal Docker network запустить service только на `127.0.0.1`, создать защищённый admin password/token без записи в Git/CLI args.
 4. Проверить Rust coverage, exact snapshot binding, реальные before/after measures и matched deltas; затем подключить их к canonical results. Сейчас этого доказательства нет.
 
 ## Collector interface
