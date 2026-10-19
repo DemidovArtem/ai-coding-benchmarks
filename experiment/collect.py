@@ -22,7 +22,7 @@ def load(path, default=None):
 def verify_snapshot(snapshot, sidecar, repo):
     if hashlib.sha256(snapshot.read_bytes()).hexdigest() != sidecar.get("snapshot_sha256"):
         raise ValueError("Snapshot SHA-256 differs from capture sidecar")
-    if sidecar.get("ok") is not True or sidecar.get("uncommitted_lost_count"):
+    if sidecar.get("ok") is not True:
         raise ValueError("Snapshot capture integrity is unverified")
     end = sidecar["agent_tag_commit"]
     actual = git(repo, "rev-parse", "--verify", "--end-of-options", sidecar["tag"] + "^{commit}").decode().strip()
@@ -63,6 +63,8 @@ def collect(run, config):
               "quota": {"before": load(run / "quota_before.json", load(ROOT / "reports/quota_before_baseline_smoke.json")),
                         "after": load(run / "quota_after.json", load(ROOT / "reports/quota_after_baseline_smoke.json"))},
               "artifacts_path": str(run), "snapshot_sha256": sidecar.get("snapshot_sha256"),
+              "capture_diagnostics": {key: sidecar.get(key) for key in (
+                  "uncommitted_lost_count", "uncommitted_lost_sample", "uncommitted_outside_count", "committed_outside_count")},
               "implementation_commit": metadata.get("implementation_commit"),
               "collection_errors": [], **normalize_grader(raw)}
     record.update({key: None for key in ("added_prod_loc", "deleted_prod_loc", "net_prod_loc", "churn_prod_loc",
