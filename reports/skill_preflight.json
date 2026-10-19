@@ -33,9 +33,19 @@
   "serena": {
     "version": "1.6.1",
     "activation_verified": false,
-    "status": "portable runtime and offline Rust language-server staging pending",
+    "status": "blocked_setup_download_approval",
     "python_version": "3.13.14",
-    "installed_dependency_closure_bytes_approx": 111149056
+    "installed_dependency_closure_bytes_approx": 111149056,
+    "portable_cli_verified_without_network": true,
+    "profile": "profiles/serena/config.toml",
+    "runtime_manifest": "profiles/runtime/manifest.json",
+    "blocking_components": [
+      "rust-analyzer 1.88.0",
+      "rust-src 1.88.0"
+    ],
+    "compressed_component_bytes": 11773236,
+    "automatic_review_rejected_build": true,
+    "owner_approval_pending": true
   },
   "codex_native_hooks_feature": {
     "version": "0.163.0",

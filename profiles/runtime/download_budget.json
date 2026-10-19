@@ -1,0 +1,21 @@
+{
+  "status": "awaiting_component_download_approval",
+  "toolchain": "1.88.0",
+  "base_image_already_downloaded": true,
+  "python_and_node_copied_locally": true,
+  "components": [
+    {
+      "component": "rust-analyzer-preview",
+      "url": "https://static.rust-lang.org/dist/2025-06-26/rust-analyzer-1.88.0-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "b271fce1f5e8459dba168a1e6c14355964fa8e1bbeaf4229ddc540314350fc09",
+      "compressed_bytes": 8617964
+    },
+    {
+      "component": "rust-src",
+      "url": "https://static.rust-lang.org/dist/2025-06-26/rust-src-1.88.0.tar.xz",
+      "sha256": "d6e7462e5b5e53bde515d8846ffdd4da246b79ba2d7b2872a33b46cc12cf76c7",
+      "compressed_bytes": 3155272
+    }
+  ],
+  "total_compressed_bytes": 11773236
+}
