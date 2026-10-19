@@ -1,0 +1,576 @@
+{
+  "experiment_id": "ripgrep-skills-v1-pilot",
+  "trial_id": "phase3_caveman_001",
+  "trial_kind": "measured",
+  "measured_comparison": true,
+  "variant": "caveman",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "maintenance_fixes_1_sub-01",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "bbab8e7cfd770e42c0118769096c92c0610bdd5b",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "caveman",
+    "skill": "caveman",
+    "skill_version": "v4.0.1",
+    "mode": "caveman",
+    "manifest_sha256": "c0c923cdf581a60d09d1598d987598c5a24c796d91f07b6e66b0c77e6f369e4c",
+    "hooks_sha256": "dadbd2f9ed93cd27b658215efedc225e3488ca45edae3a13e1dc7ec0b3729391",
+    "node": {
+      "version": "v24.19.0",
+      "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+      "size_bytes": 125989464,
+      "local_source": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+    },
+    "hook_trust": "one invocation bypass after external source/hash review",
+    "remote_plugins_enabled": false,
+    "native_hook_activation_verified": false
+  },
+  "duration_seconds": 408.2293586859996,
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-18756717dbb03f15c29bd05d3b451e8b5eb864ee",
+    "task_id": "827b82ee-2388-43db-8353-3ee368de4e3c",
+    "metrics": {
+      "ncloc": 31767,
+      "lines": 44620,
+      "complexity": 5075,
+      "cognitive_complexity": 2425,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6,
+      "code_smells": 284,
+      "sqale_index": 1449,
+      "software_quality_maintainability_issues": 284,
+      "software_quality_maintainability_remediation_effort": 1449
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "8c780ac14fca9739428470b3240e937632609a1748fe576ab57e96a3cb787f9c",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "b1887a5c-a88a-4043-aead-5bb736ab1250",
+    "duration_seconds": 17.30895206599962,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "b3e8d280c27f17c02ae6360bdf51f75fb1b5bcb54e66e53a6e5ea539efceb7c7",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_caveman_001/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": 131,
+      "lines": 152,
+      "complexity": 18,
+      "cognitive_complexity": 25,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": -0.09999999999999964,
+      "code_smells": 2,
+      "sqale_index": 11,
+      "software_quality_maintainability_issues": 2,
+      "software_quality_maintainability_remediation_effort": 11
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-19T21:46:05.351536+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 59,
+            "windowDurationMins": 300,
+            "resetsAt": 1792462993
+          },
+          "secondary": {
+            "usedPercent": 68,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-19T21:57:25.530054+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 68,
+            "windowDurationMins": 300,
+            "resetsAt": 1792462993
+          },
+          "secondary": {
+            "usedPercent": 70,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_caveman_001",
+  "snapshot_sha256": "8c780ac14fca9739428470b3240e937632609a1748fe576ab57e96a3cb787f9c",
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 1,
+    "uncommitted_lost_sample": [
+      "crates/printer/src/summary.rs"
+    ],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "implementation_commit": "09667e86860fd900c39e828dba5e36220daf91d0",
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "skill_state": null,
+  "hook_activation_audit": {
+    "variant": "caveman",
+    "native_hook_activation_verified": true,
+    "audit": [
+      {
+        "entrypoint": "codex-sessionstart.js",
+        "event": "SessionStart",
+        "exit_code": 0,
+        "mode": "caveman",
+        "configured_legacy_mode": "full",
+        "context_chars": 4467,
+        "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
+        "caveman_mode_context": true,
+        "unprivileged_uid": 1000
+      }
+    ]
+  },
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": true,
+  "grader_metrics": {
+    "milestone_id": "maintenance_fixes_1_sub-01",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": true,
+    "resolved": true,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [
+          "tests::debug",
+          "regression::r3108_files_without_match_quiet_exit"
+        ],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [
+          "summary::tests::quiet",
+          "summary::tests::quiet_with_stats"
+        ],
+        "failure": [],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 1093,
+        "failure": [],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 1117,
+      "passed": 1101,
+      "failed": 15,
+      "error": 0,
+      "skipped": 1,
+      "fail_to_pass_required": 2,
+      "fail_to_pass_achieved": 2,
+      "none_to_pass_required": 2,
+      "none_to_pass_achieved": 2,
+      "pass_to_pass_required": 1093,
+      "pass_to_pass_achieved": 1093,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "milestone-maintenance_fixes_1_sub-01-end",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": false,
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cjs",
+        ".cpp",
+        ".cxx",
+        ".go",
+        ".groovy",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx",
+        ".java",
+        ".js",
+        ".jsx",
+        ".kt",
+        ".mjs",
+        ".pxd",
+        ".py",
+        ".pyi",
+        ".pyx",
+        ".rs",
+        ".scala",
+        ".ts",
+        ".tsx"
+      ],
+      "keep_list": [],
+      "policy_source": "metadata-legacy",
+      "policy_sha256": "",
+      "enablement_source": "metadata-legacy",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": null,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "88f2fe46673bd7f514a579d1fcd094f6f193af52",
+      "evaluator_head": "145723d88edb54fbb3120055a95fe3ba0e6b31fe",
+      "base_reason": "prepared-subject",
+      "merged_count": 0,
+      "agent_exact_count": 1,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "f4e1a18a1bc1",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "sha256:afa3725be4e132d3412b081bca085666979104c44869c41bbcbc1ec835270c19",
+      "offline_cache_milestone_image_id": "556dd58cb2791993a26f229389cdc963fc02ab7192e061f0bc3c94eda49e9140",
+      "offline_cache_closure_image_id": "06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+      "offline_cache_effective_image_id": "afa3725be4e132d3412b081bca085666979104c44869c41bbcbc1ec835270c19",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": true,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "identity-v2",
+      "framework": "cargo",
+      "payload_path": "artifacts/998738/eval_summary.json",
+      "payload_sha256": "663d56a0ce46f5aa1de721785cba212de48145af6052c5400c574ef206949792",
+      "classification_file": "maintenance_fixes_1_sub-01_classification.json",
+      "classification_sha256": "43b2a7a36d8ca98b042056cd475906a8d824c540e2c904d2ba9251f1e08c0756",
+      "collision_count": 0,
+      "collisions": [],
+      "untrusted": false,
+      "match_trace": {
+        "fail_to_pass": {
+          "exact": 2
+        },
+        "pass_to_pass": {
+          "exact": 1093
+        },
+        "none_to_pass": {
+          "exact": 2
+        }
+      }
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [
+      "tests::debug",
+      "regression::r3108_files_without_match_quiet_exit"
+    ],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 1093,
+    "failure": [],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [
+      "summary::tests::quiet",
+      "summary::tests::quiet_with_stats"
+    ],
+    "failure": [],
+    "missing": 0
+  },
+  "failure_category": null,
+  "added_prod_loc": 77,
+  "deleted_prod_loc": 21,
+  "net_prod_loc": 56,
+  "churn_prod_loc": 98,
+  "changed_prod_files": 5,
+  "cumulative_prod_loc": 33745,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 1287328,
+      "output_tokens": 13205,
+      "cached_input_tokens": 1206144,
+      "reasoning_output_tokens": 5267,
+      "session_ids": [
+        "01a15626-7eea-7841-bf9e-968436f7d6f6"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 29
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": 1287328,
+      "output_tokens": 13205,
+      "cached_input_tokens": 1206144
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": 24,
+    "total_tool_calls": 23,
+    "wall_clock_ms": 243233
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 243.233,
+    "evaluation": 64.5621802659989,
+    "sonar": 17.30895206599962
+  },
+  "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+  "new_prod_files": 0,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "formatting_only_files": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "Cargo.lock",
+      "new_path": "Cargo.lock",
+      "raw_added": 21,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/core/flags/hiargs.rs",
+      "new_path": "crates/core/flags/hiargs.rs",
+      "raw_added": 5,
+      "raw_deleted": 1,
+      "added_prod_loc": 5,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/core/search.rs",
+      "new_path": "crates/core/search.rs",
+      "raw_added": 16,
+      "raw_deleted": 12,
+      "added_prod_loc": 16,
+      "deleted_prod_loc": 12
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/Cargo.toml",
+      "new_path": "crates/globset/Cargo.toml",
+      "raw_added": 2,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/glob.rs",
+      "new_path": "crates/globset/src/glob.rs",
+      "raw_added": 40,
+      "raw_deleted": 1,
+      "added_prod_loc": 20,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/lib.rs",
+      "new_path": "crates/globset/src/lib.rs",
+      "raw_added": 42,
+      "raw_deleted": 2,
+      "added_prod_loc": 14,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/printer/src/summary.rs",
+      "new_path": "crates/printer/src/summary.rs",
+      "raw_added": 71,
+      "raw_deleted": 6,
+      "added_prod_loc": 22,
+      "deleted_prod_loc": 6
+    },
+    {
+      "status": "M",
+      "old_path": "tests/regression.rs",
+      "new_path": "tests/regression.rs",
+      "raw_added": 77,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extension": ".rs",
+    "inline_tests": "removed by pinned upstream Rust AST filter",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor directory",
+      "generated directory"
+    ],
+    "loc": "physical lines including comments and blank lines",
+    "rename_detection": "-M50%"
+  },
+  "verified_snapshot_rust_files": 79
+}

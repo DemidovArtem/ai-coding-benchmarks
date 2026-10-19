@@ -1,6 +1,6 @@
 {
-  "status": "baseline_ponytail_complete_caveman_running",
-  "measured_trials_started": 3,
+  "status": "baseline_ponytail_caveman_complete_serena_running",
+  "measured_trials_started": 4,
   "phase2_config_unchanged": true,
   "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
   "rust_lsp_verified_offline": true,
@@ -320,7 +320,8 @@
   "ripgrep_offline_probe": "reports/serena_ripgrep_offline.json",
   "completed_trials": [
     "phase3_baseline_001",
-    "phase3_ponytail_001"
+    "phase3_ponytail_001",
+    "phase3_caveman_001"
   ],
   "baseline_result": {
     "resolved": true,
@@ -333,6 +334,13 @@
     "resolved": true,
     "added_prod_loc": 70,
     "deleted_prod_loc": 22,
+    "failure_category": null,
+    "collection_errors": []
+  },
+  "caveman_result": {
+    "resolved": true,
+    "added_prod_loc": 77,
+    "deleted_prod_loc": 21,
     "failure_category": null,
     "collection_errors": []
   }
