@@ -1,5 +1,5 @@
 {
-  "status": "read_only_preflight_not_activated",
+  "status": "ponytail_native_activation_verified_other_profiles_pending",
   "ponytail": {
     "installed_version": "5.3.2",
     "session_hook": "hooks/ponytail-activate.js",
@@ -7,7 +7,13 @@
     "requires_node": true,
     "node_in_pinned_base_image": false,
     "network_calls_in_session_hook": false,
-    "activation_verified": false
+    "activation_verified": true,
+    "node_staged_separately": true,
+    "node_version": "v24.19.0",
+    "activation_evidence": "reports/ponytail_activation.json",
+    "native_user_hooks": true,
+    "plugin_feature_enabled": false,
+    "measured_trial_completed": false
   },
   "caveman": {
     "curated_package_version": "2.7.0",

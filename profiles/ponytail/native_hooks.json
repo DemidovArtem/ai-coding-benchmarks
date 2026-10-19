@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /opt/experiment-hooks/dispatch.py ponytail-activate.js",
+            "timeout": 15,
+            "statusMessage": "Loading ponytail mode...",
+            "additionalContextLimit": 12000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /opt/experiment-hooks/dispatch.py ponytail-subagent.js",
+            "timeout": 15,
+            "statusMessage": "Loading ponytail mode...",
+            "additionalContextLimit": 12000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /opt/experiment-hooks/dispatch.py ponytail-mode-tracker.js",
+            "timeout": 15,
+            "statusMessage": "Tracking ponytail mode...",
+            "additionalContextLimit": 12000
+          }
+        ]
+      }
+    ]
+  }
+}
