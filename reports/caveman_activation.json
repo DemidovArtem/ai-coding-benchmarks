@@ -1,0 +1,50 @@
+{
+  "status": "native_caveman_activation_verified_not_measured",
+  "variant": "caveman",
+  "version": "v4.0.1",
+  "commit": "d262ab3882952a59312ff3537cd86d894523c5ab",
+  "mode": "caveman",
+  "configured_legacy_mode": "full",
+  "native_hook_activation_verified": true,
+  "model_observed_mode": "CAVEMAN MODE ACTIVE \u2014 mode: caveman",
+  "usage": {
+    "input_tokens": 11858,
+    "output_tokens": 51,
+    "cached_input_tokens": 9088,
+    "reasoning_output_tokens": 34,
+    "session_ids": [
+      "01a15564-614d-7731-8125-2fa0d4ec9e82"
+    ],
+    "turns": 1,
+    "tool_calls": {},
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "hook_audit": [
+    {
+      "entrypoint": "codex-sessionstart.js",
+      "event": "SessionStart",
+      "exit_code": 0,
+      "mode": "caveman",
+      "configured_legacy_mode": "full",
+      "context_chars": 4467,
+      "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
+      "caveman_mode_context": true,
+      "unprivileged_uid": 1000
+    }
+  ],
+  "duration_seconds": 72.40089676099979,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/caveman_activation_001",
+  "activation_fixture": "neutral one-file read-only fixture; no benchmark task or grader feedback",
+  "quarantine": "protected",
+  "plugins_enabled": false,
+  "remote_plugins_enabled": false,
+  "host_configuration_changed": false,
+  "not_enabled": [
+    "Cavecrew presets",
+    "gateway",
+    "optimizer",
+    "middleware",
+    "other Caveman skills"
+  ]
+}

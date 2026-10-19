@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /opt/experiment-hooks/caveman_dispatch.py codex-sessionstart.js",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode",
+            "additionalContextLimit": 12000
+          }
+        ]
+      }
+    ]
+  }
+}

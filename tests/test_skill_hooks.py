@@ -25,6 +25,18 @@ class SkillHookTests(unittest.TestCase):
                     self.assertTrue(handler['command'].startswith('python3 /opt/experiment-hooks/dispatch.py '))
                     self.assertIn(handler['command'].split()[-1],manifest['entrypoints'])
 
+    def test_caveman_uses_pinned_upstream_communication_hook_and_complete_rules(self):
+        profile = ROOT/'profiles/caveman'
+        manifest = json.loads((profile/'manifest.json').read_text())
+        self.assertEqual(manifest['commit'],'d262ab3882952a59312ff3537cd86d894523c5ab')
+        for path, expected in manifest['files_sha256'].items():
+            self.assertEqual(dispatch.digest(profile/'assets'/path),expected,path)
+        hooks = json.loads((profile/'native_hooks.json').read_text())
+        self.assertEqual(set(hooks['hooks']),{'SessionStart'})
+        skill = (profile/'assets/skills/caveman/SKILL.md').read_text()
+        self.assertIn('Clarity beats compression.',skill)
+        self.assertIn('Anything persisted outside chat:',skill)
+
     def test_unreviewed_entrypoint_runtime_source_and_path_escape_fail_closed(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)/'package';root.mkdir()

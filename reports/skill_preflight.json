@@ -1,5 +1,5 @@
 {
-  "status": "ponytail_native_activation_verified_other_profiles_pending",
+  "status": "two_native_skill_profiles_activated_serena_pending",
   "ponytail": {
     "installed_version": "5.3.2",
     "session_hook": "hooks/ponytail-activate.js",
@@ -20,13 +20,22 @@
     "curated_manifest_declares_hook": false,
     "local_communication_skill_sha256": "0bf09a0a9a017d004a81d4b693e5a2d830e1a28230a5885df773e1ed9c0571cc",
     "curated_skill_sha256": "f2b5f75cc70708999e428511d295294b15d27e12ac84080cd66af1d0ad86f56f",
-    "activation_verified": false,
-    "note": "Local communication skill and curated workflow package are distinct assets; do not substitute silently."
+    "activation_verified": true,
+    "note": "Local communication skill and curated workflow package are distinct assets; do not substitute silently.",
+    "benchmark_package_version": "v4.0.1",
+    "benchmark_package_commit": "d262ab3882952a59312ff3537cd86d894523c5ab",
+    "mode": "caveman",
+    "configured_legacy_mode": "full",
+    "activation_evidence": "reports/caveman_activation.json",
+    "measured_trial_completed": false,
+    "host_legacy_skill_is_distinct": true
   },
   "serena": {
-    "version": null,
+    "version": "1.6.1",
     "activation_verified": false,
-    "status": "offline container installation and language-server closure not yet audited"
+    "status": "portable runtime and offline Rust language-server staging pending",
+    "python_version": "3.13.14",
+    "installed_dependency_closure_bytes_approx": 111149056
   },
   "codex_native_hooks_feature": {
     "version": "0.163.0",

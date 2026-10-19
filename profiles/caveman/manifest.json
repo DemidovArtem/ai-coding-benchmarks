@@ -1,0 +1,32 @@
+{
+  "package": "JuliusBrussee/caveman",
+  "version": "v4.0.1",
+  "commit": "d262ab3882952a59312ff3537cd86d894523c5ab",
+  "tree": "bb019ab94786b5e2fe97a3e4965454fa9ed40253",
+  "mode": "caveman",
+  "configured_legacy_mode": "full",
+  "entrypoints": [
+    "codex-sessionstart.js"
+  ],
+  "files_sha256": {
+    ".codex/codex-sessionstart.js": "742a53ae011c8adc8cd5d4ab2dea86cb3488f003acaa034f24c04f699b1c0037",
+    "src/hooks/caveman-config.js": "64762133d3467b1f4ea479c0d4fbb40a141a3f0e4423e8fd37688e8233aab4c6",
+    "skills/caveman/SKILL.md": "415d43518f2b1a9498c15a445d4657117b129ee5e81b19454ce348439cc6672b",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-MIT": "5eb826cd03151bcc7cce3f80d40e87733237fedfc6c36d6908aca5fd650a0bdb"
+  },
+  "node": {
+    "version": "v24.19.0",
+    "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+    "size_bytes": 125989464,
+    "local_source": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+  },
+  "audit": {
+    "network_calls": false,
+    "elevated_hook_execution": false,
+    "treatment": "Communication rules and native SessionStart only; no gateway, optimizer, middleware or Cavecrew presets.",
+    "host_legacy_skill_is_distinct": true,
+    "host_configuration_changed": false,
+    "model_activation_verified": false
+  }
+}
