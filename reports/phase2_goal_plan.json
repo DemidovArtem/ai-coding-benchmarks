@@ -1,23 +1,23 @@
 {
   "trial_id": "phase2_goal_plan_001",
   "variant": "goal_plan",
-  "resolved": null,
+  "resolved": true,
   "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
-  "ending_commit": null,
-  "starting_tree": null,
+  "ending_commit": "a9a448922f85c50a09c9309333c8d9bde85a023b",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
   "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
-  "snapshot_sha256": null,
-  "added_prod_loc": null,
-  "deleted_prod_loc": null,
-  "net_prod_loc": null,
-  "churn_prod_loc": null,
-  "changed_prod_files": null,
-  "duration_seconds": 211.23119894399997,
+  "snapshot_sha256": "de35733585de7a4ac2d7e82f8b9c13afa6256940968fc1db126b4f75910131d3",
+  "added_prod_loc": 93,
+  "deleted_prod_loc": 24,
+  "net_prod_loc": 69,
+  "churn_prod_loc": 117,
+  "changed_prod_files": 5,
+  "duration_seconds": 756.9146126579994,
   "durations_seconds": {
     "planner": 139.029203542,
-    "executor": null,
-    "evaluation": null,
-    "sonar": null
+    "executor": 343.357,
+    "evaluation": 94.60717153400037,
+    "sonar": 30.982420977999936
   },
   "usage": {
     "planner": {
@@ -37,30 +37,154 @@
       "counter_semantics": "last cumulative totals per thread; fields as reported"
     },
     "executor": {
-      "input_tokens": null,
-      "output_tokens": null,
-      "cached_input_tokens": null,
-      "reasoning_output_tokens": null,
-      "session_ids": [],
-      "turns": 0,
-      "tool_calls": {},
+      "input_tokens": 1684573,
+      "output_tokens": 16668,
+      "cached_input_tokens": 1591808,
+      "reasoning_output_tokens": 5810,
+      "session_ids": [
+        "01a15555-16c1-7e83-a127-3f264b0c1276"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 44
+      },
       "anomalies": [],
       "counter_semantics": "last cumulative totals per thread; fields as reported"
     },
     "total": {
-      "input_tokens": null,
-      "output_tokens": null,
-      "cached_input_tokens": null
+      "input_tokens": 1796269,
+      "output_tokens": 20023,
+      "cached_input_tokens": 1668224
     }
   },
-  "failure_category": "quota_pressure",
+  "failure_category": null,
   "collection_errors": [],
   "capture_diagnostics": {
-    "uncommitted_lost_count": null,
-    "uncommitted_lost_sample": null,
-    "uncommitted_outside_count": null,
-    "committed_outside_count": null
+    "uncommitted_lost_count": 1,
+    "uncommitted_lost_sample": [
+      "crates/printer/src/summary.rs"
+    ],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
   },
-  "session_isolation": null,
-  "test_summary": null
+  "session_isolation": {
+    "planner_session_id": "01a1551d-066a-7251-bafe-af4644101fcf",
+    "executor_session_id": "01a15555-16c1-7e83-a127-3f264b0c1276",
+    "separate_containers": true,
+    "separate_sessions": true
+  },
+  "resume": {
+    "started_at": "2026-10-19T18:01:50.857370+00:00",
+    "container_name": "maintenance_fixes_1_sub-01-phase2_goal_plan_001-runner",
+    "preflight": {
+      "container_id": "9be1fdea1f7a94bae2e2dc10cd9bfc4fc1c9e826a5cf785b77fe8eac6d1d513b",
+      "image_id": "sha256:06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "test_only_worktree_edits": {
+        "crates/printer/src/summary.rs": "06e27601ee7c21f6e3ed9b3fb8cb3c03617ba8f35ec70c118f556f3c20c38ce2"
+      },
+      "executor_session_files": 0,
+      "executor_processes": 0
+    },
+    "preparation_reused": true,
+    "prior_duration_seconds": 211.23119894399997,
+    "prior_outcome": "quota_pressure_before_executor",
+    "history_path": "/tmp/ai-coding-experiment/phase2_goal_plan_001/interruptions/001",
+    "implementation_commit": "b6b232919f64a28c10ce0197a4e0d62925bdde17",
+    "adapter_sha256": "9f5c79f47730f3627d929db9f1e0073ed2ca469d507ae144ae3d370cceaba7f0",
+    "duration_seconds": 545.6834137139995
+  },
+  "wall_duration_seconds": 4262.336977,
+  "interruptions": [
+    {
+      "phase": "trial",
+      "state": "failed",
+      "started_at": "2026-10-19T16:59:54.203811+00:00",
+      "variant": "goal_plan",
+      "trial_kind": "measured",
+      "measured_comparison": true,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "implementation_commit": "9d6677ee1ec31afd94eabf622dd597b98bfc173c",
+      "experiment_sha256": "479a3df9c643f5e1562d81fca1ab5fd4aaaf5bac8dfabb0f571eaf1b5b670e2f",
+      "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+      "failure_category": "quota_pressure",
+      "error": "Quota pressure: configured stop threshold reached",
+      "duration_seconds": 211.23119894399997
+    }
+  ],
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-70ba302612f166a7a2faa532367bf5e5b9e91a96",
+    "task_id": "11ef3a11-accd-43dc-9c3f-a364f4ec86a0",
+    "metrics": {
+      "ncloc": 31838,
+      "lines": 44699,
+      "complexity": 5090,
+      "cognitive_complexity": 2442,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6,
+      "code_smells": 283,
+      "sqale_index": 1444,
+      "software_quality_maintainability_issues": 283,
+      "software_quality_maintainability_remediation_effort": 1444
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "de35733585de7a4ac2d7e82f8b9c13afa6256940968fc1db126b4f75910131d3",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "0c5ef22b-39d9-460e-9450-17a733304e0a",
+    "duration_seconds": 30.982420977999936,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "75f62429ca5b0ae55cdae77d68d39697ae338108b42e42da059064ced7e9e8bf",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_goal_plan_001/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": 202,
+      "lines": 231,
+      "complexity": 33,
+      "cognitive_complexity": 42,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": -0.09999999999999964,
+      "code_smells": 1,
+      "sqale_index": 6,
+      "software_quality_maintainability_issues": 1,
+      "software_quality_maintainability_remediation_effort": 6
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+  },
+  "test_summary": {
+    "total": 1117,
+    "passed": 1101,
+    "failed": 15,
+    "error": 0,
+    "skipped": 1,
+    "fail_to_pass_required": 2,
+    "fail_to_pass_achieved": 2,
+    "none_to_pass_required": 2,
+    "none_to_pass_achieved": 2,
+    "pass_to_pass_required": 1093,
+    "pass_to_pass_achieved": 1093,
+    "pass_to_pass_failed": 0,
+    "pass_to_pass_missing": 0,
+    "none_to_pass_missing": 0
+  }
 }

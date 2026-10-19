@@ -1,6 +1,6 @@
 # Sonar pilot — реальные raw snapshot metrics
 
-Общий исходный baseline и три существующих solution snapshots обработаны закреплённым Sonar 26.9/Rust 1.8.1.3395. Для каждого подтверждены snapshot binding и покрытие всех 79 Rust-файлов; rules/profile проверены до и после анализа. Goal_plan не имеет solution snapshot: executor ещё не запускался.
+Общий исходный baseline и четыре существующих solution snapshots обработаны закреплённым Sonar 26.9/Rust 1.8.1.3395. Для каждого подтверждены snapshot binding и покрытие всех 79 Rust-файлов; rules/profile проверены до и после анализа. Goal_plan также завершён и проанализирован после проверенного resume.
 
 | Snapshot | ncloc | Cognitive complexity | Maintainability issues | Remediation effort, min |
 | --- | --- | --- | --- | --- |
@@ -8,6 +8,7 @@
 | baseline_smoke_001 | 31461 | 2424 | 283 | 1443 |
 | phase2_baseline_001 | 31477 | 2423 | 284 | 1449 |
 | phase2_plan_001 | 31812 | 2423 | 282 | 1438 |
+| phase2_goal_plan_001 | 31838 | 2442 | 283 | 1444 |
 
 **Не ранжировать workflow по этой таблице:** snapshots содержат различающийся inline test-код. Это raw source measurements, а не production-only quality effect. Production physical LOC отдельно считает AST-filtered Git pipeline. Remediation effort — оценка Sonar, не измеренное время review.
 

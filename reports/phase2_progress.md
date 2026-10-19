@@ -1,21 +1,19 @@
-# Phase 2 — частичный результат
+# Phase 2 — все три варианта завершены
 
-Baseline и plan завершены. Goal_plan остановлен после подготовки до старта executor; полный A/B gate не завершён.
+Baseline, plan и goal_plan прошли неизменённый grader на одной задаче. Goal_plan продолжен после quota interruption с прежним handoff; это отдельный operational confound, сохранённый в history.
 
-| Trial | Resolved | Production + / − | Churn | Outcome |
-| --- | --- | --- | --- | --- |
-| phase2_baseline_001 | true | 79 / 29 | 108 | Grader complete |
-| phase2_plan_001 | true | 83 / 28 | 111 | Grader complete |
-| phase2_goal_plan_001 | null | null / null | null | Quota gate before executor |
+| Trial | Resolved | Production + / − | Churn | Output tokens, prep + executor | Active wall time |
+| --- | --- | --- | --- | --- | --- |
+| phase2_baseline_001 | True | 79 / 29 | 108 | 9125 | 339.78 s |
+| phase2_plan_001 | True | 83 / 28 | 111 | 14022 | 583.82 s |
+| phase2_goal_plan_001 | True | 93 / 24 | 117 | 20023 | 756.91 s |
 
-Оба завершённых trial имеют stable F2P 2/2, P2P 1093/1093, N2P 2/2. Raw suite сохраняет 15 failures и 1 skipped; scoring не менялся. Plan относительно baseline: churn +3. Это один task без repetitions; broad conclusions не поддерживаются. Baseline и plan выполнялись в разных quota windows.
+Stable F2P 2/2, P2P 1093/1093, N2P 2/2 во всех вариантах. Raw suite сохраняет 15 failures и 1 skipped. Snapshot SHA, submission tag и Rust bytes проверены; collection errors отсутствуют. Starting tree и frozen setup fingerprint одинаковы. Planner repositories не менялись; planner и executor sessions различаются.
 
-Starting tree завершённых runs: `ae9e34953dc822672095250a5f9a6045968f1358`. Frozen setup fingerprint: `eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd`. Graded snapshot SHA, submission tag и Rust bytes проверены; collection errors отсутствуют. У plan capture diagnostics сохраняют один uncommitted lost path; footprint рассчитан по verified graded tag, а не по оставшейся рабочей копии.
+Goal_plan: prep выполнен один раз; после quota 88% executor не стартовал. Resume сохранил этот terminal outcome в `interruptions/001`, проверил тот же container/image/tree, отсутствие executor session и test-only masking edits. Неизменённый handoff передан свежему executor. Active duration включает оба setup-прохода; full wall duration с паузой записана отдельно. Старый failure не удалён из history; prep usage не удваивается.
 
-Plan preparation валидна, repo не изменён; planner и executor имеют разные sessions. Goal_plan preparation также валидна, repo не изменён. После неё quota 88% превысила frozen stop threshold 85%; executor не запускался. Handoff, planner trace и prep usage сохранены. Нельзя считать этот trial успешным, удалять его из результатов или повторять prep без учёта уже понесённого расхода.
+На этом одном task планирование не улучшило correctness; token output и code churn выросли. Это наблюдение одного trial на вариант, без repetitions и без статистического вывода. Разные quota windows, resume adapter и toolchain activity дополнительно ограничивают временные сравнения.
 
-Следующий шаг: свежая проверка quota ниже 85%, затем проверяемое продолжение той же попытки с прежним handoff и pristine executor. Resume adapter ещё не реализован; старый failed outcome должен остаться в history. Нельзя просто перезапустить CLI в тот же output directory.
+[Baseline](phase2_baseline.json), [plan](phase2_plan.json), [goal_plan с interruption/resume history](phase2_goal_plan.json), [Sonar pilot](sonar_pilot.md), [общий summary](summary.md). Canonical JSONL/CSV и raw artifacts сохранены в ignored `results/`. Исходный smoke исключён из measured pairs.
 
-[Baseline record](phase2_baseline.json), [plan record](phase2_plan.json), [goal_plan interrupted record](phase2_goal_plan.json), [общий summary](summary.md). Canonical JSONL/CSV и raw artifacts находятся в ignored `results/`. Исходный Phase 1 smoke не входит в measured pairs.
-
-Sonar service запущен по отдельному разрешению. Actual common base и все существующие solution scans подтверждены; raw before/after measures и ограничения inline tests опубликованы в [Sonar pilot](sonar_pilot.md). Skill A/B и continuous pilot также остаются незавершёнными.
+Skill A/B и continuous pilot остаются незавершёнными. Raw Sonar metrics включают различающийся inline test-код и не являются production-only quality effects.

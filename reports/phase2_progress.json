@@ -1,21 +1,14 @@
 {
   "phase": "phase2",
-  "status": "goal_plan_executor_quota_gated",
+  "status": "all_three_completed_with_quota_resume_confound",
   "completed_trials": [
     "phase2_baseline_001",
-    "phase2_plan_001"
+    "phase2_plan_001",
+    "phase2_goal_plan_001"
   ],
-  "interrupted_trials": {
-    "phase2_goal_plan_001": {
-      "failure_category": "quota_pressure",
-      "preparation_validated": true,
-      "executor_started": false
-    }
-  },
   "not_started": [],
-  "stop_threshold_percent": 85,
-  "observed_used_percent": 88,
-  "observation": "2026-10-19T17:03:24.681958+00:00",
-  "next_action": "Read a fresh quota snapshot below 85%, then validate and resume the retained pristine executor with the original handoff. Preserve the interrupted outcome and all preparation usage.",
-  "goal_complete": false
+  "original_quota_interruption_retained": true,
+  "resume_preparation_count": 1,
+  "goal_complete": false,
+  "next_action": "Complete isolated Ponytail/Caveman/Serena activation and matched skill trials; continuous dispatch remains pending."
 }
