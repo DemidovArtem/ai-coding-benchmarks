@@ -86,7 +86,7 @@ def main():
             agent._framework = NativeHooks(reasoning_effort=config['codex']['reasoning_effort'])
         prompt = 'Read the mode header already supplied by your SessionStart hook. Reply with its exact text only. Do not invoke tools or inspect files.'
         if args.variant=='serena':
-            prompt='Use Serena initial_instructions, then Serena get_symbols_overview on src/lib.rs. Reply with the function name returned by that MCP tool. Do not edit files or use shell tools.'
+            prompt='Call the configured Serena MCP tools: first mcp__serena__initial_instructions, then mcp__serena__get_symbols_overview with relative_path=src/lib.rs. Discover deferred tools if needed. Reply with the function name returned by the MCP tool. Do not edit files or use shell tools.'
         ok, session = agent.run(prompt)
         get_parser('codex').extract_raw_logs(setup.container_name,output/'log')
         events = [json.loads(line) for line in (output/'log/agent_stdout.txt').read_text().splitlines() if line.startswith('{')]
@@ -119,6 +119,9 @@ def main():
     except Exception as error:
         result.update(failure_category='quota_pressure' if str(error).startswith('Quota pressure') else 'skill_activation_failure',error=str(error))
     finally:
+        if args.variant=='serena':
+            for source,target in (('/home/fakeroot/.serena-profile/logs','serena_startup_logs'),('/home/fakeroot/.codex/log','codex_startup_logs')):
+                subprocess.run(['docker','cp',setup.container_name+':'+source,str(output/target)],capture_output=True)
         setup.cleanup()
         result['duration_seconds']=time.monotonic()-started
         save(output/'quota_after.json',read_quota())

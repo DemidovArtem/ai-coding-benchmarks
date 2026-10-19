@@ -16,6 +16,7 @@ class SerenaProfileTests(unittest.TestCase):
         self.assertTrue(all(value is False for value in config['features'].values()))
         server = config['mcp_servers']['serena']
         self.assertTrue(server['command'].startswith('/opt/experiment-serena/python/bin/'))
+        self.assertIs(server['required'],True)
         args = server['args']
         for flag in ('--enable-web-dashboard','--open-web-dashboard','--enable-gui-log-window'):
             self.assertEqual(args[args.index(flag)+1],'false')

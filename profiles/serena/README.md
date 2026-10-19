@@ -1,4 +1,4 @@
-# Isolated Serena profile — Codex activation blocked by quota
+# Isolated Serena profile — Codex MCP activation verified
 
 `config.toml` registers exactly one local **stdio** MCP server, Serena **1.6.1**, using the relocated Python **3.13.14** runtime and pinned dependency closure. It uses `--project-from-cwd --context codex`; no host-global MCP setting is changed. Plugins, remote plugins, connected apps and web tools remain disabled.
 
@@ -13,3 +13,7 @@ An activation smoke may explicitly request one Serena tool call to prove connect
 The first Codex MCP smoke started Serena and called `initial_instructions`, but Rust symbols failed because the MCP process did not inherit the image's Cargo PATH/Rustup home. This failed attempt is retained in `reports/serena_activation_failed_001.json`. The profile now explicitly pins `/usr/local/cargo/bin`, `RUSTUP_HOME=/usr/local/rustup`, `CARGO_HOME=/usr/local/cargo` and `CARGO_NET_OFFLINE=true` for its own child process. It uses the already installed components; no quarantine or host setting changes are needed. A new actual symbol-tool smoke is required to validate this correction.
 
 The corrected offline probe succeeded. Its next Codex smoke was stopped by the 85% quota gate before a model call. `reports/serena_activation.json` records the blocked status; no measured Serena trial has started. Repeat the corrected activation after a fresh successful quota check, then freeze the cohort. The earlier failed tool call does not count as activation.
+
+Further startup diagnosis found an initial-catalog race in Codex CLI 0.163.0: optional MCP servers have a default 1000 ms grace, while this Serena runtime initializes in about four seconds. A zero-model app-server connection reached `ready`, listed all 23 tools without errors, and the CLI startup log independently showed the same tools and working RustAnalyzer. Failed model attempts 003/004 had no Serena tools in the initial context. `required = true` now makes Codex wait for this profile's server or fail startup within 120 seconds, avoiding silent baseline execution. This is the documented behavior in [official OpenAI MCP documentation](https://learn.chatgpt.com/docs/extend/mcp?surface=cli). It changes only Serena's container profile.
+
+The final corrected smoke `serena_activation_shared_005` passed: Codex called both `initial_instructions` and `get_symbols_overview`, each completed successfully, and replied with `activation_fixture`. No shell tool ran. The proof and usage are in `reports/serena_activation.json`; failed attempts remain separately retained. All three skill profiles now have activation evidence on the exact common image. Measured task results are separate from these setup checks.

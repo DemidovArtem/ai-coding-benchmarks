@@ -1,0 +1,28 @@
+{
+  "success": false,
+  "kind": "activation_smoke_not_measured",
+  "variant": "serena",
+  "failure_category": "skill_activation_failure",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "session_id": "01a15611-c3be-7133-a17e-be49783d7c41",
+  "usage": {
+    "input_tokens": 34800,
+    "output_tokens": 166,
+    "cached_input_tokens": 30464,
+    "reasoning_output_tokens": 26,
+    "session_ids": [
+      "01a15611-c3be-7133-a17e-be49783d7c41"
+    ],
+    "turns": 1,
+    "tool_calls": {},
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "error": "Serena symbol tool activation missing",
+  "duration_seconds": 87.01707217600051,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_activation_shared_004",
+  "mcp_activation_verified": false,
+  "status": "optional_mcp_startup_grace_race",
+  "root_cause": "Optional MCP has a 1000 ms initial catalog grace; Serena initialization takes about 4 seconds. Required startup waits up to the configured timeout.",
+  "official_reference": "https://learn.chatgpt.com/docs/extend/mcp?surface=cli"
+}

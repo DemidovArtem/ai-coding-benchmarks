@@ -1,0 +1,11 @@
+{
+  "kind": "zero_model_mcp_startup_diagnostic",
+  "model_invoked": false,
+  "runtime_status": "connected",
+  "tool_count": 23,
+  "required_tools_available": true,
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_codex_diagnostic_001",
+  "raw_status_sha256": "b93028a6f48c226f3bfa08abb7c7aca51e909d7d409878465edda9d828f4ed3b",
+  "limitation": "Readiness and tool inventory only; does not prove a model tool invocation."
+}

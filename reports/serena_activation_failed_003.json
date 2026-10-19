@@ -1,0 +1,26 @@
+{
+  "success": false,
+  "kind": "activation_smoke_not_measured",
+  "variant": "serena",
+  "failure_category": "skill_activation_failure",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "session_id": "01a1560d-d8d6-7f00-9b4a-7865e077cb9f",
+  "usage": {
+    "input_tokens": 32534,
+    "output_tokens": 177,
+    "cached_input_tokens": 28800,
+    "reasoning_output_tokens": 40,
+    "session_ids": [
+      "01a1560d-d8d6-7f00-9b4a-7865e077cb9f"
+    ],
+    "turns": 1,
+    "tool_calls": {},
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "error": "Serena symbol tool activation missing",
+  "duration_seconds": 89.23303488599959,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_activation_shared_003",
+  "mcp_activation_verified": false,
+  "status": "codex_mcp_tools_unavailable_requires_startup_diagnostics"
+}
