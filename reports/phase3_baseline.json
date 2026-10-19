@@ -1,0 +1,546 @@
+{
+  "experiment_id": "ripgrep-skills-v1-pilot",
+  "trial_id": "phase3_baseline_001",
+  "trial_kind": "measured",
+  "measured_comparison": true,
+  "variant": "baseline",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "maintenance_fixes_1_sub-01",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "507af15f89d3f516f8e50678595603b239ae962f",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "baseline"
+  },
+  "duration_seconds": 362.401062207,
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-415c25bd7724ccb37ec222be0c4b506fcd3c039b",
+    "task_id": "f112ea9e-fabe-40ed-becf-c6b39a940586",
+    "metrics": {
+      "ncloc": 31763,
+      "lines": 44619,
+      "complexity": 5075,
+      "cognitive_complexity": 2421,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6,
+      "code_smells": 283,
+      "sqale_index": 1443,
+      "software_quality_maintainability_issues": 283,
+      "software_quality_maintainability_remediation_effort": 1443
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "9aa765011941f3d80acff0744415719a4f56ce43161ef3a88374a25e3878aa0d",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "c4e48fb5-dd75-4173-892b-9eedadb71695",
+    "duration_seconds": 33.484400693998396,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "314ac5352685819ffe6d2d78af3a0d7bfb53a1974994b033f4b34c69c49f4842",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_baseline_001/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": 127,
+      "lines": 151,
+      "complexity": 18,
+      "cognitive_complexity": 21,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": -0.09999999999999964,
+      "code_smells": 1,
+      "sqale_index": 5,
+      "software_quality_maintainability_issues": 1,
+      "software_quality_maintainability_remediation_effort": 5
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-19T21:32:38.803345+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 27,
+            "windowDurationMins": 300,
+            "resetsAt": 1792462993
+          },
+          "secondary": {
+            "usedPercent": 63,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-19T21:38:41.204432+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 40,
+            "windowDurationMins": 300,
+            "resetsAt": 1792462993
+          },
+          "secondary": {
+            "usedPercent": 65,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_baseline_001",
+  "snapshot_sha256": "9aa765011941f3d80acff0744415719a4f56ce43161ef3a88374a25e3878aa0d",
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 1,
+    "uncommitted_lost_sample": [
+      "crates/printer/src/summary.rs"
+    ],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "implementation_commit": "1bc6efbf73f9ea6ae61ddf9d1f58d3f20903c2b2",
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": true,
+  "grader_metrics": {
+    "milestone_id": "maintenance_fixes_1_sub-01",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": true,
+    "resolved": true,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [
+          "tests::debug",
+          "regression::r3108_files_without_match_quiet_exit"
+        ],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [
+          "summary::tests::quiet",
+          "summary::tests::quiet_with_stats"
+        ],
+        "failure": [],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 1093,
+        "failure": [],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 1117,
+      "passed": 1101,
+      "failed": 15,
+      "error": 0,
+      "skipped": 1,
+      "fail_to_pass_required": 2,
+      "fail_to_pass_achieved": 2,
+      "none_to_pass_required": 2,
+      "none_to_pass_achieved": 2,
+      "pass_to_pass_required": 1093,
+      "pass_to_pass_achieved": 1093,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "milestone-maintenance_fixes_1_sub-01-end",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": false,
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cjs",
+        ".cpp",
+        ".cxx",
+        ".go",
+        ".groovy",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx",
+        ".java",
+        ".js",
+        ".jsx",
+        ".kt",
+        ".mjs",
+        ".pxd",
+        ".py",
+        ".pyi",
+        ".pyx",
+        ".rs",
+        ".scala",
+        ".ts",
+        ".tsx"
+      ],
+      "keep_list": [],
+      "policy_source": "metadata-legacy",
+      "policy_sha256": "",
+      "enablement_source": "metadata-legacy",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": null,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "88f2fe46673bd7f514a579d1fcd094f6f193af52",
+      "evaluator_head": "145723d88edb54fbb3120055a95fe3ba0e6b31fe",
+      "base_reason": "prepared-subject",
+      "merged_count": 0,
+      "agent_exact_count": 1,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "f4e1a18a1bc1",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "sha256:afa3725be4e132d3412b081bca085666979104c44869c41bbcbc1ec835270c19",
+      "offline_cache_milestone_image_id": "556dd58cb2791993a26f229389cdc963fc02ab7192e061f0bc3c94eda49e9140",
+      "offline_cache_closure_image_id": "06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+      "offline_cache_effective_image_id": "afa3725be4e132d3412b081bca085666979104c44869c41bbcbc1ec835270c19",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": true,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "identity-v2",
+      "framework": "cargo",
+      "payload_path": "artifacts/752335/eval_summary.json",
+      "payload_sha256": "c8698aa2acf51289a58529429aedfa5c319b20818e76b0f0e141ba4ceaeead47",
+      "classification_file": "maintenance_fixes_1_sub-01_classification.json",
+      "classification_sha256": "43b2a7a36d8ca98b042056cd475906a8d824c540e2c904d2ba9251f1e08c0756",
+      "collision_count": 0,
+      "collisions": [],
+      "untrusted": false,
+      "match_trace": {
+        "fail_to_pass": {
+          "exact": 2
+        },
+        "pass_to_pass": {
+          "exact": 1093
+        },
+        "none_to_pass": {
+          "exact": 2
+        }
+      }
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [
+      "tests::debug",
+      "regression::r3108_files_without_match_quiet_exit"
+    ],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 1093,
+    "failure": [],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [
+      "summary::tests::quiet",
+      "summary::tests::quiet_with_stats"
+    ],
+    "failure": [],
+    "missing": 0
+  },
+  "failure_category": null,
+  "added_prod_loc": 78,
+  "deleted_prod_loc": 24,
+  "net_prod_loc": 54,
+  "churn_prod_loc": 102,
+  "changed_prod_files": 5,
+  "cumulative_prod_loc": 33743,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 730529,
+      "output_tokens": 10294,
+      "cached_input_tokens": 672512,
+      "reasoning_output_tokens": 3439,
+      "session_ids": [
+        "01a15615-f209-7f01-813e-4f4c5a1ae250"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 25
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": 730529,
+      "output_tokens": 10294,
+      "cached_input_tokens": 672512
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": 16,
+    "total_tool_calls": 15,
+    "wall_clock_ms": 164381
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 164.381,
+    "evaluation": 100.66738914599955,
+    "sonar": 33.484400693998396
+  },
+  "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+  "new_prod_files": 0,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "formatting_only_files": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "Cargo.lock",
+      "new_path": "Cargo.lock",
+      "raw_added": 21,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/core/flags/hiargs.rs",
+      "new_path": "crates/core/flags/hiargs.rs",
+      "raw_added": 5,
+      "raw_deleted": 1,
+      "added_prod_loc": 5,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/core/search.rs",
+      "new_path": "crates/core/search.rs",
+      "raw_added": 18,
+      "raw_deleted": 14,
+      "added_prod_loc": 18,
+      "deleted_prod_loc": 14
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/Cargo.toml",
+      "new_path": "crates/globset/Cargo.toml",
+      "raw_added": 1,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/glob.rs",
+      "new_path": "crates/globset/src/glob.rs",
+      "raw_added": 20,
+      "raw_deleted": 1,
+      "added_prod_loc": 20,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/lib.rs",
+      "new_path": "crates/globset/src/lib.rs",
+      "raw_added": 65,
+      "raw_deleted": 2,
+      "added_prod_loc": 14,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/printer/src/summary.rs",
+      "new_path": "crates/printer/src/summary.rs",
+      "raw_added": 68,
+      "raw_deleted": 7,
+      "added_prod_loc": 21,
+      "deleted_prod_loc": 7
+    },
+    {
+      "status": "M",
+      "old_path": "tests/misc.rs",
+      "new_path": "tests/misc.rs",
+      "raw_added": 68,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extension": ".rs",
+    "inline_tests": "removed by pinned upstream Rust AST filter",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor directory",
+      "generated directory"
+    ],
+    "loc": "physical lines including comments and blank lines",
+    "rename_detection": "-M50%"
+  },
+  "verified_snapshot_rust_files": 79
+}

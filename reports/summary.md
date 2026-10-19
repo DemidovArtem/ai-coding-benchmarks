@@ -9,6 +9,7 @@ Dependent milestones form trajectories; they are not independent statistical sam
 | phase2_baseline_001 | baseline | True | 79 / 29 | 0 | null |
 | phase2_plan_001 | plan | True | 83 / 28 | 3 | null |
 | phase2_goal_plan_001 | goal_plan | True | 93 / 24 | 9 | null |
+| phase3_baseline_001 | baseline | True | 78 / 24 | 0 | null |
 
 Paired deltas require one baseline with identical task, repetition, starting tree, model, effort, dataset and setup fingerprint.
 A delta does not imply correctness. Inspect correctness and footprint together; no failed rows are dropped.
