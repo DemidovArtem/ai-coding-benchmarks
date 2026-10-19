@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "initial_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "network": "none",
+  "model_invoked": false,
+  "credentials_mounted": false,
+  "excluded_nonregular_paths": [
+    "HomebrewFormula"
+  ],
+  "duration_seconds": 23.7949718459995,
+  "returncode": 0,
+  "rust_lsp_verified": true,
+  "mcp_tool": "get_symbols_overview",
+  "symbol": "SearcherBuilder",
+  "server": {
+    "name": "Serena",
+    "title": null,
+    "version": "1.28.1",
+    "websiteUrl": "https://oraios.github.io/serena",
+    "icons": null
+  },
+  "result": {
+    "meta": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"Module\": [\"core\", \"glue\", \"mmap\", {\"tests\": {\"Function\": [\"config_error_heap_limit\", \"config_error_line_terminator\", \"uft8_bom_sniffing\"]}}], \"TypeParameter\": [\"Range\"], \"Struct\": [\"BinaryDetection\", \"Encoding\", {\"Config\": {\"Field\": [\"line_term\", \"invert_match\", \"after_context\", \"before_context\", \"passthru\", \"line_number\", \"heap_limit\", \"mmap\", \"binary\", \"multi_line\", \"encoding\", \"bom_sniffing\", \"stop_on_nonmatch\"]}}, {\"SearcherBuilder\": {\"Field\": [\"config\"]}}, {\"Searcher\": {\"Field\": [\"config\", \"decode_builder\", \"decode_buffer\", \"line_buffer\", \"multi_line_buffer\"]}}], \"Object\": [{\"impl BinaryDetection\": {\"Function\": [\"none\", \"quit\", \"convert\"], \"Method\": [\"quit_byte\", \"convert_byte\"]}}, {\"impl Encoding\": {\"Function\": [\"new\"]}}, {\"impl Default for Config\": {\"Function\": [\"default\"]}}, {\"impl Config\": {\"Method\": [\"max_context\", \"line_buffer\"]}}, \"impl std::error::Error for ConfigError\", {\"impl std::fmt::Display for ConfigError\": {\"Method\": [\"fmt\"]}}, {\"impl Default for SearcherBuilder\": {\"Function\": [\"default\"]}}, {\"impl SearcherBuilder\": {\"Function\": [\"new\"], \"Method\": [\"build\", \"line_terminator\", \"invert_match\", \"line_number\", \"multi_line\", \"after_context\", \"before_context\", \"passthru\", \"heap_limit\", \"memory_map\", \"binary_detection\", \"encoding\", \"bom_sniffing\", \"stop_on_nonmatch\"]}}, {\"impl Searcher\": {\"Function\": [\"new\"], \"Method\": [\"search_path\", \"search_file\", \"search_file_maybe_path\", \"search_reader\", \"search_slice\", \"set_binary_detection\", \"check_config\", \"slice_needs_transcoding\"]}}, {\"impl Searcher\": {\"Method\": [\"line_terminator\", \"binary_detection\", \"invert_match\", \"line_number\", \"multi_line\", \"stop_on_nonmatch\", \"multi_line_with_matcher\", \"after_context\", \"before_context\", \"passthru\", \"fill_multi_line_buffer_from_file\", \"fill_multi_line_buffer_from_reader\"]}}], \"Enum\": [\"ConfigError\"], \"Function\": [\"slice_has_bom\"]}",
+        "annotations": null,
+        "meta": null
+      }
+    ],
+    "structuredContent": {
+      "result": "{\"Module\": [\"core\", \"glue\", \"mmap\", {\"tests\": {\"Function\": [\"config_error_heap_limit\", \"config_error_line_terminator\", \"uft8_bom_sniffing\"]}}], \"TypeParameter\": [\"Range\"], \"Struct\": [\"BinaryDetection\", \"Encoding\", {\"Config\": {\"Field\": [\"line_term\", \"invert_match\", \"after_context\", \"before_context\", \"passthru\", \"line_number\", \"heap_limit\", \"mmap\", \"binary\", \"multi_line\", \"encoding\", \"bom_sniffing\", \"stop_on_nonmatch\"]}}, {\"SearcherBuilder\": {\"Field\": [\"config\"]}}, {\"Searcher\": {\"Field\": [\"config\", \"decode_builder\", \"decode_buffer\", \"line_buffer\", \"multi_line_buffer\"]}}], \"Object\": [{\"impl BinaryDetection\": {\"Function\": [\"none\", \"quit\", \"convert\"], \"Method\": [\"quit_byte\", \"convert_byte\"]}}, {\"impl Encoding\": {\"Function\": [\"new\"]}}, {\"impl Default for Config\": {\"Function\": [\"default\"]}}, {\"impl Config\": {\"Method\": [\"max_context\", \"line_buffer\"]}}, \"impl std::error::Error for ConfigError\", {\"impl std::fmt::Display for ConfigError\": {\"Method\": [\"fmt\"]}}, {\"impl Default for SearcherBuilder\": {\"Function\": [\"default\"]}}, {\"impl SearcherBuilder\": {\"Function\": [\"new\"], \"Method\": [\"build\", \"line_terminator\", \"invert_match\", \"line_number\", \"multi_line\", \"after_context\", \"before_context\", \"passthru\", \"heap_limit\", \"memory_map\", \"binary_detection\", \"encoding\", \"bom_sniffing\", \"stop_on_nonmatch\"]}}, {\"impl Searcher\": {\"Function\": [\"new\"], \"Method\": [\"search_path\", \"search_file\", \"search_file_maybe_path\", \"search_reader\", \"search_slice\", \"set_binary_detection\", \"check_config\", \"slice_needs_transcoding\"]}}, {\"impl Searcher\": {\"Method\": [\"line_terminator\", \"binary_detection\", \"invert_match\", \"line_number\", \"multi_line\", \"stop_on_nonmatch\", \"multi_line_with_matcher\", \"after_context\", \"before_context\", \"passthru\", \"fill_multi_line_buffer_from_file\", \"fill_multi_line_buffer_from_reader\"]}}], \"Enum\": [\"ConfigError\"], \"Function\": [\"slice_has_bom\"]}"
+    },
+    "isError": false
+  },
+  "unprivileged_uid": 1000,
+  "initial_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "rust_files_verified_unchanged": 98,
+  "measured_trial": false,
+  "codex_mcp_activation_verified": false,
+  "source_state_transferred_to_trials": false,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_ripgrep_offline_001",
+  "probe_sha256": "c17c7a9a61ded45f1dafbfec2861fa45c5b7be9ac70b03cb1dc19f44beecb29c",
+  "probe_module_sha256": "8eaacffdf50a9a9404302fd53e52666d14b76507220c804c2e29a207e1cbd063",
+  "implementation_commit": "d90e720e9fe082e74e6c3115496e3adeff93e12f"
+}
