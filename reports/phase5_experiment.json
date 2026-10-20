@@ -1,0 +1,227 @@
+{
+  "experiment_id": "ripgrep-continuous-v1-pilot",
+  "stage": "phase5_frozen",
+  "measurement_started": true,
+  "codex": {
+    "version": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "auth": "chatgpt_oauth_only",
+    "model_access_verified_by_inference": true
+  },
+  "benchmark": {
+    "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+    "version": "v1.0.2",
+    "upstream_url": "https://github.com/DeepCommit-ai/SWE-Milestone",
+    "dataset_url": "https://huggingface.co/datasets/DeepCommit-ai/SWE-Milestone-data",
+    "dataset_root": "results/setup/dataset",
+    "smoke_milestone": "maintenance_fixes_1_sub-01",
+    "main_branch": "master",
+    "timeout_seconds": 1800,
+    "repetition": 1,
+    "continuous_pilot": {
+      "label": "pilot/non-official subset",
+      "milestones": [
+        "milestone_seed_5f5da48_1_sub-01",
+        "milestone_seed_5f5da48_1_sub-02"
+      ],
+      "repetitions": 2,
+      "same_executor_session_required": true,
+      "dispatch": "host-gated turns using codex exec resume; no background watcher",
+      "stop_after": 2,
+      "grader_feedback_to_agent": false
+    },
+    "common_starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "skill_runtime_image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269"
+  },
+  "variants": [
+    "baseline",
+    "caveman",
+    "ponytail",
+    "plan"
+  ],
+  "profiles": {
+    "baseline": {
+      "status": "smoke_verified",
+      "activation_verified": true,
+      "evidence": "results/trials/baseline_smoke_001/effective_profile.json"
+    },
+    "plan": {
+      "status": "implemented_activation_pending",
+      "activation_verified": false
+    },
+    "goal_plan": {
+      "status": "implemented_activation_pending",
+      "activation_verified": false
+    },
+    "ponytail": {
+      "status": "not_implemented",
+      "activation_verified": false
+    },
+    "caveman": {
+      "status": "not_implemented",
+      "activation_verified": false
+    },
+    "serena": {
+      "status": "not_implemented",
+      "activation_verified": false
+    }
+  },
+  "skill_versions": {
+    "ponytail": null,
+    "caveman": null,
+    "serena": null
+  },
+  "sonar": {
+    "image_digest": null,
+    "scanner_version": null,
+    "rust_support_verified": false,
+    "bind_address": "127.0.0.1",
+    "analysis_feedback_to_agent": false
+  },
+  "resources": {
+    "parallel_trials": 1,
+    "min_workspace_free_bytes": 1000000000,
+    "docker_free_reserve_bytes": 12000000000,
+    "image_download_approved": true,
+    "proposed_runtime_root": "/tmp/ai-coding-experiment",
+    "runtime_root_approved": false,
+    "runtime_root": "/tmp/ai-coding-experiment",
+    "runtime_root_selection": "agent-selected reversible temporary smoke storage; artifacts require later durable copy",
+    "quota_stop_percent": 85
+  },
+  "images": [
+    {
+      "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__base-offline:v1.0.2",
+      "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58",
+      "compressed_bytes": 954017008,
+      "layer_count": 18
+    },
+    {
+      "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01:v1.0.2",
+      "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01@sha256:3157aa5b52406ddc6e48df65bf8f5003d650327c83cf89b11874c7f01113b425",
+      "compressed_bytes": 1164863467,
+      "layer_count": 26
+    }
+  ],
+  "paths": {
+    "results_jsonl": "results/results.jsonl",
+    "results_csv": "results/results.csv",
+    "summary": "reports/summary.md",
+    "audit": "reports/environment.json"
+  },
+  "phase1_blockers": [],
+  "pins": {
+    "git_commits": {
+      "vendor/SWE-Milestone": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+      "results/setup/dataset": "3500478e740d42583277c2658aa7729eb36e10f4"
+    },
+    "file_sha256": {
+      "vendor/SWE-Milestone/manifests/BENCHMARK_VERSION": "9362e356dc70deb5e30e3de8caca220d85d7034be0a1b708b9c9f1981de36135",
+      "vendor/SWE-Milestone/manifests/digests-v1.0.2.tsv": "79a28d303627cc3ca536ead11fc7141d16b678db82452355f3d430b9222cbe9b",
+      "vendor/SWE-Milestone/harness/e2e/agents/codex.py": "812db5ebf0b9cdf2810a2cfeabd97c51006fd4a5b5d2f3c63ba433dd46588c9c",
+      "vendor/SWE-Milestone/harness/e2e/e2e_config.yaml": "7a67dacab0b86d6b8007147759c1971b1e45caaac9b7add06461183f068283cd",
+      "vendor/SWE-Milestone/quarantine_configs/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+      "results/setup/dataset/config/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "requirements-setup.txt": "1a83059ff80e905a774d4bd29831f35865a2a030004a651c7d9bd6e743eacc14",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/metadata.json": "7b159cee9a19d4dea1a39115da73d73da87fa011928afdd19f95a248f27f7441",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/dependencies.csv": "3b71e3e2b46939a83a698aaec8c1cbedb9c4a91a0947bd45e48ca675186cd707",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/milestones.csv": "2a8975321e7412fbc87c19007ba97a916f63ecefe13f55b29dd097296bcdd5bf",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/selected_milestone_ids.txt": "f3a2f5792d5db4af7ed07e4e7ad6e98ac2e5f580a07716ef6a5aacba65d10b8c",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/additional_dependencies.csv": "0f04a6e2510c34e4bdc3e819ddc2640be2e6c3785622f62a052f50345185016b",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/non-graded_milestone_ids.txt": "11a003a706a35093d1b8d7338de42a2fab88061023b3ec6ad4279173620ac849",
+      "patches/swe-milestone-oauth.patch": "5e5e6274027ff7e0abc78877e58517e73ede1d20dcb27e95858d23f93602fc86",
+      "profiles/baseline/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "vendor/SWE-Milestone/harness/e2e/agent_runner.py": "325997767fbe8b1ce3a946384b1d741310af36018affdeaebeea2286ef8d0814",
+      "vendor/SWE-Milestone/harness/e2e/run_milestone.py": "fbdebfa8e6d3ddcfc4d08665d5e6ca134c2d04731e98c88728af6651b974cdd2",
+      "vendor/SWE-Milestone/harness/e2e/prompt/milestone_v1.md": "473545f3f8d050e0c2b422bc865006cadf1f109817313677f5d25b31531f55b1",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/maintenance_fixes_1_sub-01/SRS.md": "57655bafaa9b2e10cef09e6fcd16efb3024b4a0ef9285d1825127c43ecebcd26",
+      "prompts/planner.md": "b198d9f0e0329620e765140cc52ccc83d3ec2ee01ebb2433eb447f400bc3c395",
+      "prompts/executor.md": "2d8b4d81b6a5bbcef13cc2b89187c42ccfaecb51571a1930450f81be7b916560",
+      "profiles/plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/goal_plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "experiment/runner.py": "d73de2508abc30b8573cb8c48c4e62eee083b1c124e8db4cf35895b38a1baa42",
+      "experiment/profiles.py": "a03c4db04b65fd28d248f24168a596a4941b0dc1af68ca85ba63be09f5050e58",
+      "experiment/planning.py": "a2edebfe2900523e9435ca78fcb57cd28eacd42b097d35a35e6ba92864e94f19",
+      "experiment/security.py": "81b4aca0310089d03d44b03296b0ad0cd1b3aa65236fd80f5d824f0a098cda26",
+      "experiment/quota.py": "466c37ae0160010be591e0ed71f3dc65b62740012f7bb41627e7e94a470a9f8d",
+      "experiment/skill_trial.py": "a4f6d1d7bbfd8a0955fae531b60484a54aecf44a0cce4f8db66b1353905a4750",
+      "experiment/skill_profiles.py": "f84103dbb0688cff405671cee7297608a119af0b4a7c943d03062cd9224e432c",
+      "experiment/skill_smoke.py": "73fdb40497b0c74f2f1aa9a3bef8410e86701f243babb45d809858a22212dca0",
+      "experiment/serena_probe.py": "8eaacffdf50a9a9404302fd53e52666d14b76507220c804c2e29a207e1cbd063",
+      "experiment/collect.py": "6f4323bbfcab512c9c5e4edc33b0eb7a24fa34479ff0b6b4d81c9f769a158d0f",
+      "experiment/metrics.py": "da19e2ef5952f185192a924d4728779af257425c76279eb532c4a95811f1fa11",
+      "experiment/report.py": "f2f3340c6e148bd5eeb1a69c7d65c9637f0ae5099e74d99fbc73efaff94d395e",
+      "profiles/ponytail/native_hooks.json": "c6278cbb3f27a8d103346f2dfcf66ffd064ed5962ed22fff5ce2e656164ad512",
+      "profiles/ponytail/README.md": "0bcf72c91c14dea7a5103d50d7d2ef9eff250e6eb47bcf41b9aebee718c460c7",
+      "profiles/ponytail/manifest.json": "40cfc9215cf63cb427686f8da78d1d4d4e0327e9fdde9e9f01362dcdb3df6b6c",
+      "profiles/ponytail/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/hooks/caveman_dispatch.py": "79fb110dbed1e5f7eda22060ff46e0251281f98c68acf6443c04e7ab7585c839",
+      "profiles/hooks/dispatch.py": "78dda184b4a89d00f0bcf11cca69e3f5df4aa503e7d889303910f8ddab72ffef",
+      "profiles/serena/README.md": "27cb6ab8e3e945a6cbcafa4501428b8fcb7b8e7db9d9a348035fcd82ef93a372",
+      "profiles/serena/server_config.yml": "f2d75ac9d8c1a8627aab7d5f5be85e443db85e12e4d9470dbd7f8208bc7f24d2",
+      "profiles/serena/config.toml": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+      "profiles/caveman/native_hooks.json": "dadbd2f9ed93cd27b658215efedc225e3488ca45edae3a13e1dc7ec0b3729391",
+      "profiles/caveman/README.md": "fd566a6bdac0d9cfa1555d4027c9163b3ec23a31fc8dcc655312592af6f397b5",
+      "profiles/caveman/manifest.json": "c0c923cdf581a60d09d1598d987598c5a24c796d91f07b6e66b0c77e6f369e4c",
+      "profiles/caveman/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/runtime/Dockerfile": "5af8c7026e3d4f9359e203836711a178946aa0685cf6817bf77e01b75512deea",
+      "profiles/runtime/README.md": "f85375c0440f9dc60e83e8e4a840dcba849d68a37f8ee78ece084ca2e9cf3b14",
+      "profiles/runtime/manifest.json": "25360ccb63b1b5b4395076e8c13a1617144af81108b5babd777f73d60f902556",
+      "profiles/runtime/download_budget.json": "861dc28cfb0e432ffefd42f7e7492ecf50b051a5c26b6d919b73457cae98c294",
+      "profiles/caveman/assets/LICENSE-MIT": "5eb826cd03151bcc7cce3f80d40e87733237fedfc6c36d6908aca5fd650a0bdb",
+      "profiles/caveman/assets/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "profiles/caveman/assets/.codex/codex-sessionstart.js": "742a53ae011c8adc8cd5d4ab2dea86cb3488f003acaa034f24c04f699b1c0037",
+      "profiles/caveman/assets/src/hooks/caveman-config.js": "64762133d3467b1f4ea479c0d4fbb40a141a3f0e4423e8fd37688e8233aab4c6",
+      "profiles/caveman/assets/skills/caveman/SKILL.md": "415d43518f2b1a9498c15a445d4657117b129ee5e81b19454ce348439cc6672b",
+      "profiles/ponytail/assets/LICENSE": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+      "profiles/ponytail/assets/hooks/ponytail-mode-tracker.js": "ab2a7d89a71fdbecd5ea4d12ffe980c2213b80fe112d623ca13ceac0258307e7",
+      "profiles/ponytail/assets/hooks/ponytail-runtime.js": "52d8e66d542d49217a9eb721942e7bd9f4ee46a56615fb3f53430276cfe3a592",
+      "profiles/ponytail/assets/hooks/ponytail-activate.js": "6e492e997aa3e01560046daaed288b1cf68c596cc2b227744ec8b9fbdb5a230a",
+      "profiles/ponytail/assets/hooks/ponytail-instructions.js": "36521752b3444ef8daa823edaa996170e6af2cd45c82193644acb3a42f3395f4",
+      "profiles/ponytail/assets/hooks/ponytail-subagent.js": "8da045eb96b5b919655bf4c12abfc7e5163af29b62b97ccaf633b75099390315",
+      "profiles/ponytail/assets/hooks/ponytail-map.js": "c876b087accb6655d04f7f48bda85d8304941d0ac0fb78c0c164eb9ec7d35e69",
+      "profiles/ponytail/assets/hooks/ponytail-config.js": "ae81c3552064c9a9f0b9c0e8ec8a959af56f5599f0c899dd79659ea9a101dfc4",
+      "profiles/ponytail/assets/skills/ponytail/SKILL.md": "9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509",
+      "reports/ponytail_activation.json": "4508b971e4115bccfe6a7613b6510cf5de8993349ac3a672604f6c48d50af925",
+      "reports/caveman_activation.json": "e2d6aa46aae8fd2364cd9b95b49c0aa4be41ef54e8d7bdb126c227b28d86500e",
+      "reports/serena_activation.json": "009aadf5afaf9f8a735fa9fe89a129f1b9bef39481ef0d4f15ac1faf34342728",
+      "experiment/continuous.py": "d20d2cc47533dc283a82b5d58c624956ed490f7e40fab75bad72c45fc82190f3",
+      "reports/phase5_protocol.md": "3f3208b95bdba5f510190002c57072f4e6815759d974a40473c790515496787c",
+      "reports/continuous_image_budget.json": "32c82535fdff133a404b3befeeb3979ed9b48b1c4c8e964172cd108d75b06243",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-01/SRS.md": "b0168116b388f8e0377118e9a95ce86dc6c6546d1ee35fe9b6090e8710afb861",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-02/SRS.md": "6fdf6128b4d7d00901d35c426bf371d30d199e174877e35d9606096fb6c50786",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-01/milestone_seed_5f5da48_1_sub-01_classification.json": "67bd73a4c753b748b2e1a392ecd1b17df82d78d31af8a1f70b15ba0886d5de97",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-02/milestone_seed_5f5da48_1_sub-02_classification.json": "5ef7a82e1a4c7c7ac9c0435d9c35c934a5313016c3250bdbe4c5be2676d07041"
+    },
+    "upstream_base_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+    "upstream_patch": "patches/swe-milestone-oauth.patch",
+    "patched_upstream_commit": "f4e1a18a1bc15281f06e62cf6b616be36235fae5",
+    "git_trees": {
+      "vendor/SWE-Milestone": "656bed23ae57d4ed4e2532447588399628f2ddb0"
+    }
+  },
+  "planning": {
+    "timeout_seconds": 180,
+    "max_output_bytes": 12000,
+    "max_list_entries": 12,
+    "max_item_characters": 1000,
+    "readonly_enforcement": "separate quarantined container with kernel read-only repository bind mount",
+    "native_sandbox_unavailable": "unprivileged user namespaces denied; no host settings changed"
+  },
+  "phase2": {
+    "order": [
+      "baseline",
+      "plan",
+      "goal_plan"
+    ],
+    "repetition": 1,
+    "trial_ids": {
+      "baseline": "phase2_baseline_001",
+      "plan": "phase2_plan_001",
+      "goal_plan": "phase2_goal_plan_001"
+    },
+    "prompt_freeze": "before first measured trial; SHA-256 pins below",
+    "smoke_baseline_reused": false
+  }
+}

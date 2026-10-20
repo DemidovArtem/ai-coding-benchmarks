@@ -60,7 +60,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
              f"| Phase 3: baseline / Ponytail / Caveman / Serena | {phase_status(p3 + [r for r in pending if r['trial_id'].startswith('phase3_')], {'baseline','ponytail','caveman','serena'})} | [Профили, активация и результаты](reports/phase3_progress.md) |",
              *([f"| Дополнение: serena_required | {cell(serena_required.get('label'))} | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |"] if serena_required else []),
              f"| Phase 4: Sonar before/after | {'Завершён для собранных trials' if rows and all(r.get('sonar',{}).get('analysis_ok') is True for r in rows) else 'Частично выполнен / ожидает анализов'} | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |",
-             f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней. [Точный blocker и следующий шаг](reports/continuous_feasibility.md) |",
+             f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | {cell(continuous.get('summary') or 'Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней.')} [План и состояние](reports/continuous_feasibility.md) |",
              '| Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |', '',
              '## Корректность и размер production patch', '',
              'Каждая строка — отдельный trial. Phase 2 и Phase 3 используют разные frozen runtime: сравнивать с baseline внутри того же cohort. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.', '',
@@ -92,6 +92,17 @@ def render(rows, pending, continuous, updated, serena_required=None):
               '## Как обновляется реестр', '',
               'После изменения результатов или статуса выполняется `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`. Команда читает `results/results.jsonl`, metadata ещё не собранных trials и continuous plan. Завершённые результаты сначала проходят существующий collector; таблица не заменяет grader и не пересчитывает scores.', '',
               '[Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
+    if continuous.get('pilot_runs'):
+        table = ['## Последовательный пилот: план запусков', '',
+                 'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',
+                 '| Траектория | Variant | Повтор | Завершено шагов | Статус |', '| --- | --- | ---: | --- | --- |']
+        states = {'planned':'Запланирован', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
+        for run in continuous['pilot_runs']:
+            values = [run['trial_id'], run['variant'], run['repetition'],
+                      str(run['completed_steps']) + '/' + str(run['total_steps']), states.get(run['state'], run['state'])]
+            table.append('| ' + ' | '.join(map(cell, values)) + ' |')
+        position = lines.index('## Корректность и размер production patch')
+        lines[position:position] = table + ['', '[Протокол последовательного пилота](reports/phase5_protocol.md)', '']
     return '\n'.join(lines)
 
 

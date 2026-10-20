@@ -1,16 +1,18 @@
 # Continuous pilot — следующий приоритет
 
-Continuous 2–3-milestone flow **не реализован и не проверен**. Текущий single-milestone runner не заявляется как эквивалент continuous. Отсрочка использует предусмотренный handoff §9.7 / definition of done вариант: truthful single-milestone A/B плюс отдельная оценка инженерной интеграции.
+Для первого v1 continuous был явно отложен по handoff §9.7. Теперь реализован отдельный ограниченный runner `experiment.continuous`: host выдаёт задачи последовательно и продолжает тот же Codex thread через resume. Реальные последовательные trials пока не запускались; runtime и результаты ещё не подтверждены. [Новый протокол](phase5_protocol.md) отделяет этот режим от первоначального предложения с фоновым watcher.
 
 Выбранный pilot/non-official subset: `milestone_seed_5f5da48_1_sub-01`, затем `milestone_seed_5f5da48_1_sub-02`. Между ними Strong FUNC edge. Повторная проверка `dependencies.csv` и `additional_dependencies.csv` не нашла внешних входящих prerequisites. [Selection evidence](continuous_feasibility.json) фиксирует CSV hashes и рёбра. Prefix `--milestones 2` не гарантирует выбор именно этой пары; нужен trial-local selected list и проверка closure. Дополнительные grader images этой пары пока не загружены.
 
 ## Порядок первых trials
 
-По текущему приоритету пользователя Serena не входит в условия запуска. Первый минимальный slice — baseline на выбранной паре: одна сессия executor, остановка после второй задачи, grader/Git/Sonar после каждого шага. Затем на той же паре проверяются plan и goal_plan с prep/dispatch/ack перед каждой задачей. Профили skills и расширение repository остаются отдельными последующими этапами. Интеграция ещё не начата; завершённые single-milestone trials не доказывают непрерывность сессии.
+По текущему запросу пользователя Serena не входит в условия запуска. План: baseline, Caveman, Ponytail и plan + implementation, по две связанные правки и два независимых повтора каждого варианта. Каждый шаг сохраняет grader/Git/Sonar; plan получает отдельную read-only подготовку перед каждым шагом. Goal_plan и расширение repository остаются последующими этапами. Завершённые single-milestone trials не доказывают непрерывность новой сессии.
 
 Готовы single-milestone runner, planning profiles, grader, Git/Sonar collection и реестр результатов. Для выбранной пары остаётся определить размер дополнительных grader images и согласовать их загрузку. Повторный zero-model network diagnostic прошёл с прежним quarantine; причина предыдущего reachability failure не установлена, поэтому preflight остаётся обязательным.
 
-## Точный blocker для planning variants
+## Первоначальная интеграция с фоновым watcher
+
+Ниже сохранена оценка исходного полного подхода. Ограниченный host-driven pilot обходит этот blocker: следующий SRS выдаётся только после завершения предыдущего turn, а validated handoff читается до работы executor. Полный автоматический watcher здесь не реализуется.
 
 Upstream watcher и долго живущий executor работают независимо. `E2EOrchestrator.start_watcher` наблюдает submission tags и запускает isolated grading; `_update_task_queue_file` сразу копирует runnable SRS и публикует queue. Executor читает эти файлы из своей постоянной сессии. Между появлением milestone и публикацией его SRS нет variant-aware dispatch barrier, который гарантирует завершённую read-only prep и доставку handoff до начала работы executor.
 

@@ -31,3 +31,9 @@ class StatusTests(unittest.TestCase):
         text=render([],[],{'status':'planned_not_implemented','label':'Следующий приоритет; не реализован'},'fixed time')
         self.assertIn('Phase 5: continuous, 2 связанных milestone | Следующий приоритет; не реализован',text)
         self.assertNotIn('planned_not_implemented',text)
+
+    def test_continuous_schedule_shows_unfinished_steps_without_metrics(self):
+        plan={'pilot_runs':[{'trial_id':'phase5_baseline_r01','variant':'baseline','repetition':1,
+                            'completed_steps':1,'total_steps':2,'state':'running'}]}
+        text=render([],[],plan,'fixed time')
+        self.assertIn('| phase5_baseline_r01 | baseline | 1 | 1/2 | Выполняется |',text)

@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-20 12:35:18**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-20 12:48:28**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -13,8 +13,25 @@
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Отложен; приоритет — continuous без Serena | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
 | Phase 4: Sonar before/after | Завершён для собранных trials | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
-| Phase 5: continuous, 2 связанных milestone | Следующий приоритет; не реализован | Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней. [Точный blocker и следующий шаг](reports/continuous_feasibility.md) |
+| Phase 5: continuous, 2 связанных milestone | Runner проверен; ожидает согласования grader-образов | 66 тестов и 38 subtests пройдены. План: 4 варианта × 2 повтора × 2 правки. Модель ещё не запускалась. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
+
+## Последовательный пилот: план запусков
+
+Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.
+
+| Траектория | Variant | Повтор | Завершено шагов | Статус |
+| --- | --- | ---: | --- | --- |
+| phase5_baseline_r01 | baseline | 1 | 0/2 | Запланирован |
+| phase5_caveman_r01 | caveman | 1 | 0/2 | Запланирован |
+| phase5_ponytail_r01 | ponytail | 1 | 0/2 | Запланирован |
+| phase5_plan_r01 | plan | 1 | 0/2 | Запланирован |
+| phase5_baseline_r02 | baseline | 2 | 0/2 | Запланирован |
+| phase5_caveman_r02 | caveman | 2 | 0/2 | Запланирован |
+| phase5_ponytail_r02 | ponytail | 2 | 0/2 | Запланирован |
+| phase5_plan_r02 | plan | 2 | 0/2 | Запланирован |
+
+[Протокол последовательного пилота](reports/phase5_protocol.md)
 
 ## Корректность и размер production patch
 

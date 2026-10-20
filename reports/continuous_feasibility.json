@@ -1,6 +1,6 @@
 {
-  "status": "planned_not_implemented",
-  "label": "Следующий приоритет; не реализован",
+  "status": "awaiting_grader_image_approval",
+  "label": "Runner проверен; ожидает согласования grader-образов",
   "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
   "selected_milestones": [
     "milestone_seed_5f5da48_1_sub-01",
@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Upstream publishes SRS/queue to a still-running executor directly. No variant-aware prep completion/ack barrier binds the next milestone to an immutable planner input and delivered handoff.",
-  "next_step": "Implement a host-side dispatch gate before _copy_srs_for_tasks, bind source to the prior immutable submission tag, withhold SRS until prep completes, and verify the executor consumes the bounded handoff in the same session.",
+  "next_step": "Verify the bounded host-gated resume runner, freeze Phase 5 separately, then run the same two-step trajectory twice for each variant.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -49,9 +49,78 @@
   "continuous_result_claimed": false,
   "pilot_variants": [
     "baseline",
-    "plan",
-    "goal_plan"
+    "caveman",
+    "ponytail",
+    "plan"
   ],
   "serena_required": false,
-  "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan."
+  "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
+  "summary": "66 тестов и 38 subtests пройдены. План: 4 варианта × 2 повтора × 2 правки. Модель ещё не запускалась.",
+  "execution_protocol": "reports/phase5_protocol.md",
+  "pilot_runs": [
+    {
+      "trial_id": "phase5_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_plan_r01",
+      "variant": "plan",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    },
+    {
+      "trial_id": "phase5_plan_r02",
+      "variant": "plan",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 2
+    }
+  ]
 }
