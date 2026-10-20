@@ -3,11 +3,19 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from experiment.continuous_resume import recovery_input
+from experiment.continuous_resume import recovery_input, verify_retained_config
 from experiment.runner import check_quota, setup_fingerprint
 
 
 class RecoveryTests(unittest.TestCase):
+    def test_only_expected_project_trust_entry_may_be_added_by_codex(self):
+        expected='model="frozen"\n'
+        verify_retained_config(expected,expected)
+        verify_retained_config(expected+'[projects."/testbed"]\ntrust_level="trusted"\n',expected)
+        for changed in ('model="other"\n',expected+'[projects."/other"]\ntrust_level="trusted"\n',
+                        expected+'[mcp_servers.extra]\ncommand="other"\n'):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                verify_retained_config(changed,expected)
     def test_authorized_percentage_override_still_rejects_real_rate_limit(self):
         quota={'status':'observed','rate_limits':{'codex':{'primary':{'usedPercent':99}}}}
         with self.assertRaises(RuntimeError):

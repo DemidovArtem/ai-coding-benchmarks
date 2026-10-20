@@ -1,0 +1,143 @@
+{
+  "experiment_id": "ripgrep-continuous-v1-pilot",
+  "trial_id": "phase5_plan_r01_s01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "plan",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": null,
+  "ending_commit": null,
+  "starting_tree": null,
+  "effective_profile": {},
+  "duration_seconds": null,
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-18T22:18:38.358530+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 47,
+            "windowDurationMins": 300,
+            "resetsAt": 1792369441
+          },
+          "secondary": {
+            "usedPercent": 35,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-18T22:25:19.385529+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 60,
+            "windowDurationMins": 300,
+            "resetsAt": 1792369441
+          },
+          "secondary": {
+            "usedPercent": 37,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792885249
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_plan_r01_s01",
+  "snapshot_sha256": null,
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "implementation_commit": "17dfef9",
+  "trial_state": "failed",
+  "trial_failure_category": "host_restart_before_executor",
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "host_restart_before_executor",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null,
+  "usage": {
+    "planner": {
+      "used": true,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null
+    }
+  },
+  "preparation": {},
+  "session_isolation": null,
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": null,
+    "executor": null,
+    "evaluation": null,
+    "sonar": null
+  },
+  "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd"
+}

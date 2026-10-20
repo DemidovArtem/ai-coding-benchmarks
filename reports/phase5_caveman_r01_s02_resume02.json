@@ -1,0 +1,232 @@
+{
+  "experiment_id": "ripgrep-continuous-v1-pilot",
+  "trial_id": "phase5_caveman_r01_s02_resume02",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "caveman",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": null,
+  "starting_tree": null,
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "caveman",
+    "skill": "caveman",
+    "skill_version": "v4.0.1",
+    "mode": "caveman",
+    "manifest_sha256": "c0c923cdf581a60d09d1598d987598c5a24c796d91f07b6e66b0c77e6f369e4c",
+    "hooks_sha256": "dadbd2f9ed93cd27b658215efedc225e3488ca45edae3a13e1dc7ec0b3729391",
+    "node": {
+      "version": "v24.19.0",
+      "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+      "size_bytes": 125989464,
+      "local_source": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+    },
+    "hook_trust": "one invocation bypass after external source/hash review",
+    "remote_plugins_enabled": false,
+    "native_hook_activation_verified": false
+  },
+  "duration_seconds": 41.30116702599997,
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-20T22:47:32.546393+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 17,
+            "windowDurationMins": 300,
+            "resetsAt": 1792551497
+          },
+          "secondary": {
+            "usedPercent": 34,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793095346
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-20T22:48:29.934440+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 19,
+            "windowDurationMins": 300,
+            "resetsAt": 1792551497
+          },
+          "secondary": {
+            "usedPercent": 34,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793095346
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_caveman_r01_s02_resume02",
+  "snapshot_sha256": null,
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "implementation_commit": "17dfef9f3b066058115bec1d5b4b75797d89510a",
+  "trial_state": "failed",
+  "trial_failure_category": "continuous_recovery_failure",
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": {
+    "attempt_of": "phase5_caveman_r01_s02",
+    "same_session_required": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_caveman_r01_s02",
+    "adapter_sha256": "52041ce80acee47c26d0f974a41804461360662e41dc208706e3f821df031bdc"
+  },
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "continuous_recovery_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "no completed step counters"
+    },
+    "total": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null
+    },
+    "executor_cumulative": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": null,
+    "evaluation": null,
+    "sonar": null
+  },
+  "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+  "continuous": {
+    "trajectory_id": "phase5_caveman_r01",
+    "step": 2,
+    "repetition": 1,
+    "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "input_commit": "1fcbabf781a068565b2d9ccbc046380595767d52",
+    "dispatch": null,
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948"
+  }
+}

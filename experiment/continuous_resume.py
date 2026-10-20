@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import tomllib
 
 from experiment.collect import load
 from experiment.continuous import (assert_boundary, check_resources, events_from, preserve_and_collect,
@@ -15,6 +16,13 @@ from experiment.continuous import (assert_boundary, check_resources, events_from
 from experiment.quota import read_quota
 from experiment.runner import ROOT, check_quota, save, setup_fingerprint, trial_lock, validate
 from experiment.security import credential_values, redact
+
+
+def verify_retained_config(actual, expected):
+    actual = tomllib.loads(actual)
+    projects = actual.pop('projects', None)
+    if projects not in (None, {'/testbed': {'trust_level': 'trusted'}}) or actual != tomllib.loads(expected):
+        raise ValueError('Retained native profile changed beyond the Codex project trust entry')
 
 
 def recovery_input(blocked, previous, config):
@@ -115,11 +123,11 @@ def recover(config, blocked, output):
     if runner.agent_runner._framework.extract_session_id_from_container(name) != session:
         raise ValueError('Retained Codex thread differs from the withheld step')
     variant = old['variant']
-    for local, remote in ((ROOT / 'profiles' / variant / 'config.toml', '/home/fakeroot/.codex/config.toml'),
-                          (ROOT / 'profiles' / variant / 'native_hooks.json', '/home/fakeroot/.codex/hooks.json')):
-        actual = runner.container_setup.docker_exec(['sha256sum', remote]).stdout.split()[0]
-        if actual != hashlib.sha256(local.read_bytes()).hexdigest():
-            raise ValueError('Retained native profile changed')
+    verify_retained_config(runner.container_setup.docker_exec(['cat', '/home/fakeroot/.codex/config.toml']).stdout,
+                           (ROOT / 'profiles' / variant / 'config.toml').read_text())
+    actual = runner.container_setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/hooks.json']).stdout.split()[0]
+    if actual != hashlib.sha256((ROOT / 'profiles' / variant / 'native_hooks.json').read_bytes()).hexdigest():
+        raise ValueError('Retained native hooks changed')
     hook_path = '/home/fakeroot/.codex/skill_hook_audit.jsonl'
     old_audit = runner.container_setup.docker_exec(['cat', hook_path]).stdout.splitlines()
     # A stopped container loses its network namespace; restore the same pinned protective rules before inference.

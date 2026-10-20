@@ -18,3 +18,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=vendor/SWE-Milestone .venv/bin/python -m ex
 ```
 
 OS lock сохраняет один executor trial одновременно. Следующая команда выполняется только после terminal state предыдущей. Sonar и collection используют сохранённые immutable snapshots и не дают обратную связь модели.
+
+## Продолжение 21 октября
+
+После рестарта host временные файлы в `/tmp` исчезли. Новые запуски используют `phase5_resilient_execution.json` с ignored runtime в `results/runtime/phase5`; условия A/B и setup fingerprint неизменны. Конфиг Codex в retained container проверяется семантически: допустимо только добавление `projects./testbed.trust_level=trusted`, которое записывает CLI; прочие изменения и изменение native hooks отвергаются. Первая recovery preflight остановка сохранена как setup failure; следующая остановка из-за timeout quota API сохранена отдельным trial record без model invocation.
+
+Ponytail получает свежую двухшаговую попытку `phase5_ponytail_r01_retry01`, исходная частично выполненная сессия остаётся сохранённой. Plan получает `phase5_plan_r01_retry01`, так как исходный host runtime утрачен, а retained executor не содержит ни сессии, ни выданного задания. Все прерванные попытки остаются в JSONL и истории плана. Это infrastructure/quota retries, а не дополнительные независимые успешные repetitions.
