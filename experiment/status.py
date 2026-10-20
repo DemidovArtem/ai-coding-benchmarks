@@ -44,6 +44,9 @@ def render(rows, pending, continuous, updated, serena_required=None):
     p3 = [r for r in rows if r['trial_id'].startswith('phase3_')]
     active = [r for r in pending if r.get('trial_state') == 'running']
     snapshots = [r for r in rows if r.get('snapshot_sha256')]
+    quota_note = ('Для Phase 5 пользователь разрешил продолжение выше 85%; явный отказ сервиса по квоте по-прежнему останавливает запуск. '
+                  '[Разрешённое изменение](reports/phase5_quota_override.md).'
+                  if continuous.get('quota_override') else 'Новые model trials требуют fresh quota check ниже 85% в обоих окнах.')
     summaries = [r.get('grader_metrics',{}).get('test_summary',{}) for r in rows]
     grade_note = 'Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records.'
     fields = ('fail_to_pass_achieved','fail_to_pass_required','pass_to_pass_achieved','pass_to_pass_required','none_to_pass_achieved','none_to_pass_required','failed','skipped')
@@ -89,7 +92,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
         values = [r['trial_id'], 'Готов' if ok is True else 'Ошибка' if ok is False else 'Не выполнен', *[metrics.get(k) if ok is True else None for k in ('ncloc','cognitive_complexity','software_quality_maintainability_issues','software_quality_maintainability_remediation_effort')], state.get('natural_mcp_tool_calls'), state.get('memory_files_after')]
         lines.append('| ' + ' | '.join(map(cell, values)) + ' |')
     lines += ['', grade_note + ' F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.', '',
-              f"Несобранных trials: **{len(pending)}**, из них выполняется: **{len(active)}**. Новые model trials требуют fresh quota check ниже 85% в обоих окнах. Этот документ сам ничего не запускает и не следит по расписанию.", '',
+              f"Несобранных trials: **{len(pending)}**, из них выполняется: **{len(active)}**. {quota_note} Этот документ сам ничего не запускает и не следит по расписанию.", '',
               '## Как обновляется реестр', '',
               'После изменения результатов или статуса выполняется `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`. Команда читает `results/results.jsonl`, metadata ещё не собранных trials и continuous plan. Завершённые результаты сначала проходят существующий collector; таблица не заменяет grader и не пересчитывает scores.', '',
               '[Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']

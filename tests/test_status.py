@@ -48,3 +48,8 @@ class StatusTests(unittest.TestCase):
         self.assertIn('| quota_stop | — | Ошибка; результат сохранён |',text)
         rows[0]['sonar']['analysis_ok']=False
         self.assertIn('Частично выполнен / ожидает анализов',render(rows,[],{},'fixed time'))
+
+    def test_authorized_quota_override_is_explicit_in_register(self):
+        text=render([],[],{'quota_override':{'percentage_gate_disabled':True}},'fixed time')
+        self.assertIn('пользователь разрешил продолжение выше 85%',text)
+        self.assertNotIn('Новые model trials требуют fresh quota check ниже 85%',text)
