@@ -113,10 +113,10 @@
       "variant": "plan",
       "repetition": 1,
       "state": "running",
-      "completed_steps": 0,
+      "completed_steps": 1,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": 1,
+      "active_step": 2,
       "failure_category": null,
       "interruption": {
         "runtime_directory_lost": true,
@@ -141,7 +141,8 @@
           }
         }
       ],
-      "retry_reason": "host_restart_before_executor"
+      "retry_reason": "host_restart_before_executor",
+      "last_step": "phase5_plan_r01_retry01_s01"
     },
     {
       "trial_id": "phase5_baseline_r02",
