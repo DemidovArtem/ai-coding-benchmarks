@@ -1,6 +1,6 @@
 # Serena-first: обязательное использование, отдельный вариант
 
-Статус: **policy реализована; smoke заблокирован quarantine до модели**. Measured benchmark trial ещё не запускался. Исходный `phase3_serena_001` с нулём MCP calls сохранён и не переименован в успешное использование Serena.
+Статус: **policy реализована; дальнейшая проверка отложена по просьбе пользователя. Приоритет — continuous baseline / plan / goal_plan без Serena**. Measured benchmark trial ещё не запускался. Исходный `phase3_serena_001` с нулём MCP calls сохранён и не переименован в успешное использование Serena.
 
 ## Что показала диагностика
 
@@ -22,4 +22,4 @@ Neutral smoke использует новый однофайловый Cargo rep
 
 Схема «первая правка, вторая, третья» соответствует Phase 5. Нужны один постоянный executor, immutable submission на каждом шаге, prep/ack перед публикацией следующего SRS, одинаковая dependency-consistent trajectory и per-step grader/Git/Sonar. Обновлённая Serena policy сама по себе эту интеграцию не реализует. [Существующий точный blocker и следующий slice](continuous_feasibility.md).
 
-Первый neutral smoke остановлен до model turn: pinned quarantine probe установил TCP reachability к запрещённому `static.crates.io`. Это отдельный infrastructure/security blocker, а не проверка или отказ Serena policy. Результат и свежая quota snapshot сохранены; model usage отсутствует. Host proxy env отсутствует; registry DNS на момент диагностики входит в запрещённый Fastly CIDR. Для установления причины выполняется отдельный zero-model network diagnostic с прежними правилами; scoring/quarantine не ослабляются.
+Первый neutral smoke остановлен до model turn: pinned quarantine probe установил TCP reachability к запрещённому `static.crates.io`. Это отдельный infrastructure/security blocker, а не проверка или отказ Serena policy. Результат и свежая quota snapshot сохранены; model usage отсутствует. Host proxy env отсутствует; registry DNS на момент диагностики входит в запрещённый Fastly CIDR. Повторный zero-model diagnostic `serena_network_diagnostic_002` завершён: обе проверки с прежними правилами прошли, затем запуск намеренно остановлен до вызова модели. Причина первого сбоя не установлена. Это не проверка Serena policy; перед следующим trial обязательные quarantine checks выполняются заново. Scoring/quarantine не ослабляются.

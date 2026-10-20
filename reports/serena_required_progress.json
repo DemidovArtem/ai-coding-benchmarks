@@ -1,6 +1,6 @@
 {
-  "status": "blocked_quarantine_before_model",
-  "label": "\u0417\u0430\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d quarantine gate; \u043c\u043e\u0434\u0435\u043b\u044c \u043d\u0435 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u043b\u0430\u0441\u044c",
+  "status": "deferred_for_continuous_pilot",
+  "label": "Отложен; приоритет — continuous без Serena",
   "variant": "serena_required",
   "measured_trial_started": false,
   "source_profile_unchanged": "profiles/serena/config.toml",
@@ -14,9 +14,17 @@
     "kind": "activation_smoke_not_measured",
     "grader_run": false,
     "failure_category": "required_serena_activation_failure",
-    "error": "Quarantine verification failed: denied host 'static.crates.io' is still reachable \u2014 SWE_MILESTONE_DENY_DOMAINS/SWE_MILESTONE_DENY_CIDRS not effective",
+    "error": "Quarantine verification failed: denied host 'static.crates.io' is still reachable — SWE_MILESTONE_DENY_DOMAINS/SWE_MILESTONE_DENY_CIDRS not effective",
     "duration_seconds": 122.78890487600006
   },
   "smoke_artifacts": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_required_smoke_001",
-  "model_invoked": false
+  "model_invoked": false,
+  "network_diagnostic": {
+    "trial_id": "serena_network_diagnostic_002",
+    "quarantine_checks_passed": true,
+    "model_invoked": false,
+    "activation_verified": false,
+    "artifacts": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_network_diagnostic_002",
+    "note": "Both unchanged quarantine checks passed; the diagnostic stopped intentionally before model invocation. The earlier reachability failure remains unexplained."
+  }
 }

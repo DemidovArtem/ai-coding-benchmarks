@@ -26,3 +26,8 @@ class StatusTests(unittest.TestCase):
         self.assertIn('Дополнение: serena_required | Профиль реализован; smoke тестируется',text)
         self.assertIn('отдельный measured trial ещё не выполнен',text)
         self.assertLess(text.index('Дополнение: serena_required'),text.index('Phase 4: Sonar'))
+
+    def test_continuous_priority_label_comes_from_plan(self):
+        text=render([],[],{'status':'planned_not_implemented','label':'Следующий приоритет; не реализован'},'fixed time')
+        self.assertIn('Phase 5: continuous, 2 связанных milestone | Следующий приоритет; не реализован',text)
+        self.assertNotIn('planned_not_implemented',text)

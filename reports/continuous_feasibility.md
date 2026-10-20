@@ -1,10 +1,16 @@
-# Continuous pilot — явная отсрочка v1
+# Continuous pilot — следующий приоритет
 
 Continuous 2–3-milestone flow **не реализован и не проверен**. Текущий single-milestone runner не заявляется как эквивалент continuous. Отсрочка использует предусмотренный handoff §9.7 / definition of done вариант: truthful single-milestone A/B плюс отдельная оценка инженерной интеграции.
 
 Выбранный pilot/non-official subset: `milestone_seed_5f5da48_1_sub-01`, затем `milestone_seed_5f5da48_1_sub-02`. Между ними Strong FUNC edge. Повторная проверка `dependencies.csv` и `additional_dependencies.csv` не нашла внешних входящих prerequisites. [Selection evidence](continuous_feasibility.json) фиксирует CSV hashes и рёбра. Prefix `--milestones 2` не гарантирует выбор именно этой пары; нужен trial-local selected list и проверка closure. Дополнительные grader images этой пары пока не загружены.
 
-## Точный blocker
+## Порядок первых trials
+
+По текущему приоритету пользователя Serena не входит в условия запуска. Первый минимальный slice — baseline на выбранной паре: одна сессия executor, остановка после второй задачи, grader/Git/Sonar после каждого шага. Затем на той же паре проверяются plan и goal_plan с prep/dispatch/ack перед каждой задачей. Профили skills и расширение repository остаются отдельными последующими этапами. Интеграция ещё не начата; завершённые single-milestone trials не доказывают непрерывность сессии.
+
+Готовы single-milestone runner, planning profiles, grader, Git/Sonar collection и реестр результатов. Для выбранной пары остаётся определить размер дополнительных grader images и согласовать их загрузку. Повторный zero-model network diagnostic прошёл с прежним quarantine; причина предыдущего reachability failure не установлена, поэтому preflight остаётся обязательным.
+
+## Точный blocker для planning variants
 
 Upstream watcher и долго живущий executor работают независимо. `E2EOrchestrator.start_watcher` наблюдает submission tags и запускает isolated grading; `_update_task_queue_file` сразу копирует runnable SRS и публикует queue. Executor читает эти файлы из своей постоянной сессии. Между появлением milestone и публикацией его SRS нет variant-aware dispatch barrier, который гарантирует завершённую read-only prep и доставку handoff до начала работы executor.
 
