@@ -2,7 +2,9 @@
 
 Реализация [плана](AI_Coding_Experiment_Codex_Handoff.md): SWE-Milestone, Codex с ChatGPT OAuth, шесть изолированных вариантов, Git и SonarQube.
 
-**Phase 0–2 завершены:** baseline, plan и goal_plan прошли actual container/grader. Sonar before/after готов. Skill cohort Phase 3 ещё выполняется. [Результат и ограничения](reports/phase1_smoke.md). Полный v1 ещё не завершён. Raw trial сохранён в `results/trials/baseline_smoke_001`; временная копия остаётся в `/tmp/ai-coding-experiment`.
+**[Живой реестр экспериментов — результаты, метрики и будущие этапы](EXPERIMENT_STATUS.md).** Обновляется после запуска, завершения, ошибки или изменения плана. Регенерация из сохранённых records: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`.
+
+**Isolated pilot v1 завершён:** все шесть variants реально выполнены через unchanged grader в двух matched cohorts; все получили resolved=true. [Итоговый отчёт](reports/pilot_report.md), [результаты](reports/summary.md), [проверка требований](reports/implementation_status.md). Continuous явно отложен по предусмотренному handoff варианту; Phase 6 не запускалась. Raw artifacts сохранены в ignored results/trials; /tmp содержит рабочие копии.
 
 - [Аудит среды и следующие действия](environment_report.md)
 - [Закреплённые параметры](experiment.yaml) — JSON, совместимый с YAML 1.2; неизвестные значения остаются `null`.
@@ -64,7 +66,7 @@ Phase 6 требует отдельного разрешения после pilo
 .venv/bin/python -m experiment.collect results/trials/baseline_smoke_001 --output results/baseline_smoke_report
 ```
 
-Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) содержат smoke и три завершённых Phase 2 trials. Выводы ограничены одним заданием без повторений.
+Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) содержат smoke, три Phase 2 trials и четыре Phase 3 trials. Выводы ограничены одним заданием без повторений.
 
 ## Matched planning trials
 
@@ -82,10 +84,12 @@ Collector не запускает grader заново. Он проверяет s
 
 ## Sonar preparation
 
-[SonarQube](sonar/README.md) работает локально на 127.0.0.1:9000. Общая база и четыре решения проанализированы; [результаты и ограничения](reports/sonar_pilot.md). Raw Sonar snapshots включают разные inline tests, поэтому эти дельты нельзя считать production-only эффектом.
+[SonarQube](sonar/README.md) работает локально на 127.0.0.1:9000. Общая база и восемь решений проанализированы; [результаты и ограничения](reports/sonar_pilot.md). Raw Sonar snapshots включают разные inline tests, поэтому эти дельты нельзя считать production-only эффектом.
 
 ## Skill cohort
 
-Ponytail и Caveman прошли реальные native-hook activation smokes. Для Phase 3 собран [общий runtime](profiles/runtime/README.md), проверены offline Rust symbols через Serena MCP. Ponytail/Caveman activation на общем image подтверждена. Serena MCP PATH исправлен и проверен offline; повторный Codex smoke остановлен quota gate. [Phase 3 progress](reports/phase3_progress.md): измерения ещё не начаты. Все три activation smokes должны пройти на этом точном image ID, после чего замораживается отдельная конфигурация и запускаются baseline/ponytail/caveman/serena по одному. Phase 2 baseline не подменяет baseline нового окружения.
+[Phase 3 завершена](reports/phase3_progress.md): baseline/ponytail/caveman/serena получили resolved=true на одном общем runtime. [Protocol](reports/phase3_protocol.md) и [отдельная frozen конфигурация](reports/phase3_experiment.json) фиксируют image/activation/source hashes до измерений. Baseline не активирует hooks/MCP; Phase 2 baseline не подменяет baseline нового окружения.
+
+Ponytail/Caveman имеют реальные native-hook audits. Serena прошла Codex MCP symbol smoke после фикса Rust env и required startup. В measured trial Serena не вызвала MCP и не выполнила onboarding: usage=0, memories=0, при подтверждённом server/RustAnalyzer startup. Польза MCP/памяти этим запуском не установлена.
 
 Continuous pilot пока отложен: [точный blocker, выбранная DAG-пара и оценка 3–5 дней](reports/continuous_feasibility.md). Большой Phase 6 запуск не выполнялся.

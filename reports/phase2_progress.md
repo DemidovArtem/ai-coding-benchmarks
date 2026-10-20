@@ -16,4 +16,4 @@ Goal_plan: prep выполнен один раз; после quota 88% executor 
 
 [Baseline](phase2_baseline.json), [plan](phase2_plan.json), [goal_plan с interruption/resume history](phase2_goal_plan.json), [Sonar pilot](sonar_pilot.md), [общий summary](summary.md). Canonical JSONL/CSV и raw artifacts сохранены в ignored `results/`. Исходный smoke исключён из measured pairs.
 
-Skill A/B и continuous pilot остаются незавершёнными. Raw Sonar metrics включают различающийся inline test-код и не являются production-only quality effects.
+[Skill A/B завершён отдельным cohort](phase3_progress.md); continuous явно deferred по разрешённому v1 исключению с exact blocker/next step. Raw Sonar metrics включают различающийся inline test-код и не являются production-only quality effects.

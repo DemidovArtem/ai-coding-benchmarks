@@ -1,306 +1,30 @@
 {
-  "status": "baseline_ponytail_caveman_complete_serena_running",
+  "status": "all_four_skill_cohort_trials_complete",
   "measured_trials_started": 4,
-  "phase2_config_unchanged": true,
-  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
-  "rust_lsp_verified_offline": true,
-  "profile_activation": {
-    "ponytail": {
-      "status": "native_ponytail_common_runtime_activation_verified_not_measured",
-      "variant": "ponytail",
-      "version": "5.3.2",
-      "mode": "full",
-      "native_hook_activation_verified": true,
-      "model_observed_mode": "PONYTAIL MODE ACTIVE \u2014 level: full",
-      "usage": {
-        "input_tokens": 11425,
-        "output_tokens": 230,
-        "cached_input_tokens": 9088,
-        "reasoning_output_tokens": 215,
-        "session_ids": [
-          "01a15579-5d42-7e22-b2cd-e3cd12589d62"
-        ],
-        "turns": 1,
-        "tool_calls": {},
-        "anomalies": [],
-        "counter_semantics": "last cumulative totals per thread; fields as reported"
-      },
-      "hook_audit": [
-        {
-          "entrypoint": "ponytail-activate.js",
-          "event": "SessionStart",
-          "exit_code": 0,
-          "mode": "full",
-          "context_chars": 2973,
-          "context_sha256": "4b8cdb4dd84a585aaa54d931a4e31cf8b20d1d3feb57813fb5c069fe28d3cf41",
-          "full_mode_context": true,
-          "unprivileged_uid": 1000
-        },
-        {
-          "entrypoint": "ponytail-mode-tracker.js",
-          "event": "UserPromptSubmit",
-          "exit_code": 0,
-          "mode": "full",
-          "context_chars": 0,
-          "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "full_mode_context": false,
-          "unprivileged_uid": 1000
-        }
-      ],
-      "duration_seconds": 83.03860486600024,
-      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ponytail_activation_shared_001",
-      "activation_fixture": "neutral one-file read-only fixture; no benchmark task or grader feedback",
-      "quarantine": "protected",
-      "plugins_enabled": false,
-      "remote_plugins_enabled": false,
-      "host_configuration_changed": false,
-      "zero_model_probe": {
-        "status": "configured_hook_list_only_not_activation",
-        "note": "App-server thread/start without a turn listed untrusted hooks but did not execute SessionStart. This was not counted as activation."
-      },
-      "previous_base_image_activation": {
-        "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ponytail_activation_001",
-        "usage": {
-          "input_tokens": 11425,
-          "output_tokens": 145,
-          "cached_input_tokens": 9088,
-          "reasoning_output_tokens": 130,
-          "session_ids": [
-            "01a1555f-72b0-72d0-bd7f-28cd49a9b170"
-          ],
-          "turns": 1,
-          "tool_calls": {},
-          "anomalies": [],
-          "counter_semantics": "last cumulative totals per thread; fields as reported"
-        },
-        "duration_seconds": 79.49364835600045
-      },
-      "success": true,
-      "kind": "activation_smoke_not_measured",
-      "failure_category": null,
-      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
-      "session_id": "01a15579-5d42-7e22-b2cd-e3cd12589d62",
-      "planner_used": false,
-      "fixture_read_only": true,
-      "audit": [
-        {
-          "entrypoint": "ponytail-activate.js",
-          "event": "SessionStart",
-          "exit_code": 0,
-          "mode": "full",
-          "context_chars": 2973,
-          "context_sha256": "4b8cdb4dd84a585aaa54d931a4e31cf8b20d1d3feb57813fb5c069fe28d3cf41",
-          "full_mode_context": true,
-          "unprivileged_uid": 1000
-        },
-        {
-          "entrypoint": "ponytail-mode-tracker.js",
-          "event": "UserPromptSubmit",
-          "exit_code": 0,
-          "mode": "full",
-          "context_chars": 0,
-          "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "full_mode_context": false,
-          "unprivileged_uid": 1000
-        }
-      ]
-    },
-    "caveman": {
-      "status": "native_caveman_common_runtime_activation_verified_not_measured",
-      "variant": "caveman",
-      "version": "v4.0.1",
-      "commit": "d262ab3882952a59312ff3537cd86d894523c5ab",
-      "mode": "caveman",
-      "configured_legacy_mode": "full",
-      "native_hook_activation_verified": true,
-      "model_observed_mode": "CAVEMAN MODE ACTIVE \u2014 mode: caveman",
-      "usage": {
-        "input_tokens": 11858,
-        "output_tokens": 67,
-        "cached_input_tokens": 9088,
-        "reasoning_output_tokens": 50,
-        "session_ids": [
-          "01a1557b-571c-7bc3-b60f-d9a563fb709f"
-        ],
-        "turns": 1,
-        "tool_calls": {},
-        "anomalies": [],
-        "counter_semantics": "last cumulative totals per thread; fields as reported"
-      },
-      "hook_audit": [
-        {
-          "entrypoint": "codex-sessionstart.js",
-          "event": "SessionStart",
-          "exit_code": 0,
-          "mode": "caveman",
-          "configured_legacy_mode": "full",
-          "context_chars": 4467,
-          "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
-          "caveman_mode_context": true,
-          "unprivileged_uid": 1000
-        }
-      ],
-      "duration_seconds": 77.57994654499998,
-      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/caveman_activation_shared_001",
-      "activation_fixture": "neutral one-file read-only fixture; no benchmark task or grader feedback",
-      "quarantine": "protected",
-      "plugins_enabled": false,
-      "remote_plugins_enabled": false,
-      "host_configuration_changed": false,
-      "not_enabled": [
-        "Cavecrew presets",
-        "gateway",
-        "optimizer",
-        "middleware",
-        "other Caveman skills"
-      ],
-      "previous_base_image_activation": {
-        "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/caveman_activation_001",
-        "usage": {
-          "input_tokens": 11858,
-          "output_tokens": 51,
-          "cached_input_tokens": 9088,
-          "reasoning_output_tokens": 34,
-          "session_ids": [
-            "01a15564-614d-7731-8125-2fa0d4ec9e82"
-          ],
-          "turns": 1,
-          "tool_calls": {},
-          "anomalies": [],
-          "counter_semantics": "last cumulative totals per thread; fields as reported"
-        },
-        "duration_seconds": 72.40089676099979
-      },
-      "success": true,
-      "kind": "activation_smoke_not_measured",
-      "failure_category": null,
-      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
-      "session_id": "01a1557b-571c-7bc3-b60f-d9a563fb709f",
-      "planner_used": false,
-      "fixture_read_only": true,
-      "audit": [
-        {
-          "entrypoint": "codex-sessionstart.js",
-          "event": "SessionStart",
-          "exit_code": 0,
-          "mode": "caveman",
-          "configured_legacy_mode": "full",
-          "context_chars": 4467,
-          "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
-          "caveman_mode_context": true,
-          "unprivileged_uid": 1000
-        }
-      ]
-    },
-    "serena": {
-      "success": true,
-      "kind": "activation_smoke_not_measured",
-      "variant": "serena",
-      "failure_category": null,
-      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
-      "session_id": "01a15613-dcd4-7c83-b830-003898e60660",
-      "usage": {
-        "input_tokens": 51958,
-        "output_tokens": 154,
-        "cached_input_tokens": 45824,
-        "reasoning_output_tokens": 0,
-        "session_ids": [
-          "01a15613-dcd4-7c83-b830-003898e60660"
-        ],
-        "turns": 1,
-        "tool_calls": {
-          "serena": 2
-        },
-        "anomalies": [],
-        "counter_semantics": "last cumulative totals per thread; fields as reported"
-      },
-      "mcp_activation_verified": true,
-      "observed_mcp_tool_calls": 2,
-      "mcp_calls": [
-        {
-          "id": "item_1",
-          "type": "mcp_tool_call",
-          "server": "serena",
-          "tool": "initial_instructions",
-          "arguments": {},
-          "result": {
-            "content": [
-              {
-                "type": "text",
-                "text": "You have semantic coding tools that you rely on heavily. Work resource-efficiently: don't read or\ngenerate content the task doesn't need.\n\nSome tasks require understanding a large part of the codebase; others need only a few symbols or a\nsingle file. Avoid reading whole files unless necessary \u2014 acquire information step by step, using\nthe symbolic tools to get an overview of symbols and their relations, then reading only the bodies\nyou need. Once you have read a full file, there is no point re-analysing it with the symbolic read\ntools \u2014 you already have it. \n\nIf you are unsure about a symbol's name or location (to the extent that substring_matching for the symbol name is not enough), you can use the `search_for_pattern` tool, which allows fast\nand flexible search for patterns in the codebase. In this way, you can first find candidates for symbols or files,\nand then proceed with the symbolic tools.\n\n\n\nSymbols are identified by their `name_path` and `relative_path`.\nYou can get an overview of the symbols in a file by using the `get_symbols_overview` tool, or search for a specific symbol with `find_symbol`.\nYou only read the bodies of symbols when you need to (e.g. if you want to fully understand or edit it).\nFor example, if you are working with Python code and already know that you need to read the body of the constructor of the class Foo, you can directly\nuse `find_symbol` with name path pattern `Foo/__init__` and `include_body=True`. If you don't know yet which methods in `Foo` you need to read or edit,\nyou can use `find_symbol` with name path pattern `Foo`, `include_body=False` and `depth=1` to get all (top-level) methods of `Foo` before proceeding\nto read the desired methods with `include_body=True`.\nYou can understand relationships between symbols by using the `find_referencing_symbols` tool.\n\n\nYou generally have access to memories and it may be useful for you to read them.\nYou infer whether memories are relevant based on their names.\n\n\nLine numbers returned by Serena's tools are 0-based!\n\nSerena executes tool calls one at a time internally, even when you request several at once. So whenever you have\nindependent operations to perform, you can safely issue them as parallel tool calls in a single turn: they are applied\nin the order issued and cannot race with or corrupt one another, and batching them this way saves round-trips. Every\nseparate round-trip re-sends the whole growing context, so maximizing parallel tool calls is the single biggest lever\non cost \u2014 err on the side of batching. Only call tools sequentially when one genuinely depends on the result of another.\n\nThe context and modes of operation are described below. These determine how to interact with your user\nand which kinds of interactions are expected of you.\n\nContext description:\nYou are running in the Codex IDE assistant mode, where file operations, basic (line-based) edits and reads \nas well as shell commands are handled by your own, internal tools.\nDon't attempt to use any excluded tools; instead, rely on your own internal tools for basic file or shell operations.\n\nIf Serena's tools can be used to achieve your task, you should prioritize them. \nIn particular, it is important that you avoid reading entire source code files unless it is strictly necessary! \nInstead, for exploring and reading code in a token-efficient manner, use Serena's overview and symbolic search tools. \nFor non-code files or for reads where you don't know the symbol's name path, you can use the pattern search tool.\n\nModes descriptions:\n\nUse the symbolic editing tools for precise, structure-aware code modifications.\n\n**Refactoring tools**\nFor operations on existing symbols, prefer the dedicated refactoring tools over hand-edits:\n`rename_symbol` and `safe_delete_symbol` \u2014\nthey are reference-aware and update or check all usages atomically. When such a tool returns success, the\nrefactoring is already complete and consistent across all declarations, references, overrides and imports \u2014\ntrust it: do not re-read the changed files or re-run the build / test suite just to confirm the refactor\nitself propagated, this would be wasted effort.\n  \nApart from those refactoring tools, you have two main approaches for editing code: (a) editing at the symbol level and (b) file-based editing.\nThe symbol-based approach is appropriate if you need to adjust an entire symbol, e.g. a method, a class, a function, etc.\nIt is not appropriate if you need to adjust just a few lines of code within a larger symbol.\n\n**Symbolic editing**\nUse symbolic retrieval tools to identify the symbols you need to edit.\nIf you need to replace the definition of a symbol, use the `replace_symbol_body` tool.\nIf you want to add some new code at the end of the file, use the `insert_after_symbol` tool with the last top-level symbol in the file. \nSimilarly, you can use `insert_before_symbol` with the first top-level symbol in the file to insert code at the beginning of a file.\nYou can understand relationships between symbols by using the `find_referencing_symbols` tool. If not explicitly requested otherwise by the user,\nyou make sure that when you edit a symbol, the change is either backward-compatible or you find and update all references as needed.\nThe `find_referencing_symbols` tool will give you code snippets around the references as well as symbolic information.\nThese edits are reliable: once a tool returns without error the change is applied, so you do not need to re-read the file just to confirm it.\n\n\n\nYou should engage with the user throughout the task, asking for clarification whenever anything is unclear, \ninsufficiently specified, or ambiguous. \nWhen you're uncertain about a decision, present options to the user and ask for guidance rather than making assumptions. \nFocus on providing informative results for intermediate steps, such that the user can follow along with your progress and\nprovide feedback as needed.\nThis applies unless the user explicitly stated they are unavailable/instructs you to proceed without asking questions.  \n\n\nYou have hereby read the 'Serena Instructions Manual' and do not need to read it again.\n\nCreated and activated a new project with name 'testbed' at /testbed. \nProgramming languages: rust.File encoding: utf-8.Onboarding has not been performed yet, you should call Serena's `onboarding` tool now to set up project memories."
-              }
-            ],
-            "structured_content": {
-              "result": "You have semantic coding tools that you rely on heavily. Work resource-efficiently: don't read or\ngenerate content the task doesn't need.\n\nSome tasks require understanding a large part of the codebase; others need only a few symbols or a\nsingle file. Avoid reading whole files unless necessary \u2014 acquire information step by step, using\nthe symbolic tools to get an overview of symbols and their relations, then reading only the bodies\nyou need. Once you have read a full file, there is no point re-analysing it with the symbolic read\ntools \u2014 you already have it. \n\nIf you are unsure about a symbol's name or location (to the extent that substring_matching for the symbol name is not enough), you can use the `search_for_pattern` tool, which allows fast\nand flexible search for patterns in the codebase. In this way, you can first find candidates for symbols or files,\nand then proceed with the symbolic tools.\n\n\n\nSymbols are identified by their `name_path` and `relative_path`.\nYou can get an overview of the symbols in a file by using the `get_symbols_overview` tool, or search for a specific symbol with `find_symbol`.\nYou only read the bodies of symbols when you need to (e.g. if you want to fully understand or edit it).\nFor example, if you are working with Python code and already know that you need to read the body of the constructor of the class Foo, you can directly\nuse `find_symbol` with name path pattern `Foo/__init__` and `include_body=True`. If you don't know yet which methods in `Foo` you need to read or edit,\nyou can use `find_symbol` with name path pattern `Foo`, `include_body=False` and `depth=1` to get all (top-level) methods of `Foo` before proceeding\nto read the desired methods with `include_body=True`.\nYou can understand relationships between symbols by using the `find_referencing_symbols` tool.\n\n\nYou generally have access to memories and it may be useful for you to read them.\nYou infer whether memories are relevant based on their names.\n\n\nLine numbers returned by Serena's tools are 0-based!\n\nSerena executes tool calls one at a time internally, even when you request several at once. So whenever you have\nindependent operations to perform, you can safely issue them as parallel tool calls in a single turn: they are applied\nin the order issued and cannot race with or corrupt one another, and batching them this way saves round-trips. Every\nseparate round-trip re-sends the whole growing context, so maximizing parallel tool calls is the single biggest lever\non cost \u2014 err on the side of batching. Only call tools sequentially when one genuinely depends on the result of another.\n\nThe context and modes of operation are described below. These determine how to interact with your user\nand which kinds of interactions are expected of you.\n\nContext description:\nYou are running in the Codex IDE assistant mode, where file operations, basic (line-based) edits and reads \nas well as shell commands are handled by your own, internal tools.\nDon't attempt to use any excluded tools; instead, rely on your own internal tools for basic file or shell operations.\n\nIf Serena's tools can be used to achieve your task, you should prioritize them. \nIn particular, it is important that you avoid reading entire source code files unless it is strictly necessary! \nInstead, for exploring and reading code in a token-efficient manner, use Serena's overview and symbolic search tools. \nFor non-code files or for reads where you don't know the symbol's name path, you can use the pattern search tool.\n\nModes descriptions:\n\nUse the symbolic editing tools for precise, structure-aware code modifications.\n\n**Refactoring tools**\nFor operations on existing symbols, prefer the dedicated refactoring tools over hand-edits:\n`rename_symbol` and `safe_delete_symbol` \u2014\nthey are reference-aware and update or check all usages atomically. When such a tool returns success, the\nrefactoring is already complete and consistent across all declarations, references, overrides and imports \u2014\ntrust it: do not re-read the changed files or re-run the build / test suite just to confirm the refactor\nitself propagated, this would be wasted effort.\n  \nApart from those refactoring tools, you have two main approaches for editing code: (a) editing at the symbol level and (b) file-based editing.\nThe symbol-based approach is appropriate if you need to adjust an entire symbol, e.g. a method, a class, a function, etc.\nIt is not appropriate if you need to adjust just a few lines of code within a larger symbol.\n\n**Symbolic editing**\nUse symbolic retrieval tools to identify the symbols you need to edit.\nIf you need to replace the definition of a symbol, use the `replace_symbol_body` tool.\nIf you want to add some new code at the end of the file, use the `insert_after_symbol` tool with the last top-level symbol in the file. \nSimilarly, you can use `insert_before_symbol` with the first top-level symbol in the file to insert code at the beginning of a file.\nYou can understand relationships between symbols by using the `find_referencing_symbols` tool. If not explicitly requested otherwise by the user,\nyou make sure that when you edit a symbol, the change is either backward-compatible or you find and update all references as needed.\nThe `find_referencing_symbols` tool will give you code snippets around the references as well as symbolic information.\nThese edits are reliable: once a tool returns without error the change is applied, so you do not need to re-read the file just to confirm it.\n\n\n\nYou should engage with the user throughout the task, asking for clarification whenever anything is unclear, \ninsufficiently specified, or ambiguous. \nWhen you're uncertain about a decision, present options to the user and ask for guidance rather than making assumptions. \nFocus on providing informative results for intermediate steps, such that the user can follow along with your progress and\nprovide feedback as needed.\nThis applies unless the user explicitly stated they are unavailable/instructs you to proceed without asking questions.  \n\n\nYou have hereby read the 'Serena Instructions Manual' and do not need to read it again.\n\nCreated and activated a new project with name 'testbed' at /testbed. \nProgramming languages: rust.File encoding: utf-8.Onboarding has not been performed yet, you should call Serena's `onboarding` tool now to set up project memories."
-            }
-          },
-          "error": null,
-          "status": "completed"
-        },
-        {
-          "id": "item_2",
-          "type": "mcp_tool_call",
-          "server": "serena",
-          "tool": "get_symbols_overview",
-          "arguments": {
-            "relative_path": "src/lib.rs"
-          },
-          "result": {
-            "content": [
-              {
-                "type": "text",
-                "text": "{\"Function\": [\"activation_fixture\"]}"
-              }
-            ],
-            "structured_content": {
-              "result": "{\"Function\": [\"activation_fixture\"]}"
-            }
-          },
-          "error": null,
-          "status": "completed"
-        }
-      ],
-      "planner_used": false,
-      "fixture_read_only": false,
-      "quarantine": "protected",
-      "duration_seconds": 95.72498962300051,
-      "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_activation_shared_005",
-      "status": "codex_rust_mcp_activation_verified_not_measured",
-      "version": "1.6.1",
-      "cold_state": true,
-      "measured_serena_trial_started": false,
-      "previous_attempts": [
-        "reports/serena_activation_failed_001.json",
-        "results/trials/serena_activation_shared_002",
-        "reports/serena_activation_failed_003.json",
-        "reports/serena_activation_failed_004.json"
-      ],
-      "startup_diagnostic": "reports/serena_codex_startup.json",
-      "startup_fix": "Required MCP server waits for initialization before initial tool catalog; explicit offline Rust paths."
-    }
-  },
-  "deterministic_trial_order": [
-    "baseline",
-    "ponytail",
-    "caveman",
-    "serena"
+  "completed_trials": [
+    "phase3_baseline_001",
+    "phase3_ponytail_001",
+    "phase3_caveman_001",
+    "phase3_serena_001"
   ],
   "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
   "frozen_config_created": true,
+  "phase2_config_unchanged": true,
   "quota": {
-    "observed_at": "2026-10-19T21:33:59.665983+00:00",
+    "observed_at": "2026-10-19T22:04:25.659402+00:00",
     "source": "codex app-server account/rateLimits/read",
     "approximate": true,
     "status": "observed",
     "rate_limits": {
       "codex": {
         "primary": {
-          "usedPercent": 29,
+          "usedPercent": 92,
           "windowDurationMins": 300,
           "resetsAt": 1792462993
         },
         "secondary": {
-          "usedPercent": 64,
+          "usedPercent": 74,
           "windowDurationMins": 10080,
           "resetsAt": 1792885249
         },
@@ -309,39 +33,85 @@
       }
     }
   },
-  "quota_stop_percent": 85,
-  "quota_reset_local": "2026-10-20T00:52:22+02:00",
-  "next_step": "Finish Ponytail, then Caveman and Serena sequentially with fresh quota gates.",
+  "results": [
+    {
+      "trial_id": "phase3_baseline_001",
+      "variant": "baseline",
+      "resolved": true,
+      "added_prod_loc": 78,
+      "deleted_prod_loc": 24,
+      "churn_prod_loc": 102,
+      "changed_prod_files": 5,
+      "duration_seconds": 362.401062207,
+      "failure_category": null,
+      "collection_errors": [],
+      "skill_state": null
+    },
+    {
+      "trial_id": "phase3_ponytail_001",
+      "variant": "ponytail",
+      "resolved": true,
+      "added_prod_loc": 70,
+      "deleted_prod_loc": 22,
+      "churn_prod_loc": 92,
+      "changed_prod_files": 5,
+      "duration_seconds": 388.71037239,
+      "failure_category": null,
+      "collection_errors": [],
+      "skill_state": null
+    },
+    {
+      "trial_id": "phase3_caveman_001",
+      "variant": "caveman",
+      "resolved": true,
+      "added_prod_loc": 77,
+      "deleted_prod_loc": 21,
+      "churn_prod_loc": 98,
+      "changed_prod_files": 5,
+      "duration_seconds": 408.2293586859996,
+      "failure_category": null,
+      "collection_errors": [],
+      "skill_state": null
+    },
+    {
+      "trial_id": "phase3_serena_001",
+      "variant": "serena",
+      "resolved": true,
+      "added_prod_loc": 82,
+      "deleted_prod_loc": 20,
+      "churn_prod_loc": 102,
+      "changed_prod_files": 5,
+      "duration_seconds": 375.181929665001,
+      "failure_category": null,
+      "collection_errors": [],
+      "skill_state": {
+        "memory_files_after": 0,
+        "memory_bytes_after": 0,
+        "project_state_exists": true,
+        "home_state_exists": true,
+        "memory_files_before": 0,
+        "memory_bytes_before": 0,
+        "natural_mcp_tool_calls": 0,
+        "mcp_calls_by_tool": {},
+        "onboarding_observed": false,
+        "server_startup_verified": true,
+        "rust_analyzer_startup_verified": true,
+        "server_tool_inventory_count": 23,
+        "server_startup_errors": 0
+      }
+    }
+  ],
+  "activation_proofs": {
+    "ponytail": "reports/ponytail_activation.json",
+    "caveman": "reports/caveman_activation.json",
+    "serena": "reports/serena_activation.json"
+  },
   "limitations": [
-    "No measured skill correctness or quality result exists yet.",
-    "Corrected Serena env works offline but is not yet verified from Codex.",
-    "Native-hook smokes are setup evidence, not measured benchmark trials."
-  ],
-  "ripgrep_offline_probe": "reports/serena_ripgrep_offline.json",
-  "completed_trials": [
-    "phase3_baseline_001",
-    "phase3_ponytail_001",
-    "phase3_caveman_001"
-  ],
-  "baseline_result": {
-    "resolved": true,
-    "added_prod_loc": 78,
-    "deleted_prod_loc": 24,
-    "failure_category": null,
-    "collection_errors": []
-  },
-  "ponytail_result": {
-    "resolved": true,
-    "added_prod_loc": 70,
-    "deleted_prod_loc": 22,
-    "failure_category": null,
-    "collection_errors": []
-  },
-  "caveman_result": {
-    "resolved": true,
-    "added_prod_loc": 77,
-    "deleted_prod_loc": 21,
-    "failure_category": null,
-    "collection_errors": []
-  }
+    "One task, one repetition per variant; no generalization.",
+    "Phase 2 and Phase 3 use different runtime fingerprints; paired comparisons stay within each cohort.",
+    "Serena had zero natural MCP calls/onboarding/memories despite verified startup and activation smoke.",
+    "Raw Sonar includes differing inline tests.",
+    "Descriptive times include concurrent host-side collection/Sonar work during subsequent trial setup; do not rank speed.",
+    "Continuous deferred under the explicit v1 exception; Phase 6 not run."
+  ]
 }

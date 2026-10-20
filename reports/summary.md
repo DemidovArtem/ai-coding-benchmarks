@@ -12,6 +12,7 @@ Dependent milestones form trajectories; they are not independent statistical sam
 | phase3_baseline_001 | baseline | True | 78 / 24 | 0 | null |
 | phase3_ponytail_001 | ponytail | True | 70 / 22 | -10 | null |
 | phase3_caveman_001 | caveman | True | 77 / 21 | -4 | null |
+| phase3_serena_001 | serena | True | 82 / 20 | 0 | null |
 
 Paired deltas require one baseline with identical task, repetition, starting tree, model, effort, dataset and setup fingerprint.
 A delta does not imply correctness. Inspect correctness and footprint together; no failed rows are dropped.

@@ -1,5 +1,7 @@
 # Аудит среды — Phase 0
 
+**Текущий итог (20 октября 2026):** isolated pilot всех шести variants завершён, восемь actual grader outcomes и Sonar snapshots сохранены. [Итоговый отчёт](reports/pilot_report.md), [completion evidence](reports/completion_audit.json). Continuous явно deferred; Phase 6 не запущена. Остальной текст ниже — исторический снимок Phase 0, его исходные blockers/нулевые execution statements не являются текущим статусом.
+
 **Обновление Phase 1:** загрузка двух образов согласована владельцем и завершена; [image identities](reports/downloaded_images.json). [Host OAuth smoke](reports/host_oauth_smoke.json) успешен. Agent-only patch и runner реализованы; [actual grader smoke завершён успешно](reports/phase1_smoke.md), artifacts сохранены в workspace. Ниже сохранён исходный снимок Phase 0.
 
 Наблюдения: 19 октября 2026, Europe/Zurich; машинные timestamp сохранены в UTC. Цель v1 остаётся активной. Benchmark inference, host `codex exec` и grader не запускались. Phase 0 не расходовала benchmark-квоту; работа самого Codex в этой беседе расходует обычную квоту подписки.

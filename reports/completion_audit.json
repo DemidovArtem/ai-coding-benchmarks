@@ -1,0 +1,205 @@
+{
+  "checked_at": "2026-10-19T22:05:47.352351+00:00",
+  "status": "verified_complete_with_explicit_continuous_deferral",
+  "trials": [
+    {
+      "trial_id": "baseline_smoke_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase2_baseline_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase2_plan_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase2_goal_plan_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase3_baseline_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase3_ponytail_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase3_caveman_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    },
+    {
+      "trial_id": "phase3_serena_001",
+      "resolved": true,
+      "snapshot_rust_files": 79,
+      "raw_numstat_direct_git_match": true,
+      "sonar_binding_verified": true,
+      "f2p": 2,
+      "p2p": 1093,
+      "n2p": 2,
+      "raw_failures": 15
+    }
+  ],
+  "phase2_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+  "phase3_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+  "phase3_original_task_sha256": "e8148c2ea824dc771d5e29d2af77a88adc6113a5607a0d7a53ad42e946a501e2",
+  "phase3_trials_serial": true,
+  "source_pins_verified": true,
+  "all_activation_proofs_verified": true,
+  "credential_values_absent_from_tracked_files": true,
+  "ignored_artifacts_untracked": true,
+  "continuous": "explicitly deferred under handoff section 9.7 and definition of done; not implemented or scored",
+  "serena_usage_limitation": "MCP startup/smoke verified; measured trial used zero MCP calls and performed no onboarding.",
+  "phase6": "not run; no automatic authorization",
+  "final_checked_at": "2026-10-20T10:10:52.140002+00:00",
+  "final_tests": {
+    "passed": 56,
+    "subtests_passed": 17,
+    "raw_output": "results/final_tests.txt",
+    "sha256": "179cbad2b5a2a2f6496c088dc731079a277dc1e60a1bf3d863f4fa75e24b81e7"
+  },
+  "sonar_after_restart": {
+    "authenticated": true,
+    "frozen_rust_rules_verified": true,
+    "retained_analysis_tasks": 8,
+    "only_internal_network": true,
+    "host_bind": "127.0.0.1:9000"
+  },
+  "definition_of_done": [
+    {
+      "requirement": "Actual baseline OAuth task through unchanged grader, saved artifacts",
+      "status": "verified",
+      "evidence": [
+        "reports/phase1_smoke.md",
+        "results/trials/baseline_smoke_001"
+      ]
+    },
+    {
+      "requirement": "Six isolated/testable variants with observed activation",
+      "status": "verified",
+      "evidence": [
+        "reports/phase2_progress.md",
+        "reports/ponytail_activation.json",
+        "reports/caveman_activation.json",
+        "reports/serena_activation.json",
+        "reports/phase3_progress.md"
+      ]
+    },
+    {
+      "requirement": "Matched baseline/plan/goal_plan with prep+executor usage",
+      "status": "verified",
+      "evidence": [
+        "reports/phase2_protocol.md",
+        "reports/phase2_progress.md",
+        "reports/phase2_goal_plan.json"
+      ]
+    },
+    {
+      "requirement": "Production footprint and direct Git comparison",
+      "status": "verified",
+      "evidence": [
+        "experiment/metrics.py",
+        "tests/test_metrics.py",
+        "reports/completion_audit.json"
+      ]
+    },
+    {
+      "requirement": "Sonar before/after on immutable graded snapshots",
+      "status": "verified",
+      "evidence": [
+        "reports/sonar_pilot.json",
+        "sonar/analysis_protocol.json",
+        "results/sonar/common_base"
+      ]
+    },
+    {
+      "requirement": "Compact per-task report, versions/environment/activation/limitations",
+      "status": "verified",
+      "evidence": [
+        "reports/pilot_report.md",
+        "reports/reproduction.md",
+        "reports/phase3_experiment.json"
+      ]
+    },
+    {
+      "requirement": "No paid API, credentials leak, public service or unauthorized quarantine relaxation",
+      "status": "verified",
+      "evidence": [
+        "patches/swe-milestone-oauth.patch",
+        "experiment/security.py",
+        "tests/test_security.py",
+        "reports/completion_audit.json"
+      ]
+    },
+    {
+      "requirement": "Continuous implemented OR explicitly deferred with exact blocker and next step",
+      "status": "accepted_explicit_deferral",
+      "evidence": [
+        "AI_Coding_Experiment_Codex_Handoff.md section 9.7 and section 10",
+        "reports/continuous_feasibility.md",
+        "reports/continuous_feasibility.json"
+      ]
+    }
+  ],
+  "user_status_register": {
+    "document": "EXPERIMENT_STATUS.md",
+    "generator": "experiment/status.py",
+    "tests": "tests/test_status.py",
+    "maintenance_rule": "AGENTS.md",
+    "updated_from_saved_records": true,
+    "future_stages_explicit": true
+  },
+  "report_links_verified": true,
+  "final_report_files_credential_value_check": "clean"
+}

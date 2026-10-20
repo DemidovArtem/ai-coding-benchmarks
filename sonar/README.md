@@ -1,6 +1,6 @@
 # SonarQube integration — current state
 
-API collector реализован и проверен на local HTTP fixtures. Sonar images загружены с разрешения пользователя 2026-10-19; scanner version smoke выполнен offline. SonarQube service запущен и защищён. Base и measured baseline/plan solution scans выполнены; snapshot binding, coverage 79 Rust-файлов и неизменность правил подтверждены. Это незавершённая часть Phase 4, не доказательство Rust analysis или snapshot binding.
+Sonar images загружены с разрешения пользователя и закреплены digest. Общая база и восемь graded solution snapshots реально проанализированы: exact snapshot binding, coverage 79 Rust files и неизменность 78 rules подтверждены для каждого scan. [Сводка и ограничения](../reports/sonar_pilot.md), [машинные результаты](../reports/sonar_pilot.json). API-only collector сам по себе не доказывает source binding; scan wrapper и canonical collector проверяют её отдельно.
 
 ## Реализовано
 
@@ -63,7 +63,7 @@ PYTHONPATH=vendor/SWE-Milestone .venv/bin/python -m pytest -q tests/test_sonar.p
 
 ## Подтверждённый runtime
 
-[Runtime report](../reports/sonar_runtime.json): server **26.9.0.129388**, Rust analyzer **1.8.1.3395**, Sonar way Rust profile — **78 active rules**. Наличие analyzer/profile пока не доказывает обработку конкретного snapshot. H2 используется только для локального evaluation pilot; named volumes нужно сохранять вместе с private credentials.
+[Runtime report](../reports/sonar_runtime.json): server **26.9.0.129388**, Rust analyzer **1.8.1.3395**, Sonar way Rust profile — **78 active rules**. Наличие analyzer/profile само по себе не доказывает обработку snapshot; runtime proof дополняется exact bindings в каждом trial. H2 используется только для локального evaluation pilot; named volumes нужно сохранять вместе с private credentials.
 
 ```bash
 docker compose -f sonar/compose.yaml up -d server
