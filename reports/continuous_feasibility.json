@@ -55,7 +55,7 @@
   ],
   "serena_required": false,
   "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
-  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 2/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 3/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
   "execution_protocol": "reports/phase5_protocol.md",
   "pilot_runs": [
     {
@@ -85,12 +85,12 @@
       "trial_id": "phase5_ponytail_r01_retry01",
       "variant": "ponytail",
       "repetition": 1,
-      "state": "running",
-      "completed_steps": 1,
+      "state": "finished",
+      "completed_steps": 2,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": 2,
-      "last_step": "phase5_ponytail_r01_retry01_s01",
+      "active_step": null,
+      "last_step": "phase5_ponytail_r01_retry01_s02",
       "failure_category": null,
       "prior_attempts": [
         {
@@ -112,11 +112,11 @@
       "trial_id": "phase5_plan_r01_retry01",
       "variant": "plan",
       "repetition": 1,
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": null,
+      "active_step": 1,
       "failure_category": null,
       "interruption": {
         "runtime_directory_lost": true,

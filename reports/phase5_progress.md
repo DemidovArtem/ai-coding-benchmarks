@@ -1,10 +1,18 @@
 # Последовательный пилот: промежуточные результаты
 
-## Обновление 21 октября: продолжение выполнено
+## Обновление 21 октября: три завершённые траектории
 
-Caveman завершил вторую правку в исходной сессии: F2P 1/1, P2P 1102/1102, N2P 9/9. Cumulative production diff +114/−11, churn 125; output второго шага 7 829. Snapshot/collection checks и native-hook activation на resume прошли. Sonar завершён. Baseline и Caveman теперь имеют по одной полной двухшаговой траектории; это четыре принятых grader task execution. Исходные quota/preflight failures сохранены отдельно.
+Baseline, Caveman и Ponytail завершили по две связанные правки; все шесть task execution приняты grader. Plan + implementation выполняется. Вторые повторы ещё не запускались. Все прежние quota/preflight/restart failures сохранены; Ponytail здесь — явно обозначенный fresh retry.
 
-Свежий Ponytail retry выполняется. Plan retry и вторые повторы стоят в очереди. После host restart новые raw artifacts сохраняются в ignored `results/runtime/phase5`, а не во временном `/tmp`. Актуальные статусы и каждая новая метрика появляются в [основном реестре](../EXPERIMENT_STATUS.md).
+| Вариант, повтор 1 | Cumulative production + / − | Churn | Output, два шага | Sonar ncloc после шага 2 | Cognitive complexity | Maintainability issues |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| baseline | +98 / −18 | 116 | 18,680 | 31176 | 2405 | 282 |
+| Caveman | +114 / −11 | 125 | 14,727 | 31482 | 2424 | 282 |
+| Ponytail | +73 / −15 | 88 | 17,425 | 31145 | 2406 | 282 |
+
+Cumulative LOC сравнивает финальный submission с исходным состоянием; строки шагов не складываются. Каждая цифра относится к одному repetition. Это пилотные наблюдения, не статистический рейтинг. Sonar включает различающийся inline test-код; production LOC исключает тесты.
+
+Caveman восстановлен в исходной сессии. Ponytail fresh retry сохранил одну сессию между собственными двумя шагами, без переноса partial work из прерванного trial. Snapshot hashes, Rust bytes, tags, native hooks и Sonar bindings проверены. Новые raw artifacts сохраняются в ignored `results/runtime/phase5`; актуальная очередь — в [основном реестре](../EXPERIMENT_STATUS.md).
 
 ## История первоначальной остановки
 
