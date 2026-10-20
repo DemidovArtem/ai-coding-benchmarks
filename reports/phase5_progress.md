@@ -1,18 +1,19 @@
 # Последовательный пилот: промежуточные результаты
 
-## Обновление 21 октября: три завершённые траектории
+## Первый полный repetition: 21 октября
 
-Baseline, Caveman и Ponytail завершили по две связанные правки; все шесть task execution приняты grader. Plan + implementation выполняется. Вторые повторы ещё не запускались. Все прежние quota/preflight/restart failures сохранены; Ponytail здесь — явно обозначенный fresh retry.
+Все четыре варианта завершили по две связанные правки. Все восемь task execution приняты grader, collection errors отсутствуют, Sonar завершён для каждого snapshot. Проверены одинаковый frozen cohort/paired key, одна executor session на траекторию, чтение полного задания и точные Git/snapshot bindings. [Машинная сводка](phase5_comparison.json).
 
-| Вариант, повтор 1 | Cumulative production + / − | Churn | Output, два шага | Sonar ncloc после шага 2 | Cognitive complexity | Maintainability issues |
+| Вариант | Cumulative production + / − | Churn | Output, два шага с prep | Sonar ncloc | Cognitive complexity | Maintainability issues |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | baseline | +98 / −18 | 116 | 18,680 | 31176 | 2405 | 282 |
-| Caveman | +114 / −11 | 125 | 14,727 | 31482 | 2424 | 282 |
-| Ponytail | +73 / −15 | 88 | 17,425 | 31145 | 2406 | 282 |
+| caveman | +114 / −11 | 125 | 14,727 | 31482 | 2424 | 282 |
+| ponytail | +73 / −15 | 88 | 17,425 | 31145 | 2406 | 282 |
+| plan | +99 / −15 | 114 | 25,561 | 31616 | 2429 | 282 |
 
-Cumulative LOC сравнивает финальный submission с исходным состоянием; строки шагов не складываются. Каждая цифра относится к одному repetition. Это пилотные наблюдения, не статистический рейтинг. Sonar включает различающийся inline test-код; production LOC исключает тесты.
+Cumulative LOC сравнивает финальный submission с исходным состоянием; значения шагов не складываются. Одна траектория на вариант не даёт статистического рейтинга. Sonar включает различающийся inline test-код; production LOC исключает тесты. Во всех восьми raw grader suites остаются baseline/flaky failures; принятие grader означает выполнение обязательных F2P/P2P/N2P, а не отсутствие всех raw failures.
 
-Caveman восстановлен в исходной сессии. Ponytail fresh retry сохранил одну сессию между собственными двумя шагами, без переноса partial work из прерванного trial. Snapshot hashes, Rust bytes, tags, native hooks и Sonar bindings проверены. Новые raw artifacts сохраняются в ignored `results/runtime/phase5`; актуальная очередь — в [основном реестре](../EXPERIMENT_STATUS.md).
+Caveman продолжен после quota pause в исходной сессии. Ponytail и plan здесь — явно названные fresh infrastructure retries; прежние прерванные попытки сохранены. Повтор 2 запущен с baseline. Актуальная очередь — в [основном реестре](../EXPERIMENT_STATUS.md).
 
 ## История первоначальной остановки
 
