@@ -45,8 +45,8 @@
   ],
   "estimate_excludes": "Model quota windows, additional grader-image download approval and machine runtime.",
   "additional_images_downloaded": true,
-  "same_executor_session_verified": false,
-  "continuous_result_claimed": false,
+  "same_executor_session_verified": true,
+  "continuous_result_claimed": true,
   "pilot_variants": [
     "baseline",
     "caveman",
@@ -55,25 +55,28 @@
   ],
   "serena_required": false,
   "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
-  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 0/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 1/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
   "execution_protocol": "reports/phase5_protocol.md",
   "pilot_runs": [
     {
       "trial_id": "phase5_baseline_r01",
       "variant": "baseline",
       "repetition": 1,
-      "state": "running",
-      "completed_steps": 0,
+      "state": "finished",
+      "completed_steps": 2,
       "total_steps": 2,
-      "active_step": 1
+      "active_step": null,
+      "last_step": "phase5_baseline_r01_s02",
+      "failure_category": null
     },
     {
       "trial_id": "phase5_caveman_r01",
       "variant": "caveman",
       "repetition": 1,
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
-      "total_steps": 2
+      "total_steps": 2,
+      "active_step": 1
     },
     {
       "trial_id": "phase5_ponytail_r01",
