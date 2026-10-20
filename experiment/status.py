@@ -43,6 +43,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
     p2 = [r for r in rows if r['trial_id'].startswith('phase2_')]
     p3 = [r for r in rows if r['trial_id'].startswith('phase3_')]
     active = [r for r in pending if r.get('trial_state') == 'running']
+    snapshots = [r for r in rows if r.get('snapshot_sha256')]
     summaries = [r.get('grader_metrics',{}).get('test_summary',{}) for r in rows]
     grade_note = 'Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records.'
     fields = ('fail_to_pass_achieved','fail_to_pass_required','pass_to_pass_achieved','pass_to_pass_required','none_to_pass_achieved','none_to_pass_required','failed','skipped')
@@ -59,11 +60,11 @@ def render(rows, pending, continuous, updated, serena_required=None):
              f"| Phase 2: baseline / plan / goal_plan | {phase_status(p2 + [r for r in pending if r['trial_id'].startswith('phase2_')], {'baseline','plan','goal_plan'})} | [Метрики и quota-resume history](reports/phase2_progress.md) |",
              f"| Phase 3: baseline / Ponytail / Caveman / Serena | {phase_status(p3 + [r for r in pending if r['trial_id'].startswith('phase3_')], {'baseline','ponytail','caveman','serena'})} | [Профили, активация и результаты](reports/phase3_progress.md) |",
              *([f"| Дополнение: serena_required | {cell(serena_required.get('label'))} | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |"] if serena_required else []),
-             f"| Phase 4: Sonar before/after | {'Завершён для собранных trials' if rows and all(r.get('sonar',{}).get('analysis_ok') is True for r in rows) else 'Частично выполнен / ожидает анализов'} | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |",
+             f"| Phase 4: Sonar before/after | {'Завершён для собранных snapshots' if snapshots and all(r.get('sonar',{}).get('analysis_ok') is True for r in snapshots) else 'Частично выполнен / ожидает анализов'} | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |",
              f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | {cell(continuous.get('summary') or 'Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней.')} [План и состояние](reports/continuous_feasibility.md) |",
              '| Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |', '',
              '## Корректность и размер production patch', '',
-             'Каждая строка — отдельный trial. Phase 2 и Phase 3 используют разные frozen runtime: сравнивать с baseline внутри того же cohort. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.', '',
+             'Каждая строка — отдельный trial или шаг continuous. Сравнивать с baseline внутри того же frozen cohort и повтора; Phase 2/3/5 не смешивать. Шаги одной траектории зависимы. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.', '',
              '| Trial / cohort | Variant | Статус | + строк | − строк | Net | Churn | Изменено prod-файлов |',
              '| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |']
     for r in rows + pending:
@@ -96,13 +97,14 @@ def render(rows, pending, continuous, updated, serena_required=None):
         table = ['## Последовательный пилот: план запусков', '',
                  'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',
                  '| Траектория | Variant | Повтор | Завершено шагов | Статус |', '| --- | --- | ---: | --- | --- |']
-        states = {'planned':'Запланирован', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
+        states = {'planned':'Запланирован', 'waiting_quota':'Ожидает квоты', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
         for run in continuous['pilot_runs']:
+            state = 'Остановлен: квота' if run.get('failure_category') == 'quota_pressure' else states.get(run['state'], run['state'])
             values = [run['trial_id'], run['variant'], run['repetition'],
-                      str(run['completed_steps']) + '/' + str(run['total_steps']), states.get(run['state'], run['state'])]
+                      str(run['completed_steps']) + '/' + str(run['total_steps']), state]
             table.append('| ' + ' | '.join(map(cell, values)) + ' |')
         position = lines.index('## Корректность и размер production patch')
-        lines[position:position] = table + ['', '[Протокол последовательного пилота](reports/phase5_protocol.md)', '']
+        lines[position:position] = table + ['', '[Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)', '']
     return '\n'.join(lines)
 
 

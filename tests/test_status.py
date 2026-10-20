@@ -37,3 +37,14 @@ class StatusTests(unittest.TestCase):
                             'completed_steps':1,'total_steps':2,'state':'running'}]}
         text=render([],[],plan,'fixed time')
         self.assertIn('| phase5_baseline_r01 | baseline | 1 | 1/2 | Выполняется |',text)
+        plan['pilot_runs'][0]['state']='waiting_quota'
+        self.assertIn('| phase5_baseline_r01 | baseline | 1 | 1/2 | Ожидает квоты |',render([],[],plan,'fixed time'))
+
+    def test_quota_stop_without_snapshot_does_not_require_impossible_sonar_scan(self):
+        rows=[{'trial_id':'graded','snapshot_sha256':'snapshot','sonar':{'analysis_ok':True}},
+              {'trial_id':'quota_stop','trial_state':'failed','failure_category':'quota_pressure'}]
+        text=render(rows,[],{},'fixed time')
+        self.assertIn('Завершён для собранных snapshots',text)
+        self.assertIn('| quota_stop | — | Ошибка; результат сохранён |',text)
+        rows[0]['sonar']['analysis_ok']=False
+        self.assertIn('Частично выполнен / ожидает анализов',render(rows,[],{},'fixed time'))

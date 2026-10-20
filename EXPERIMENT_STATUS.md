@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-20 22:27:39**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-20 22:37:02**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -12,8 +12,8 @@
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Отложен; приоритет — continuous без Serena | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
-| Phase 4: Sonar before/after | Завершён для собранных trials | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
-| Phase 5: continuous, 2 связанных milestone | Trials выполняются | Траекторий завершено 1/8; ошибок 0. Метрики по шагам и протокол ниже. [План и состояние](reports/continuous_feasibility.md) |
+| Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
+| Phase 5: continuous, 2 связанных milestone | Остановлен quota gate: 85%; результаты сохранены | Baseline 2/2 и Caveman 1/2 приняты grader, Sonar завершён. Ponytail, plan и вторые повторы ожидают квоты. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -23,19 +23,19 @@
 | Траектория | Variant | Повтор | Завершено шагов | Статус |
 | --- | --- | ---: | --- | --- |
 | phase5_baseline_r01 | baseline | 1 | 2/2 | Завершён |
-| phase5_caveman_r01 | caveman | 1 | 0/2 | Выполняется |
-| phase5_ponytail_r01 | ponytail | 1 | 0/2 | Запланирован |
-| phase5_plan_r01 | plan | 1 | 0/2 | Запланирован |
-| phase5_baseline_r02 | baseline | 2 | 0/2 | Запланирован |
-| phase5_caveman_r02 | caveman | 2 | 0/2 | Запланирован |
-| phase5_ponytail_r02 | ponytail | 2 | 0/2 | Запланирован |
-| phase5_plan_r02 | plan | 2 | 0/2 | Запланирован |
+| phase5_caveman_r01 | caveman | 1 | 1/2 | Остановлен: квота |
+| phase5_ponytail_r01 | ponytail | 1 | 0/2 | Ожидает квоты |
+| phase5_plan_r01 | plan | 1 | 0/2 | Ожидает квоты |
+| phase5_baseline_r02 | baseline | 2 | 0/2 | Ожидает квоты |
+| phase5_caveman_r02 | caveman | 2 | 0/2 | Ожидает квоты |
+| phase5_ponytail_r02 | ponytail | 2 | 0/2 | Ожидает квоты |
+| phase5_plan_r02 | plan | 2 | 0/2 | Ожидает квоты |
 
-[Протокол последовательного пилота](reports/phase5_protocol.md)
+[Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 
 ## Корректность и размер production patch
 
-Каждая строка — отдельный trial. Phase 2 и Phase 3 используют разные frozen runtime: сравнивать с baseline внутри того же cohort. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.
+Каждая строка — отдельный trial или шаг continuous. Сравнивать с baseline внутри того же frozen cohort и повтора; Phase 2/3/5 не смешивать. Шаги одной траектории зависимы. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.
 
 | Trial / cohort | Variant | Статус | + строк | − строк | Net | Churn | Изменено prod-файлов |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -49,7 +49,8 @@
 | phase3_serena_001 | serena | Завершён; grader принят | 82 | 20 | 62 | 102 | 5 |
 | phase5_baseline_r01_s01 | baseline | Завершён; grader принят | 15 | 17 | -2 | 32 | 2 |
 | phase5_baseline_r01_s02 | baseline | Завершён; grader принят | 98 | 18 | 80 | 116 | 4 |
-| phase5_caveman_r01_s01 | caveman | Выполняется | — | — | — | — | — |
+| phase5_caveman_r01_s01 | caveman | Завершён; grader принят | 36 | 10 | 26 | 46 | 3 |
+| phase5_caveman_r01_s02 | caveman | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -69,7 +70,8 @@ Input уже включает cached input: эти столбцы не скла�
 | phase3_serena_001 | 682 290 | 584 448 | 9 732 | 0 | 170.7 | 65.0 | 18.3 | 375.2 |
 | phase5_baseline_r01_s01 | 752 475 | 697 344 | 7 684 | 0 | 183.5 | 110.8 | 40.4 | 377.8 |
 | phase5_baseline_r01_s02 | 918 381 | 876 928 | 10 996 | 0 | 215.3 | 101.8 | 31.2 | 343.9 |
-| phase5_caveman_r01_s01 | — | — | — | — | — | — | — | — |
+| phase5_caveman_r01_s01 | 550 342 | 501 888 | 6 898 | 0 | 172.6 | 114.3 | 31.2 | 374.1 |
+| phase5_caveman_r01_s02 | — | — | — | 0 | — | — | — | 1.0 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -89,11 +91,12 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase3_serena_001 | Готов | 31 799 | 2 421 | 283 | 1 443 | 0 | 0 |
 | phase5_baseline_r01_s01 | Готов | 31 078 | 2 391 | 282 | 1 438 | — | — |
 | phase5_baseline_r01_s02 | Готов | 31 176 | 2 405 | 282 | 1 438 | — | — |
-| phase5_caveman_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| phase5_caveman_r01_s01 | Готов | 31 287 | 2 405 | 282 | 1 438 | — | — |
+| phase5_caveman_r01_s02 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 
-Несобранных trials: **1**, из них выполняется: **1**. Новые model trials требуют fresh quota check ниже 85% в обоих окнах. Этот документ сам ничего не запускает и не следит по расписанию.
+Несобранных trials: **0**, из них выполняется: **0**. Новые model trials требуют fresh quota check ниже 85% в обоих окнах. Этот документ сам ничего не запускает и не следит по расписанию.
 
 ## Как обновляется реестр
 
