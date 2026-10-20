@@ -1,0 +1,22 @@
+{
+  "status": "blocked_quarantine_before_model",
+  "label": "\u0417\u0430\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d quarantine gate; \u043c\u043e\u0434\u0435\u043b\u044c \u043d\u0435 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u043b\u0430\u0441\u044c",
+  "variant": "serena_required",
+  "measured_trial_started": false,
+  "source_profile_unchanged": "profiles/serena/config.toml",
+  "original_natural_usage_result_preserved": "reports/phase3_serena.json",
+  "policy": "profiles/serena_required/AGENTS.md",
+  "smoke_output": "/tmp/ai-coding-experiment/serena_required_smoke_001",
+  "new_downloads_required": false,
+  "smoke_result": {
+    "success": false,
+    "variant": "serena_required",
+    "kind": "activation_smoke_not_measured",
+    "grader_run": false,
+    "failure_category": "required_serena_activation_failure",
+    "error": "Quarantine verification failed: denied host 'static.crates.io' is still reachable \u2014 SWE_MILESTONE_DENY_DOMAINS/SWE_MILESTONE_DENY_CIDRS not effective",
+    "duration_seconds": 122.78890487600006
+  },
+  "smoke_artifacts": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/serena_required_smoke_001",
+  "model_invoked": false
+}

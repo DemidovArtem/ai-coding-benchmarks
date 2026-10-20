@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-20 12:09:32**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-20 12:26:21**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -11,6 +11,7 @@
 | Подготовка и OAuth smoke | Проверены; исторические доказательства сохранены | [Аудит среды](environment_report.md), [actual grader smoke](reports/phase1_smoke.md) |
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
+| Дополнение: serena_required | Заблокирован quarantine gate; модель не запускалась | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
 | Phase 4: Sonar before/after | Завершён для собранных trials | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Отложен; не реализован | Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней. [Точный blocker и следующий шаг](reports/continuous_feasibility.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |

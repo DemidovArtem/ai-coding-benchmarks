@@ -20,3 +20,9 @@ class StatusTests(unittest.TestCase):
         text=render([row],[],{},'fixed time')
         self.assertIn('| serena | Ошибка | — | — | — | — | 0 | 0 |',text)
         self.assertIn('Завершён; grader не принят',text)
+
+    def test_required_serena_extension_remains_separate_from_measured_results(self):
+        text=render([],[],{},'fixed time',{'label':'Профиль реализован; smoke тестируется'})
+        self.assertIn('Дополнение: serena_required | Профиль реализован; smoke тестируется',text)
+        self.assertIn('отдельный measured trial ещё не выполнен',text)
+        self.assertLess(text.index('Дополнение: serena_required'),text.index('Phase 4: Sonar'))
