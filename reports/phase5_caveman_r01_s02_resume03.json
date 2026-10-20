@@ -88,9 +88,61 @@
   },
   "duration_seconds": 253.03069734699994,
   "sonar": {
-    "analysis_ok": null,
+    "analysis_ok": true,
     "new_maintainability_issues": null,
-    "status": "not_run"
+    "project_key": "coding-experiment-a24983889622baca2fd224e1ce6f8cab1d75bf84",
+    "task_id": "ebfd8c14-8adc-4961-bc59-2cf0b1bf4b1a",
+    "metrics": {
+      "ncloc": 31482,
+      "lines": 44320,
+      "complexity": 5096,
+      "cognitive_complexity": 2424,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6.1,
+      "code_smells": 282,
+      "sqale_index": 1438,
+      "software_quality_maintainability_issues": 282,
+      "software_quality_maintainability_remediation_effort": 1438
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "dace5ed5d49f2911280892cdad17fceb0adaa72fc270245dbe6a4cb3c5b6f329",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "640e6f2f-92ae-4489-b84f-e7cb69fda2eb",
+    "duration_seconds": 37.17858550999995,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 80,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "2b71cbc009616e65c16c381b3f7b793bc53f27c6dea1ae5044c99dfdcbaf3b8f",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_caveman_r01_s02_resume03/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": -154,
+      "lines": -148,
+      "complexity": 39,
+      "cognitive_complexity": 24,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": 0.0,
+      "code_smells": 0,
+      "sqale_index": 0,
+      "software_quality_maintainability_issues": 0,
+      "software_quality_maintainability_remediation_effort": 0
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
   },
   "quota": {
     "before": {
@@ -472,7 +524,7 @@
     "planner": 0,
     "executor": 157.66644140200003,
     "evaluation": 71.52811787600001,
-    "sonar": null
+    "sonar": 37.17858550999995
   },
   "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
   "new_prod_files": 1,

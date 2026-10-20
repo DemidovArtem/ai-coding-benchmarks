@@ -1,6 +1,6 @@
 {
-  "status": "partial",
-  "label": "\u041f\u0438\u043b\u043e\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e",
+  "status": "running",
+  "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
   "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
   "selected_milestones": [
     "milestone_seed_5f5da48_1_sub-01",
@@ -85,11 +85,11 @@
       "trial_id": "phase5_ponytail_r01_retry01",
       "variant": "ponytail",
       "repetition": 1,
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": null,
+      "active_step": 1,
       "last_step": "phase5_ponytail_r01_s01",
       "failure_category": null,
       "prior_attempts": [

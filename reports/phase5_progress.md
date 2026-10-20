@@ -1,5 +1,13 @@
 # Последовательный пилот: промежуточные результаты
 
+## Обновление 21 октября: продолжение выполнено
+
+Caveman завершил вторую правку в исходной сессии: F2P 1/1, P2P 1102/1102, N2P 9/9. Cumulative production diff +114/−11, churn 125; output второго шага 7 829. Snapshot/collection checks и native-hook activation на resume прошли. Sonar завершён. Baseline и Caveman теперь имеют по одной полной двухшаговой траектории; это четыре принятых grader task execution. Исходные quota/preflight failures сохранены отдельно.
+
+Свежий Ponytail retry выполняется. Plan retry и вторые повторы стоят в очереди. После host restart новые raw artifacts сохраняются в ignored `results/runtime/phase5`, а не во временном `/tmp`. Актуальные статусы и каждая новая метрика появляются в [основном реестре](../EXPERIMENT_STATUS.md).
+
+## История первоначальной остановки
+
 На 20 октября 2026 года выполнены три task execution из запланированных шестнадцати. Baseline завершил две связанные правки в одном Codex thread. Caveman завершил первую правку; перед второй quota gate остановил запуск при 85% использования основного окна. Второй шаг Caveman не вызывал модель и не имеет grader/LOC/Sonar результата. Этот отказ сохранён отдельно, а не заменён успешным trial.
 
 | Вариант, повтор 1 | Шаг | Grader | F2P | P2P | N2P | Production + / − от начала | Churn | Output этого шага | Sonar maintainability issues |
