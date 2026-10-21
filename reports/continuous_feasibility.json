@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
+  "status": "blocked_quarantine",
+  "label": "\u041f\u0438\u043b\u043e\u0442 \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d: quarantine preflight",
   "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
   "selected_milestones": [
     "milestone_seed_5f5da48_1_sub-01",
@@ -23,8 +23,8 @@
     }
   ],
   "external_incoming_prerequisites": [],
-  "blocking_integration": "Upstream publishes SRS/queue to a still-running executor directly. No variant-aware prep completion/ack barrier binds the next milestone to an immutable planner input and delivered handoff.",
-  "next_step": "Fresh quota read after service reset; then recover Caveman withheld step and separately handle the partially executed Ponytail session before new trials.",
+  "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
+  "next_step": "Diagnose and harden the registry deny policy in a separately pinned cohort before any new model invocation. Preserve this cohort and compare only within its frozen conditions.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -55,7 +55,7 @@
   ],
   "serena_required": false,
   "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
-  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+  "summary": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/8 \u0442\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439, 12/16 \u043f\u0440\u0430\u0432\u043e\u043a; \u0432\u0441\u0435 12 \u043f\u0440\u0438\u043d\u044f\u0442\u044b grader \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b Sonar. Ponytail \u0438 plan repetition 2 \u0437\u0430\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u044b \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439 \u0441\u0435\u0442\u0438 \u0434\u043e model invocation.",
   "execution_protocol": "reports/phase5_protocol.md",
   "pilot_runs": [
     {
@@ -173,20 +173,23 @@
       "trial_id": "phase5_ponytail_r02",
       "variant": "ponytail",
       "repetition": 2,
-      "state": "running",
+      "state": "blocked_quarantine",
       "completed_steps": 0,
       "total_steps": 2,
-      "blocking_reason": null,
-      "active_step": 1
+      "blocking_reason": "Frozen quarantine accepts 199.232.142.137/32, currently resolved by static.crates.io; denied-host TCP probe succeeds. No model invocation occurred.",
+      "active_step": null,
+      "last_step": "phase5_ponytail_r02_s01",
+      "failure_category": "continuous_step_failure"
     },
     {
       "trial_id": "phase5_plan_r02",
       "variant": "plan",
       "repetition": 2,
-      "state": "planned",
+      "state": "blocked_quarantine",
       "completed_steps": 0,
       "total_steps": 2,
-      "blocking_reason": null
+      "blocking_reason": "Frozen quarantine accepts 199.232.142.137/32, currently resolved by static.crates.io; denied-host TCP probe succeeds. No model invocation occurred.",
+      "active_step": null
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -224,5 +227,11 @@
       "cause": "Codex added projects./testbed.trust_level=trusted; semantic profile unchanged",
       "model_invoked": false
     }
-  ]
+  ],
+  "quarantine_stop": {
+    "trial_id": "phase5_ponytail_r02_s01",
+    "model_invoked": false,
+    "diagnostic_report": "reports/phase5_quarantine_failure.md",
+    "remaining_task_executions": 4
+  }
 }

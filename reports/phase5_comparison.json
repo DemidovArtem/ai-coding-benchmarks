@@ -257,6 +257,10 @@
     "Two planned independent repetitions per variant; steps within a trajectory are dependent. No statistical ranking.",
     "Quota pauses and explicitly recorded infrastructure retries limit timing comparisons.",
     "Sonar includes differing inline tests; production LOC excludes tests.",
-    "Grader acceptance does not mean every raw test passed."
-  ]
+    "Grader acceptance does not mean every raw test passed.",
+    "A later preflight reproduced denied-registry reachability and stopped the remaining queue before inference. Earlier recorded preflights passed, but do not prove continuous registry isolation throughout execution."
+  ],
+  "status": "partial_blocked_quarantine",
+  "planned_task_executions": 16,
+  "unexecuted_task_executions": 4
 }

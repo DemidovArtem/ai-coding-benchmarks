@@ -1,15 +1,15 @@
 # Последовательный пилот: промежуточные результаты
 
-## Второй repetition: выполняется
+## Второй repetition: остановлен проверкой quarantine
 
-Baseline и Caveman завершили обе правки: все четыре grader результата приняты, collection errors отсутствуют, все четыре Sonar scan завершены. Ponytail repetition 2 запущен; plan ожидает своей очереди.
+Baseline и Caveman завершили обе правки: все четыре grader результата приняты, collection errors отсутствуют, все четыре Sonar scan завершены. Ponytail repetition 2 остановлен до model invocation: preflight воспроизвёл доступность запрещённого registry. Plan repetition 2 не запускался и заблокирован тем же условием. Завершено 12/16 правок, все 12 приняты grader и проверены Sonar. [Причина и доказательства](phase5_quarantine_failure.md).
 
 | Вариант | Статус | Cumulative production + / − | Churn | Output, два шага с prep |
 | --- | --- | --- | ---: | ---: |
 | baseline | Завершён, 2/2 | +87 / −17 | 104 | 15 133 |
 | caveman | Завершён, 2/2 | +90 / −14 | 104 | 18 940 |
-| ponytail | Выполняется | — | — | — |
-| plan | Запланирован | — | — | — |
+| ponytail | Заблокирован: quarantine, 0/2 | — | — | — |
+| plan | Заблокирован: quarantine, 0/2 | — | — | — |
 
 Второй шаг baseline продолжен после фактического quota stop в том же executor thread; исходная остановка сохранена отдельной строкой. Caveman прошёл оба шага без recovery. Актуальные шаги — в [основном реестре](../EXPERIMENT_STATUS.md).
 

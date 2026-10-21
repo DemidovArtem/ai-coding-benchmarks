@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-21T14:43:00.398585+00:00",
+  "trial_id": "phase5_ponytail_r02_s01",
+  "registry": "static.crates.io",
+  "registry_ipv4": [
+    "199.232.142.137"
+  ],
+  "tcp_probe": "REACH",
+  "accepted_rule": "-A OUTPUT -d 199.232.142.137/32 -j ACCEPT",
+  "output_policy": "DROP",
+  "declared_denied_cidrs": [
+    "151.101.0.0/16",
+    "146.75.0.0/16"
+  ],
+  "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+  "model_invoked": false,
+  "executor_session_id": null,
+  "profile_activated": false,
+  "diagnostic": "The registry resolves outside the two frozen deny ranges and matches an explicit accepted IPv4 address. Reproduced TCP connectivity without fetching crate artifacts."
+}

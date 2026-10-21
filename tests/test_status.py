@@ -53,3 +53,12 @@ class StatusTests(unittest.TestCase):
         text=render([],[],{'quota_override':{'percentage_gate_disabled':True}},'fixed time')
         self.assertIn('пользователь разрешил продолжение выше 85%',text)
         self.assertNotIn('Новые model trials требуют fresh quota check ниже 85%',text)
+
+    def test_quarantine_blocked_queue_has_no_invented_results(self):
+        plan={'label':'Пилот остановлен: quarantine preflight','pilot_runs':[
+            {'trial_id':'phase5_plan_r02','variant':'plan','repetition':2,
+             'completed_steps':0,'total_steps':2,'state':'blocked_quarantine'}]}
+        text=render([],[],plan,'fixed time')
+        self.assertIn('| phase5_plan_r02 | plan | 2 | 0/2 | Заблокирован: quarantine |',text)
+        self.assertIn('Пилот остановлен: quarantine preflight',text)
+        self.assertNotIn('grader принят',text)

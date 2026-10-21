@@ -100,7 +100,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
         table = ['## Последовательный пилот: план запусков', '',
                  'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',
                  '| Траектория | Variant | Повтор | Завершено шагов | Статус |', '| --- | --- | ---: | --- | --- |']
-        states = {'planned':'Запланирован', 'waiting_quota':'Ожидает квоты', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
+        states = {'planned':'Запланирован', 'waiting_quota':'Ожидает квоты', 'blocked_quarantine':'Заблокирован: quarantine', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
         for run in continuous['pilot_runs']:
             state = 'Остановлен: квота' if run.get('failure_category') == 'quota_pressure' else states.get(run['state'], run['state'])
             values = [run['trial_id'], run['variant'], run['repetition'],

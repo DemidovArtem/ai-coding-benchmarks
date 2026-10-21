@@ -1,14 +1,12 @@
-# Continuous pilot — следующий приоритет
+# Continuous pilot: текущее состояние
 
-Для первого v1 continuous был явно отложен по handoff §9.7. Теперь реализован отдельный ограниченный runner `experiment.continuous`: host выдаёт задачи последовательно и продолжает тот же Codex thread через resume. Реальные последовательные trials пока не запускались; runtime и результаты ещё не подтверждены. [Новый протокол](phase5_protocol.md) отделяет этот режим от первоначального предложения с фоновым watcher.
+Ограниченный host-driven runner реализован. Завершены 6 из 8 траекторий и 12 из 16 правок: первый повтор baseline/Caveman/Ponytail/plan и второй повтор baseline/Caveman. Все 12 grader решений приняты, collection errors отсутствуют, 12 Sonar scan завершены. Внутри каждой траектории проверены один executor thread, последовательные commits, точное чтение задания и immutable snapshot. Plan использует отдельный read-only planner перед каждым шагом. [Результаты](phase5_progress.md), [основной реестр](../EXPERIMENT_STATUS.md).
 
-Выбранный pilot/non-official subset: `milestone_seed_5f5da48_1_sub-01`, затем `milestone_seed_5f5da48_1_sub-02`. Между ними Strong FUNC edge. Повторная проверка `dependencies.csv` и `additional_dependencies.csv` не нашла внешних входящих prerequisites. [Selection evidence](continuous_feasibility.json) фиксирует CSV hashes и рёбра. Prefix `--milestones 2` не гарантирует выбор именно этой пары; нужен trial-local selected list и проверка closure. Дополнительные grader images этой пары пока не загружены.
+Ponytail repetition 2 остановлен до вызова модели из-за quarantine preflight. `static.crates.io` разрешился в `199.232.142.137`, который допускается frozen firewall. Успешное TCP-соединение воспроизведено. Plan repetition 2 не запускался. Продолжение требует отдельного решения по исправлению и фиксации quarantine; менять условия внутри текущего frozen cohort нельзя. [Диагностика](phase5_quarantine_failure.md).
 
-## Порядок первых trials
+Выбранный pilot/non-official subset: `milestone_seed_5f5da48_1_sub-01`, затем `milestone_seed_5f5da48_1_sub-02`. Между ними Strong FUNC edge; внешних Strong prerequisites нет. Grader images загружены с разрешения пользователя. Serena, goal_plan, больший repository и full-chain watcher не входят в этот ограниченный пилот.
 
-По текущему запросу пользователя Serena не входит в условия запуска. План: baseline, Caveman, Ponytail и plan + implementation, по две связанные правки и два независимых повтора каждого варианта. Каждый шаг сохраняет grader/Git/Sonar; plan получает отдельную read-only подготовку перед каждым шагом. Goal_plan и расширение repository остаются последующими этапами. Завершённые single-milestone trials не доказывают непрерывность новой сессии.
-
-Готовы single-milestone runner, planning profiles, grader, Git/Sonar collection и реестр результатов. Для выбранной пары остаётся определить размер дополнительных grader images и согласовать их загрузку. Повторный zero-model network diagnostic прошёл с прежним quarantine; причина предыдущего reachability failure не установлена, поэтому preflight остаётся обязательным.
+Далее сохранена первоначальная оценка фонового watcher. Она не является текущим списком недостающих работ для уже реализованного host-driven runner.
 
 ## Первоначальная интеграция с фоновым watcher
 
@@ -32,4 +30,4 @@ Upstream watcher и долго живущий executor работают неза
 2. **1,5–2,5 дня:** host dispatch gate до публикации SRS. Read-only planner получает только исходный SRS и текущий immutable source tag своей траектории. Queue публикуется атомарно после handoff validation; ack/trace связывает handoff SHA с тем, что прочитал тот же executor. Baseline проходит тот же dispatch protocol без prep. Failure/quota stop не открывает SRS преждевременно.
 3. **1–1,5 дня:** per-milestone authoritative tags/snapshots, production diff и Sonar; usage boundaries из raw session counters либо честные null там, где counters не разделяются. Тесты на одинаковый session ID, prep failure, timeout, повторный tag, delivery race, hidden-feedback isolation и отсутствие memory transfer между независимыми trials.
 
-Итого **3–5 инженерных дней**, оценка по inspected integration points. Model runtime, quota windows и отдельное согласование дополнительных grader-image downloads в эту оценку не входят. После dry-run contracts нужен реальный baseline, затем plan и goal_plan на выбранной паре, затем выбор skill по Phase 3. Пока этих запусков нет и continuous score отсутствует.
+Итого **3–5 инженерных дней**, оценка по inspected integration points. Model runtime, quota windows и отдельное согласование дополнительных grader-image downloads в эту оценку не входят. После dry-run contracts нужен реальный baseline, затем plan и goal_plan на выбранной паре, затем выбор skill по Phase 3. Эта оценка сохранена как история планирования; текущие подтверждённые результаты host-driven пилота приведены в начале документа.
