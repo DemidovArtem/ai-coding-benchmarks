@@ -2,7 +2,16 @@
 
 ## Второй repetition: выполняется
 
-Baseline завершил обе правки, оба grader результата приняты, collection errors отсутствуют, оба Sonar scan завершены. Первый шаг дал production +13/−16; финальный cumulative patch — +87/−17, churn 104. Output за два шага — 15 133 токена. Второй шаг продолжен после фактического quota stop в том же executor thread; исходная остановка сохранена отдельной строкой. Caveman repetition 2 запущен; Ponytail и plan ожидают своей очереди. Актуальные шаги — в [основном реестре](../EXPERIMENT_STATUS.md).
+Baseline и Caveman завершили обе правки: все четыре grader результата приняты, collection errors отсутствуют, все четыре Sonar scan завершены. Ponytail repetition 2 запущен; plan ожидает своей очереди.
+
+| Вариант | Статус | Cumulative production + / − | Churn | Output, два шага с prep |
+| --- | --- | --- | ---: | ---: |
+| baseline | Завершён, 2/2 | +87 / −17 | 104 | 15 133 |
+| caveman | Завершён, 2/2 | +90 / −14 | 104 | 18 940 |
+| ponytail | Выполняется | — | — | — |
+| plan | Запланирован | — | — | — |
+
+Второй шаг baseline продолжен после фактического quota stop в том же executor thread; исходная остановка сохранена отдельной строкой. Caveman прошёл оба шага без recovery. Актуальные шаги — в [основном реестре](../EXPERIMENT_STATUS.md).
 
 ## Первый полный repetition: 21 октября
 

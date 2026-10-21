@@ -1,6 +1,6 @@
 {
   "label": "pilot/non-official subset",
-  "completed_task_executions": 10,
+  "completed_task_executions": 12,
   "repetitions": {
     "1": {
       "baseline": {
@@ -208,6 +208,47 @@
         "paired_to_baseline": {
           "churn_prod_loc_delta": 0,
           "output_tokens_delta": 0
+        }
+      },
+      "caveman": {
+        "trial_ids": [
+          "phase5_caveman_r02_s01",
+          "phase5_caveman_r02_s02"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 90,
+          "deleted_prod_loc": 14,
+          "net_prod_loc": 76,
+          "churn_prod_loc": 104,
+          "cumulative_prod_loc": 33765
+        },
+        "total_tokens": {
+          "input_tokens": 1537558,
+          "cached_input_tokens": 1380224,
+          "output_tokens": 18940
+        },
+        "final_sonar": {
+          "ncloc": 31131,
+          "lines": 43944,
+          "complexity": 5048,
+          "cognitive_complexity": 2402,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": 0,
+          "output_tokens_delta": 3807
         }
       }
     }
