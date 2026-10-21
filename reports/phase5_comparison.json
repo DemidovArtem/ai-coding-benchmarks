@@ -1,156 +1,221 @@
 {
   "label": "pilot/non-official subset",
-  "repetition": 1,
-  "completed_task_executions": 8,
-  "variants": {
-    "baseline": {
-      "trial_ids": [
-        "phase5_baseline_r01_s01",
-        "phase5_baseline_r01_s02"
-      ],
-      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
-      "grader_resolved": [
-        true,
-        true
-      ],
-      "final_production": {
-        "added_prod_loc": 98,
-        "deleted_prod_loc": 18,
-        "net_prod_loc": 80,
-        "churn_prod_loc": 116,
-        "cumulative_prod_loc": 33769
+  "completed_task_executions": 10,
+  "repetitions": {
+    "1": {
+      "baseline": {
+        "trial_ids": [
+          "phase5_baseline_r01_s01",
+          "phase5_baseline_r01_s02"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 98,
+          "deleted_prod_loc": 18,
+          "net_prod_loc": 80,
+          "churn_prod_loc": 116,
+          "cumulative_prod_loc": 33769
+        },
+        "total_tokens": {
+          "input_tokens": 1670856,
+          "cached_input_tokens": 1574272,
+          "output_tokens": 18680
+        },
+        "final_sonar": {
+          "ncloc": 31176,
+          "lines": 43991,
+          "complexity": 5053,
+          "cognitive_complexity": 2405,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": 0,
+          "output_tokens_delta": 0
+        }
       },
-      "total_tokens": {
-        "input_tokens": 1670856,
-        "cached_input_tokens": 1574272,
-        "output_tokens": 18680
+      "caveman": {
+        "trial_ids": [
+          "phase5_caveman_r01_s01",
+          "phase5_caveman_r01_s02_resume03"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 114,
+          "deleted_prod_loc": 11,
+          "net_prod_loc": 103,
+          "churn_prod_loc": 125,
+          "cumulative_prod_loc": 33792
+        },
+        "total_tokens": {
+          "input_tokens": 1369030,
+          "cached_input_tokens": 1250816,
+          "output_tokens": 14727
+        },
+        "final_sonar": {
+          "ncloc": 31482,
+          "lines": 44320,
+          "complexity": 5096,
+          "cognitive_complexity": 2424,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": 9,
+          "output_tokens_delta": -3953
+        }
       },
-      "final_sonar": {
-        "ncloc": 31176,
-        "lines": 43991,
-        "complexity": 5053,
-        "cognitive_complexity": 2405,
-        "duplicated_lines": 2697,
-        "duplicated_lines_density": 6.1,
-        "code_smells": 282,
-        "sqale_index": 1438,
-        "software_quality_maintainability_issues": 282,
-        "software_quality_maintainability_remediation_effort": 1438
+      "ponytail": {
+        "trial_ids": [
+          "phase5_ponytail_r01_retry01_s01",
+          "phase5_ponytail_r01_retry01_s02"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 73,
+          "deleted_prod_loc": 15,
+          "net_prod_loc": 58,
+          "churn_prod_loc": 88,
+          "cumulative_prod_loc": 33747
+        },
+        "total_tokens": {
+          "input_tokens": 1509404,
+          "cached_input_tokens": 1407360,
+          "output_tokens": 17425
+        },
+        "final_sonar": {
+          "ncloc": 31145,
+          "lines": 43942,
+          "complexity": 5048,
+          "cognitive_complexity": 2406,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": -28,
+          "output_tokens_delta": -1255
+        }
       },
-      "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d"
+      "plan": {
+        "trial_ids": [
+          "phase5_plan_r01_retry01_s01",
+          "phase5_plan_r01_retry01_s02"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 99,
+          "deleted_prod_loc": 15,
+          "net_prod_loc": 84,
+          "churn_prod_loc": 114,
+          "cumulative_prod_loc": 33773
+        },
+        "total_tokens": {
+          "input_tokens": 2157315,
+          "cached_input_tokens": 1957632,
+          "output_tokens": 25561
+        },
+        "final_sonar": {
+          "ncloc": 31616,
+          "lines": 44466,
+          "complexity": 5100,
+          "cognitive_complexity": 2429,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": -2,
+          "output_tokens_delta": 6881
+        }
+      }
     },
-    "caveman": {
-      "trial_ids": [
-        "phase5_caveman_r01_s01",
-        "phase5_caveman_r01_s02_resume03"
-      ],
-      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
-      "grader_resolved": [
-        true,
-        true
-      ],
-      "final_production": {
-        "added_prod_loc": 114,
-        "deleted_prod_loc": 11,
-        "net_prod_loc": 103,
-        "churn_prod_loc": 125,
-        "cumulative_prod_loc": 33792
-      },
-      "total_tokens": {
-        "input_tokens": 1369030,
-        "cached_input_tokens": 1250816,
-        "output_tokens": 14727
-      },
-      "final_sonar": {
-        "ncloc": 31482,
-        "lines": 44320,
-        "complexity": 5096,
-        "cognitive_complexity": 2424,
-        "duplicated_lines": 2697,
-        "duplicated_lines_density": 6.1,
-        "code_smells": 282,
-        "sqale_index": 1438,
-        "software_quality_maintainability_issues": 282,
-        "software_quality_maintainability_remediation_effort": 1438
-      },
-      "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51"
-    },
-    "ponytail": {
-      "trial_ids": [
-        "phase5_ponytail_r01_retry01_s01",
-        "phase5_ponytail_r01_retry01_s02"
-      ],
-      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
-      "grader_resolved": [
-        true,
-        true
-      ],
-      "final_production": {
-        "added_prod_loc": 73,
-        "deleted_prod_loc": 15,
-        "net_prod_loc": 58,
-        "churn_prod_loc": 88,
-        "cumulative_prod_loc": 33747
-      },
-      "total_tokens": {
-        "input_tokens": 1509404,
-        "cached_input_tokens": 1407360,
-        "output_tokens": 17425
-      },
-      "final_sonar": {
-        "ncloc": 31145,
-        "lines": 43942,
-        "complexity": 5048,
-        "cognitive_complexity": 2406,
-        "duplicated_lines": 2697,
-        "duplicated_lines_density": 6.1,
-        "code_smells": 282,
-        "sqale_index": 1438,
-        "software_quality_maintainability_issues": 282,
-        "software_quality_maintainability_remediation_effort": 1438
-      },
-      "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4"
-    },
-    "plan": {
-      "trial_ids": [
-        "phase5_plan_r01_retry01_s01",
-        "phase5_plan_r01_retry01_s02"
-      ],
-      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
-      "grader_resolved": [
-        true,
-        true
-      ],
-      "final_production": {
-        "added_prod_loc": 99,
-        "deleted_prod_loc": 15,
-        "net_prod_loc": 84,
-        "churn_prod_loc": 114,
-        "cumulative_prod_loc": 33773
-      },
-      "total_tokens": {
-        "input_tokens": 2157315,
-        "cached_input_tokens": 1957632,
-        "output_tokens": 25561
-      },
-      "final_sonar": {
-        "ncloc": 31616,
-        "lines": 44466,
-        "complexity": 5100,
-        "cognitive_complexity": 2429,
-        "duplicated_lines": 2697,
-        "duplicated_lines_density": 6.1,
-        "code_smells": 282,
-        "sqale_index": 1438,
-        "software_quality_maintainability_issues": 282,
-        "software_quality_maintainability_remediation_effort": 1438
-      },
-      "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d"
+    "2": {
+      "baseline": {
+        "trial_ids": [
+          "phase5_baseline_r02_s01",
+          "phase5_baseline_r02_s02_resume01"
+        ],
+        "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+        "grader_resolved": [
+          true,
+          true
+        ],
+        "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+        "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+        "final_production": {
+          "added_prod_loc": 87,
+          "deleted_prod_loc": 17,
+          "net_prod_loc": 70,
+          "churn_prod_loc": 104,
+          "cumulative_prod_loc": 33759
+        },
+        "total_tokens": {
+          "input_tokens": 1283167,
+          "cached_input_tokens": 1171584,
+          "output_tokens": 15133
+        },
+        "final_sonar": {
+          "ncloc": 31126,
+          "lines": 43926,
+          "complexity": 5049,
+          "cognitive_complexity": 2404,
+          "duplicated_lines": 2697,
+          "duplicated_lines_density": 6.1,
+          "code_smells": 282,
+          "sqale_index": 1438,
+          "software_quality_maintainability_issues": 282,
+          "software_quality_maintainability_remediation_effort": 1438
+        },
+        "paired_to_baseline": {
+          "churn_prod_loc_delta": 0,
+          "output_tokens_delta": 0
+        }
+      }
     }
   },
   "limitations": [
-    "One dependent two-step trajectory per variant; no statistical ranking.",
-    "Caveman resumed after a quota pause; Ponytail and plan are explicit infrastructure retries.",
-    "Sonar includes differing inline tests; production LOC excludes tests."
+    "Two planned independent repetitions per variant; steps within a trajectory are dependent. No statistical ranking.",
+    "Quota pauses and explicitly recorded infrastructure retries limit timing comparisons.",
+    "Sonar includes differing inline tests; production LOC excludes tests.",
+    "Grader acceptance does not mean every raw test passed."
   ]
 }

@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-21 16:19:07**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-21 16:27:56**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -12,7 +12,7 @@
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Отложен; приоритет — continuous без Serena | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
-| Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
+| Phase 4: Sonar before/after | Частично выполнен / ожидает анализов | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Trials выполняются | Траекторий завершено 5/8; ошибок 0. Метрики по шагам и протокол ниже. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
@@ -27,7 +27,7 @@
 | phase5_ponytail_r01_retry01 | ponytail | 1 | 2/2 | Завершён |
 | phase5_plan_r01_retry01 | plan | 1 | 2/2 | Завершён |
 | phase5_baseline_r02 | baseline | 2 | 2/2 | Завершён |
-| phase5_caveman_r02 | caveman | 2 | 0/2 | Выполняется |
+| phase5_caveman_r02 | caveman | 2 | 1/2 | Выполняется |
 | phase5_ponytail_r02 | ponytail | 2 | 0/2 | Запланирован |
 | phase5_plan_r02 | plan | 2 | 0/2 | Запланирован |
 
@@ -62,6 +62,7 @@
 | phase5_baseline_r02_s01 | baseline | Завершён; grader принят | 13 | 16 | -3 | 29 | 2 |
 | phase5_baseline_r02_s02 | baseline | Ошибка; результат сохранён | — | — | — | — | — |
 | phase5_baseline_r02_s02_resume01 | baseline | Завершён; grader принят | 87 | 17 | 70 | 104 | 4 |
+| phase5_caveman_r02_s01 | caveman | Завершён; grader принят | 15 | 13 | 2 | 28 | 2 |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -94,6 +95,7 @@ Input уже включает cached input: эти столбцы не скла�
 | phase5_baseline_r02_s01 | 536 389 | 489 728 | 6 213 | 0 | 143.3 | 71.3 | 37.1 | 280.7 |
 | phase5_baseline_r02_s02 | — | — | — | 0 | — | — | — | 0.6 |
 | phase5_baseline_r02_s02_resume01 | 746 778 | 681 856 | 8 920 | 0 | 274.3 | 115.0 | 29.6 | 414.7 |
+| phase5_caveman_r02_s01 | 573 366 | 471 424 | 7 296 | 0 | 237.3 | 126.9 | — | 533.8 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -126,6 +128,7 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase5_baseline_r02_s01 | Готов | 31 079 | 2 392 | 282 | 1 438 | — | — |
 | phase5_baseline_r02_s02 | Не выполнен | — | — | — | — | — | — |
 | phase5_baseline_r02_s02_resume01 | Готов | 31 126 | 2 404 | 282 | 1 438 | — | — |
+| phase5_caveman_r02_s01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 
