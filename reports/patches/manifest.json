@@ -1,0 +1,353 @@
+{
+  "entries": [
+    {
+      "trial_id": "phase5_baseline_r01_s01",
+      "variant": "baseline",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_baseline_r01",
+      "step": 1,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "4b6589648726b386d5ed5a0b6796055733970e1d",
+      "ending_tree": "14672be5c2b7d939dc4af0d86cd0cfe6362fb81a",
+      "snapshot_sha256": "6e2ae049808a52e11cf5295ce56db9be7f54b28c78f827ba2baa21fff1b8974a",
+      "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+      "local_bundle": "results/trials/phase5_baseline_r01_s01/repository.bundle",
+      "bundle_sha256": "430cdefdb0fc90f48ebece802c71f8e15b6f9242fd25214a0382ce266651bed4",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_baseline_r01_s01.cumulative.patch",
+          "sha256": "f8cedb03fcd5ec73b07bec16fa181e68ed6c37b7b5e894976ad13a12a01b9cc1",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_baseline_r01_s01.incremental.patch",
+          "sha256": "f8cedb03fcd5ec73b07bec16fa181e68ed6c37b7b5e894976ad13a12a01b9cc1",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r01_s02",
+      "variant": "baseline",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_baseline_r01",
+      "step": 2,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "478584089b61067fa1b5984bd49c5fff295af42f",
+      "ending_tree": "079d7d6c272990b453a5aac3d028b4c5f06ee000",
+      "snapshot_sha256": "b01860a0eabdf5cd5f94ba33380a73c54a21560bc886a70fb21d918843f416c8",
+      "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+      "local_bundle": "results/trials/phase5_baseline_r01_s02/repository.bundle",
+      "bundle_sha256": "e92e9bbf0a61b338589e8d96bad6063386696253ca36f5249240752b88ad9992",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_baseline_r01_s02.cumulative.patch",
+          "sha256": "9f9122b335fa7cf259b362f45c38431b335ade341ecf809efbd02e4e8a656308",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_baseline_r01_s02.incremental.patch",
+          "sha256": "afb85c580fa028cabadc36e818fccf99aa0d33cfda83ad3a5c0d5bc8ce2cc400",
+          "base_commit": "4b6589648726b386d5ed5a0b6796055733970e1d",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s01",
+      "variant": "caveman",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_caveman_r01",
+      "step": 1,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "1fcbabf781a068565b2d9ccbc046380595767d52",
+      "ending_tree": "ea67bee13a732248383519fe5ed148fb7d29872d",
+      "snapshot_sha256": "f0cba61d9ac4216ded213fb8c3ff92c5ea45447cc0b6826cd592c627c55dce6d",
+      "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+      "local_bundle": "results/trials/phase5_caveman_r01_s01/repository.bundle",
+      "bundle_sha256": "fac9414acc0a7d57bc50b0307590e60c939cb59c1e60fea6314991136ba9c805",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_caveman_r01_s01.cumulative.patch",
+          "sha256": "bce2f4be2070941dfd3b94d205b9a39796e57fef830b238b13b31898beb8dc85",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_caveman_r01_s01.incremental.patch",
+          "sha256": "bce2f4be2070941dfd3b94d205b9a39796e57fef830b238b13b31898beb8dc85",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s02_resume03",
+      "variant": "caveman",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_caveman_r01",
+      "step": 2,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "82d2158a758d10bf2880e4de4ac341816e2a4325",
+      "ending_tree": "bf9ea3075fdb5e2622f4a08e164ce395041d7e0e",
+      "snapshot_sha256": "dace5ed5d49f2911280892cdad17fceb0adaa72fc270245dbe6a4cb3c5b6f329",
+      "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+      "local_bundle": "results/trials/phase5_caveman_r01_s02_resume03/repository.bundle",
+      "bundle_sha256": "2c0def8cd9cf61223e2742b77a50697148c5ad819938b8b8029d0574cacde82f",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_caveman_r01_s02_resume03.cumulative.patch",
+          "sha256": "77583960c030878f9c9eceb8215fec8d4607ac7f8a64fda585a82aa5c127c5c0",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_caveman_r01_s02_resume03.incremental.patch",
+          "sha256": "aaeae151e9a74aaf6d88dfd1d334276338cabcc4d86f1a15609244453d6924ec",
+          "base_commit": "1fcbabf781a068565b2d9ccbc046380595767d52",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r01_retry01_s01",
+      "variant": "ponytail",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_ponytail_r01_retry01",
+      "step": 1,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "d69184be3eede03eec8a76622d0dbdca7fcd0976",
+      "ending_tree": "8eb5d59c8e17401efd1ec1555d42b19267e20dd1",
+      "snapshot_sha256": "258cd1be546325989d6f3a9b04ce4b1544aba659d18809abfd47bd0594a049ff",
+      "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+      "local_bundle": "results/trials/phase5_ponytail_r01_retry01_s01/repository.bundle",
+      "bundle_sha256": "466312f6594e2c130cb1a531370758dc591e6e1d6e3113fd6f6d91e750db4a5c",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_ponytail_r01_retry01_s01.cumulative.patch",
+          "sha256": "70846599e2512823637a4711ad65746f6545204191a998f7a8d3d86465b25959",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_ponytail_r01_retry01_s01.incremental.patch",
+          "sha256": "70846599e2512823637a4711ad65746f6545204191a998f7a8d3d86465b25959",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r01_retry01_s02",
+      "variant": "ponytail",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_ponytail_r01_retry01",
+      "step": 2,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "ab748aa5cc4b5e2657fc10169067ee37f3bfbb94",
+      "ending_tree": "dd4439c9320a0b566b9c770bf948376583b12065",
+      "snapshot_sha256": "139f60c1dbefa18b25ec0f6773dddf2c9a93778bdcc54dd8804da479723ac653",
+      "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+      "local_bundle": "results/trials/phase5_ponytail_r01_retry01_s02/repository.bundle",
+      "bundle_sha256": "22e7868d2e43ca8021ee40a276bf57cfe83badd2826d467fc806da7c4fc9d541",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_ponytail_r01_retry01_s02.cumulative.patch",
+          "sha256": "d8d861ee95317f4054c3862366d2b9637d9b1c3cb4fbcd589ede15fba24d4fe8",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_ponytail_r01_retry01_s02.incremental.patch",
+          "sha256": "10d97980d1aa9a4302b4a3c88ee8eee37c960c909afeed8cdb2740fbe8059a8f",
+          "base_commit": "d69184be3eede03eec8a76622d0dbdca7fcd0976",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_plan_r01_retry01_s01",
+      "variant": "plan",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_plan_r01_retry01",
+      "step": 1,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "ee2e7ae83cd96aa72cfcfa101cfccc0e9ccb4539",
+      "ending_tree": "a566220d7a9eb769a819543fee3de97a26391ef4",
+      "snapshot_sha256": "c6cf6d8b4cd833a408803514f7aa8b722dde0820f1c92d23b7cf4f6432954d03",
+      "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+      "local_bundle": "results/trials/phase5_plan_r01_retry01_s01/repository.bundle",
+      "bundle_sha256": "6ea22c29190940f92df8819aa8c882b629a3cf436482f7566a73955c6135f663",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_plan_r01_retry01_s01.cumulative.patch",
+          "sha256": "b5568ede31e701a4db4e8452a496c2b5e1971b2aefa87b3e05d0c221565464b8",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_plan_r01_retry01_s01.incremental.patch",
+          "sha256": "b5568ede31e701a4db4e8452a496c2b5e1971b2aefa87b3e05d0c221565464b8",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_plan_r01_retry01_s02",
+      "variant": "plan",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_plan_r01_retry01",
+      "step": 2,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "8c7508aad0e72582b0316f8d5fd87430b213e1e8",
+      "ending_tree": "266b013095a8c1a9eadee05924352cda6228d548",
+      "snapshot_sha256": "15b55366bf111a13e05b846af7058a6fc72f246c4505e52b92ba64ab04242de5",
+      "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+      "local_bundle": "results/trials/phase5_plan_r01_retry01_s02/repository.bundle",
+      "bundle_sha256": "ac217e1f2528c5cd78af5108a37606688d85ca4d0e6d7a50bae5fbbc7b8dd900",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_plan_r01_retry01_s02.cumulative.patch",
+          "sha256": "fc384dda3535667796758f00a7ac2b1f28f457bf080efa9df8fa7c42fe3df98d",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_plan_r01_retry01_s02.incremental.patch",
+          "sha256": "ae3da9b3663201d5cdf148ca043d261838daf6960e99a81edbad4cad12f1e6ef",
+          "base_commit": "ee2e7ae83cd96aa72cfcfa101cfccc0e9ccb4539",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r02_s01",
+      "variant": "baseline",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_baseline_r02",
+      "step": 1,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "e96178f35a69a347dc505219f7facd193a47ebad",
+      "ending_tree": "314b4224845d9a500baceaa8209f5d184ce9f786",
+      "snapshot_sha256": "0698f11c36b903c5a8578a80ed99522da3c14536ff9d74dd57ddcdbac64bb46d",
+      "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+      "local_bundle": "results/trials/phase5_baseline_r02_s01/repository.bundle",
+      "bundle_sha256": "d4c8574f819448efccde26c9ce08bf6e27ff935fbde25a09bdca02148a0ac535",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_baseline_r02_s01.cumulative.patch",
+          "sha256": "f98f79b789b243a9632b9778bb0e58090aecacb0d405545c7cf076d5366fef04",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_baseline_r02_s01.incremental.patch",
+          "sha256": "f98f79b789b243a9632b9778bb0e58090aecacb0d405545c7cf076d5366fef04",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r02_s02_resume01",
+      "variant": "baseline",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_baseline_r02",
+      "step": 2,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "79015cc186617ac42394bab86c9955dcd78d822e",
+      "ending_tree": "6c4dd59a6f39b959e2baa23745f3c77ad50b63a3",
+      "snapshot_sha256": "f69e971770f9c818b248e55d167eacee9faabd2a6b8489b726959a1bea4f10d7",
+      "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+      "local_bundle": "results/trials/phase5_baseline_r02_s02_resume01/repository.bundle",
+      "bundle_sha256": "7584604d1393623a77897bef3626bbe0a0e295abd3f5663985646a4e9b5fb45a",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_baseline_r02_s02_resume01.cumulative.patch",
+          "sha256": "99ec66aa0f926d5b9aa704f487f2074cb034936b2718f3f46c3ec47437234f11",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_baseline_r02_s02_resume01.incremental.patch",
+          "sha256": "bf2bcc047a204c762af7ba5d68290ca4d28b5a86954b6c47ecf332b94d930ae6",
+          "base_commit": "e96178f35a69a347dc505219f7facd193a47ebad",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r02_s01",
+      "variant": "caveman",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_caveman_r02",
+      "step": 1,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "0921870cebb370340745b80b535a399f3cb64b0e",
+      "ending_tree": "2ce3e73dc482cfc282ffb7768668b913377d31ec",
+      "snapshot_sha256": "c36289a664ac166daf7eee0092ab9470c780714a6bf81b657b90d33c8e202cdd",
+      "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+      "local_bundle": "results/trials/phase5_caveman_r02_s01/repository.bundle",
+      "bundle_sha256": "8d7bd429b8ed73f49fd5b4a6c46327a91c8ffa8ca8cf88f0c624b5f8bded7132",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_caveman_r02_s01.cumulative.patch",
+          "sha256": "b1092d6c170ca6d38500b6b73d687663abf0f42c792f928d73541204458d10b6",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_caveman_r02_s01.incremental.patch",
+          "sha256": "b1092d6c170ca6d38500b6b73d687663abf0f42c792f928d73541204458d10b6",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r02_s02",
+      "variant": "caveman",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "trajectory_id": "phase5_caveman_r02",
+      "step": 2,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "cd07b9f107fdaffd55e7b7e85babd4097192330d",
+      "ending_tree": "4800812323cb99daaecdb162adb104b4b1bd45e2",
+      "snapshot_sha256": "1d8788bfee17b8e836583b60cf128ea8aef7bec49fee8df939c7139b742bd174",
+      "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+      "local_bundle": "results/trials/phase5_caveman_r02_s02/repository.bundle",
+      "bundle_sha256": "cd224553c745c1f6a8f6366b074b182293570e88634e75e37452480c6996e7ff",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase5_caveman_r02_s02.cumulative.patch",
+          "sha256": "f8211c57b2751bb00e87b487b82509f18d1939712592ac46ba68c16450865644",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase5_caveman_r02_s02.incremental.patch",
+          "sha256": "706abe415c8d5ba8c06aea349d78f5fe4f9076594deaa3a08621242676cc90e2",
+          "base_commit": "0921870cebb370340745b80b535a399f3cb64b0e",
+          "tree_replay_verified": true
+        }
+      }
+    }
+  ],
+  "limits": "Patches restore source trees, including benchmark test masking. They do not restore a Codex session or provide an implemented continuation runner."
+}

@@ -62,3 +62,14 @@ class StatusTests(unittest.TestCase):
         self.assertIn('| phase5_plan_r02 | plan | 2 | 0/2 | Заблокирован: quarantine |',text)
         self.assertIn('Пилот остановлен: quarantine preflight',text)
         self.assertNotIn('grader принят',text)
+
+    def test_user_signal_and_excluded_plan_are_visible(self):
+        plan={'active_variants':['baseline','caveman','ponytail'],'pilot_runs':[
+            {'trial_id':'next','variant':'ponytail','repetition':2,'completed_steps':0,
+             'total_steps':2,'state':'waiting_user'},
+            {'trial_id':'plan','variant':'plan','repetition':2,'completed_steps':0,
+             'total_steps':2,'state':'excluded'}]}
+        text=render([],[],plan,'fixed time')
+        self.assertIn('Ожидает отмашки пользователя',text)
+        self.assertIn('Исключён из новых запусков',text)
+        self.assertIn('baseline, caveman, ponytail',text)

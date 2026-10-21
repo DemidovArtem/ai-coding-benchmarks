@@ -1,5 +1,7 @@
 # Графики сравнения подходов
 
+**Основной текущий отчёт:** [усреднённые кривые по количеству правок](MEAN_CURVES.md), [PDF](mean_comparison.pdf). Baseline, Caveman и Ponytail; повторы входят в среднее и min–max. Ниже сохранён прежний разбор отдельных повторов и planning variants как история.
+
 Срез после остановки Phase 5 на quarantine preflight: 12 из 16 правок завершены и приняты grader. Baseline и Caveman имеют по два полных повтора; Ponytail и plan — по одному. Незавершённые повторы не заменяются нулями. [Актуальный реестр](../../EXPERIMENT_STATUS.md).
 
 ## Continuous: размер дифа, токены и время

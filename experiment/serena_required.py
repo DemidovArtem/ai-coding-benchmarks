@@ -63,8 +63,9 @@ def install_required_policy(setup, output):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
-    config=json.loads((ROOT/'reports/phase3_experiment.json').read_text());validate(config)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--config',type=Path,default=ROOT/'reports/phase3_experiment.json');args=parser.parse_args()
+    config=json.loads(args.config.read_text());validate(config)
     lock=trial_lock(Path(config['resources']['runtime_root']));output=args.output.resolve();output.mkdir(parents=True,exist_ok=False);output.chmod(0o700)
     secrets=credential_values(Path.home()/'.codex/auth.json');started=time.monotonic()
     sys.path.insert(0,str(ROOT/'vendor/SWE-Milestone'))
@@ -72,8 +73,9 @@ def main():
     from harness.e2e.container_setup import ContainerSetup
     from harness.e2e.agent_runner import AgentRunner
     from harness.e2e.log_parser import get_parser
+    from experiment.continuous import runtime_binding
     workspace=ROOT/config['benchmark']['dataset_root']/config['benchmark']['repo'];milestone=config['benchmark']['smoke_milestone']
-    binding=MilestoneRunner(workspace_root=workspace,milestone_id=milestone,srs_path=workspace/'srs'/milestone/'SRS.md',output_dir=output/'bindings',agent_name='codex',main_branch=config['benchmark']['main_branch'],agent_version=config['codex']['version'])
+    binding=MilestoneRunner(workspace_root=workspace,milestone_id=milestone,srs_path=workspace/'srs'/milestone/'SRS.md',output_dir=output/'bindings',agent_name='codex',main_branch=config['benchmark']['main_branch'],agent_version=config['codex']['version'],runtime_policy_binding=runtime_binding(config,output/'bindings'))
     setup=ContainerSetup(container_name='experiment-'+output.name,image_name=config['benchmark']['skill_runtime_image_id'],agent_name='codex',agent_framework_name='codex',agent_version=config['codex']['version'],repo_name=config['benchmark']['repo'],runtime_policy_binding=binding.runtime_policy_binding)
     result={'success':False,'variant':'serena_required','kind':'activation_smoke_not_measured','grader_run':False,'failure_category':None}
     try:

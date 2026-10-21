@@ -63,6 +63,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
              f"| Phase 2: baseline / plan / goal_plan | {phase_status(p2 + [r for r in pending if r['trial_id'].startswith('phase2_')], {'baseline','plan','goal_plan'})} | [Метрики и quota-resume history](reports/phase2_progress.md) |",
              f"| Phase 3: baseline / Ponytail / Caveman / Serena | {phase_status(p3 + [r for r in pending if r['trial_id'].startswith('phase3_')], {'baseline','ponytail','caveman','serena'})} | [Профили, активация и результаты](reports/phase3_progress.md) |",
              *([f"| Дополнение: serena_required | {cell(serena_required.get('label'))} | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |"] if serena_required else []),
+             *([f"| Текущий состав экспериментов | {cell(', '.join(continuous['active_variants']))} | Plan исключён из новых запусков; прежние результаты сохранены. |"] if continuous.get('active_variants') else []),
              f"| Phase 4: Sonar before/after | {'Завершён для собранных snapshots' if snapshots and all(r.get('sonar',{}).get('analysis_ok') is True for r in snapshots) else 'Частично выполнен / ожидает анализов'} | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |",
              f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | {cell(continuous.get('summary') or 'Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней.')} [План и состояние](reports/continuous_feasibility.md) |",
              *[f"| {cell(cohort['title'])} | {cell(cohort['label'])} | {cell(cohort['summary'])} [Протокол]({cohort['protocol']}) |"
@@ -97,12 +98,12 @@ def render(rows, pending, continuous, updated, serena_required=None):
               f"Несобранных trials: **{len(pending)}**, из них выполняется: **{len(active)}**. {quota_note} Этот документ сам ничего не запускает и не следит по расписанию.", '',
               '## Как обновляется реестр', '',
               'После изменения результатов или статуса выполняется `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`. Команда читает `results/results.jsonl`, metadata ещё не собранных trials и continuous plan. Завершённые результаты сначала проходят существующий collector; таблица не заменяет grader и не пересчитывает scores.', '',
-              '[Графики дельт](reports/plots/README.md) · [Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
+              '[Средние кривые по правкам](reports/plots/MEAN_CURVES.md) · [Сохранённые patches](reports/patches/README.md) · [История графиков](reports/plots/README.md) · [Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
     if continuous.get('pilot_runs'):
         table = ['## Последовательный пилот: план запусков', '',
                  'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',
                  '| Траектория | Variant | Повтор | Завершено шагов | Статус |', '| --- | --- | ---: | --- | --- |']
-        states = {'planned':'Запланирован', 'waiting_quota':'Ожидает квоты', 'blocked_quarantine':'Заблокирован: quarantine', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
+        states = {'planned':'Запланирован', 'waiting_user':'Ожидает отмашки пользователя', 'waiting_quota':'Ожидает квоты', 'blocked_quarantine':'Заблокирован: quarantine', 'excluded':'Исключён из новых запусков', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
         for run in continuous['pilot_runs']:
             state = 'Остановлен: квота' if run.get('failure_category') == 'quota_pressure' else states.get(run['state'], run['state'])
             values = [run['trial_id'], run['variant'], run['repetition'],

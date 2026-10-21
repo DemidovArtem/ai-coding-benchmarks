@@ -1,25 +1,13 @@
-# Serena-first: обязательное использование, отдельный вариант
+# Serena: работоспособность подтверждена
 
-Статус: **policy реализована; дальнейшая проверка отложена по просьбе пользователя. Приоритет — continuous baseline / plan / goal_plan без Serena**. Measured benchmark trial ещё не запускался. Исходный `phase3_serena_001` с нулём MCP calls сохранён и не переименован в успешное использование Serena.
+Отдельный required-usage smoke `serena_required_smoke_003` успешно завершён на нейтральном Rust fixture с тем же локальным runtime. Зарегистрированный MCP server реально вызван: **13 успешных MCP calls, 2 semantic calls, 6 memory files**. Проверены cold onboarding, получение непустых symbols, запись памяти до shell/source operations и неизменность исходного файла. Ни grader, ни новая benchmark trajectory не запускались.
 
-## Что показала диагностика
+[Подробный результат](serena_required_smoke_003.json), [текущий статус](serena_required_progress.json), [обязательная инструкция](../profiles/serena_required/AGENTS.md).
 
-В исходном measured trial сервер действительно запустился с 23 tools, RustAnalyzer стартовал без ошибок, запрос `ListToolsRequest` обработан. `required=true` присутствовал в effective profile. В trace нет MCP calls и нет явного startup failure. Это доказывает работу подключения, но не намерение модели использовать его. Без отдельной Serena-first policy task был выполнен shell-инструментами. Сам размер repository не обязывает модель выбрать MCP.
+Первая попытка этого продолжения, `serena_required_smoke_002`, уже выполнила semantic calls и записала memories, но нарушила строгий порядок startup: shell использовался во время onboarding до ориентационной памяти. Её failure сохранён в [отдельном отчёте](serena_required_smoke_002.json). Уточнённая инструкция явно требует Serena tools для стартовых чтений даже non-code files. Validator не ослаблялся. Повтор `003` прошёл исходную строгую проверку.
 
-В локальном `/home/artem-demidov/PycharmProjects/DS/llm-auto-tuning-ml/AGENTS.md:133` найден пользовательский принцип Serena-first: для индексируемого Python-кода сначала symbolic navigation, rg/line reads как fallback. Он использован как образец policy, адаптированный для Rust; private configs, memories и unrelated project instructions не копируются.
+Проверка использует усиленную immutable registry policy Phase 5b. Это activation/workflow smoke, а не measured comparison. Исторический Phase 3 Serena trial с нулём natural MCP calls остаётся неизменным; его метрики не подменяются smoke. Пользователь ещё не разрешал новый benchmark после остановки очереди.
 
-## Новый workflow
+## Использование при следующей отмашке
 
-В контейнере `serena_required` после clean baseline audit устанавливается отдельный read-only `/home/fakeroot/.codex/AGENTS.md`. Он требует `initial_instructions`, cold `onboarding`, реальные символы через `get_symbols_overview`/`find_symbol` и factual note через `write_memory` до shell/source work. Сам benchmark checkout не получает AGENTS-файл. MCP/network/model/runtime остаются такими же; hooks и plugins дополнительно не включаются.
-
-`experiment.serena_required.verify_required_usage` проверяет реальные successful MCP events и их порядок. Zero usage, failed/empty semantic results, преждевременные shell/source edits дают отдельный activation/policy failure; такой результат нельзя засчитать как обычный baseline или валидный mandatory-Serena trial. Это не обещание, что модель никогда не нарушит policy: нарушение обнаруживается и делает trial невалидным.
-
-Neutral smoke использует новый однофайловый Cargo repository, пустые memories и общий pinned runtime. Сам user prompt не называет MCP tools: обязательный порядок задаёт именно AGENTS.md. Model должна выполнить onboarding и symbolic navigation, затем описать функцию без изменения source. Её usage/time — setup overhead, вне benchmark A/B. Source hash проверяется до/после; никакие smoke memories не передаются в реальные trials.
-
-После успешного smoke новый measured вариант требует отдельного frozen cohort/протокола и учёта cold onboarding. Старое сравнение доступности Serena и новый Serena-first workflow — разные экспериментальные условия.
-
-## Последовательные задачи
-
-Схема «первая правка, вторая, третья» соответствует Phase 5. Нужны один постоянный executor, immutable submission на каждом шаге, prep/ack перед публикацией следующего SRS, одинаковая dependency-consistent trajectory и per-step grader/Git/Sonar. Обновлённая Serena policy сама по себе эту интеграцию не реализует. [Существующий точный blocker и следующий slice](continuous_feasibility.md).
-
-Первый neutral smoke остановлен до model turn: pinned quarantine probe установил TCP reachability к запрещённому `static.crates.io`. Это отдельный infrastructure/security blocker, а не проверка или отказ Serena policy. Результат и свежая quota snapshot сохранены; model usage отсутствует. Host proxy env отсутствует; registry DNS на момент диагностики входит в запрещённый Fastly CIDR. Повторный zero-model diagnostic `serena_network_diagnostic_002` завершён: обе проверки с прежними правилами прошли, затем запуск намеренно остановлен до вызова модели. Причина первого сбоя не установлена. Это не проверка Serena policy; перед следующим trial обязательные quarantine checks выполняются заново. Scoring/quarantine не ослабляются.
+Перед отдельным Serena trial требуется подключить профиль `profiles/serena/config.toml` и политику `profiles/serena_required/AGENTS.md`, а затем проверять реальные calls через `verify_required_usage`. Один server startup недостаточен. Подготовленный smoke runner уже принимает явный `--config`, сохраняя frozen trial-bound quarantine. Текущий baseline/Caveman/Ponytail runner сам Serena не регистрирует; добавление measured Serena variant потребует отдельного ограниченного изменения и нового cohort.

@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "variant": "serena_required",
+  "kind": "activation_smoke_not_measured",
+  "grader_run": false,
+  "failure_category": null,
+  "session_id": "01a15f9a-ab00-73d1-80ac-f6a787488253",
+  "usage": {
+    "input_tokens": 199219,
+    "output_tokens": 970,
+    "cached_input_tokens": 166784,
+    "reasoning_output_tokens": 24,
+    "session_ids": [
+      "01a15f9a-ab00-73d1-80ac-f6a787488253"
+    ],
+    "turns": 1,
+    "tool_calls": {
+      "serena": 13
+    },
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "required_usage_verified": true,
+  "observed_mcp_tool_calls": 13,
+  "semantic_calls": 2,
+  "onboarding_observed": true,
+  "memory_write_observed": true,
+  "memory_files_after": 6,
+  "memory_bytes_after": 3440,
+  "source_unchanged": true,
+  "memory_files_before": 0,
+  "memory_bytes_before": 0,
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "duration_seconds": 118.01223071599998,
+  "successful_tools": [
+    "initial_instructions",
+    "onboarding",
+    "search_for_pattern",
+    "read_memory",
+    "search_for_pattern",
+    "get_symbols_overview",
+    "search_for_pattern",
+    "write_memory",
+    "find_symbol",
+    "write_memory",
+    "write_memory",
+    "write_memory",
+    "write_memory"
+  ],
+  "required_policy_sha256": "f7838d614681ab67e183f24625195744ca927780a616c38f11a349acbe609e3e",
+  "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+  "agent_trace_sha256": "39a09d9a3241868e553fde485a9363d2248d0522c668975f767803b2197262ed"
+}

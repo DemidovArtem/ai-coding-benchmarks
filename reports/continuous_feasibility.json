@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Diagnose and harden the registry deny policy in a separately pinned cohort before any new model invocation. Preserve this cohort and compare only within its frozen conditions.",
+  "next_step": "Generate averaged curves from existing runs, verify Serena, preserve text patches, commit and push. Do not start new benchmark experiments until the user explicitly authorizes them.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -185,29 +185,56 @@
       "trial_id": "phase5_plan_r02",
       "variant": "plan",
       "repetition": 2,
-      "state": "blocked_quarantine",
+      "state": "excluded",
       "completed_steps": 0,
       "total_steps": 2,
-      "blocking_reason": "Frozen quarantine accepts 199.232.142.137/32, currently resolved by static.crates.io; denied-host TCP probe succeeds. No model invocation occurred.",
+      "blocking_reason": "User removed plan from future experiments.",
       "active_step": null
     },
     {
-      "trial_id": "phase5b_ponytail_r02",
+      "trial_id": "phase5b_ponytail_r02_retry01",
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase5b",
-      "state": "running",
+      "state": "waiting_user",
       "completed_steps": 0,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": 1
+      "active_step": null,
+      "last_step": "phase5b_ponytail_r02_s01",
+      "failure_category": null,
+      "prior_attempts": [
+        {
+          "trial_id": "phase5b_ponytail_r02",
+          "variant": "ponytail",
+          "repetition": 2,
+          "cohort": "phase5b",
+          "state": "failed",
+          "completed_steps": 0,
+          "total_steps": 2,
+          "blocking_reason": null,
+          "active_step": null,
+          "last_step": "phase5b_ponytail_r02_s01",
+          "failure_category": "quota_pressure"
+        }
+      ]
     },
     {
       "trial_id": "phase5b_baseline_r02",
       "variant": "baseline",
       "repetition": 2,
       "cohort": "phase5b",
-      "state": "planned",
+      "state": "waiting_user",
+      "completed_steps": 0,
+      "total_steps": 2,
+      "blocking_reason": null
+    },
+    {
+      "trial_id": "phase5b_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "cohort": "phase5b",
+      "state": "waiting_user",
       "completed_steps": 0,
       "total_steps": 2,
       "blocking_reason": null
@@ -257,13 +284,24 @@
   },
   "cohorts": {
     "phase5b": {
-      "title": "Phase 5b: baseline / Ponytail, \u0443\u0441\u0438\u043b\u0435\u043d\u043d\u0430\u044f \u0438\u0437\u043e\u043b\u044f\u0446\u0438\u044f registry",
-      "status": "running",
-      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 0/2; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "title": "Phase 5b: baseline / Caveman / Ponytail",
+      "status": "waiting_user",
+      "label": "\u041d\u043e\u0432\u044b\u0435 trials \u043e\u0436\u0438\u0434\u0430\u044e\u0442 \u043e\u0442\u043c\u0430\u0448\u043a\u0438",
+      "summary": "\u041e\u0447\u0435\u0440\u0435\u0434\u044c \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0430 \u0434\u043e \u043f\u0435\u0440\u0432\u043e\u0433\u043e \u043d\u043e\u0432\u043e\u0433\u043e benchmark model invocation; \u043f\u0440\u0435\u0436\u043d\u0438\u0439 quota failure \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d.",
       "protocol": "reports/phase5b_protocol.md",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     }
-  }
+  },
+  "active_variants": [
+    "baseline",
+    "caveman",
+    "ponytail"
+  ],
+  "excluded_future_variants": [
+    "plan",
+    "goal_plan"
+  ],
+  "scope_authorization": "User requested only baseline, Caveman and Ponytail, mean curves over edits, and a separate working Serena check.",
+  "new_trials_require_explicit_user_signal": true
 }

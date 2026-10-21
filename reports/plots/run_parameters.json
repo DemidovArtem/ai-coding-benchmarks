@@ -1,0 +1,737 @@
+[
+  {
+    "trial_id": "phase5_baseline_r01_s01",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+    "snapshot_sha256": "6e2ae049808a52e11cf5295ce56db9be7f54b28c78f827ba2baa21fff1b8974a",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 33,
+          "windowDurationMins": 300,
+          "resetsAt": 1792544103
+        },
+        "secondary": {
+          "usedPercent": 7,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793104805
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T20:11:43.150904+00:00"
+  },
+  {
+    "trial_id": "phase5_baseline_r01_s02",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+    "snapshot_sha256": "b01860a0eabdf5cd5f94ba33380a73c54a21560bc886a70fb21d918843f416c8",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 51,
+          "windowDurationMins": 300,
+          "resetsAt": 1792544103
+        },
+        "secondary": {
+          "usedPercent": 9,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793104805
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-20T20:18:58.579719+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r01_s01",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "snapshot_sha256": "f0cba61d9ac4216ded213fb8c3ff92c5ea45447cc0b6826cd592c627c55dce6d",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 68,
+          "windowDurationMins": 300,
+          "resetsAt": 1792544103
+        },
+        "secondary": {
+          "usedPercent": 12,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793104805
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T20:26:07.972245+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r01_s02",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 2,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 85,
+          "windowDurationMins": 300,
+          "resetsAt": 1792544103
+        },
+        "secondary": {
+          "usedPercent": 15,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793104805
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "quota_pressure",
+    "profile_config_sha256": null,
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-20T20:33:19.147309+00:00"
+  },
+  {
+    "trial_id": "phase5_ponytail_r01_s01",
+    "variant": "ponytail",
+    "repetition": 1,
+    "step": 1,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": "01a15b20-bfbd-7751-9500-d4331e201eef",
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 93,
+          "windowDurationMins": 300,
+          "resetsAt": 1792544103
+        },
+        "secondary": {
+          "usedPercent": 16,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793104805
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "quota_pressure",
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T21:02:35.457620+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r01_s02_resume02",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 2,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "snapshot_sha256": null,
+    "resume": {
+      "attempt_of": "phase5_caveman_r01_s02",
+      "same_session_required": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+      "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_caveman_r01_s02",
+      "adapter_sha256": "52041ce80acee47c26d0f974a41804461360662e41dc208706e3f821df031bdc"
+    },
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 17,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 34,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "continuous_recovery_failure",
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T22:47:32.544451+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r01_s02_resume03",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+    "snapshot_sha256": "dace5ed5d49f2911280892cdad17fceb0adaa72fc270245dbe6a4cb3c5b6f329",
+    "resume": {
+      "attempt_of": "phase5_caveman_r01_s02",
+      "same_session_required": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+      "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_caveman_r01_s02",
+      "adapter_sha256": "52041ce80acee47c26d0f974a41804461360662e41dc208706e3f821df031bdc"
+    },
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 23,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 35,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T22:50:03.284524+00:00"
+  },
+  {
+    "trial_id": "phase5_ponytail_r01_retry01_s01",
+    "variant": "ponytail",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+    "snapshot_sha256": "258cd1be546325989d6f3a9b04ce4b1544aba659d18809abfd47bd0594a049ff",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 36,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 37,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095345
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T22:56:03.140678+00:00"
+  },
+  {
+    "trial_id": "phase5_ponytail_r01_retry01_s02",
+    "variant": "ponytail",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+    "snapshot_sha256": "139f60c1dbefa18b25ec0f6773dddf2c9a93778bdcc54dd8804da479723ac653",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 52,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 39,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-20T23:02:21.832858+00:00"
+  },
+  {
+    "trial_id": "phase5_plan_r01_retry01_s01",
+    "variant": "plan",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+    "snapshot_sha256": "c6cf6d8b4cd833a408803514f7aa8b722dde0820f1c92d23b7cf4f6432954d03",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 67,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 42,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T23:08:44.284863+00:00"
+  },
+  {
+    "trial_id": "phase5_plan_r01_retry01_s02",
+    "variant": "plan",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+    "snapshot_sha256": "15b55366bf111a13e05b846af7058a6fc72f246c4505e52b92ba64ab04242de5",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 81,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 44,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-20T23:17:08.939823+00:00"
+  },
+  {
+    "trial_id": "phase5_baseline_r02_s01",
+    "variant": "baseline",
+    "repetition": 2,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+    "snapshot_sha256": "0698f11c36b903c5a8578a80ed99522da3c14536ff9d74dd57ddcdbac64bb46d",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 93,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 46,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-20T23:25:13.385508+00:00"
+  },
+  {
+    "trial_id": "phase5_baseline_r02_s02",
+    "variant": "baseline",
+    "repetition": 2,
+    "step": 2,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 100,
+          "windowDurationMins": 300,
+          "resetsAt": 1792551497
+        },
+        "secondary": {
+          "usedPercent": 47,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": "rate_limit_reached",
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "quota_pressure",
+    "profile_config_sha256": null,
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-20T23:30:29.667977+00:00"
+  },
+  {
+    "trial_id": "phase5_baseline_r02_s02_resume01",
+    "variant": "baseline",
+    "repetition": 2,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+    "snapshot_sha256": "f69e971770f9c818b248e55d167eacee9faabd2a6b8489b726959a1bea4f10d7",
+    "resume": {
+      "attempt_of": "phase5_baseline_r02_s02",
+      "same_session_required": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+      "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase5_baseline_r02_s02",
+      "adapter_sha256": "5c634c5c6e87e11ff6fcee2e0f356e03ad4da977d8226b3caf95faca549a7565"
+    },
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 25,
+          "windowDurationMins": 300,
+          "resetsAt": 1792603476
+        },
+        "secondary": {
+          "usedPercent": 51,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-21T14:09:50.102503+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r02_s01",
+    "variant": "caveman",
+    "repetition": 2,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+    "snapshot_sha256": "c36289a664ac166daf7eee0092ab9470c780714a6bf81b657b90d33c8e202cdd",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 33,
+          "windowDurationMins": 300,
+          "resetsAt": 1792603476
+        },
+        "secondary": {
+          "usedPercent": 52,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-21T14:18:09.063573+00:00"
+  },
+  {
+    "trial_id": "phase5_caveman_r02_s02",
+    "variant": "caveman",
+    "repetition": 2,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+    "snapshot_sha256": "1d8788bfee17b8e836583b60cf128ea8aef7bec49fee8df939c7139b742bd174",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 41,
+          "windowDurationMins": 300,
+          "resetsAt": 1792603476
+        },
+        "secondary": {
+          "usedPercent": 54,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-21T14:27:56.136988+00:00"
+  },
+  {
+    "trial_id": "phase5_ponytail_r02_s01",
+    "variant": "ponytail",
+    "repetition": 2,
+    "step": 1,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": null,
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 53,
+          "windowDurationMins": 300,
+          "resetsAt": 1792603476
+        },
+        "secondary": {
+          "usedPercent": 55,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "continuous_step_failure",
+    "profile_config_sha256": null,
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+    "started_at": "2026-10-21T14:38:23.605132+00:00"
+  },
+  {
+    "trial_id": "phase5b_ponytail_r02_s01",
+    "variant": "ponytail",
+    "repetition": 2,
+    "step": 1,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "a9f194e85949cdbbd3d4a85d3ce938268fdc2c4e487696843c7d5139216e0120",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": null,
+    "executor_session_id": null,
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 96,
+          "windowDurationMins": 300,
+          "resetsAt": 1792603476
+        },
+        "secondary": {
+          "usedPercent": 62,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793095346
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "quota_pressure",
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-21T15:04:54.064278+00:00"
+  }
+]

@@ -1,0 +1,28 @@
+# Параметры отдельных запусков
+
+Измеряемые условия внутри одного setup fingerprint фиксированы. Меняются случайный результат модели, независимая сессия и наблюдаемая квота. Повторы усредняются; условия не усредняются. Полные безопасные значения — в [JSON](run_parameters.json).
+
+| Trial | Вариант | Повтор / шаг | Model / effort | Cohort | Статус |
+| --- | --- | --- | --- | --- | --- |
+| phase5_baseline_r01_s01 | baseline | 1 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_baseline_r01_s02 | baseline | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_caveman_r01_s01 | caveman | 1 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_caveman_r01_s02 | caveman | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
+| phase5_ponytail_r01_s01 | ponytail | 1 / 1 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
+| phase5_caveman_r01_s02_resume02 | caveman | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
+| phase5_caveman_r01_s02_resume03 | caveman | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_ponytail_r01_retry01_s01 | ponytail | 1 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_ponytail_r01_retry01_s02 | ponytail | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_plan_r01_retry01_s01 | plan | 1 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_plan_r01_retry01_s02 | plan | 1 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_baseline_r02_s01 | baseline | 2 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_baseline_r02_s02 | baseline | 2 / 2 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
+| phase5_baseline_r02_s02_resume01 | baseline | 2 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_caveman_r02_s01 | caveman | 2 / 1 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_caveman_r02_s02 | caveman | 2 / 2 | gpt-6.1-sol / high | b9bf8525af17 | finished / resolved=True |
+| phase5_ponytail_r02_s01 | ponytail | 2 / 1 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
+| phase5b_ponytail_r02_s01 | ponytail | 2 / 1 | gpt-6.1-sol / high | a9f194e85949 | failed / resolved=None |
+
+Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
+
+Для каждого исходного measured trial CLI 0.163.0, model gpt-6.1-sol, effort high и общий runtime зафиксированы в frozen configs. Нулевые/отсутствующие поля в JSON не подменяются текущими настройками host.

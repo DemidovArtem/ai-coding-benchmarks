@@ -1,0 +1,39 @@
+{
+  "success": false,
+  "variant": "serena_required",
+  "kind": "activation_smoke_not_measured",
+  "grader_run": false,
+  "failure_category": "required_serena_activation_failure",
+  "session_id": "01a15f97-091c-75b1-9544-691045a3074c",
+  "usage": {
+    "input_tokens": 173784,
+    "output_tokens": 921,
+    "cached_input_tokens": 149888,
+    "reasoning_output_tokens": 53,
+    "session_ids": [
+      "01a15f97-091c-75b1-9544-691045a3074c"
+    ],
+    "turns": 1,
+    "tool_calls": {
+      "serena": 10,
+      "shell": 3
+    },
+    "anomalies": [],
+    "counter_semantics": "last cumulative totals per thread; fields as reported"
+  },
+  "error": "Shell work preceded mandatory Serena orientation",
+  "duration_seconds": 140.51712277800016,
+  "observed_mcp_tool_calls": 10,
+  "successful_tools": [
+    "initial_instructions",
+    "onboarding",
+    "read_memory",
+    "get_symbols_overview",
+    "find_symbol",
+    "write_memory",
+    "write_memory",
+    "write_memory",
+    "write_memory",
+    "write_memory"
+  ]
+}

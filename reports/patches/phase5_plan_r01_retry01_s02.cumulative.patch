@@ -1,0 +1,1310 @@
+diff --git a/crates/globset/src/glob.rs b/crates/globset/src/glob.rs
+index c25e3f22227d855bc839523c471b30444c6d65f9..a967cca2a84b088669ae4966da929746caae0afe 100644
+--- a/crates/globset/src/glob.rs
++++ b/crates/globset/src/glob.rs
+@@ -206,6 +206,8 @@ struct GlobOptions {
+     /// Whether or not an empty case in an alternate will be removed.
+     /// e.g., when enabled, `{,a}` will match "" and "a".
+     empty_alternates: bool,
++    /// Whether an unclosed character class is treated as literal text.
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GlobOptions {
+@@ -215,6 +217,7 @@ impl GlobOptions {
+             literal_separator: false,
+             backslash_escape: !is_separator('\\'),
+             empty_alternates: false,
++            allow_unclosed_class: false,
+         }
+     }
+ }
+@@ -565,6 +568,8 @@ impl<'a> GlobBuilder<'a> {
+         let mut p = Parser {
+             glob: &self.glob,
+             stack: vec![Tokens::default()],
++            alternates: vec![],
++            no_more_classes: false,
+             chars: self.glob.chars().peekable(),
+             prev: None,
+             cur: None,
+@@ -576,7 +581,7 @@ impl<'a> GlobBuilder<'a> {
+                 glob: Some(self.glob.to_string()),
+                 kind: ErrorKind::UnopenedAlternates,
+             })
+-        } else if p.stack.len() > 1 {
++        } else if !p.alternates.is_empty() {
+             Err(Error {
+                 glob: Some(self.glob.to_string()),
+                 kind: ErrorKind::UnclosedAlternates,
+@@ -631,6 +636,18 @@ impl<'a> GlobBuilder<'a> {
+         self.opts.empty_alternates = yes;
+         self
+     }
++
++    /// Toggle whether an unclosed character class is treated as literal text.
++    ///
++    /// When enabled, an opening `[` without a matching `]` and the following
++    /// text are matched literally. Inside an alternation group, the literal
++    /// text ends at the next branch separator or closing brace.
++    ///
++    /// This is disabled by default: unclosed classes produce an error.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.opts.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ impl Tokens {
+@@ -758,6 +775,10 @@ fn bytes_to_escaped_literal(bs: &[u8]) -> String {
+ struct Parser<'a> {
+     glob: &'a str,
+     stack: Vec<Tokens>,
++    /// The stack index of the first branch of each open alternation group.
++    alternates: Vec<usize>,
++    /// Once a class is unclosed, later openers cannot have a closing bracket.
++    no_more_classes: bool,
+     chars: std::iter::Peekable<std::str::Chars<'a>>,
+     prev: Option<char>,
+     cur: Option<char>,
+@@ -786,17 +807,16 @@ impl<'a> Parser<'a> {
+     }
+ 
+     fn push_alternate(&mut self) -> Result<(), Error> {
+-        if self.stack.len() > 1 {
+-            return Err(self.error(ErrorKind::NestedAlternates));
+-        }
++        self.alternates.push(self.stack.len());
+         Ok(self.stack.push(Tokens::default()))
+     }
+ 
+     fn pop_alternate(&mut self) -> Result<(), Error> {
+-        let mut alts = vec![];
+-        while self.stack.len() >= 2 {
+-            alts.push(self.stack.pop().unwrap());
+-        }
++        let start = self
++            .alternates
++            .pop()
++            .ok_or_else(|| self.error(ErrorKind::UnopenedAlternates))?;
++        let alts = self.stack.drain(start..).collect();
+         self.push_token(Token::Alternates(alts))
+     }
+ 
+@@ -825,7 +845,7 @@ impl<'a> Parser<'a> {
+         // If we aren't inside a group alternation, then don't
+         // treat commas specially. Otherwise, we need to start
+         // a new alternate.
+-        if self.stack.len() <= 1 {
++        if self.alternates.is_empty() {
+             self.push_token(Token::Literal(','))
+         } else {
+             Ok(self.stack.push(Tokens::default()))
+@@ -865,7 +885,7 @@ impl<'a> Parser<'a> {
+         }
+ 
+         if !prev.map(is_separator).unwrap_or(false) {
+-            if self.stack.len() <= 1
++            if self.alternates.is_empty()
+                 || (prev != Some(',') && prev != Some('{'))
+             {
+                 self.push_token(Token::ZeroOrMore)?;
+@@ -878,7 +898,7 @@ impl<'a> Parser<'a> {
+                 assert!(self.bump().is_none());
+                 true
+             }
+-            Some(',') | Some('}') if self.stack.len() >= 2 => true,
++            Some(',') | Some('}') if !self.alternates.is_empty() => true,
+             Some(c) if is_separator(c) => {
+                 assert!(self.bump().map(is_separator).unwrap_or(false));
+                 false
+@@ -908,6 +928,17 @@ impl<'a> Parser<'a> {
+     }
+ 
+     fn parse_class(&mut self) -> Result<(), Error> {
++        if self.opts.allow_unclosed_class && !self.class_is_closed() {
++            self.push_token(Token::Literal('['))?;
++            while let Some(c) = self.peek() {
++                if !self.alternates.is_empty() && (c == ',' || c == '}') {
++                    break;
++                }
++                self.bump();
++                self.push_token(Token::Literal(c))?;
++            }
++            return Ok(());
++        }
+         fn add_to_last_range(
+             glob: &str,
+             r: &mut (char, char),
+@@ -988,6 +1019,26 @@ impl<'a> Parser<'a> {
+         self.push_token(Token::Class { negated, ranges })
+     }
+ 
++    /// Check for closure before validating ranges or consuming any input.
++    /// Cache failure so unclosed classes in later branches don't rescan the
++    /// same suffix. Successful scans cover only the class consumed next.
++    fn class_is_closed(&mut self) -> bool {
++        if self.no_more_classes {
++            return false;
++        }
++        let mut chars = self.chars.clone();
++        if chars.peek() == Some(&'!') || chars.peek() == Some(&'^') {
++            chars.next();
++        }
++        // A closing bracket in the first position is a class member.
++        chars.next();
++        if chars.any(|c| c == ']') {
++            return true;
++        }
++        self.no_more_classes = true;
++        false
++    }
++
+     fn bump(&mut self) -> Option<char> {
+         self.prev = self.cur;
+         self.cur = self.chars.next();
+@@ -1014,545 +1065,408 @@ fn ends_with(needle: &[u8], haystack: &[u8]) -> bool {
+ 
+ #[cfg(test)]
+ mod tests {
+-    use super::Token::*;
+-    use super::{Glob, GlobBuilder, Token};
++    use super::{Glob, GlobBuilder, Token, Tokens};
+     use crate::{ErrorKind, GlobSetBuilder};
+ 
+-    #[derive(Clone, Copy, Debug, Default)]
+-    struct Options {
+-        casei: Option<bool>,
+-        litsep: Option<bool>,
+-        bsesc: Option<bool>,
+-        ealtre: Option<bool>,
+-    }
+-
+-    macro_rules! syntax {
+-        ($name:ident, $pat:expr, $tokens:expr) => {
+-            #[test]
+-            fn $name() {
+-                let pat = Glob::new($pat).unwrap();
+-                assert_eq!($tokens, pat.tokens.0);
+-            }
+-        };
++    fn literal(c: char) -> Tokens {
++        Tokens(vec![Token::Literal(c)])
++    }
++
++    fn alternates(branches: Vec<Tokens>) -> Tokens {
++        Tokens(vec![Token::Alternates(branches)])
++    }
++
++    #[test]
++    fn nested_tokens() {
++        let a = literal('a');
++        let b = literal('b');
++        let c = literal('c');
++        let d = literal('d');
++        let cases = [
++            (
++                "{a,{b,c}}",
++                alternates(vec![
++                    a.clone(),
++                    alternates(vec![b.clone(), c.clone()]),
++                ]),
++            ),
++            (
++                "{{a,b},{c,d}}",
++                alternates(vec![
++                    alternates(vec![a.clone(), b.clone()]),
++                    alternates(vec![c.clone(), d.clone()]),
++                ]),
++            ),
++            (
++                "{a,b{c,d}}",
++                alternates(vec![
++                    a,
++                    Tokens(vec![
++                        Token::Literal('b'),
++                        Token::Alternates(vec![c, d]),
++                    ]),
++                ]),
++            ),
++        ];
++        for (pattern, expected) in cases {
++            assert_eq!(
++                Glob::new(pattern).unwrap().tokens,
++                expected,
++                "{pattern}",
++            );
++        }
+     }
+ 
+-    macro_rules! syntaxerr {
+-        ($name:ident, $pat:expr, $err:expr) => {
+-            #[test]
+-            fn $name() {
+-                let err = Glob::new($pat).unwrap_err();
+-                assert_eq!(&$err, err.kind());
+-            }
+-        };
++    #[test]
++    fn alternation_regex() {
++        let cases = [
++            ("{a,b}", "^(?:a|b)$"),
++            ("{a,{b,c}}", "^(?:a|(?:b|c))$"),
++            ("{{a,b},{c,d}}", "^(?:(?:a|b)|(?:c|d))$"),
++            ("{a,b{c,d}}", "^(?:a|b(?:c|d))$"),
++            ("{a,{b,{c,d}},e}", "^(?:a|(?:b|(?:c|d))|e)$"),
++            ("x{a,{b,c}}y", "^x(?:a|(?:b|c))y$"),
++            ("{a,{b,c}}{d,e}", "^(?:a|(?:b|c))(?:d|e)$"),
++            ("{a,b},c", "^(?:a|b),c$"),
++            ("{}", "^$"),
++            ("{,}", "^$"),
++            ("{foo}", "^(?:foo)$"),
++            ("foo{,.txt}", r"^foo(?:\.txt)$"),
++            ("{a,{,b}}", "^(?:a|(?:b))$"),
++            ("{a,{}}", "^(?:a)$"),
++        ];
++        for (pattern, expected) in cases {
++            assert_eq!(
++                Glob::new(pattern).unwrap().regex(),
++                format!("(?-u){expected}"),
++                "{pattern}",
++            );
++        }
++        assert_eq!(
++            GlobBuilder::new("{a,{,b}}")
++                .empty_alternates(true)
++                .build()
++                .unwrap()
++                .regex(),
++            "(?-u)^(?:a|(?:|b))$",
++        );
++    }
++
++    #[test]
++    fn malformed_alternation() {
++        let cases = [
++            ("{", ErrorKind::UnclosedAlternates),
++            ("{a,{b,c}", ErrorKind::UnclosedAlternates),
++            ("{a,{b,c", ErrorKind::UnclosedAlternates),
++            ("{{a,b},", ErrorKind::UnclosedAlternates),
++            ("}", ErrorKind::UnopenedAlternates),
++            ("a,b}", ErrorKind::UnopenedAlternates),
++            ("{a,b}}", ErrorKind::UnopenedAlternates),
++            ("{{a,b},{c,d}}}", ErrorKind::UnopenedAlternates),
++            ("}{a,b}", ErrorKind::UnopenedAlternates),
++        ];
++        for (pattern, expected) in cases {
++            let err = Glob::new(pattern).unwrap_err();
++            assert_eq!(err.kind(), &expected, "{pattern}");
++            assert_eq!(err.glob(), Some(pattern));
++        }
+     }
+ 
+-    macro_rules! toregex {
+-        ($name:ident, $pat:expr, $re:expr) => {
+-            toregex!($name, $pat, $re, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $re:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                assert_eq!(format!("(?-u){}", $re), pat.regex());
++    // Compare all matching strategies so optimizations cannot bypass the
++    // semantics of a nested group.
++    fn check(builder: &GlobBuilder<'_>, yes: &[&str], no: &[&str]) {
++        let glob = builder.build().unwrap();
++        let matcher = glob.compile_matcher();
++        let strategic = glob.compile_strategic_matcher();
++        let set = GlobSetBuilder::new().add(glob).build().unwrap();
++        for (paths, expected) in [(yes, true), (no, false)] {
++            for path in paths {
++                assert_eq!(
++                    matcher.is_match(path),
++                    expected,
++                    "{builder:?}: {path}",
++                );
++                assert_eq!(
++                    strategic.is_match(path),
++                    expected,
++                    "{builder:?}: {path}",
++                );
++                assert_eq!(set.is_match(path), expected, "{builder:?}: {path}");
+             }
+-        };
++        }
+     }
+ 
+-    macro_rules! matches {
+-        ($name:ident, $pat:expr, $path:expr) => {
+-            matches!($name, $pat, $path, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $path:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                let matcher = pat.compile_matcher();
+-                let strategic = pat.compile_strategic_matcher();
+-                let set = GlobSetBuilder::new().add(pat).build().unwrap();
+-                assert!(matcher.is_match($path));
+-                assert!(strategic.is_match($path));
+-                assert!(set.is_match($path));
++    #[test]
++    fn nested_matching() {
++        check(
++            &GlobBuilder::new("{a,{b,c}}"),
++            &["a", "b", "c"],
++            &["", "bc", "d"],
++        );
++        check(
++            &GlobBuilder::new("{{a,b},{c,d}}"),
++            &["a", "b", "c", "d"],
++            &["ab", "cd", "e"],
++        );
++        check(
++            &GlobBuilder::new("{a,b{c,d}}"),
++            &["a", "bc", "bd"],
++            &["b", "be", "abc", "bda"],
++        );
++        check(
++            &GlobBuilder::new("x{a,{b,{c,d}},e}y"),
++            &["xay", "xby", "xcy", "xdy", "xey"],
++            &["xy", "ay", "xcyz"],
++        );
++        check(
++            &GlobBuilder::new("{a,{b,c}}{d,e}"),
++            &["ad", "ae", "bd", "be", "cd", "ce"],
++            &["a", "de", "abcde"],
++        );
++    }
++
++    #[test]
++    fn nested_with_other_syntax() {
++        check(
++            &GlobBuilder::new("{a,b{[0-9],?}}*.rs"),
++            &["a.rs", "b0.rs", "bx_more.rs"],
++            &["b.rs", "a.txt"],
++        );
++        check(
++            GlobBuilder::new("{a,b{c,d}}").case_insensitive(true),
++            &["A", "BC", "bD"],
++            &["B", "BE"],
++        );
++        check(
++            GlobBuilder::new("{a,{b*,c?}}").literal_separator(true),
++            &["a", "bfoo", "cx"],
++            &["b/foo", "c/", "c"],
++        );
++        check(
++            GlobBuilder::new("{a,{b,c}},d").backslash_escape(true),
++            &["a,d", "b,d", "c,d"],
++            &["a", "b", "c", "d"],
++        );
++        check(
++            GlobBuilder::new(r"{a,{\{b\,c\},[{},]}}").backslash_escape(true),
++            &["a", "{b,c}", "{", "}", ","],
++            &["b", "c"],
++        );
++        check(
++            GlobBuilder::new(r"\{a\,b\}").backslash_escape(true),
++            &["{a,b}"],
++            &["a", "b"],
++        );
++    }
++
++    #[test]
++    fn nested_recursive_wildcards() {
++        let pattern = "**/{node_modules/**/*/{ts,js},crates/**/*.{rs,toml}}";
++        for literal_separator in [false, true] {
++            check(
++                GlobBuilder::new(pattern).literal_separator(literal_separator),
++                &[
++                    "node_modules/pkg/ts",
++                    "project/node_modules/pkg/src/js",
++                    "crates/lib.rs",
++                    "workspace/crates/core/src/lib.rs",
++                    "crates/core/Cargo.toml",
++                ],
++                &[
++                    "node_modules/pkg/rs",
++                    "crates/core/lib.js",
++                    "crates/lib.rs.bak",
++                ],
++            );
++        }
++        check(
++            GlobBuilder::new("{a,{**/b,c/**}}").literal_separator(true),
++            &["a", "b", "x/y/b", "c/", "c/x/y"],
++            &["x/a", "c", "x/b/y"],
++        );
++        check(
++            GlobBuilder::new("{a,{x/**/b,c/**/d}}").literal_separator(true),
++            &["x/b", "x/y/b", "c/d", "c/y/d"],
++            &["x/y", "c/y"],
++        );
++    }
++
++    #[test]
++    fn empty_alternations() {
++        for pattern in ["{}", "{,}", "{{},}"] {
++            for enabled in [false, true] {
++                check(
++                    GlobBuilder::new(pattern).empty_alternates(enabled),
++                    &[""],
++                    &["a"],
++                );
+             }
+-        };
++        }
++        check(&GlobBuilder::new("{foo}"), &["foo"], &[""]);
++        for pattern in ["foo{,.txt}", "foo{{,.txt}}", "foo{,{,.txt}}"] {
++            check(
++                &GlobBuilder::new(pattern),
++                &["foo.txt"],
++                &["foo", "foo.txt.txt"],
++            );
++            check(
++                GlobBuilder::new(pattern).empty_alternates(true),
++                &["foo", "foo.txt"],
++                &["foo.txt.txt"],
++            );
++        }
++        check(&GlobBuilder::new("{a,{}}"), &["a"], &[""]);
++        check(
++            GlobBuilder::new("{a,{}}").empty_alternates(true),
++            &["", "a"],
++            &["b"],
++        );
++    }
++
++    #[test]
++    fn deeper_nesting() {
++        let depth = 64;
++        let pattern = format!("{}a{}", "{".repeat(depth), "}".repeat(depth));
++        check(&GlobBuilder::new(&pattern), &["a"], &["", "b"]);
++    }
++
++    #[test]
++    fn unclosed_class_defaults_and_toggle() {
++        for pattern in ["[", "[abc", "[]", "[][", "[!", "[!]"] {
++            let mut builder = GlobBuilder::new(pattern);
++            assert_eq!(
++                builder.build().unwrap_err().kind(),
++                &ErrorKind::UnclosedClass,
++            );
++            check(builder.allow_unclosed_class(true), &[pattern], &["", "a"]);
++            assert_eq!(
++                builder
++                    .allow_unclosed_class(false)
++                    .build()
++                    .unwrap_err()
++                    .kind(),
++                &ErrorKind::UnclosedClass,
++            );
++        }
+     }
+ 
+-    macro_rules! nmatches {
+-        ($name:ident, $pat:expr, $path:expr) => {
+-            nmatches!($name, $pat, $path, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $path:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                let matcher = pat.compile_matcher();
+-                let strategic = pat.compile_strategic_matcher();
+-                let set = GlobSetBuilder::new().add(pat).build().unwrap();
+-                assert!(!matcher.is_match($path));
+-                assert!(!strategic.is_match($path));
+-                assert!(!set.is_match($path));
++    #[test]
++    fn unclosed_class_literal_text() {
++        for pattern in ["[a*?", "[z-a", "[☃*", r"[abc\?", "[[[["] {
++            check(
++                GlobBuilder::new(pattern).allow_unclosed_class(true),
++                &[pattern],
++                &["a", "[abc", "[aaaa"],
++            );
++        }
++        check(
++            GlobBuilder::new("[ABC*")
++                .allow_unclosed_class(true)
++                .case_insensitive(true)
++                .literal_separator(true),
++            &["[ABC*", "[abc*"],
++            &["[abc", "[abc/file"],
++        );
++        check(
++            GlobBuilder::new("foo/[abc/bar")
++                .allow_unclosed_class(true)
++                .literal_separator(true),
++            &["foo/[abc/bar"],
++            &["foo/a/bar", "foo/[abc/baz"],
++        );
++    }
++
++    #[test]
++    fn unclosed_class_alternations() {
++        let cases: &[(&str, &[&str], &[&str])] = &[
++            ("{[abc,xyz}", &["[abc", "xyz"], &["a", "[abc,xyz"]),
++            ("{[abc,[xyz}", &["[abc", "[xyz"], &["abc", "xyz"]),
++            ("{[abc],[xyz}", &["a", "b", "c", "[xyz"], &["[abc]", "x"]),
++            ("{a,{[abc,[xyz}}", &["a", "[abc", "[xyz"], &["b", "x"]),
++            ("x{[a*,b?}y", &["x[a*y", "xbzy"], &["x[aaaaay", "xby"]),
++            ("{[!,[}", &["[!", "["], &["!", "]"]),
++        ];
++        for &(pattern, yes, no) in cases {
++            check(
++                GlobBuilder::new(pattern).allow_unclosed_class(true),
++                yes,
++                no,
++            );
++        }
++        assert_eq!(
++            GlobBuilder::new("{[abc,[xyz}")
++                .allow_unclosed_class(true)
++                .build()
++                .unwrap()
++                .regex(),
++            r"(?-u)^(?:\[abc|\[xyz)$",
++        );
++        assert_eq!(
++            GlobBuilder::new("{[abc")
++                .allow_unclosed_class(true)
++                .build()
++                .unwrap_err()
++                .kind(),
++            &ErrorKind::UnclosedAlternates,
++        );
++    }
++
++    #[test]
++    fn closed_classes_stay_strict() {
++        let cases: &[(&str, &[&str], &[&str])] = &[
++            ("[a-c]", &["a", "b", "c"], &["d", "["]),
++            ("[!a]", &["b", "["], &["a"]),
++            ("[^a]", &["b"], &["a"]),
++            ("[]a]", &["]", "a"], &["b"]),
++            ("[[]", &["["], &["]"]),
++            ("[{},]", &["{", "}", ","], &["a"]),
++            ("{[a,b],x}", &["a", ",", "b", "x"], &["c"]),
++            ("{[!,[]}", &["a", "!"], &[",", "["]),
++        ];
++        for enabled in [false, true] {
++            for &(pattern, yes, no) in cases {
++                check(
++                    GlobBuilder::new(pattern).allow_unclosed_class(enabled),
++                    yes,
++                    no,
++                );
+             }
+-        };
++            assert_eq!(
++                GlobBuilder::new("[z-a]")
++                    .allow_unclosed_class(enabled)
++                    .build()
++                    .unwrap_err()
++                    .kind(),
++                &ErrorKind::InvalidRange('z', 'a'),
++            );
++            check(
++                GlobBuilder::new(r"\[abc")
++                    .allow_unclosed_class(enabled)
++                    .backslash_escape(true),
++                &["[abc"],
++                &["a"],
++            );
++        }
+     }
+ 
+-    fn s(string: &str) -> String {
+-        string.to_string()
+-    }
+-
+-    fn class(s: char, e: char) -> Token {
+-        Class { negated: false, ranges: vec![(s, e)] }
+-    }
+-
+-    fn classn(s: char, e: char) -> Token {
+-        Class { negated: true, ranges: vec![(s, e)] }
+-    }
+-
+-    fn rclass(ranges: &[(char, char)]) -> Token {
+-        Class { negated: false, ranges: ranges.to_vec() }
+-    }
+-
+-    fn rclassn(ranges: &[(char, char)]) -> Token {
+-        Class { negated: true, ranges: ranges.to_vec() }
+-    }
+-
+-    syntax!(literal1, "a", vec![Literal('a')]);
+-    syntax!(literal2, "ab", vec![Literal('a'), Literal('b')]);
+-    syntax!(any1, "?", vec![Any]);
+-    syntax!(any2, "a?b", vec![Literal('a'), Any, Literal('b')]);
+-    syntax!(seq1, "*", vec![ZeroOrMore]);
+-    syntax!(seq2, "a*b", vec![Literal('a'), ZeroOrMore, Literal('b')]);
+-    syntax!(
+-        seq3,
+-        "*a*b*",
+-        vec![ZeroOrMore, Literal('a'), ZeroOrMore, Literal('b'), ZeroOrMore,]
+-    );
+-    syntax!(rseq1, "**", vec![RecursivePrefix]);
+-    syntax!(rseq2, "**/", vec![RecursivePrefix]);
+-    syntax!(rseq3, "/**", vec![RecursiveSuffix]);
+-    syntax!(rseq4, "/**/", vec![RecursiveZeroOrMore]);
+-    syntax!(
+-        rseq5,
+-        "a/**/b",
+-        vec![Literal('a'), RecursiveZeroOrMore, Literal('b'),]
+-    );
+-    syntax!(cls1, "[a]", vec![class('a', 'a')]);
+-    syntax!(cls2, "[!a]", vec![classn('a', 'a')]);
+-    syntax!(cls3, "[a-z]", vec![class('a', 'z')]);
+-    syntax!(cls4, "[!a-z]", vec![classn('a', 'z')]);
+-    syntax!(cls5, "[-]", vec![class('-', '-')]);
+-    syntax!(cls6, "[]]", vec![class(']', ']')]);
+-    syntax!(cls7, "[*]", vec![class('*', '*')]);
+-    syntax!(cls8, "[!!]", vec![classn('!', '!')]);
+-    syntax!(cls9, "[a-]", vec![rclass(&[('a', 'a'), ('-', '-')])]);
+-    syntax!(cls10, "[-a-z]", vec![rclass(&[('-', '-'), ('a', 'z')])]);
+-    syntax!(cls11, "[a-z-]", vec![rclass(&[('a', 'z'), ('-', '-')])]);
+-    syntax!(
+-        cls12,
+-        "[-a-z-]",
+-        vec![rclass(&[('-', '-'), ('a', 'z'), ('-', '-')]),]
+-    );
+-    syntax!(cls13, "[]-z]", vec![class(']', 'z')]);
+-    syntax!(cls14, "[--z]", vec![class('-', 'z')]);
+-    syntax!(cls15, "[ --]", vec![class(' ', '-')]);
+-    syntax!(cls16, "[0-9a-z]", vec![rclass(&[('0', '9'), ('a', 'z')])]);
+-    syntax!(cls17, "[a-z0-9]", vec![rclass(&[('a', 'z'), ('0', '9')])]);
+-    syntax!(cls18, "[!0-9a-z]", vec![rclassn(&[('0', '9'), ('a', 'z')])]);
+-    syntax!(cls19, "[!a-z0-9]", vec![rclassn(&[('a', 'z'), ('0', '9')])]);
+-    syntax!(cls20, "[^a]", vec![classn('a', 'a')]);
+-    syntax!(cls21, "[^a-z]", vec![classn('a', 'z')]);
+-
+-    syntaxerr!(err_unclosed1, "[", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed2, "[]", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed3, "[!", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed4, "[!]", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_range1, "[z-a]", ErrorKind::InvalidRange('z', 'a'));
+-    syntaxerr!(err_range2, "[z--]", ErrorKind::InvalidRange('z', '-'));
+-
+-    const CASEI: Options =
+-        Options { casei: Some(true), litsep: None, bsesc: None, ealtre: None };
+-    const SLASHLIT: Options =
+-        Options { casei: None, litsep: Some(true), bsesc: None, ealtre: None };
+-    const NOBSESC: Options = Options {
+-        casei: None,
+-        litsep: None,
+-        bsesc: Some(false),
+-        ealtre: None,
+-    };
+-    const BSESC: Options =
+-        Options { casei: None, litsep: None, bsesc: Some(true), ealtre: None };
+-    const EALTRE: Options = Options {
+-        casei: None,
+-        litsep: None,
+-        bsesc: Some(true),
+-        ealtre: Some(true),
+-    };
+-
+-    toregex!(re_casei, "a", "(?i)^a$", &CASEI);
+-
+-    toregex!(re_slash1, "?", r"^[^/]$", SLASHLIT);
+-    toregex!(re_slash2, "*", r"^[^/]*$", SLASHLIT);
+-
+-    toregex!(re1, "a", "^a$");
+-    toregex!(re2, "?", "^.$");
+-    toregex!(re3, "*", "^.*$");
+-    toregex!(re4, "a?", "^a.$");
+-    toregex!(re5, "?a", "^.a$");
+-    toregex!(re6, "a*", "^a.*$");
+-    toregex!(re7, "*a", "^.*a$");
+-    toregex!(re8, "[*]", r"^[\*]$");
+-    toregex!(re9, "[+]", r"^[\+]$");
+-    toregex!(re10, "+", r"^\+$");
+-    toregex!(re11, "☃", r"^\xe2\x98\x83$");
+-    toregex!(re12, "**", r"^.*$");
+-    toregex!(re13, "**/", r"^.*$");
+-    toregex!(re14, "**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re15, "**/**", r"^.*$");
+-    toregex!(re16, "**/**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re17, "**/**/**", r"^.*$");
+-    toregex!(re18, "**/**/**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re19, "a/**", r"^a/.*$");
+-    toregex!(re20, "a/**/**", r"^a/.*$");
+-    toregex!(re21, "a/**/**/**", r"^a/.*$");
+-    toregex!(re22, "a/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re23, "a/**/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re24, "a/**/**/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re25, "**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re26, "**/**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re27, "**/**/**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re28, "a**", r"^a.*.*$");
+-    toregex!(re29, "**a", r"^.*.*a$");
+-    toregex!(re30, "a**b", r"^a.*.*b$");
+-    toregex!(re31, "***", r"^.*.*.*$");
+-    toregex!(re32, "/a**", r"^/a.*.*$");
+-    toregex!(re33, "/**a", r"^/.*.*a$");
+-    toregex!(re34, "/a**b", r"^/a.*.*b$");
+-    toregex!(re35, "{a,b}", r"^(?:b|a)$");
+-
+-    matches!(match1, "a", "a");
+-    matches!(match2, "a*b", "a_b");
+-    matches!(match3, "a*b*c", "abc");
+-    matches!(match4, "a*b*c", "a_b_c");
+-    matches!(match5, "a*b*c", "a___b___c");
+-    matches!(match6, "abc*abc*abc", "abcabcabcabcabcabcabc");
+-    matches!(match7, "a*a*a*a*a*a*a*a*a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+-    matches!(match8, "a*b[xyz]c*d", "abxcdbxcddd");
+-    matches!(match9, "*.rs", ".rs");
+-    matches!(match10, "☃", "☃");
+-
+-    matches!(matchrec1, "some/**/needle.txt", "some/needle.txt");
+-    matches!(matchrec2, "some/**/needle.txt", "some/one/needle.txt");
+-    matches!(matchrec3, "some/**/needle.txt", "some/one/two/needle.txt");
+-    matches!(matchrec4, "some/**/needle.txt", "some/other/needle.txt");
+-    matches!(matchrec5, "**", "abcde");
+-    matches!(matchrec6, "**", "");
+-    matches!(matchrec7, "**", ".asdf");
+-    matches!(matchrec8, "**", "/x/.asdf");
+-    matches!(matchrec9, "some/**/**/needle.txt", "some/needle.txt");
+-    matches!(matchrec10, "some/**/**/needle.txt", "some/one/needle.txt");
+-    matches!(matchrec11, "some/**/**/needle.txt", "some/one/two/needle.txt");
+-    matches!(matchrec12, "some/**/**/needle.txt", "some/other/needle.txt");
+-    matches!(matchrec13, "**/test", "one/two/test");
+-    matches!(matchrec14, "**/test", "one/test");
+-    matches!(matchrec15, "**/test", "test");
+-    matches!(matchrec16, "/**/test", "/one/two/test");
+-    matches!(matchrec17, "/**/test", "/one/test");
+-    matches!(matchrec18, "/**/test", "/test");
+-    matches!(matchrec19, "**/.*", ".abc");
+-    matches!(matchrec20, "**/.*", "abc/.abc");
+-    matches!(matchrec21, "**/foo/bar", "foo/bar");
+-    matches!(matchrec22, ".*/**", ".abc/abc");
+-    matches!(matchrec23, "test/**", "test/");
+-    matches!(matchrec24, "test/**", "test/one");
+-    matches!(matchrec25, "test/**", "test/one/two");
+-    matches!(matchrec26, "some/*/needle.txt", "some/one/needle.txt");
+-
+-    matches!(matchrange1, "a[0-9]b", "a0b");
+-    matches!(matchrange2, "a[0-9]b", "a9b");
+-    matches!(matchrange3, "a[!0-9]b", "a_b");
+-    matches!(matchrange4, "[a-z123]", "1");
+-    matches!(matchrange5, "[1a-z23]", "1");
+-    matches!(matchrange6, "[123a-z]", "1");
+-    matches!(matchrange7, "[abc-]", "-");
+-    matches!(matchrange8, "[-abc]", "-");
+-    matches!(matchrange9, "[-a-c]", "b");
+-    matches!(matchrange10, "[a-c-]", "b");
+-    matches!(matchrange11, "[-]", "-");
+-    matches!(matchrange12, "a[^0-9]b", "a_b");
+-
+-    matches!(matchpat1, "*hello.txt", "hello.txt");
+-    matches!(matchpat2, "*hello.txt", "gareth_says_hello.txt");
+-    matches!(matchpat3, "*hello.txt", "some/path/to/hello.txt");
+-    matches!(matchpat4, "*hello.txt", "some\\path\\to\\hello.txt");
+-    matches!(matchpat5, "*hello.txt", "/an/absolute/path/to/hello.txt");
+-    matches!(matchpat6, "*some/path/to/hello.txt", "some/path/to/hello.txt");
+-    matches!(
+-        matchpat7,
+-        "*some/path/to/hello.txt",
+-        "a/bigger/some/path/to/hello.txt"
+-    );
+-
+-    matches!(matchescape, "_[[]_[]]_[?]_[*]_!_", "_[_]_?_*_!_");
+-
+-    matches!(matchcasei1, "aBcDeFg", "aBcDeFg", CASEI);
+-    matches!(matchcasei2, "aBcDeFg", "abcdefg", CASEI);
+-    matches!(matchcasei3, "aBcDeFg", "ABCDEFG", CASEI);
+-    matches!(matchcasei4, "aBcDeFg", "AbCdEfG", CASEI);
+-
+-    matches!(matchalt1, "a,b", "a,b");
+-    matches!(matchalt2, ",", ",");
+-    matches!(matchalt3, "{a,b}", "a");
+-    matches!(matchalt4, "{a,b}", "b");
+-    matches!(matchalt5, "{**/src/**,foo}", "abc/src/bar");
+-    matches!(matchalt6, "{**/src/**,foo}", "foo");
+-    matches!(matchalt7, "{[}],foo}", "}");
+-    matches!(matchalt8, "{foo}", "foo");
+-    matches!(matchalt9, "{}", "");
+-    matches!(matchalt10, "{,}", "");
+-    matches!(matchalt11, "{*.foo,*.bar,*.wat}", "test.foo");
+-    matches!(matchalt12, "{*.foo,*.bar,*.wat}", "test.bar");
+-    matches!(matchalt13, "{*.foo,*.bar,*.wat}", "test.wat");
+-    matches!(matchalt14, "foo{,.txt}", "foo.txt");
+-    nmatches!(matchalt15, "foo{,.txt}", "foo");
+-    matches!(matchalt16, "foo{,.txt}", "foo", EALTRE);
+-
+-    matches!(matchslash1, "abc/def", "abc/def", SLASHLIT);
+-    #[cfg(unix)]
+-    nmatches!(matchslash2, "abc?def", "abc/def", SLASHLIT);
+-    #[cfg(not(unix))]
+-    nmatches!(matchslash2, "abc?def", "abc\\def", SLASHLIT);
+-    nmatches!(matchslash3, "abc*def", "abc/def", SLASHLIT);
+-    matches!(matchslash4, "abc[/]def", "abc/def", SLASHLIT); // differs
+-    #[cfg(unix)]
+-    nmatches!(matchslash5, "abc\\def", "abc/def", SLASHLIT);
+-    #[cfg(not(unix))]
+-    matches!(matchslash5, "abc\\def", "abc/def", SLASHLIT);
+-
+-    matches!(matchbackslash1, "\\[", "[", BSESC);
+-    matches!(matchbackslash2, "\\?", "?", BSESC);
+-    matches!(matchbackslash3, "\\*", "*", BSESC);
+-    matches!(matchbackslash4, "\\[a-z]", "\\a", NOBSESC);
+-    matches!(matchbackslash5, "\\?", "\\a", NOBSESC);
+-    matches!(matchbackslash6, "\\*", "\\\\", NOBSESC);
+-    #[cfg(unix)]
+-    matches!(matchbackslash7, "\\a", "a");
+-    #[cfg(not(unix))]
+-    matches!(matchbackslash8, "\\a", "/a");
+-
+-    nmatches!(matchnot1, "a*b*c", "abcd");
+-    nmatches!(matchnot2, "abc*abc*abc", "abcabcabcabcabcabcabca");
+-    nmatches!(matchnot3, "some/**/needle.txt", "some/other/notthis.txt");
+-    nmatches!(matchnot4, "some/**/**/needle.txt", "some/other/notthis.txt");
+-    nmatches!(matchnot5, "/**/test", "test");
+-    nmatches!(matchnot6, "/**/test", "/one/notthis");
+-    nmatches!(matchnot7, "/**/test", "/notthis");
+-    nmatches!(matchnot8, "**/.*", "ab.c");
+-    nmatches!(matchnot9, "**/.*", "abc/ab.c");
+-    nmatches!(matchnot10, ".*/**", "a.bc");
+-    nmatches!(matchnot11, ".*/**", "abc/a.bc");
+-    nmatches!(matchnot12, "a[0-9]b", "a_b");
+-    nmatches!(matchnot13, "a[!0-9]b", "a0b");
+-    nmatches!(matchnot14, "a[!0-9]b", "a9b");
+-    nmatches!(matchnot15, "[!-]", "-");
+-    nmatches!(matchnot16, "*hello.txt", "hello.txt-and-then-some");
+-    nmatches!(matchnot17, "*hello.txt", "goodbye.txt");
+-    nmatches!(
+-        matchnot18,
+-        "*some/path/to/hello.txt",
+-        "some/path/to/hello.txt-and-then-some"
+-    );
+-    nmatches!(
+-        matchnot19,
+-        "*some/path/to/hello.txt",
+-        "some/other/path/to/hello.txt"
+-    );
+-    nmatches!(matchnot20, "a", "foo/a");
+-    nmatches!(matchnot21, "./foo", "foo");
+-    nmatches!(matchnot22, "**/foo", "foofoo");
+-    nmatches!(matchnot23, "**/foo/bar", "foofoo/bar");
+-    nmatches!(matchnot24, "/*.c", "mozilla-sha1/sha1.c");
+-    nmatches!(matchnot25, "*.c", "mozilla-sha1/sha1.c", SLASHLIT);
+-    nmatches!(
+-        matchnot26,
+-        "**/m4/ltoptions.m4",
+-        "csharp/src/packages/repositories.config",
+-        SLASHLIT
+-    );
+-    nmatches!(matchnot27, "a[^0-9]b", "a0b");
+-    nmatches!(matchnot28, "a[^0-9]b", "a9b");
+-    nmatches!(matchnot29, "[^-]", "-");
+-    nmatches!(matchnot30, "some/*/needle.txt", "some/needle.txt");
+-    nmatches!(
+-        matchrec31,
+-        "some/*/needle.txt",
+-        "some/one/two/needle.txt",
+-        SLASHLIT
+-    );
+-    nmatches!(
+-        matchrec32,
+-        "some/*/needle.txt",
+-        "some/one/two/three/needle.txt",
+-        SLASHLIT
+-    );
+-    nmatches!(matchrec33, ".*/**", ".abc");
+-    nmatches!(matchrec34, "foo/**", "foo");
+-
+-    macro_rules! extract {
+-        ($which:ident, $name:ident, $pat:expr, $expect:expr) => {
+-            extract!($which, $name, $pat, $expect, Options::default());
+-        };
+-        ($which:ident, $name:ident, $pat:expr, $expect:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                assert_eq!($expect, pat.$which());
+-            }
+-        };
++    #[test]
++    fn many_unclosed_classes() {
++        let pattern = "[".repeat(100_000);
++        let glob = GlobBuilder::new(&pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        assert_eq!(glob.tokens.len(), pattern.len());
++        // Separate branches exercise the failed-closure cache as well as
++        // consuming many literal openers in a single branch.
++        let pattern = format!("{{{}}}", vec!["["; 10_000].join(","));
++        let glob = GlobBuilder::new(&pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        match &glob.tokens[0] {
++            Token::Alternates(branches) => assert_eq!(branches.len(), 10_000),
++            token => panic!("expected alternation, got {token:?}"),
++        }
+     }
+-
+-    macro_rules! literal {
+-        ($($tt:tt)*) => { extract!(literal, $($tt)*); }
+-    }
+-
+-    macro_rules! basetokens {
+-        ($($tt:tt)*) => { extract!(basename_tokens, $($tt)*); }
+-    }
+-
+-    macro_rules! ext {
+-        ($($tt:tt)*) => { extract!(ext, $($tt)*); }
+-    }
+-
+-    macro_rules! required_ext {
+-        ($($tt:tt)*) => { extract!(required_ext, $($tt)*); }
+-    }
+-
+-    macro_rules! prefix {
+-        ($($tt:tt)*) => { extract!(prefix, $($tt)*); }
+-    }
+-
+-    macro_rules! suffix {
+-        ($($tt:tt)*) => { extract!(suffix, $($tt)*); }
+-    }
+-
+-    macro_rules! baseliteral {
+-        ($($tt:tt)*) => { extract!(basename_literal, $($tt)*); }
+-    }
+-
+-    literal!(extract_lit1, "foo", Some(s("foo")));
+-    literal!(extract_lit2, "foo", None, CASEI);
+-    literal!(extract_lit3, "/foo", Some(s("/foo")));
+-    literal!(extract_lit4, "/foo/", Some(s("/foo/")));
+-    literal!(extract_lit5, "/foo/bar", Some(s("/foo/bar")));
+-    literal!(extract_lit6, "*.foo", None);
+-    literal!(extract_lit7, "foo/bar", Some(s("foo/bar")));
+-    literal!(extract_lit8, "**/foo/bar", None);
+-
+-    basetokens!(
+-        extract_basetoks1,
+-        "**/foo",
+-        Some(&*vec![Literal('f'), Literal('o'), Literal('o'),])
+-    );
+-    basetokens!(extract_basetoks2, "**/foo", None, CASEI);
+-    basetokens!(
+-        extract_basetoks3,
+-        "**/foo",
+-        Some(&*vec![Literal('f'), Literal('o'), Literal('o'),]),
+-        SLASHLIT
+-    );
+-    basetokens!(extract_basetoks4, "*foo", None, SLASHLIT);
+-    basetokens!(extract_basetoks5, "*foo", None);
+-    basetokens!(extract_basetoks6, "**/fo*o", None);
+-    basetokens!(
+-        extract_basetoks7,
+-        "**/fo*o",
+-        Some(&*vec![Literal('f'), Literal('o'), ZeroOrMore, Literal('o'),]),
+-        SLASHLIT
+-    );
+-
+-    ext!(extract_ext1, "**/*.rs", Some(s(".rs")));
+-    ext!(extract_ext2, "**/*.rs.bak", None);
+-    ext!(extract_ext3, "*.rs", Some(s(".rs")));
+-    ext!(extract_ext4, "a*.rs", None);
+-    ext!(extract_ext5, "/*.c", None);
+-    ext!(extract_ext6, "*.c", None, SLASHLIT);
+-    ext!(extract_ext7, "*.c", Some(s(".c")));
+-
+-    required_ext!(extract_req_ext1, "*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext2, "/foo/bar/*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext3, "/foo/bar/*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext4, "/foo/bar/.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext5, ".rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext6, "./rs", None);
+-    required_ext!(extract_req_ext7, "foo", None);
+-    required_ext!(extract_req_ext8, ".foo/", None);
+-    required_ext!(extract_req_ext9, "foo/", None);
+-
+-    prefix!(extract_prefix1, "/foo", Some(s("/foo")));
+-    prefix!(extract_prefix2, "/foo/*", Some(s("/foo/")));
+-    prefix!(extract_prefix3, "**/foo", None);
+-    prefix!(extract_prefix4, "foo/**", Some(s("foo/")));
+-
+-    suffix!(extract_suffix1, "**/foo/bar", Some((s("/foo/bar"), true)));
+-    suffix!(extract_suffix2, "*/foo/bar", Some((s("/foo/bar"), false)));
+-    suffix!(extract_suffix3, "*/foo/bar", None, SLASHLIT);
+-    suffix!(extract_suffix4, "foo/bar", Some((s("foo/bar"), false)));
+-    suffix!(extract_suffix5, "*.foo", Some((s(".foo"), false)));
+-    suffix!(extract_suffix6, "*.foo", None, SLASHLIT);
+-    suffix!(extract_suffix7, "**/*_test", Some((s("_test"), false)));
+-
+-    baseliteral!(extract_baselit1, "**/foo", Some(s("foo")));
+-    baseliteral!(extract_baselit2, "foo", None);
+-    baseliteral!(extract_baselit3, "*foo", None);
+-    baseliteral!(extract_baselit4, "*/foo", None);
+ }
+diff --git a/crates/globset/src/lib.rs b/crates/globset/src/lib.rs
+index b1fc696af2c634ce983254d81eb7712cf06e6db3..bbbe5593d74df0f349fc4987407c6566167397b7 100644
+--- a/crates/globset/src/lib.rs
++++ b/crates/globset/src/lib.rs
+@@ -81,9 +81,13 @@ Standard Unix-style glob syntax is supported:
+   the pattern, then it matches zero or more directories. Using `**` anywhere
+   else is illegal (N.B. the glob `**` is allowed and means "match everything").
+ * `{a,b}` matches `a` or `b` where `a` and `b` are arbitrary glob patterns.
+-  (N.B. Nesting `{...}` is not currently allowed.)
++  Alternation groups can be nested: `{a,{b,c}}` matches `a`, `b` or `c`,
++  and `{a,b{c,d}}` matches `a`, `bc` or `bd`.
+ * `[ab]` matches `a` or `b` where `a` and `b` are characters. Use
+   `[!ab]` to match any character except for `a` and `b`.
++  Unclosed classes are errors by default. With `allow_unclosed_class` enabled
++  on `GlobBuilder`, an unclosed `[` and the following text are matched
++  literally, up to the end of the pattern or alternation branch.
+ * Metacharacters such as `*` and `?` can be escaped with character class
+   notation. e.g., `[*]` matches `*`.
+ * When backslash escapes are enabled, a backslash (`\`) will escape all meta
+@@ -169,8 +173,11 @@ pub enum ErrorKind {
+     UnopenedAlternates,
+     /// Occurs when a `{` is found without a matching `}`.
+     UnclosedAlternates,
+-    /// Occurs when an alternating group is nested inside another alternating
+-    /// group, e.g., `{{a,b},{c,d}}`.
++    /// **DEPRECATED**.
++    ///
++    /// This error used to occur when an alternation group was nested inside
++    /// another alternation group. Nested groups are now supported, so this
++    /// error is no longer used.
+     NestedAlternates,
+     /// Occurs when an unescaped '\' is found at the end of a glob.
+     DanglingEscape,
+diff --git a/crates/ignore/src/gitignore.rs b/crates/ignore/src/gitignore.rs
+index 19a347cdbe2b0680b9e0320631d5ac824f148100..9e64e360c4b0787e6c74e60605430105130e6e3a 100644
+--- a/crates/ignore/src/gitignore.rs
++++ b/crates/ignore/src/gitignore.rs
+@@ -308,6 +308,7 @@ pub struct GitignoreBuilder {
+     root: PathBuf,
+     globs: Vec<Glob>,
+     case_insensitive: bool,
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GitignoreBuilder {
+@@ -324,6 +325,7 @@ impl GitignoreBuilder {
+             root: strip_prefix("./", root).unwrap_or(root).to_path_buf(),
+             globs: vec![],
+             case_insensitive: false,
++            allow_unclosed_class: true,
+         }
+     }
+ 
+@@ -505,6 +507,7 @@ impl GitignoreBuilder {
+             .literal_separator(true)
+             .case_insensitive(self.case_insensitive)
+             .backslash_escape(true)
++            .allow_unclosed_class(self.allow_unclosed_class)
+             .build()
+             .map_err(|err| Error::Glob {
+                 glob: Some(glob.original.clone()),
+@@ -530,6 +533,17 @@ impl GitignoreBuilder {
+         self.case_insensitive = yes;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are matched literally.
++    ///
++    /// This is enabled by default to match gitignore behavior. When disabled,
++    /// an unclosed character class produces a glob parsing error.
++    ///
++    /// Changes affect only patterns added after this method is called.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ /// Return the file path of the current environment's global gitignore file.
+@@ -675,6 +689,33 @@ mod tests {
+ 
+     const ROOT: &'static str = "/home/foobar/rust/rg";
+ 
++    #[test]
++    fn allow_unclosed_class() {
++        let mut builder = GitignoreBuilder::new(ROOT);
++        builder.add_line(None, "[abc").unwrap();
++        builder.add_line(None, "/[root").unwrap();
++        builder.allow_unclosed_class(false);
++        assert!(builder.add_line(None, "[strict").is_err());
++        let gi = builder.build().unwrap();
++        assert!(gi.matched("[abc", false).is_ignore());
++        assert!(gi.matched("nested/[abc", false).is_ignore());
++        assert!(gi.matched("[root", false).is_ignore());
++        assert!(gi.matched("nested/[root", false).is_none());
++        assert!(gi.matched("abc", false).is_none());
++        assert!(gi.matched("[strict", false).is_none());
++
++        let gi = builder
++            .allow_unclosed_class(true)
++            .case_insensitive(true)
++            .unwrap()
++            .add_line(None, "[xyz")
++            .unwrap()
++            .build()
++            .unwrap();
++        assert!(gi.matched("nested/[XYZ", false).is_ignore());
++        assert!(gi.matched("nested/XYZ", false).is_none());
++    }
++
+     ignored!(ig1, ROOT, "months", "months");
+     ignored!(ig2, ROOT, "*.lock", "Cargo.lock");
+     ignored!(ig3, ROOT, "*.rs", "src/main.rs");
+diff --git a/crates/ignore/src/overrides.rs b/crates/ignore/src/overrides.rs
+index 1b02b4d4ee9a1ca3592a517d3d741fdf611292b0..afa4aca751cb2d66684a11871d47f79489f0254e 100644
+--- a/crates/ignore/src/overrides.rs
++++ b/crates/ignore/src/overrides.rs
+@@ -120,7 +120,9 @@ impl OverrideBuilder {
+     ///
+     /// Matching is done relative to the directory path provided.
+     pub fn new<P: AsRef<Path>>(path: P) -> OverrideBuilder {
+-        OverrideBuilder { builder: GitignoreBuilder::new(path) }
++        let mut builder = GitignoreBuilder::new(path);
++        builder.allow_unclosed_class(false);
++        OverrideBuilder { builder }
+     }
+ 
+     /// Builds a new override matcher from the globs added so far.
+@@ -155,6 +157,16 @@ impl OverrideBuilder {
+         self.builder.case_insensitive(yes)?;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are matched literally.
++    ///
++    /// This is disabled by default so malformed override globs produce a
++    /// parsing error. Changes affect only globs added after this method is
++    /// called.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.builder.allow_unclosed_class(yes);
++        self
++    }
+ }
+ 
+ #[cfg(test)]
+@@ -163,6 +175,30 @@ mod tests {
+ 
+     const ROOT: &'static str = "/home/andrew/foo";
+ 
++    #[test]
++    fn allow_unclosed_class() {
++        let mut builder = OverrideBuilder::new(ROOT);
++        assert!(builder.add("[abc").is_err());
++        builder.allow_unclosed_class(true).add("[abc").unwrap();
++        builder.allow_unclosed_class(false);
++        assert!(builder.add("[xyz").is_err());
++        let ov = builder.build().unwrap();
++        assert!(ov.matched("[abc", false).is_whitelist());
++        assert!(ov.matched("nested/[abc", false).is_whitelist());
++        assert!(ov.matched("abc", false).is_ignore());
++        assert!(ov.matched("[xyz", false).is_ignore());
++
++        let ov = builder
++            .allow_unclosed_class(true)
++            .case_insensitive(true)
++            .unwrap()
++            .add("![xyz")
++            .unwrap()
++            .build()
++            .unwrap();
++        assert!(ov.matched("[XYZ", false).is_ignore());
++    }
++
+     fn ov(globs: &[&str]) -> Override {
+         let mut builder = OverrideBuilder::new(ROOT);
+         for glob in globs {
+diff --git a/tests/regression.rs b/tests/regression.rs
+index e28af4a31aa1b019e6080cd1cfe19f350d89851d..b72b0cb281c456ce959317626a3aef13a7c88d9b 100644
+--- a/tests/regression.rs
++++ b/tests/regression.rs
+@@ -1217,3 +1217,30 @@ rgtest!(r2658_null_data_line_regexp, |dir: Dir, mut cmd: TestCommand| {
+     let got = cmd.args(&["--null-data", "--line-regexp", r"bar"]).stdout();
+     eqnice!("haystack:bar\0", got);
+ });
++
++// See: https://github.com/BurntSushi/ripgrep/issues/3127
++rgtest!(
++    r3127_gitignore_allow_unclosed_class,
++    |dir: Dir, mut cmd: TestCommand| {
++        dir.create_dir(".git");
++        dir.create_dir("nested");
++        dir.create(".gitignore", "[abc\n[]\n[!\n[!]\n[][\n");
++        for name in ["[abc", "[]", "[!", "[!]", "[]["] {
++            dir.create(name, "test\n");
++            dir.create(format!("nested/{name}"), "test\n");
++        }
++        dir.create("keep", "test\n");
++        eqnice!("keep\n", cmd.arg("--files").stdout());
++    }
++);
++
++rgtest!(unclosed_class_override_is_error, |dir: Dir, _: TestCommand| {
++    dir.create("[abc", "test\n");
++    for flag in ["-g", "--glob"] {
++        let output =
++            dir.command().args(&["--files", flag, "[abc"]).raw_output();
++        assert_eq!(output.status.code(), Some(2));
++        let stderr = String::from_utf8_lossy(&output.stderr);
++        assert!(stderr.contains("unclosed character class"), "{stderr}");
++    }
++});
