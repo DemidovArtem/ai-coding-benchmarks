@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-21 01:25:13**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-21 16:09:16**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -13,7 +13,7 @@
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Отложен; приоритет — continuous без Serena | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
 | Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
-| Phase 5: continuous, 2 связанных milestone | Trials выполняются | Траекторий завершено 4/8; ошибок 0. Метрики по шагам и протокол ниже. [План и состояние](reports/continuous_feasibility.md) |
+| Phase 5: continuous, 2 связанных milestone | Пилот выполнен частично | Траекторий завершено 4/8; ошибок 1. Метрики по шагам и протокол ниже. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -26,7 +26,7 @@
 | phase5_caveman_r01 | caveman | 1 | 2/2 | Завершён |
 | phase5_ponytail_r01_retry01 | ponytail | 1 | 2/2 | Завершён |
 | phase5_plan_r01_retry01 | plan | 1 | 2/2 | Завершён |
-| phase5_baseline_r02 | baseline | 2 | 0/2 | Выполняется |
+| phase5_baseline_r02 | baseline | 2 | 1/2 | Остановлен: квота |
 | phase5_caveman_r02 | caveman | 2 | 0/2 | Запланирован |
 | phase5_ponytail_r02 | ponytail | 2 | 0/2 | Запланирован |
 | phase5_plan_r02 | plan | 2 | 0/2 | Запланирован |
@@ -59,6 +59,8 @@
 | phase5_ponytail_r01_retry01_s02 | ponytail | Завершён; grader принят | 73 | 15 | 58 | 88 | 4 |
 | phase5_plan_r01_retry01_s01 | plan | Завершён; grader принят | 20 | 14 | 6 | 34 | 2 |
 | phase5_plan_r01_retry01_s02 | plan | Завершён; grader принят | 99 | 15 | 84 | 114 | 4 |
+| phase5_baseline_r02_s01 | baseline | Завершён; grader принят | 13 | 16 | -3 | 29 | 2 |
+| phase5_baseline_r02_s02 | baseline | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -88,6 +90,8 @@ Input уже включает cached input: эти столбцы не скла�
 | phase5_ponytail_r01_retry01_s02 | 929 347 | 879 488 | 10 346 | 0 | 220.1 | 65.1 | 17.1 | 309.5 |
 | phase5_plan_r01_retry01_s01 | 1 016 152 | 888 448 | 12 644 | 99.9 | 228.8 | 72.2 | 17.1 | 469.5 |
 | phase5_plan_r01_retry01_s02 | 1 141 163 | 1 069 184 | 12 917 | 119.9 | 202.8 | 65.2 | 15.9 | 413.4 |
+| phase5_baseline_r02_s01 | 536 389 | 489 728 | 6 213 | 0 | 143.3 | 71.3 | 37.1 | 280.7 |
+| phase5_baseline_r02_s02 | — | — | — | 0 | — | — | — | 0.6 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -117,6 +121,8 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase5_ponytail_r01_retry01_s02 | Готов | 31 145 | 2 406 | 282 | 1 438 | — | — |
 | phase5_plan_r01_retry01_s01 | Готов | 31 389 | 2 409 | 282 | 1 438 | — | — |
 | phase5_plan_r01_retry01_s02 | Готов | 31 616 | 2 429 | 282 | 1 438 | — | — |
+| phase5_baseline_r02_s01 | Готов | 31 079 | 2 392 | 282 | 1 438 | — | — |
+| phase5_baseline_r02_s02 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 

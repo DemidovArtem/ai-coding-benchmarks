@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
+  "status": "partial",
+  "label": "\u041f\u0438\u043b\u043e\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e",
   "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
   "selected_milestones": [
     "milestone_seed_5f5da48_1_sub-01",
@@ -55,7 +55,7 @@
   ],
   "serena_required": false,
   "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
-  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 4/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+  "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 4/8; \u043e\u0448\u0438\u0431\u043e\u043a 1. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
   "execution_protocol": "reports/phase5_protocol.md",
   "pilot_runs": [
     {
@@ -148,11 +148,13 @@
       "trial_id": "phase5_baseline_r02",
       "variant": "baseline",
       "repetition": 2,
-      "state": "running",
-      "completed_steps": 0,
+      "state": "failed",
+      "completed_steps": 1,
       "total_steps": 2,
       "blocking_reason": null,
-      "active_step": 1
+      "active_step": null,
+      "last_step": "phase5_baseline_r02_s02",
+      "failure_category": "quota_pressure"
     },
     {
       "trial_id": "phase5_caveman_r02",

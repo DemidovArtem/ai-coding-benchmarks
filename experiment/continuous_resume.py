@@ -1,4 +1,4 @@
-"""Recover a withheld native-skill step without replacing its recorded quota stop."""
+"""Recover a withheld executor step without replacing its recorded quota stop."""
 
 import argparse
 from datetime import datetime, timezone
@@ -22,14 +22,14 @@ def verify_retained_config(actual, expected):
     actual = tomllib.loads(actual)
     projects = actual.pop('projects', None)
     if projects not in (None, {'/testbed': {'trust_level': 'trusted'}}) or actual != tomllib.loads(expected):
-        raise ValueError('Retained native profile changed beyond the Codex project trust entry')
+        raise ValueError('Retained profile changed beyond the Codex project trust entry')
 
 
 def recovery_input(blocked, previous, config):
     metadata = load(blocked / 'run_metadata.json', {})
     if (metadata.get('state') != 'failed' or metadata.get('failure_category') != 'quota_pressure'
-            or metadata.get('step') != 2 or metadata.get('variant') not in ('caveman', 'ponytail')):
-        raise ValueError('Only a withheld second native-skill step can use this recovery')
+            or metadata.get('step') != 2 or metadata.get('variant') not in ('baseline', 'caveman', 'ponytail')):
+        raise ValueError('Only a withheld second baseline or native-skill step can use this recovery')
     for name in ('log/session_history.jsonl', 'log/agent_stdout.txt', 'log/resume_message.txt', 'dispatched_task.txt'):
         if (blocked / name).exists():
             raise ValueError('Blocked step may already have invoked the executor')
@@ -49,6 +49,8 @@ def recover(config, blocked, output):
     from experiment.skill_trial import assert_no_profile_artifacts
 
     old = load(blocked / 'run_metadata.json')
+    variant = old['variant']
+    native = variant in ('caveman', 'ponytail')
     chain = old['trajectory_id']
     previous = load(ROOT / 'reports' / (chain + '_s01.json'))
     recovery_input(blocked, previous, config)
@@ -109,7 +111,8 @@ def recover(config, blocked, output):
         model=config['codex']['model'], reasoning_effort=config['codex']['reasoning_effort'],
         timeout_ms=benchmark['timeout_seconds'] * 1000, main_branch=benchmark['main_branch'], keep_container=True)
     runner.container_name = runner.container_setup.container_name = runner.agent_runner.container_name = name
-    runner.agent_runner._framework = NativeHooks(reasoning_effort=config['codex']['reasoning_effort'])
+    framework = NativeHooks if native else CodexFramework
+    runner.agent_runner._framework = framework(reasoning_effort=config['codex']['reasoning_effort'])
     runner.agent_runner.session_id = session
     runner._snapshot_baseline_commit = previous['starting_commit']
     assert_boundary(runner, previous['ending_commit'])
@@ -122,14 +125,20 @@ def recover(config, blocked, output):
         raise ValueError('An executor process is already running')
     if runner.agent_runner._framework.extract_session_id_from_container(name) != session:
         raise ValueError('Retained Codex thread differs from the withheld step')
-    variant = old['variant']
     verify_retained_config(runner.container_setup.docker_exec(['cat', '/home/fakeroot/.codex/config.toml']).stdout,
                            (ROOT / 'profiles' / variant / 'config.toml').read_text())
-    actual = runner.container_setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/hooks.json']).stdout.split()[0]
-    if actual != hashlib.sha256((ROOT / 'profiles' / variant / 'native_hooks.json').read_bytes()).hexdigest():
-        raise ValueError('Retained native hooks changed')
     hook_path = '/home/fakeroot/.codex/skill_hook_audit.jsonl'
-    old_audit = runner.container_setup.docker_exec(['cat', hook_path]).stdout.splitlines()
+    if native:
+        actual = runner.container_setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/hooks.json']).stdout.split()[0]
+        if actual != hashlib.sha256((ROOT / 'profiles' / variant / 'native_hooks.json').read_bytes()).hexdigest():
+            raise ValueError('Retained native hooks changed')
+        old_audit = runner.container_setup.docker_exec(['cat', hook_path]).stdout.splitlines()
+    else:
+        for path in ('/AGENTS.md', '/home/AGENTS.md', '/home/fakeroot/AGENTS.md', '/testbed/AGENTS.md',
+                     '/testbed/.codex', '/testbed/.agents', '/testbed/.serena', '/home/fakeroot/.agents',
+                     '/home/fakeroot/.codex/AGENTS.md', '/home/fakeroot/.codex/hooks.json'):
+            if runner.container_setup.docker_exec(['test', '!', '-e', path]).returncode:
+                raise ValueError('Unexpected retained baseline instructions or hooks: ' + path)
     # A stopped container loses its network namespace; restore the same pinned protective rules before inference.
     runner.container_setup.lock_network()
     if not runner.agent_runner.refresh_container_credentials():
@@ -167,13 +176,16 @@ def recover(config, blocked, output):
             raise ValueError('Recovered submission does not descend from the preceding step')
         if runner._get_tag_hash('agent-impl-' + benchmark['continuous_pilot']['milestones'][0]) != previous['ending_commit']:
             raise ValueError('Previous submission tag moved during recovery')
-        subprocess.run(['docker', 'cp', name + ':' + hook_path, str(output / 'hook_audit.jsonl')], check=True, capture_output=True)
-        audit = [json.loads(line) for line in (output / 'hook_audit.jsonl').read_text().splitlines()]
-        field = 'caveman_mode_context' if variant == 'caveman' else 'full_mode_context'
-        active = any(row.get(field) for row in audit[len(old_audit):])
-        save(output / 'skill_activation.json', {'variant': variant, 'native_hook_activation_verified': active, 'audit': audit})
-        if not active or load(output / 'evaluation/evaluation_result.json').get('error_message'):
-            raise RuntimeError('Recovered activation or grader infrastructure is unverified')
+        if native:
+            subprocess.run(['docker', 'cp', name + ':' + hook_path, str(output / 'hook_audit.jsonl')], check=True, capture_output=True)
+            audit = [json.loads(line) for line in (output / 'hook_audit.jsonl').read_text().splitlines()]
+            field = 'caveman_mode_context' if variant == 'caveman' else 'full_mode_context'
+            active = any(row.get(field) for row in audit[len(old_audit):])
+            save(output / 'skill_activation.json', {'variant': variant, 'native_hook_activation_verified': active, 'audit': audit})
+            if not active:
+                raise RuntimeError('Recovered native activation is unverified')
+        if load(output / 'evaluation/evaluation_result.json').get('error_message'):
+            raise RuntimeError('Recovered grader infrastructure is unverified')
         metadata.update(state='finished', returncode=0 if result.resolved else 1)
     except Exception as error:
         category = 'quota_pressure' if runner.agent_runner._last_rate_limit or str(error).startswith('Quota pressure') else 'continuous_recovery_failure'

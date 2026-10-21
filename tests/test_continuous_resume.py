@@ -36,6 +36,16 @@ class RecoveryTests(unittest.TestCase):
             blocked=Path(tmp)
             (blocked/'run_metadata.json').write_text(json.dumps(metadata))
             self.assertEqual(recovery_input(blocked,previous,config),metadata)
+            for variant in ('baseline', 'ponytail'):
+                metadata['variant'] = variant
+                (blocked/'run_metadata.json').write_text(json.dumps(metadata))
+                self.assertEqual(recovery_input(blocked,previous,config),metadata)
+            metadata['variant'] = 'plan'
+            (blocked/'run_metadata.json').write_text(json.dumps(metadata))
+            with self.assertRaises(ValueError):
+                recovery_input(blocked,previous,config)
+            metadata['variant'] = 'baseline'
+            (blocked/'run_metadata.json').write_text(json.dumps(metadata))
             previous['continuous']['executor_session_id']='different'
             with self.assertRaises(ValueError):
                 recovery_input(blocked,previous,config)
