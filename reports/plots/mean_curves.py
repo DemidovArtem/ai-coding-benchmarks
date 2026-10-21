@@ -16,9 +16,9 @@ ROOT=HERE.parents[1]
 sys.path.insert(0,str(ROOT))
 from experiment.curves import aggregate
 
-COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87'}
-STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D'}
-NAMES={'baseline':'Baseline','caveman':'Caveman','ponytail':'Ponytail'}
+COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87','serena':'#c9802a'}
+STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D','serena':':^'}
+NAMES={'baseline':'Baseline','caveman':'Caveman','ponytail':'Ponytail','serena':'Serena'}
 MEASURES=[('output_tokens','Накопленный output','токены'),
           ('input_tokens','Накопленный input, включая cache','токены'),
           ('churn_prod_loc','Размер production-дифа','строки: добавлено + удалено'),

@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-21 19:59:25**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-21 23:31:23**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -12,11 +12,12 @@
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Работает: 13 MCP calls, 2 symbol calls, 6 memories | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
-| Текущий состав экспериментов | baseline, caveman, ponytail | Plan исключён из новых запусков; прежние результаты сохранены. |
+| Текущий состав экспериментов | baseline, caveman, ponytail, serena | Plan исключён из новых запусков; прежние результаты сохранены. |
 | Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Пилот остановлен: quarantine preflight | Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 5b: baseline / Caveman / Ponytail | Новые trials ожидают отмашки | Очередь остановлена до первого нового benchmark model invocation; прежний quota failure сохранён. [Протокол](reports/phase5b_protocol.md) |
-| Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
+| Phase 6: baseline / Caveman / Ponytail / Serena, 2×5 | Подготовлен запуск 40 правок | Восемь изолированных траекторий, пять правок в каждой. Serena cold между повторами, warm между шагами. [Протокол](reports/phase6_protocol.md) |
+| Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
 
@@ -35,6 +36,14 @@
 | phase5b_ponytail_r02_retry01 | ponytail | 2 | 0/2 | Ожидает отмашки пользователя |
 | phase5b_baseline_r02 | baseline | 2 | 0/2 | Ожидает отмашки пользователя |
 | phase5b_caveman_r02 | caveman | 2 | 0/2 | Ожидает отмашки пользователя |
+| phase6_serena_r01 | serena | 1 | 0/5 | Запланирован |
+| phase6_baseline_r01 | baseline | 1 | 0/5 | Запланирован |
+| phase6_caveman_r01 | caveman | 1 | 0/5 | Запланирован |
+| phase6_ponytail_r01 | ponytail | 1 | 0/5 | Запланирован |
+| phase6_serena_r02 | serena | 2 | 0/5 | Запланирован |
+| phase6_baseline_r02 | baseline | 2 | 0/5 | Запланирован |
+| phase6_caveman_r02 | caveman | 2 | 0/5 | Запланирован |
+| phase6_ponytail_r02 | ponytail | 2 | 0/5 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 

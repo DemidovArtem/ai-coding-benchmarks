@@ -19,7 +19,7 @@ from experiment.runner import ROOT, check_quota, save, setup_fingerprint, trial_
 from experiment.quota import read_quota
 from experiment.security import credential_values, redact, redact_artifacts
 
-VARIANTS = ('baseline', 'caveman', 'ponytail', 'plan')
+VARIANTS = ('baseline', 'caveman', 'ponytail', 'serena', 'plan')
 TOKEN_FIELDS = ('input_tokens', 'output_tokens', 'cached_input_tokens', 'reasoning_output_tokens')
 
 
@@ -63,8 +63,9 @@ def usage_delta(current, previous):
     return result
 
 
-def verify_images():
-    for image in load(ROOT / 'reports/continuous_image_budget.json'):
+def verify_images(config=None):
+    budget = config.get('benchmark', {}).get('grader_image_budget', 'reports/continuous_image_budget.json') if config else 'reports/continuous_image_budget.json'
+    for image in load(ROOT / budget):
         actual = json.loads(subprocess.check_output(['docker', 'image', 'inspect', image['local']], text=True))[0]
         if image['digest_ref'] not in actual.get('RepoDigests', []):
             raise ValueError('Required grader image is not pinned to its approved digest')
@@ -207,13 +208,14 @@ def preserve_and_collect(runner, output, config, metadata, previous_usage, input
     return record, cumulative
 
 
-def run(config, variant, repetition, chain):
+def run(config, variant, repetition, chain, on_step=None):
     from harness.e2e.agent_runner import AgentRunner
     from harness.e2e.agents.codex import CodexFramework
     from harness.e2e.run_milestone import MilestoneRunner
     from experiment.planning import prepare
     from experiment.profiles import activate_profile
-    from experiment.skill_profiles import install_native_skill
+    from experiment.skill_profiles import install_native_skill, install_serena
+    from experiment.serena_continuous import install_policy, memory_state, preserve_memory, verify_memory_boundary, verify_usage
     from experiment.skill_trial import assert_no_profile_artifacts
 
     benchmark = config['benchmark']
@@ -229,6 +231,7 @@ def run(config, variant, repetition, chain):
     proof = None
     task = dispatch_path = input_commit = None
     output = None
+    memory_before = previous_memory = None
 
     class Hooks(CodexFramework):
         def build_run_command(self, *args, **kwargs):
@@ -255,12 +258,17 @@ def run(config, variant, repetition, chain):
 
     class ContinuousRunner(MilestoneRunner):
         def _load_prompt(self):
-            nonlocal initialized, proof, task, dispatch_path, input_commit
+            nonlocal initialized, proof, task, dispatch_path, input_commit, memory_before
             original = super()._load_prompt()
             if not initialized:
                 if variant in ('caveman', 'ponytail'):
                     proof = install_native_skill(self.container_setup, output, config, variant)
                     self.agent_runner._framework = Hooks(reasoning_effort=config['codex']['reasoning_effort'])
+                elif variant == 'serena':
+                    proof = install_serena(self.container_setup, output, config)
+                    proof['continuous_policy_sha256'] = install_policy(self.container_setup)
+                    proof['memory_policy'] = 'cold per repetition; retained across sequential edits'
+                    save(output / 'effective_profile.json', proof)
                 else:
                     proof = activate_profile(self.container_setup, output, config)
                 tree = self.container_setup.docker_exec_git('rev-parse', 'HEAD^{tree}').stdout.strip()
@@ -271,6 +279,10 @@ def run(config, variant, repetition, chain):
                 save(output / 'effective_profile.json', proof)
                 self.container_setup.verify_network_lockdown()
             input_commit = self.container_setup.docker_exec_git('rev-parse', 'HEAD').stdout.strip()
+            if variant == 'serena':
+                memory_before = memory_state(self.container_setup)
+                verify_memory_boundary(memory_before, previous_memory)
+                save(output / 'serena_memory_before.json', memory_before)
             task = original
             if variant == 'plan':
                 quota = read_quota()
@@ -286,6 +298,10 @@ def run(config, variant, repetition, chain):
             (output / 'original_task.txt').write_text(original)
             task += ('\n\nThis is one step of a sequential pilot. Preserve prior work and submission tags. '
                      'Implement only this task. After committing and tagging this step, stop and await the next user turn.\n')
+            if variant == 'serena':
+                task += ('\nSerena memory mode: ' + ('cold; perform onboarding once.' if index == 1 else
+                         'warm; read and reuse a memory retained from the previous task. Do not repeat onboarding.') +
+                         '\nAfter the required first task-file read, follow the Serena continuous startup policy.\n')
             path = output / 'dispatched_task.txt'
             path.write_text(task)
             dispatch_path = '/home/fakeroot/continuous-step-' + str(index) + '.txt'
@@ -302,6 +318,7 @@ def run(config, variant, repetition, chain):
             raise RuntimeError('Continuous step lacks a completed immutable submission; next step is withheld')
 
         def _run_evaluation(self, snapshot):
+            nonlocal previous_memory
             audit = verify_dispatch(events_from(output / 'log/agent_stdout.txt'), self.agent_runner.session_id, dispatch_path, task)
             audit.update(input_commit=input_commit, milestone_id=self.milestone_id)
             planner = load(output / 'planner/audit.json', {})
@@ -312,6 +329,9 @@ def run(config, variant, repetition, chain):
                 save(output / 'session_isolation.json', {'planner_session_id': planner['session_id'],
                     'executor_session_id': self.agent_runner.session_id, 'separate_containers': True, 'separate_sessions': True})
             save(output / 'dispatch.json', audit)
+            if variant == 'serena':
+                usage = verify_usage(events_from(output / 'log/agent_stdout.txt'), audit['read_item_id'], memory_before)
+                previous_memory = preserve_memory(self.container_setup, output, memory_before, usage)
             assert_no_profile_artifacts(snapshot)
             started = time.monotonic()
             try:
@@ -406,6 +426,8 @@ def run(config, variant, repetition, chain):
                 raise error
             if record['collection_errors']:
                 raise RuntimeError('Step collection failed; next step is withheld')
+            if on_step:
+                on_step(record)
         update_progress(chain, state='finished', completed_steps=finished)
         runner.container_setup.cleanup()
     except Exception:
@@ -452,7 +474,7 @@ def main():
     if config.get('stage') != 'phase5_frozen' or not args.variant or not 1 <= args.repetition <= config['benchmark']['continuous_pilot']['repetitions']:
         parser.error('A frozen continuous cohort, variant and valid repetition are required')
     validate(config)
-    verify_images()
+    verify_images(config)
     check_resources(config)
     lock = trial_lock(Path(config['resources']['runtime_root']))
     try:

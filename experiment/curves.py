@@ -2,7 +2,7 @@
 
 import statistics
 
-VARIANTS = ('baseline', 'caveman', 'ponytail')
+VARIANTS = ('baseline', 'caveman', 'ponytail', 'serena')
 TOKENS = ('input_tokens', 'cached_input_tokens', 'output_tokens')
 QUALITY = ('ncloc', 'complexity', 'cognitive_complexity', 'duplicated_lines',
            'software_quality_maintainability_issues',

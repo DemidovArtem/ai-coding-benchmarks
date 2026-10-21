@@ -68,7 +68,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
              f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | {cell(continuous.get('summary') or 'Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней.')} [План и состояние](reports/continuous_feasibility.md) |",
              *[f"| {cell(cohort['title'])} | {cell(cohort['label'])} | {cell(cohort['summary'])} [Протокол]({cohort['protocol']}) |"
                for cohort in continuous.get('cohorts', {}).values()],
-             '| Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |', '',
+             '| Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |', '',
              '## Корректность и размер production patch', '',
              'Каждая строка — отдельный trial или шаг continuous. Сравнивать с baseline внутри того же frozen cohort и повтора; Phase 2/3/5 не смешивать. Шаги одной траектории зависимы. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.', '',
              '| Trial / cohort | Variant | Статус | + строк | − строк | Net | Churn | Изменено prod-файлов |',
@@ -118,7 +118,7 @@ def main():
     rows = [json.loads(line) for line in (ROOT/'results/results.jsonl').read_text().splitlines() if line.strip()]
     known = {r['trial_id'] for r in rows}; pending = {}
     config = json.loads((ROOT/'experiment.yaml').read_text())
-    for directory in (Path(config['resources']['runtime_root']), ROOT/'results/trials'):
+    for directory in (Path(config['resources']['runtime_root']), ROOT/'results/trials', ROOT/'results/runtime/phase6'):
         for path in directory.glob('*/run_metadata.json'):
             row = json.loads(path.read_text()); trial = path.parent.name
             if trial not in known and row.get('phase') == 'trial':
