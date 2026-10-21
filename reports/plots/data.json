@@ -1,0 +1,1497 @@
+{
+  "source": "results/results.jsonl",
+  "source_sha256": "904c98479423902eff6b454efd478992fccda4d1843dc44cd2f57c5bb06d2627",
+  "phase5_selection": {
+    "label": "pilot/non-official subset",
+    "completed_task_executions": 12,
+    "repetitions": {
+      "1": {
+        "baseline": {
+          "trial_ids": [
+            "phase5_baseline_r01_s01",
+            "phase5_baseline_r01_s02"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 98,
+            "deleted_prod_loc": 18,
+            "net_prod_loc": 80,
+            "churn_prod_loc": 116,
+            "cumulative_prod_loc": 33769
+          },
+          "total_tokens": {
+            "input_tokens": 1670856,
+            "cached_input_tokens": 1574272,
+            "output_tokens": 18680
+          },
+          "final_sonar": {
+            "ncloc": 31176,
+            "lines": 43991,
+            "complexity": 5053,
+            "cognitive_complexity": 2405,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": 0,
+            "output_tokens_delta": 0
+          }
+        },
+        "caveman": {
+          "trial_ids": [
+            "phase5_caveman_r01_s01",
+            "phase5_caveman_r01_s02_resume03"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 114,
+            "deleted_prod_loc": 11,
+            "net_prod_loc": 103,
+            "churn_prod_loc": 125,
+            "cumulative_prod_loc": 33792
+          },
+          "total_tokens": {
+            "input_tokens": 1369030,
+            "cached_input_tokens": 1250816,
+            "output_tokens": 14727
+          },
+          "final_sonar": {
+            "ncloc": 31482,
+            "lines": 44320,
+            "complexity": 5096,
+            "cognitive_complexity": 2424,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": 9,
+            "output_tokens_delta": -3953
+          }
+        },
+        "ponytail": {
+          "trial_ids": [
+            "phase5_ponytail_r01_retry01_s01",
+            "phase5_ponytail_r01_retry01_s02"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 73,
+            "deleted_prod_loc": 15,
+            "net_prod_loc": 58,
+            "churn_prod_loc": 88,
+            "cumulative_prod_loc": 33747
+          },
+          "total_tokens": {
+            "input_tokens": 1509404,
+            "cached_input_tokens": 1407360,
+            "output_tokens": 17425
+          },
+          "final_sonar": {
+            "ncloc": 31145,
+            "lines": 43942,
+            "complexity": 5048,
+            "cognitive_complexity": 2406,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": -28,
+            "output_tokens_delta": -1255
+          }
+        },
+        "plan": {
+          "trial_ids": [
+            "phase5_plan_r01_retry01_s01",
+            "phase5_plan_r01_retry01_s02"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 99,
+            "deleted_prod_loc": 15,
+            "net_prod_loc": 84,
+            "churn_prod_loc": 114,
+            "cumulative_prod_loc": 33773
+          },
+          "total_tokens": {
+            "input_tokens": 2157315,
+            "cached_input_tokens": 1957632,
+            "output_tokens": 25561
+          },
+          "final_sonar": {
+            "ncloc": 31616,
+            "lines": 44466,
+            "complexity": 5100,
+            "cognitive_complexity": 2429,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": -2,
+            "output_tokens_delta": 6881
+          }
+        }
+      },
+      "2": {
+        "baseline": {
+          "trial_ids": [
+            "phase5_baseline_r02_s01",
+            "phase5_baseline_r02_s02_resume01"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 87,
+            "deleted_prod_loc": 17,
+            "net_prod_loc": 70,
+            "churn_prod_loc": 104,
+            "cumulative_prod_loc": 33759
+          },
+          "total_tokens": {
+            "input_tokens": 1283167,
+            "cached_input_tokens": 1171584,
+            "output_tokens": 15133
+          },
+          "final_sonar": {
+            "ncloc": 31126,
+            "lines": 43926,
+            "complexity": 5049,
+            "cognitive_complexity": 2404,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": 0,
+            "output_tokens_delta": 0
+          }
+        },
+        "caveman": {
+          "trial_ids": [
+            "phase5_caveman_r02_s01",
+            "phase5_caveman_r02_s02"
+          ],
+          "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+          "grader_resolved": [
+            true,
+            true
+          ],
+          "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59",
+          "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+          "final_production": {
+            "added_prod_loc": 90,
+            "deleted_prod_loc": 14,
+            "net_prod_loc": 76,
+            "churn_prod_loc": 104,
+            "cumulative_prod_loc": 33765
+          },
+          "total_tokens": {
+            "input_tokens": 1537558,
+            "cached_input_tokens": 1380224,
+            "output_tokens": 18940
+          },
+          "final_sonar": {
+            "ncloc": 31131,
+            "lines": 43944,
+            "complexity": 5048,
+            "cognitive_complexity": 2402,
+            "duplicated_lines": 2697,
+            "duplicated_lines_density": 6.1,
+            "code_smells": 282,
+            "sqale_index": 1438,
+            "software_quality_maintainability_issues": 282,
+            "software_quality_maintainability_remediation_effort": 1438
+          },
+          "paired_to_baseline": {
+            "churn_prod_loc_delta": 0,
+            "output_tokens_delta": 3807
+          }
+        }
+      }
+    },
+    "limitations": [
+      "Two planned independent repetitions per variant; steps within a trajectory are dependent. No statistical ranking.",
+      "Quota pauses and explicitly recorded infrastructure retries limit timing comparisons.",
+      "Sonar includes differing inline tests; production LOC excludes tests.",
+      "Grader acceptance does not mean every raw test passed.",
+      "A later preflight reproduced denied-registry reachability and stopped the remaining queue before inference. Earlier recorded preflights passed, but do not prove continuous registry isolation throughout execution."
+    ],
+    "status": "partial_blocked_quarantine",
+    "planned_task_executions": 16,
+    "unexecuted_task_executions": 4
+  },
+  "records": [
+    {
+      "trial_id": "baseline_smoke_001",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": null,
+      "measured_comparison": false,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "df59b0f49ca308fb58d1b50d492148100b08e18a06a8d2a34ca71efa77b9d949",
+      "added_prod_loc": 74,
+      "deleted_prod_loc": 24,
+      "net_prod_loc": 50,
+      "churn_prod_loc": 98,
+      "tokens": {
+        "input_tokens": 1011952,
+        "output_tokens": 9196,
+        "cached_input_tokens": 952960
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 168.749,
+        "evaluation": null,
+        "sonar": 29.26704477000021
+      },
+      "sonar": {
+        "ncloc": 31461,
+        "lines": 44275,
+        "complexity": 5058,
+        "cognitive_complexity": 2424,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 283,
+        "sqale_index": 1443,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1443
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase2_baseline_001",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": null,
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+      "added_prod_loc": 79,
+      "deleted_prod_loc": 29,
+      "net_prod_loc": 50,
+      "churn_prod_loc": 108,
+      "tokens": {
+        "input_tokens": 692777,
+        "output_tokens": 9125,
+        "cached_input_tokens": 635392
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 185.133,
+        "evaluation": 65.35985140399862,
+        "sonar": 28.66759869499947
+      },
+      "sonar": {
+        "ncloc": 31477,
+        "lines": 44291,
+        "complexity": 5058,
+        "cognitive_complexity": 2423,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 284,
+        "sqale_index": 1449,
+        "software_quality_maintainability_issues": 284,
+        "software_quality_maintainability_remediation_effort": 1449
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase2_plan_001",
+      "variant": "plan",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": null,
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+      "added_prod_loc": 83,
+      "deleted_prod_loc": 28,
+      "net_prod_loc": 55,
+      "churn_prod_loc": 111,
+      "tokens": {
+        "input_tokens": 1332672,
+        "output_tokens": 14022,
+        "cached_input_tokens": 1229312
+      },
+      "durations": {
+        "planner": 146.634162867,
+        "executor": 247.714,
+        "evaluation": 97.48683090099996,
+        "sonar": 31.274593565999567
+      },
+      "sonar": {
+        "ncloc": 31812,
+        "lines": 44670,
+        "complexity": 5080,
+        "cognitive_complexity": 2423,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase2_goal_plan_001",
+      "variant": "goal_plan",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": null,
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "eb3b65310f12605fc6a5ee8641dc99bcf89a8b86094503d969b3ac122542a7dd",
+      "added_prod_loc": 93,
+      "deleted_prod_loc": 24,
+      "net_prod_loc": 69,
+      "churn_prod_loc": 117,
+      "tokens": {
+        "input_tokens": 1796269,
+        "output_tokens": 20023,
+        "cached_input_tokens": 1668224
+      },
+      "durations": {
+        "planner": 139.029203542,
+        "executor": 343.357,
+        "evaluation": 94.60717153400037,
+        "sonar": 30.982420977999936
+      },
+      "sonar": {
+        "ncloc": 31838,
+        "lines": 44699,
+        "complexity": 5090,
+        "cognitive_complexity": 2442,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 283,
+        "sqale_index": 1444,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1444
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase3_baseline_001",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+      "added_prod_loc": 78,
+      "deleted_prod_loc": 24,
+      "net_prod_loc": 54,
+      "churn_prod_loc": 102,
+      "tokens": {
+        "input_tokens": 730529,
+        "output_tokens": 10294,
+        "cached_input_tokens": 672512
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 164.381,
+        "evaluation": 100.66738914599955,
+        "sonar": 33.484400693998396
+      },
+      "sonar": {
+        "ncloc": 31763,
+        "lines": 44619,
+        "complexity": 5075,
+        "cognitive_complexity": 2421,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 283,
+        "sqale_index": 1443,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1443
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase3_ponytail_001",
+      "variant": "ponytail",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+      "added_prod_loc": 70,
+      "deleted_prod_loc": 22,
+      "net_prod_loc": 48,
+      "churn_prod_loc": 92,
+      "tokens": {
+        "input_tokens": 917133,
+        "output_tokens": 10092,
+        "cached_input_tokens": 850816
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 175.913,
+        "evaluation": 105.85680251299891,
+        "sonar": 29.53758064399881
+      },
+      "sonar": {
+        "ncloc": 31774,
+        "lines": 44632,
+        "complexity": 5075,
+        "cognitive_complexity": 2412,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 283,
+        "sqale_index": 1443,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1443
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase3_caveman_001",
+      "variant": "caveman",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+      "added_prod_loc": 77,
+      "deleted_prod_loc": 21,
+      "net_prod_loc": 56,
+      "churn_prod_loc": 98,
+      "tokens": {
+        "input_tokens": 1287328,
+        "output_tokens": 13205,
+        "cached_input_tokens": 1206144
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 243.233,
+        "evaluation": 64.5621802659989,
+        "sonar": 17.30895206599962
+      },
+      "sonar": {
+        "ncloc": 31767,
+        "lines": 44620,
+        "complexity": 5075,
+        "cognitive_complexity": 2425,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 284,
+        "sqale_index": 1449,
+        "software_quality_maintainability_issues": 284,
+        "software_quality_maintainability_remediation_effort": 1449
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase3_serena_001",
+      "variant": "serena",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "maintenance_fixes_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "50313521937dfb0f67c1771bfe3b28f55415dbd082893e97f5a71237dd94278f",
+      "added_prod_loc": 82,
+      "deleted_prod_loc": 20,
+      "net_prod_loc": 62,
+      "churn_prod_loc": 102,
+      "tokens": {
+        "input_tokens": 682290,
+        "output_tokens": 9732,
+        "cached_input_tokens": 584448
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 170.688,
+        "evaluation": 65.01207136099947,
+        "sonar": 18.329201320999346
+      },
+      "sonar": {
+        "ncloc": 31799,
+        "lines": 44658,
+        "complexity": 5080,
+        "cognitive_complexity": 2421,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6,
+        "code_smells": 283,
+        "sqale_index": 1443,
+        "software_quality_maintainability_issues": 283,
+        "software_quality_maintainability_remediation_effort": 1443
+      },
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r01_s01",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 15,
+      "deleted_prod_loc": 17,
+      "net_prod_loc": -2,
+      "churn_prod_loc": 32,
+      "tokens": {
+        "input_tokens": 752475,
+        "output_tokens": 7684,
+        "cached_input_tokens": 697344,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 183.5453838120011,
+        "evaluation": 110.78604224799892,
+        "sonar": 40.380041861999416
+      },
+      "sonar": {
+        "ncloc": 31078,
+        "lines": 43854,
+        "complexity": 5033,
+        "cognitive_complexity": 2391,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_baseline_r01",
+        "step": 1,
+        "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d"
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r01_s02",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 98,
+      "deleted_prod_loc": 18,
+      "net_prod_loc": 80,
+      "churn_prod_loc": 116,
+      "tokens": {
+        "input_tokens": 918381,
+        "output_tokens": 10996,
+        "cached_input_tokens": 876928,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 215.29985274200044,
+        "evaluation": 101.7764249539996,
+        "sonar": 31.151020760000392
+      },
+      "sonar": {
+        "ncloc": 31176,
+        "lines": 43991,
+        "complexity": 5053,
+        "cognitive_complexity": 2405,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_baseline_r01",
+        "step": 2,
+        "executor_session_id": "01a15af2-3426-7102-aef4-985436aa8d5d"
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s01",
+      "variant": "caveman",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 36,
+      "deleted_prod_loc": 10,
+      "net_prod_loc": 26,
+      "churn_prod_loc": 46,
+      "tokens": {
+        "input_tokens": 550342,
+        "output_tokens": 6898,
+        "cached_input_tokens": 501888,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 172.58803809200072,
+        "evaluation": 114.2666610870001,
+        "sonar": 31.2362208450013
+      },
+      "sonar": {
+        "ncloc": 31287,
+        "lines": 44092,
+        "complexity": 5067,
+        "cognitive_complexity": 2405,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r01",
+        "step": 1,
+        "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51"
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s02",
+      "variant": "caveman",
+      "resolved": null,
+      "failure_category": "quota_pressure",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": null,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r01",
+        "step": 2,
+        "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51"
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r01_s01",
+      "variant": "ponytail",
+      "resolved": null,
+      "failure_category": "quota_pressure",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 191.51735632800046,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": "phase5_ponytail_r01",
+        "step": 1,
+        "executor_session_id": "01a15b20-bfbd-7751-9500-d4331e201eef"
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s02_resume02",
+      "variant": "caveman",
+      "resolved": null,
+      "failure_category": "continuous_recovery_failure",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": null,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r01",
+        "step": 2,
+        "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51"
+      }
+    },
+    {
+      "trial_id": "phase5_plan_r01_s01",
+      "variant": "plan",
+      "resolved": null,
+      "failure_category": "host_restart_before_executor",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null
+      },
+      "durations": {
+        "planner": null,
+        "executor": null,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": null,
+        "step": null,
+        "executor_session_id": null
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r01_s02_resume03",
+      "variant": "caveman",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 114,
+      "deleted_prod_loc": 11,
+      "net_prod_loc": 103,
+      "churn_prod_loc": 125,
+      "tokens": {
+        "input_tokens": 818688,
+        "output_tokens": 7829,
+        "cached_input_tokens": 748928,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 157.66644140200003,
+        "evaluation": 71.52811787600001,
+        "sonar": 37.17858550999995
+      },
+      "sonar": {
+        "ncloc": 31482,
+        "lines": 44320,
+        "complexity": 5096,
+        "cognitive_complexity": 2424,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r01",
+        "step": 2,
+        "executor_session_id": "01a15aff-75c7-7d72-b451-4e6ee619af51"
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r01_retry01_s01",
+      "variant": "ponytail",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 14,
+      "deleted_prod_loc": 14,
+      "net_prod_loc": 0,
+      "churn_prod_loc": 28,
+      "tokens": {
+        "input_tokens": 580057,
+        "output_tokens": 7079,
+        "cached_input_tokens": 527872,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 160.37697291100005,
+        "evaluation": 72.85599410700001,
+        "sonar": 18.000868941000135
+      },
+      "sonar": {
+        "ncloc": 31079,
+        "lines": 43856,
+        "complexity": 5034,
+        "cognitive_complexity": 2391,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_ponytail_r01_retry01",
+        "step": 1,
+        "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4"
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r01_retry01_s02",
+      "variant": "ponytail",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 73,
+      "deleted_prod_loc": 15,
+      "net_prod_loc": 58,
+      "churn_prod_loc": 88,
+      "tokens": {
+        "input_tokens": 929347,
+        "output_tokens": 10346,
+        "cached_input_tokens": 879488,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 220.0550321190001,
+        "evaluation": 65.05114044800007,
+        "sonar": 17.070549895999875
+      },
+      "sonar": {
+        "ncloc": 31145,
+        "lines": 43942,
+        "complexity": 5048,
+        "cognitive_complexity": 2406,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_ponytail_r01_retry01",
+        "step": 2,
+        "executor_session_id": "01a15b89-1521-7ef3-9047-ffaa2b56e0d4"
+      }
+    },
+    {
+      "trial_id": "phase5_plan_r01_retry01_s01",
+      "variant": "plan",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 20,
+      "deleted_prod_loc": 14,
+      "net_prod_loc": 6,
+      "churn_prod_loc": 34,
+      "tokens": {
+        "input_tokens": 1016152,
+        "output_tokens": 12644,
+        "cached_input_tokens": 888448,
+        "reasoning_output_tokens": 2168
+      },
+      "durations": {
+        "planner": 99.94919800699995,
+        "executor": 228.76297876900003,
+        "evaluation": 72.15436135599998,
+        "sonar": 17.063209700999778
+      },
+      "sonar": {
+        "ncloc": 31389,
+        "lines": 44197,
+        "complexity": 5071,
+        "cognitive_complexity": 2409,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_plan_r01_retry01",
+        "step": 1,
+        "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d"
+      }
+    },
+    {
+      "trial_id": "phase5_plan_r01_retry01_s02",
+      "variant": "plan",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 1,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 99,
+      "deleted_prod_loc": 15,
+      "net_prod_loc": 84,
+      "churn_prod_loc": 114,
+      "tokens": {
+        "input_tokens": 1141163,
+        "output_tokens": 12917,
+        "cached_input_tokens": 1069184,
+        "reasoning_output_tokens": 4145
+      },
+      "durations": {
+        "planner": 119.93340381599978,
+        "executor": 202.83050804200002,
+        "evaluation": 65.22388611099996,
+        "sonar": 15.921364570999685
+      },
+      "sonar": {
+        "ncloc": 31616,
+        "lines": 44466,
+        "complexity": 5100,
+        "cognitive_complexity": 2429,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_plan_r01_retry01",
+        "step": 2,
+        "executor_session_id": "01a15b95-93ae-77f0-924c-b123e217304d"
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r02_s01",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 2,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 13,
+      "deleted_prod_loc": 16,
+      "net_prod_loc": -3,
+      "churn_prod_loc": 29,
+      "tokens": {
+        "input_tokens": 536389,
+        "output_tokens": 6213,
+        "cached_input_tokens": 489728,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 143.2732631490003,
+        "evaluation": 71.30832952800029,
+        "sonar": 37.094195249999984
+      },
+      "sonar": {
+        "ncloc": 31079,
+        "lines": 43853,
+        "complexity": 5035,
+        "cognitive_complexity": 2392,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.2,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_baseline_r02",
+        "step": 1,
+        "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c"
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r02_s02",
+      "variant": "baseline",
+      "resolved": null,
+      "failure_category": "quota_pressure",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 2,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": null,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": "phase5_baseline_r02",
+        "step": 2,
+        "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c"
+      }
+    },
+    {
+      "trial_id": "phase5_baseline_r02_s02_resume01",
+      "variant": "baseline",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 2,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 87,
+      "deleted_prod_loc": 17,
+      "net_prod_loc": 70,
+      "churn_prod_loc": 104,
+      "tokens": {
+        "input_tokens": 746778,
+        "output_tokens": 8920,
+        "cached_input_tokens": 681856,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 274.3014129559999,
+        "evaluation": 114.997198648,
+        "sonar": 29.63059377100012
+      },
+      "sonar": {
+        "ncloc": 31126,
+        "lines": 43926,
+        "complexity": 5049,
+        "cognitive_complexity": 2404,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_baseline_r02",
+        "step": 2,
+        "executor_session_id": "01a15ba3-1b22-73f1-a49e-5b10f23d676c"
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r02_s01",
+      "variant": "caveman",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 2,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 15,
+      "deleted_prod_loc": 13,
+      "net_prod_loc": 2,
+      "churn_prod_loc": 28,
+      "tokens": {
+        "input_tokens": 573366,
+        "output_tokens": 7296,
+        "cached_input_tokens": 471424,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 237.27450715200007,
+        "evaluation": 126.8534038979999,
+        "sonar": 30.051528264999888
+      },
+      "sonar": {
+        "ncloc": 31086,
+        "lines": 43870,
+        "complexity": 5035,
+        "cognitive_complexity": 2391,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r02",
+        "step": 1,
+        "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59"
+      }
+    },
+    {
+      "trial_id": "phase5_caveman_r02_s02",
+      "variant": "caveman",
+      "resolved": true,
+      "failure_category": null,
+      "collection_errors": [],
+      "trial_state": "finished",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "repetition": 2,
+      "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": 90,
+      "deleted_prod_loc": 14,
+      "net_prod_loc": 76,
+      "churn_prod_loc": 104,
+      "tokens": {
+        "input_tokens": 964192,
+        "output_tokens": 11644,
+        "cached_input_tokens": 908800,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": 366.3052047829999,
+        "evaluation": 116.19846997699983,
+        "sonar": 29.592402753999977
+      },
+      "sonar": {
+        "ncloc": 31131,
+        "lines": 43944,
+        "complexity": 5048,
+        "cognitive_complexity": 2402,
+        "duplicated_lines": 2697,
+        "duplicated_lines_density": 6.1,
+        "code_smells": 282,
+        "sqale_index": 1438,
+        "software_quality_maintainability_issues": 282,
+        "software_quality_maintainability_remediation_effort": 1438
+      },
+      "continuous": {
+        "trajectory_id": "phase5_caveman_r02",
+        "step": 2,
+        "executor_session_id": "01a15ed6-2d73-7871-8996-aaf49dbc7d59"
+      }
+    },
+    {
+      "trial_id": "phase5_ponytail_r02_s01",
+      "variant": "ponytail",
+      "resolved": null,
+      "failure_category": "continuous_step_failure",
+      "collection_errors": [],
+      "trial_state": "failed",
+      "measured_comparison": true,
+      "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "repetition": 2,
+      "starting_tree": null,
+      "dataset_version": "v1.0.2",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+      "added_prod_loc": null,
+      "deleted_prod_loc": null,
+      "net_prod_loc": null,
+      "churn_prod_loc": null,
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_output_tokens": null
+      },
+      "durations": {
+        "planner": 0,
+        "executor": null,
+        "evaluation": null,
+        "sonar": null
+      },
+      "sonar": null,
+      "continuous": {
+        "trajectory_id": "phase5_ponytail_r02",
+        "step": 1,
+        "executor_session_id": null
+      }
+    }
+  ]
+}

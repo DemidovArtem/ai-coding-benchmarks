@@ -95,7 +95,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
               f"Несобранных trials: **{len(pending)}**, из них выполняется: **{len(active)}**. {quota_note} Этот документ сам ничего не запускает и не следит по расписанию.", '',
               '## Как обновляется реестр', '',
               'После изменения результатов или статуса выполняется `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`. Команда читает `results/results.jsonl`, metadata ещё не собранных trials и continuous plan. Завершённые результаты сначала проходят существующий collector; таблица не заменяет grader и не пересчитывает scores.', '',
-              '[Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
+              '[Графики дельт](reports/plots/README.md) · [Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
     if continuous.get('pilot_runs'):
         table = ['## Последовательный пилот: план запусков', '',
                  'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',

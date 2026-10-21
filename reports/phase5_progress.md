@@ -1,5 +1,7 @@
 # Последовательный пилот: промежуточные результаты
 
+[Графики дельт к baseline, Sonar и накопления по шагам](plots/README.md) · [PDF](plots/comparison.pdf). Повторы показаны отдельно; отсутствующие результаты не заменяются нулями.
+
 ## Второй repetition: остановлен проверкой quarantine
 
 Baseline и Caveman завершили обе правки: все четыре grader результата приняты, collection errors отсутствуют, все четыре Sonar scan завершены. Ponytail repetition 2 остановлен до model invocation: preflight воспроизвёл доступность запрещённого registry. Plan repetition 2 не запускался и заблокирован тем же условием. Завершено 12/16 правок, все 12 приняты grader и проверены Sonar. [Причина и доказательства](phase5_quarantine_failure.md).
