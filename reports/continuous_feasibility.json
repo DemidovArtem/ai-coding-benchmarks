@@ -245,9 +245,11 @@
       "repetition": 1,
       "cohort": "phase6",
       "state": "running",
-      "completed_steps": 0,
+      "completed_steps": 1,
       "total_steps": 5,
-      "active_step": 1
+      "active_step": 2,
+      "last_step": "phase6_serena_r01_s01",
+      "failure_category": null
     },
     {
       "trial_id": "phase6_baseline_r01",

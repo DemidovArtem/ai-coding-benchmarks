@@ -46,15 +46,20 @@ def main():
     with PdfPages(HERE/'mean_comparison.pdf') as pdf:
         for cohort in cohorts:
             points=[p for p in data['points'] if p['setup_fingerprint']==cohort]
+            variants=list(NAMES) if any(p['variant']=='serena' for p in points) else ['baseline','caveman','ponytail']
             for paired in (False,True):
                 fig,axes=plt.subplots(3,3,figsize=(15,11))
                 for ax,(metric,title,unit) in zip(axes.flat,MEASURES):
                     ax.axhline(0,color='#9ba9b5',linewidth=.8)
-                    for variant in NAMES:
+                    observed=False
+                    for variant in variants:
                         values=sorted([p for p in points if p['variant']==variant],key=lambda p:p['step'])
                         field='paired_delta' if paired else 'metrics'
                         values=[p for p in values if p[field][metric]['mean'] is not None]
-                        if not values:continue
+                        if not values:
+                            ax.plot([],[],STYLES[variant],color=COLORS[variant],label=NAMES[variant]+' · нет данных')
+                            continue
+                        observed=True
                         x=[0]+[p['step'] for p in values]
                         stats=[{'mean':0,'min':0,'max':0,'n':0}]+[p[field][metric] for p in values]
                         label=f"{NAMES[variant]} · n={values[-1][field][metric]['n']}"
@@ -70,6 +75,9 @@ def main():
                     ax.grid(True,color='#e1e7ec',linewidth=.6)
                     ax.spines[['top','right']].set_visible(False)
                     ax.legend(frameon=False,fontsize=8,loc='best')
+                    if not observed:
+                        ax.text(.5,.35,'Нет завершённых пар' if paired else 'Нет измерений',
+                                transform=ax.transAxes,ha='center',color='#526474',fontsize=10)
                     if all(abs(value)<1e-12 for line in ax.lines for value in line.get_ydata()):
                         ax.set_ylim(-1,1);ax.set_yticks([0])
                 title='Средние изменения по правкам' if not paired else 'Средние парные дельты к baseline по правкам'
