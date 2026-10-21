@@ -1,5 +1,9 @@
 # Последовательный пилот: промежуточные результаты
 
+## Второй repetition: выполняется
+
+Baseline завершил обе правки, оба grader результата приняты, collection errors отсутствуют, оба Sonar scan завершены. Первый шаг дал production +13/−16; финальный cumulative patch — +87/−17, churn 104. Output за два шага — 15 133 токена. Второй шаг продолжен после фактического quota stop в том же executor thread; исходная остановка сохранена отдельной строкой. Caveman repetition 2 запущен; Ponytail и plan ожидают своей очереди. Актуальные шаги — в [основном реестре](../EXPERIMENT_STATUS.md).
+
 ## Первый полный repetition: 21 октября
 
 Все четыре варианта завершили по две связанные правки. Все восемь task execution приняты grader, collection errors отсутствуют, Sonar завершён для каждого snapshot. Проверены одинаковый frozen cohort/paired key, одна executor session на траекторию, чтение полного задания и точные Git/snapshot bindings. [Машинная сводка](phase5_comparison.json).
