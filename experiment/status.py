@@ -65,6 +65,8 @@ def render(rows, pending, continuous, updated, serena_required=None):
              *([f"| Дополнение: serena_required | {cell(serena_required.get('label'))} | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |"] if serena_required else []),
              f"| Phase 4: Sonar before/after | {'Завершён для собранных snapshots' if snapshots and all(r.get('sonar',{}).get('analysis_ok') is True for r in snapshots) else 'Частично выполнен / ожидает анализов'} | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |",
              f"| Phase 5: continuous, 2 связанных milestone | {cell(continuous.get('label') or ('Отложен; не реализован' if continuous.get('status') == 'explicitly_deferred_engineering_integration_not_implemented' else continuous.get('status')))} | {cell(continuous.get('summary') or 'Нужен prep/dispatch/ack barrier; оценка 3–5 инженерных дней.')} [План и состояние](reports/continuous_feasibility.md) |",
+             *[f"| {cell(cohort['title'])} | {cell(cohort['label'])} | {cell(cohort['summary'])} [Протокол]({cohort['protocol']}) |"
+               for cohort in continuous.get('cohorts', {}).values()],
              '| Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |', '',
              '## Корректность и размер production patch', '',
              'Каждая строка — отдельный trial или шаг continuous. Сравнивать с baseline внутри того же frozen cohort и повтора; Phase 2/3/5 не смешивать. Шаги одной траектории зависимы. Smoke не входит в A/B. «Grader принят» не означает, что вся raw test suite прошла.', '',

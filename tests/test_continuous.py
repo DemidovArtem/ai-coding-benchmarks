@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-from experiment.continuous import resume_step, update_progress, usage_delta, verify_dispatch, verify_selection
+from experiment.continuous import resume_step, runtime_binding, update_progress, usage_delta, verify_dispatch, verify_selection
 
 
 class ContinuousTests(unittest.TestCase):
@@ -95,3 +95,33 @@ class ContinuousTests(unittest.TestCase):
             result = json.loads(path.read_text())
             self.assertTrue(result['same_executor_session_verified'])
             self.assertEqual(result['status'], 'completed')
+
+    def test_new_cohort_progress_does_not_replace_original_blocked_status(self):
+        with TemporaryDirectory() as tmp, patch('experiment.continuous.ROOT', Path(tmp)), patch('experiment.status.main'):
+            path = Path(tmp) / 'reports/continuous_feasibility.json'
+            path.parent.mkdir()
+            path.write_text(json.dumps({'status':'blocked_quarantine', 'cohorts':{'new':{}},
+                'pilot_runs':[{'trial_id':'old','state':'blocked_quarantine'},
+                              {'trial_id':'new','state':'planned','cohort':'new'}]}))
+            update_progress('new',state='finished')
+            result=json.loads(path.read_text())
+            self.assertEqual(result['status'],'blocked_quarantine')
+            self.assertEqual(result['cohorts']['new']['status'],'completed')
+
+    def test_explicit_policy_is_required_and_frozen_for_new_cohort(self):
+        config={'benchmark':{'repo':'BurntSushi_ripgrep_14.1.1_15.0.0'}}
+        self.assertIsNone(runtime_binding(config,Path('unused')))
+        fixture=(Path(__file__).resolve().parents[1]/'profiles/runtime/registry_isolation_v2/quarantine_configs'/
+                 (config['benchmark']['repo']+'.yaml')).read_bytes()
+        with TemporaryDirectory() as tmp, patch('experiment.continuous.ROOT',Path(tmp)):
+            config['benchmark']['runtime_policy_root']='missing'
+            with self.assertRaises(ValueError):runtime_binding(config,Path(tmp)/'out')
+            source=Path(tmp)/'missing/quarantine_configs'/(config['benchmark']['repo']+'.yaml')
+            source.parent.mkdir(parents=True);source.write_bytes(fixture)
+            binding=runtime_binding(config,Path(tmp)/'out')
+            self.assertEqual(binding.mode,'protected')
+            self.assertIn('199.232.0.0/16',binding.env['SWE_MILESTONE_DENY_CIDRS'])
+            self.assertEqual(binding.env['SWE_MILESTONE_CARGO_OFFLINE'],'1')
+            source.write_bytes(b'{}\n')
+            self.assertEqual(binding.raw_bytes,fixture)
+            self.assertEqual(binding.path.read_bytes(),fixture)

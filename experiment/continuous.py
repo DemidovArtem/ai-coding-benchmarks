@@ -132,16 +132,32 @@ def update_progress(chain, **values):
     plan = load(path)
     run = next(row for row in plan['pilot_runs'] if row['trial_id'] == chain)
     run.update(values)
-    finished = sum(row['state'] == 'finished' for row in plan['pilot_runs'])
-    failed = sum(row['state'] == 'failed' for row in plan['pilot_runs'])
-    active = any(row['state'] == 'running' for row in plan['pilot_runs'])
-    plan.update(status='running' if active else 'completed' if finished == len(plan['pilot_runs']) else 'partial',
-                label='Trials выполняются' if active else 'Пилот завершён' if finished == len(plan['pilot_runs']) else 'Пилот выполнен частично',
-                summary=f"Траекторий завершено {finished}/{len(plan['pilot_runs'])}; ошибок {failed}. Метрики по шагам и протокол ниже.",
+    cohort = run.get('cohort')
+    runs = [row for row in plan['pilot_runs'] if row.get('cohort') == cohort]
+    target = plan['cohorts'][cohort] if cohort else plan
+    finished = sum(row['state'] == 'finished' for row in runs)
+    failed = sum(row['state'] == 'failed' for row in runs)
+    active = any(row['state'] == 'running' for row in runs)
+    target.update(status='running' if active else 'completed' if finished == len(runs) else 'partial',
+                label='Trials выполняются' if active else 'Пилот завершён' if finished == len(runs) else 'Пилот выполнен частично',
+                summary=f"Траекторий завершено {finished}/{len(runs)}; ошибок {failed}. Метрики по шагам и протокол ниже.",
                 same_executor_session_verified=finished > 0, continuous_result_claimed=finished > 0)
     save(path, plan)
     from experiment.status import main
     main()
+
+
+def runtime_binding(config, output):
+    """Use an explicitly pinned policy for a new cohort without editing upstream policy."""
+    policy_root = config['benchmark'].get('runtime_policy_root')
+    if policy_root is None:
+        return None
+    from harness.e2e.runtime_policy_binding import (freeze_runtime_policy, resolve_runtime_policy,
+                                                   runtime_policy_coverage_errors)
+    policy = resolve_runtime_policy(config['benchmark']['repo'], ROOT / policy_root)
+    if policy.mode != 'protected' or runtime_policy_coverage_errors(policy):
+        raise ValueError('Explicit cohort policy must pass protected quarantine coverage')
+    return freeze_runtime_policy(output, policy)
 
 
 def preserve_and_collect(runner, output, config, metadata, previous_usage, input_commit):
@@ -304,12 +320,13 @@ def run(config, variant, repetition, chain):
                 save(output / 'durations.json', {'evaluation': time.monotonic() - started})
 
     first_output = runtime / (chain + '_s01')
+    binding = runtime_binding(config, first_output)
     runner = ContinuousRunner(workspace_root=workspace, milestone_id=milestones[0],
         srs_path=workspace / 'srs' / milestones[0] / 'SRS.md', output_dir=first_output,
         image_name=benchmark['skill_runtime_image_id'], agent_name='codex', agent_version=config['codex']['version'],
         model=config['codex']['model'], reasoning_effort=config['codex']['reasoning_effort'],
         timeout_ms=benchmark['timeout_seconds'] * 1000, main_branch=benchmark['main_branch'],
-        keep_container=True, trial_name=chain, max_retries=1)
+        keep_container=True, trial_name=chain, max_retries=1, runtime_policy_binding=binding)
     runner.agent_runner = TimedAgent(container_name=runner.container_name, workdir='/testbed',
         model=config['codex']['model'], timeout_ms=benchmark['timeout_seconds'] * 1000,
         log_dir=first_output / 'log', agent_name='codex', reasoning_effort=config['codex']['reasoning_effort'])

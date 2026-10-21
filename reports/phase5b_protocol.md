@@ -1,0 +1,13 @@
+# Phase 5b: paired Ponytail completion after registry isolation repair
+
+The user requested completion of the missing Ponytail observation. The original Phase 5 second Ponytail repetition stopped before inference because `static.crates.io` resolved to an explicitly allowed Fastly IPv4 address outside the old deny ranges. Its failure and all original results remain unchanged.
+
+This follow-up is a separate frozen cohort: fresh Ponytail and fresh baseline trajectories, each containing the same two linked tasks and one independent executor session. Both are labelled repetition 2 to identify the requested follow-up; they are paired only with each other. Neither is paired with the old Phase 5 baseline or Caveman. Ponytail runs first because it is the user's immediate priority. Each trajectory still begins at the original common tree, uses the same image/model/high effort, task text, native hooks, scoring, snapshots and Sonar protocol.
+
+The only runtime policy change is stronger IPv4 exclusions: preserve every original deny range and add the IPv4 ranges published by Fastly at https://api.fastly.com/public-ip-list, captured on 2026-10-21 in `profiles/runtime/registry_isolation_v2/fastly_ipv4.json`. This includes `199.232.0.0/16`, which covers the reproduced bypass. Other quarantine settings, Cargo offline mode, forbidden cache globs and exact answer-fetch probes remain unchanged. Docker disables IPv6 as before. The original upstream policy file is not edited.
+
+The runner accepts an explicit trial-bound policy using upstream's existing immutable policy binding. The binding is reused by executor and grader. The new policy files, protocol and runner are pinned in `phase5b_experiment.json`. The original implementation is recoverable at commit `8f3a5a2`; original frozen configurations and result fingerprints remain historical records.
+
+Before inference, a zero-model probe must verify registry isolation, the reproduced IP, the pinned image, IPv6 disabled and continued reachability of the OAuth model endpoint. Native Ponytail activation, same-session delivery, immutable Git submissions, production footprint, per-step token differences and grading use the existing checks. No additional image downloads or paid API access are authorized or needed. The earlier user-authorized percentage override remains; actual service rate limits still stop execution.
+
+Metrics and plots are published separately from Phase 5, with missing baseline or unfinished steps preserved as missing values. Earlier cohort results are not replaced. Quota and service availability may prevent immediate completion of the pair; already-produced artifacts remain durable.
