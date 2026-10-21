@@ -1,5 +1,7 @@
 # Continuous pilot: текущее состояние
 
+Для завершения Ponytail запущен отдельный Phase 5b с усиленной registry isolation: свежие Ponytail и baseline, по две правки, без смешивания с исходным cohort. Zero-model network preflight успешен. [Протокол](phase5b_protocol.md), [проверка сети](phase5b_network_preflight.json). Статусы каждой траектории доступны в основном реестре.
+
 Ограниченный host-driven runner реализован. Завершены 6 из 8 траекторий и 12 из 16 правок: первый повтор baseline/Caveman/Ponytail/plan и второй повтор baseline/Caveman. Все 12 grader решений приняты, collection errors отсутствуют, 12 Sonar scan завершены. Внутри каждой траектории проверены один executor thread, последовательные commits, точное чтение задания и immutable snapshot. Plan использует отдельный read-only planner перед каждым шагом. [Результаты](phase5_progress.md), [основной реестр](../EXPERIMENT_STATUS.md).
 
 Ponytail repetition 2 остановлен до вызова модели из-за quarantine preflight. `static.crates.io` разрешился в `199.232.142.137`, который допускается frozen firewall. Успешное TCP-соединение воспроизведено. Plan repetition 2 не запускался. Продолжение требует отдельного решения по исправлению и фиксации quarantine; менять условия внутри текущего frozen cohort нельзя. [Диагностика](phase5_quarantine_failure.md).

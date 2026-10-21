@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-21 17:01:41**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-21 17:05:16**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -14,7 +14,7 @@
 | Дополнение: serena_required | Отложен; приоритет — continuous без Serena | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
 | Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Пилот остановлен: quarantine preflight | Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation. [План и состояние](reports/continuous_feasibility.md) |
-| Phase 5b: baseline / Ponytail, усиленная изоляция registry | Проверка сети без модели | Две новые траектории по две правки; сравнение только внутри нового cohort. [Протокол](reports/phase5b_protocol.md) |
+| Phase 5b: baseline / Ponytail, усиленная изоляция registry | Trials выполняются | Траекторий завершено 0/2; ошибок 0. Метрики по шагам и протокол ниже. [Протокол](reports/phase5b_protocol.md) |
 | Phase 6: больший repo / повторы / full chain | Не запускался; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -31,7 +31,7 @@
 | phase5_caveman_r02 | caveman | 2 | 2/2 | Завершён |
 | phase5_ponytail_r02 | ponytail | 2 | 0/2 | Заблокирован: quarantine |
 | phase5_plan_r02 | plan | 2 | 0/2 | Заблокирован: quarantine |
-| phase5b_ponytail_r02 | ponytail | 2 | 0/2 | Запланирован |
+| phase5b_ponytail_r02 | ponytail | 2 | 0/2 | Выполняется |
 | phase5b_baseline_r02 | baseline | 2 | 0/2 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
