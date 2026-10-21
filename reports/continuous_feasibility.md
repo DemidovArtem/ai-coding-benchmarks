@@ -1,5 +1,7 @@
 # Continuous pilot: текущее состояние
 
+**Новая отмашка получена:** Phase 6 — четыре setup (baseline/Caveman/Ponytail/Serena), восемь изолированных траекторий по пять правок. Первый круг всех четырёх заканчивается до второго. [Протокол](phase6_protocol.md), [frozen config](phase6_experiment.json). Memories Serena сохраняются между шагами, но не переходят в другой повтор или grader. Следующий абзац описывает предыдущую остановку, уже снятую новой отмашкой.
+
 **Порядок работ изменён пользователем:** усреднённые графики из существующих результатов, отдельная проверка Serena, экспорт textual patches, commit/push. Новые benchmark experiments разрешены только после явной отмашки. Plan исключён из новых trials; текущий состав — baseline, Caveman, Ponytail. [Средние кривые](plots/MEAN_CURVES.md).
 
 Для завершения сравнения подготовлен отдельный Phase 5b с усиленной registry isolation: baseline, Caveman и Ponytail, по две правки, без смешивания с исходным cohort. Первый Ponytail остановлен квотой; новые trials ожидают отмашки. Zero-model network preflight успешен. [Протокол](phase5b_protocol.md), [проверка сети](phase5b_network_preflight.json). Статусы каждой траектории доступны в основном реестре.

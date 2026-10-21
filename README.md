@@ -2,6 +2,8 @@
 
 Реализация [плана](AI_Coding_Experiment_Codex_Handoff.md): SWE-Milestone, Codex с ChatGPT OAuth, шесть изолированных вариантов, Git и SonarQube.
 
+**Новый разрешённый этап:** baseline, Caveman, Ponytail и Serena, два независимых круга по пять последовательных правок. [Протокол Phase 6](reports/phase6_protocol.md), [средние кривые](reports/plots/MEAN_CURVES.md). Serena сохраняет memories внутри траектории и начинает cold в следующем повторе. Plan исключён из новых запусков.
+
 **[Живой реестр экспериментов — результаты, метрики и будущие этапы](EXPERIMENT_STATUS.md).** Обновляется после запуска, завершения, ошибки или изменения плана. Регенерация из сохранённых records: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`.
 
 **Isolated pilot v1 завершён:** все шесть variants реально выполнены через unchanged grader в двух matched cohorts; все получили resolved=true. [Итоговый отчёт](reports/pilot_report.md), [результаты](reports/summary.md), [проверка требований](reports/implementation_status.md). Continuous явно отложен по предусмотренному handoff варианту; Phase 6 не запускалась. Raw artifacts сохранены в ignored results/trials; /tmp содержит рабочие копии.
