@@ -1,0 +1,38 @@
+{
+  "trial_id": "phase6_serena_r01_s03_retry01",
+  "raw_resolved": false,
+  "filtered_resolved": true,
+  "raw_p2p": {
+    "success_count": 1092,
+    "failure": [
+      "glob::tests::re35"
+    ],
+    "missing": 0
+  },
+  "filtered_p2p": {
+    "success_count": 1081,
+    "failure": [],
+    "missing": 0
+  },
+  "observations": [
+    {
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "image_digest": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__milestone_seed_5f5da48_1_sub-02@sha256:b8ac7d51cfe11d93df3cde1017509d0cbdf784f50b3ebc6cfc3cd86ce5fa39a3",
+      "tag": "milestone-milestone_seed_5f5da48_1_sub-02-end",
+      "source": "crates/globset/src/glob.rs",
+      "declaration": "toregex!(re35, \"{a,b}\", r\"^(?:a|b)$\");"
+    },
+    {
+      "milestone_id": "milestone_seed_2924d0c_1",
+      "image_digest": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__milestone_seed_2924d0c_1@sha256:61ffeab751cae994ded9af639347fa6791ab8e7413e64ba2a616b3e3d0c96d09",
+      "tag": "milestone-milestone_seed_2924d0c_1-end",
+      "source": "crates/globset/src/glob.rs",
+      "declaration": "toregex!(re35, \"{a,b}\", r\"^(?:b|a)$\");"
+    }
+  ],
+  "failure_excerpt": "---- glob::tests::re35 stdout ----\n\nthread 'glob::tests::re35' panicked at crates/globset/src/glob.rs:1316:5:\nassertion `left == right` failed\n  left: \"(?-u)^(?:b|a)$\"\n right: \"(?-u)^(?:a|b)$\"",
+  "grader_log_local_path": "results/trials/phase6_serena_r01_s03_retry01/evaluation/artifacts/185144/eval_default.log",
+  "grader_log_sha256": "76ff36c7082f4dc25b8cd07d4c0087fa6a64342fe662d6710ebcf4306f01f90f",
+  "interpretation": "The sole raw P2P failure compares equivalent alternation serialization for {a,b}; successive task graders expect opposite branch order. This is not evidence of changed matching behavior. Canonical raw scores remain unchanged. Other raw-suite failures are not reclassified by this observation.",
+  "agent_feedback_provided": false
+}
