@@ -437,9 +437,11 @@
       "repetition": 1,
       "cohort": "phase6c",
       "state": "running",
-      "completed_steps": 0,
+      "completed_steps": 1,
       "total_steps": 3,
-      "active_step": 1
+      "active_step": 2,
+      "last_step": "phase6c_ponytail_r01_s01",
+      "failure_category": null
     },
     {
       "trial_id": "phase6c_baseline_r02",

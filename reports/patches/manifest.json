@@ -637,6 +637,35 @@
           "tree_replay_verified": true
         }
       }
+    },
+    {
+      "trial_id": "phase6c_ponytail_r01_s01",
+      "variant": "ponytail",
+      "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+      "trajectory_id": "phase6c_ponytail_r01",
+      "step": 1,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "2e4bed6386c1c77f6bb0f3922e6dc1733beac860",
+      "ending_tree": "c475d2a2a06536971e73732222ffdba77ca74a41",
+      "snapshot_sha256": "48cb28da595de19cb7fa838b71a35bc5c4a99d3e960205d3aab53677815a5df5",
+      "executor_session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "local_bundle": "results/trials/phase6c_ponytail_r01_s01/repository.bundle",
+      "bundle_sha256": "c37cc1b614929d8e24ceac9f853e8f057f226b6bb745e82acb827c3cd5586c8d",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase6c_ponytail_r01_s01.cumulative.patch",
+          "sha256": "20497b5a8e17d50227154e006476691b66b5254ca1f135da88578e43df31f311",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase6c_ponytail_r01_s01.incremental.patch",
+          "sha256": "20497b5a8e17d50227154e006476691b66b5254ca1f135da88578e43df31f311",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        }
+      }
     }
   ],
   "limits": "Patches restore source trees, including benchmark test masking. They do not restore a Codex session or provide an implemented continuation runner."

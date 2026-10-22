@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-23 00:09:17**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-23 00:17:53**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -56,7 +56,7 @@
 | phase6b_serena_r02 | serena | 2 | 0/5 | Исключён из новых запусков |
 | phase6c_baseline_r01 | baseline | 1 | 3/3 | Завершён |
 | phase6c_caveman_r01 | caveman | 1 | 3/3 | Завершён |
-| phase6c_ponytail_r01 | ponytail | 1 | 0/3 | Выполняется |
+| phase6c_ponytail_r01 | ponytail | 1 | 1/3 | Выполняется |
 | phase6c_baseline_r02 | baseline | 2 | 0/3 | Запланирован |
 | phase6c_caveman_r02 | caveman | 2 | 0/3 | Запланирован |
 | phase6c_ponytail_r02 | ponytail | 2 | 0/3 | Запланирован |
@@ -108,7 +108,8 @@
 | phase6c_caveman_r01_s01 | caveman | Завершён; grader принят | 15 | 15 | 0 | 30 | 2 |
 | phase6c_caveman_r01_s02 | caveman | Завершён; grader принят | 81 | 16 | 65 | 97 | 4 |
 | phase6c_caveman_r01_s03 | caveman | Завершён; grader не принят | 136 | 23 | 113 | 159 | 5 |
-| phase6c_ponytail_r01_s01 | ponytail | Выполняется | — | — | — | — | — |
+| phase6c_ponytail_r01_s01 | ponytail | Завершён; grader принят | 12 | 16 | -4 | 28 | 2 |
+| phase6c_ponytail_r01_s02 | ponytail | Выполняется | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -157,7 +158,8 @@ Input уже включает cached input: эти столбцы не скла�
 | phase6c_caveman_r01_s01 | 648 985 | 604 544 | 8 344 | 0 | 204.0 | 72.6 | 16.1 | 359.1 |
 | phase6c_caveman_r01_s02 | 1 026 873 | 999 936 | 12 775 | 0 | 292.9 | 66.5 | 16.1 | 383.8 |
 | phase6c_caveman_r01_s03 | 1 416 510 | 1 384 064 | 12 595 | 0 | 282.6 | 99.2 | 30.3 | 407.4 |
-| phase6c_ponytail_r01_s01 | — | — | — | — | — | — | — | — |
+| phase6c_ponytail_r01_s01 | 692 895 | 629 120 | 7 930 | 0 | 191.6 | 107.8 | 27.6 | 373.5 |
+| phase6c_ponytail_r01_s02 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -206,7 +208,8 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase6c_caveman_r01_s01 | Готов | 31 086 | 2 391 | 282 | 1 438 | — | — |
 | phase6c_caveman_r01_s02 | Готов | 31 130 | 2 408 | 282 | 1 438 | — | — |
 | phase6c_caveman_r01_s03 | Готов | 31 354 | 2 423 | 284 | 1 448 | — | — |
-| phase6c_ponytail_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| phase6c_ponytail_r01_s01 | Готов | 31 079 | 2 391 | 282 | 1 438 | — | — |
+| phase6c_ponytail_r01_s02 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 
