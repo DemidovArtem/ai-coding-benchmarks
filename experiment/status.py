@@ -101,7 +101,7 @@ def render(rows, pending, continuous, updated, serena_required=None):
               '[Средние кривые по правкам](reports/plots/MEAN_CURVES.md) · [Сохранённые patches](reports/patches/README.md) · [История графиков](reports/plots/README.md) · [Итоговый pilot report](reports/pilot_report.md) · [Состояние требований](reports/implementation_status.md) · [CSV](results/results.csv) · [JSONL](results/results.jsonl) · [SonarQube локально](http://127.0.0.1:9000)', '']
     if continuous.get('pilot_runs'):
         table = ['## Последовательный пилот: план запусков', '',
-                 'Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.', '',
+                 'Одна траектория = последовательные правки в одной сессии; число шагов указано в таблице. Повторы начинают новую сессию. Метрики разных frozen cohorts не смешиваются.', '',
                  '| Траектория | Variant | Повтор | Завершено шагов | Статус |', '| --- | --- | ---: | --- | --- |']
         states = {'planned':'Запланирован', 'waiting_user':'Ожидает отмашки пользователя', 'waiting_quota':'Ожидает квоты', 'blocked_quarantine':'Заблокирован: quarantine', 'excluded':'Исключён из новых запусков', 'running':'Выполняется', 'finished':'Завершён', 'failed':'Ошибка; данные сохранены'}
         for run in continuous['pilot_runs']:
@@ -118,7 +118,7 @@ def main():
     rows = [json.loads(line) for line in (ROOT/'results/results.jsonl').read_text().splitlines() if line.strip()]
     known = {r['trial_id'] for r in rows}; pending = {}
     config = json.loads((ROOT/'experiment.yaml').read_text())
-    for directory in (Path(config['resources']['runtime_root']), ROOT/'results/trials', ROOT/'results/runtime/phase6'):
+    for directory in (Path(config['resources']['runtime_root']), ROOT/'results/trials', *(ROOT/'results/runtime').glob('*')):
         for path in directory.glob('*/run_metadata.json'):
             row = json.loads(path.read_text()); trial = path.parent.name
             if trial not in known and row.get('phase') == 'trial':

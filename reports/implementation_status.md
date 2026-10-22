@@ -1,6 +1,6 @@
 # Состояние реализации
 
-Текущий статус: continuous runner, source checkpoints, средние кривые и Serena warm-memory continuity реализованы. Phase 5 завершила 12 submissions; Phase 6 сохранила четыре Serena submissions и остановилась на несовместимости grader overlay четвёртого шага. Готовность полного 2×5 ещё не заявляется: исправленный grading режим и совместимый набор задач прошли zero-model preflight; новый Phase 6b cohort заморожен отдельно. [Живой реестр](../EXPERIMENT_STATUS.md), [Phase 6 evidence](phase6_progress.md), [новый протокол](phase6b_protocol.md).
+Текущий статус: continuous runner, source checkpoints, средние кривые и Serena warm-memory continuity реализованы. Phase 5 завершила 12 submissions; Phase 6 сохранила три собранных шага Serena и четвёртую submission с ошибкой grader. Пользователь сократил дальнейшие runs: baseline/Caveman/Ponytail, два круга по три правки. [Текущий протокол](phase6c_protocol.md), [живой реестр](../EXPERIMENT_STATUS.md), [проверенный checkpoint Serena](serena_checkpoint_retention.json). Полная матрица ещё не выполнена.
 
 ## Исторический isolated pilot v1
 

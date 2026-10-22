@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Generate averaged curves from existing runs, verify Serena, preserve text patches, commit and push. Do not start new benchmark experiments until the user explicitly authorizes them.",
+  "next_step": "Run Phase 6c three-edit workflows; keep Serena checkpoint unchanged.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -260,135 +260,206 @@
       "variant": "baseline",
       "repetition": 1,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_caveman_r01",
       "variant": "caveman",
       "repetition": 1,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_ponytail_r01",
       "variant": "ponytail",
       "repetition": 1,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_serena_r02",
       "variant": "serena",
       "repetition": 2,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_baseline_r02",
       "variant": "baseline",
       "repetition": 2,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_caveman_r02",
       "variant": "caveman",
       "repetition": 2,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6_ponytail_r02",
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase6",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_baseline_r01",
       "variant": "baseline",
       "repetition": 1,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "failed",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "active_step": null,
+      "last_step": "phase6b_baseline_r01_s01",
+      "failure_category": "continuous_step_failure"
     },
     {
       "trial_id": "phase6b_caveman_r01",
       "variant": "caveman",
       "repetition": 1,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_ponytail_r01",
       "variant": "ponytail",
       "repetition": 1,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_serena_r01",
       "variant": "serena",
       "repetition": 1,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_baseline_r02",
       "variant": "baseline",
       "repetition": 2,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_caveman_r02",
       "variant": "caveman",
       "repetition": 2,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_ponytail_r02",
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase6b",
-      "state": "planned",
+      "state": "excluded",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
     },
     {
       "trial_id": "phase6b_serena_r02",
       "variant": "serena",
       "repetition": 2,
       "cohort": "phase6b",
+      "state": "excluded",
+      "completed_steps": 0,
+      "total_steps": 5,
+      "exclusion_reason": "User shortened active scope to three edits for baseline, Caveman and Ponytail; Serena retained without further inference."
+    },
+    {
+      "trial_id": "phase6c_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "cohort": "phase6c",
       "state": "planned",
       "completed_steps": 0,
-      "total_steps": 5
+      "total_steps": 3
+    },
+    {
+      "trial_id": "phase6c_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "cohort": "phase6c",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 3
+    },
+    {
+      "trial_id": "phase6c_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "cohort": "phase6c",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 3
+    },
+    {
+      "trial_id": "phase6c_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "cohort": "phase6c",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 3
+    },
+    {
+      "trial_id": "phase6c_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "cohort": "phase6c",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 3
+    },
+    {
+      "trial_id": "phase6c_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "cohort": "phase6c",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 3
     }
   ],
   "image_download_authorization": "User instruction: запусти, проверь, following the exact two-image budget request.",
@@ -445,19 +516,28 @@
     },
     "phase6": {
       "title": "Phase 6: baseline / Caveman / Ponytail / Serena, 2×5",
-      "label": "Пилот выполнен частично",
-      "status": "partial",
-      "summary": "Траекторий завершено 0/8; ошибок 1. Метрики по шагам и протокол ниже.",
+      "label": "Дальнейшие запуски отменены",
+      "status": "superseded",
+      "summary": "Serena: три шага собраны; четвёртая submission сохранена с ошибкой grader. Checkpoint и 10 memories проверены.",
       "protocol": "reports/phase6_protocol.md",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     },
     "phase6b": {
       "title": "Phase 6b: исправленный grader и совместимые 5 задач, 2×5",
-      "label": "Заморожен; preflight пройден",
-      "status": "prepared",
-      "summary": "8 независимых траекторий, 40 шагов. Source pruning включён; compatible maintenance fixes заменяет after-context. Первым запускается baseline; новые model calls ещё не начались.",
+      "label": "Дальнейшие запуски отменены",
+      "status": "superseded",
+      "summary": "Baseline остановился до модели: installer HTTP 404. Пятишаговая матрица заменена тремя правками; история сохранена.",
       "protocol": "reports/phase6b_protocol.md",
+      "same_executor_session_verified": false,
+      "continuous_result_claimed": false
+    },
+    "phase6c": {
+      "title": "Phase 6c: baseline / Caveman / Ponytail, 2×3",
+      "status": "planned",
+      "label": "Авторизован; очередь подготовлена",
+      "summary": "Первый круг: по три правки каждого подхода; затем второй независимый круг. Serena не перезапускается.",
+      "protocol": "reports/phase6c_protocol.md",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     }
@@ -465,8 +545,7 @@
   "active_variants": [
     "baseline",
     "caveman",
-    "ponytail",
-    "serena"
+    "ponytail"
   ],
   "excluded_future_variants": [
     "plan",
@@ -474,5 +553,5 @@
   ],
   "scope_authorization": "User requested only baseline, Caveman and Ponytail, mean curves over edits, and a separate working Serena check.",
   "new_trials_require_explicit_user_signal": false,
-  "latest_authorization": "User explicitly authorized four variants including Serena, five sequential edits each, then a second round; isolate independent trials and retain Serena memories within a trajectory."
+  "latest_authorization": "2026-10-22: retain three Serena edits, run baseline/Caveman/Ponytail for three edits each; retain the previously authorized second independent round."
 }

@@ -1,0 +1,11 @@
+{
+  "trial_id": "phase6_serena_r01_s03_retry01",
+  "ending_commit": "6a402155d716d43e52911dc6deddf185505c7919",
+  "snapshot_sha256": "342c29e076bd8d976ab0a1402a8fe34e1488c48100eb4290f45ded71ac5cf85d",
+  "snapshot_verified": true,
+  "bundle_verified": true,
+  "patches_verified": true,
+  "memory_files_verified": 10,
+  "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+  "limitation": "The retained thread has already seen step four. Exact restart from step three needs restored source/memories and a separate session; no model run started by this verification."
+}

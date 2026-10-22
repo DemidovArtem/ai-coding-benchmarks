@@ -1,0 +1,156 @@
+{
+  "experiment_id": "ripgrep-five-edit-four-workflows-pruned-v2",
+  "trial_id": "phase6b_baseline_r01_s01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "baseline",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": null,
+  "ending_commit": null,
+  "starting_tree": null,
+  "effective_profile": {},
+  "duration_seconds": 19.93080426600045,
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-22T20:42:51.620880+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 78,
+            "windowDurationMins": 300,
+            "resetsAt": 1792707943
+          },
+          "secondary": {
+            "usedPercent": 12,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793294743
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-22T20:43:11.551698+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 78,
+            "windowDurationMins": 300,
+            "resetsAt": 1792707943
+          },
+          "secondary": {
+            "usedPercent": 12,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793294743
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6b_baseline_r01_s01",
+  "snapshot_sha256": null,
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "implementation_commit": "1fc48f95523c554304bb3f1d477dc911b06b35df",
+  "trial_state": "failed",
+  "trial_failure_category": "continuous_step_failure",
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "continuous_step_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "no completed step counters"
+    },
+    "total": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null
+    },
+    "executor_cumulative": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": null,
+    "evaluation": null,
+    "sonar": null
+  },
+  "setup_fingerprint": "c53820c8b7c305ea62470dc29a8263843c8c7b6b680c3d50364513d8eb0bfb33",
+  "continuous": {
+    "trajectory_id": "phase6b_baseline_r01",
+    "step": 1,
+    "repetition": 1,
+    "executor_session_id": null,
+    "input_commit": null,
+    "dispatch": null,
+    "initial_starting_commit": null
+  }
+}

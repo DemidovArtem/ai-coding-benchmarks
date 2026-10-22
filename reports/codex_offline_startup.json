@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+  "actual_cli_version": "0.163.0",
+  "inference_calls": 0,
+  "readonly_auth_mount_only": true,
+  "kind": "runtime setup smoke, not a measured model task"
+}

@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-22 22:41:11**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-22 23:26:28**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -12,17 +12,18 @@
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Работает: 13 MCP calls, 2 symbol calls, 6 memories | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
-| Текущий состав экспериментов | baseline, caveman, ponytail, serena | Plan исключён из новых запусков; прежние результаты сохранены. |
+| Текущий состав экспериментов | baseline, caveman, ponytail | Plan исключён из новых запусков; прежние результаты сохранены. |
 | Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Пилот остановлен: quarantine preflight | Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 5b: baseline / Caveman / Ponytail | Заменён авторизованной Phase 6 | Новые двухшаговые trials не запускаются: пользователь расширил план до четырёх setups, двух кругов по пять правок. Прежний quota failure сохранён. [Протокол](reports/phase5b_protocol.md) |
-| Phase 6: baseline / Caveman / Ponytail / Serena, 2×5 | Пилот выполнен частично | Траекторий завершено 0/8; ошибок 1. Метрики по шагам и протокол ниже. [Протокол](reports/phase6_protocol.md) |
-| Phase 6b: исправленный grader и совместимые 5 задач, 2×5 | Заморожен; preflight пройден | 8 независимых траекторий, 40 шагов. Source pruning включён; compatible maintenance fixes заменяет after-context. Первым запускается baseline; новые model calls ещё не начались. [Протокол](reports/phase6b_protocol.md) |
+| Phase 6: baseline / Caveman / Ponytail / Serena, 2×5 | Дальнейшие запуски отменены | Serena: три шага собраны; четвёртая submission сохранена с ошибкой grader. Checkpoint и 10 memories проверены. [Протокол](reports/phase6_protocol.md) |
+| Phase 6b: исправленный grader и совместимые 5 задач, 2×5 | Дальнейшие запуски отменены | Baseline остановился до модели: installer HTTP 404. Пятишаговая матрица заменена тремя правками; история сохранена. [Протокол](reports/phase6b_protocol.md) |
+| Phase 6c: baseline / Caveman / Ponytail, 2×3 | Авторизован; очередь подготовлена | Первый круг: по три правки каждого подхода; затем второй независимый круг. Serena не перезапускается. [Протокол](reports/phase6c_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
 
-Одна траектория = две связанные правки в одной сессии. Повторы начинают новую сессию. Метрики каждого шага приведены выше; сравнение с Phase 2/3 не смешивается.
+Одна траектория = последовательные правки в одной сессии; число шагов указано в таблице. Повторы начинают новую сессию. Метрики разных frozen cohorts не смешиваются.
 
 | Траектория | Variant | Повтор | Завершено шагов | Статус |
 | --- | --- | ---: | --- | --- |
@@ -38,21 +39,27 @@
 | phase5b_baseline_r02 | baseline | 2 | 0/2 | Исключён из новых запусков |
 | phase5b_caveman_r02 | caveman | 2 | 0/2 | Исключён из новых запусков |
 | phase6_serena_r01 | serena | 1 | 3/5 | Ошибка; данные сохранены |
-| phase6_baseline_r01 | baseline | 1 | 0/5 | Запланирован |
-| phase6_caveman_r01 | caveman | 1 | 0/5 | Запланирован |
-| phase6_ponytail_r01 | ponytail | 1 | 0/5 | Запланирован |
-| phase6_serena_r02 | serena | 2 | 0/5 | Запланирован |
-| phase6_baseline_r02 | baseline | 2 | 0/5 | Запланирован |
-| phase6_caveman_r02 | caveman | 2 | 0/5 | Запланирован |
-| phase6_ponytail_r02 | ponytail | 2 | 0/5 | Запланирован |
-| phase6b_baseline_r01 | baseline | 1 | 0/5 | Запланирован |
-| phase6b_caveman_r01 | caveman | 1 | 0/5 | Запланирован |
-| phase6b_ponytail_r01 | ponytail | 1 | 0/5 | Запланирован |
-| phase6b_serena_r01 | serena | 1 | 0/5 | Запланирован |
-| phase6b_baseline_r02 | baseline | 2 | 0/5 | Запланирован |
-| phase6b_caveman_r02 | caveman | 2 | 0/5 | Запланирован |
-| phase6b_ponytail_r02 | ponytail | 2 | 0/5 | Запланирован |
-| phase6b_serena_r02 | serena | 2 | 0/5 | Запланирован |
+| phase6_baseline_r01 | baseline | 1 | 0/5 | Исключён из новых запусков |
+| phase6_caveman_r01 | caveman | 1 | 0/5 | Исключён из новых запусков |
+| phase6_ponytail_r01 | ponytail | 1 | 0/5 | Исключён из новых запусков |
+| phase6_serena_r02 | serena | 2 | 0/5 | Исключён из новых запусков |
+| phase6_baseline_r02 | baseline | 2 | 0/5 | Исключён из новых запусков |
+| phase6_caveman_r02 | caveman | 2 | 0/5 | Исключён из новых запусков |
+| phase6_ponytail_r02 | ponytail | 2 | 0/5 | Исключён из новых запусков |
+| phase6b_baseline_r01 | baseline | 1 | 0/5 | Ошибка; данные сохранены |
+| phase6b_caveman_r01 | caveman | 1 | 0/5 | Исключён из новых запусков |
+| phase6b_ponytail_r01 | ponytail | 1 | 0/5 | Исключён из новых запусков |
+| phase6b_serena_r01 | serena | 1 | 0/5 | Исключён из новых запусков |
+| phase6b_baseline_r02 | baseline | 2 | 0/5 | Исключён из новых запусков |
+| phase6b_caveman_r02 | caveman | 2 | 0/5 | Исключён из новых запусков |
+| phase6b_ponytail_r02 | ponytail | 2 | 0/5 | Исключён из новых запусков |
+| phase6b_serena_r02 | serena | 2 | 0/5 | Исключён из новых запусков |
+| phase6c_baseline_r01 | baseline | 1 | 0/3 | Запланирован |
+| phase6c_caveman_r01 | caveman | 1 | 0/3 | Запланирован |
+| phase6c_ponytail_r01 | ponytail | 1 | 0/3 | Запланирован |
+| phase6c_baseline_r02 | baseline | 2 | 0/3 | Запланирован |
+| phase6c_caveman_r02 | caveman | 2 | 0/3 | Запланирован |
+| phase6c_ponytail_r02 | ponytail | 2 | 0/3 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 
@@ -94,6 +101,7 @@
 | phase6_serena_r01_s03 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 | phase6_serena_r01_s03_retry01 | serena | Завершён; grader не принят | 133 | 21 | 112 | 154 | 5 |
 | phase6_serena_r01_s04 | serena | Ошибка; результат сохранён | 214 | 37 | 177 | 251 | 7 |
+| phase6b_baseline_r01_s01 | baseline | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -135,6 +143,7 @@ Input уже включает cached input: эти столбцы не скла�
 | phase6_serena_r01_s03 | — | — | — | 0 | — | — | — | 44.0 |
 | phase6_serena_r01_s03_retry01 | 2 189 873 | 2 050 432 | 9 896 | 0 | 272.2 | 101.3 | 29.9 | 402.2 |
 | phase6_serena_r01_s04 | 4 249 057 | 4 202 496 | 21 486 | 0 | 577.6 | 163.9 | 32.3 | 770.3 |
+| phase6b_baseline_r01_s01 | — | — | — | 0 | — | — | — | 19.9 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -176,6 +185,7 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase6_serena_r01_s03 | Не выполнен | — | — | — | — | — | — |
 | phase6_serena_r01_s03_retry01 | Готов | 31 298 | 2 426 | 282 | 1 438 | — | 10 |
 | phase6_serena_r01_s04 | Готов | 31 388 | 2 430 | 282 | 1 438 | — | 11 |
+| phase6b_baseline_r01_s01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 

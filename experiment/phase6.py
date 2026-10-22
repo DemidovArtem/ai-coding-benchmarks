@@ -19,9 +19,12 @@ from experiment.status import main as refresh_status
 ORDER = ('serena', 'baseline', 'caveman', 'ponytail')
 
 
-def schedule():
-    return [(variant, repetition, f'phase6_{variant}_r{repetition:02d}')
-            for repetition in (1, 2) for variant in ORDER]
+def schedule(config=None):
+    pilot = config['benchmark']['continuous_pilot'] if config else {}
+    cohort = pilot.get('cohort', 'phase6')
+    return [(variant, repetition, f'{cohort}_{variant}_r{repetition:02d}')
+            for repetition in range(1, pilot.get('repetitions', 2) + 1)
+            for variant in (config['variants'] if config else ORDER)]
 
 
 def analyze(record):
@@ -54,9 +57,11 @@ def main():
     args = parser.parse_args()
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
     config = json.loads(args.config.read_text())
-    if config.get('stage') != 'phase6_frozen' or config['variants'] != list(ORDER):
-        raise ValueError('The frozen four-workflow matrix is required')
-    for variant, repetition, chain in schedule():
+    expected = list(ORDER) if config.get('stage') == 'phase6_frozen' else ['baseline', 'caveman', 'ponytail']
+    if config.get('stage') not in ('phase6_frozen', 'phase6c_frozen') or config['variants'] != expected:
+        raise ValueError('A frozen authorized workflow matrix is required')
+    os.environ.pop('SWE_MILESTONE_RESIDUE_PRUNE', None)
+    for variant, repetition, chain in schedule(config):
         plan = json.loads((ROOT / 'reports/continuous_feasibility.json').read_text())
         progress = next(row for row in plan['pilot_runs'] if row['trial_id'] == chain)
         if progress['state'] == 'finished':
