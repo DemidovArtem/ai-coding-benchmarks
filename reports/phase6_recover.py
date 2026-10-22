@@ -46,6 +46,22 @@ def verify_checkpoint(metadata, previous, config, sidecar, snapshot):
         raise ValueError('Submitted snapshot integrity changed')
 
 
+def withheld_output(runtime, name):
+    """Retain each quota-observation failure; never retry a turn that reached inference."""
+    output = runtime / name
+    attempt = 0
+    while output.exists():
+        metadata = load(output / 'run_metadata.json', {})
+        quota = load(output / 'quota_before_executor.json', {})
+        if (metadata.get('state') != 'failed' or quota.get('status') != 'timeout'
+                or any((output / p).exists() for p in ('execution.json', 'log/agent_stdout.txt',
+                                                      'log/session_history.jsonl', 'log/resume_message.txt'))):
+            raise ValueError('Existing step may have reached inference; automatic replay forbidden')
+        attempt += 1
+        output = runtime / (name + '_retry' + str(attempt).zfill(2))
+    return output
+
+
 def main():
     config = load(ROOT / 'reports/phase6_experiment.json')
     validate(config)
@@ -174,10 +190,11 @@ def main():
     submissions = {milestones[0]: previous['ending_commit'], milestones[1]: sidecar['agent_tag_commit']}
     if collected:
         verify_memory_boundary(memory_state(runner.container_setup), previous_memory)
-        analyze(recovered)
+        if recovered['sonar'].get('analysis_ok') is not True:
+            analyze(recovered)
         previous = recovered
     for index in range(3 if collected else 2, 6):
-        output = runtime / (chain + '_s' + str(index).zfill(2))
+        output = withheld_output(runtime, chain + '_s' + str(index).zfill(2)) if index > 2 else output
         if index > 2:
             output.mkdir(mode=0o700, exist_ok=False)
         runner.milestone_id = milestones[index - 1]

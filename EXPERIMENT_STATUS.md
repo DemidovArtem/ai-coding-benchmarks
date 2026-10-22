@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-22 21:44:17**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-22 21:54:29**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -82,6 +82,7 @@
 | phase5b_ponytail_r02_s01 | ponytail | Ошибка; результат сохранён | — | — | — | — | — |
 | phase6_serena_r01_s01 | serena | Завершён; grader принят | 12 | 12 | 0 | 24 | 2 |
 | phase6_serena_r01_s02 | serena | Завершён; grader принят | 84 | 13 | 71 | 97 | 4 |
+| phase6_serena_r01_s03 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -120,6 +121,7 @@ Input уже включает cached input: эти столбцы не скла�
 | phase5b_ponytail_r02_s01 | — | — | — | 0 | — | — | — | 183.1 |
 | phase6_serena_r01_s01 | 1 202 433 | 1 128 960 | 8 691 | 0 | 231.1 | 112.2 | 30.4 | 484.4 |
 | phase6_serena_r01_s02 | 1 428 783 | 1 400 320 | 13 143 | 0 | 289.9 | 100.5 | 38.7 | 392.1 |
+| phase6_serena_r01_s03 | — | — | — | 0 | — | — | — | 44.0 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -158,6 +160,7 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase5b_ponytail_r02_s01 | Не выполнен | — | — | — | — | — | — |
 | phase6_serena_r01_s01 | Готов | 31 086 | 2 392 | 282 | 1 438 | — | 7 |
 | phase6_serena_r01_s02 | Готов | 31 128 | 2 409 | 282 | 1 438 | — | 8 |
+| phase6_serena_r01_s03 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 

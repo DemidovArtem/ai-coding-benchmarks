@@ -23,6 +23,11 @@
 | phase5_ponytail_r02_s01 | ponytail | 2 / 1 | gpt-6.1-sol / high | b9bf8525af17 | failed / resolved=None |
 | phase5b_ponytail_r02_s01 | ponytail | 2 / 1 | gpt-6.1-sol / high | a9f194e85949 | failed / resolved=None |
 
+| phase6_serena_r01_s01 | serena | 1 / 1 | gpt-6.1-sol / high | 5b12ad30f6f6 | finished / resolved=True |
+| phase6_serena_r01_s02 | serena | 1 / 2 | gpt-6.1-sol / high | 5b12ad30f6f6 | finished / resolved=True |
+
 Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
 
 Для каждого исходного measured trial CLI 0.163.0, model gpt-6.1-sol, effort high и общий runtime зафиксированы в frozen configs. Нулевые/отсутствующие поля в JSON не подменяются текущими настройками host.
+
+Phase 6 использует прежний model/runtime и усиленную registry policy, но новый scope: четыре workflows и пять задач, два независимых круга. Serena cold memories создаются заново в каждом круге, warm memories сохраняются между задачами. Перезапуск grader второго шага после перезагрузки хоста зафиксирован отдельно; inference не повторялся.

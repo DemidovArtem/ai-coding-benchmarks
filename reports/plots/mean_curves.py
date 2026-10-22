@@ -89,7 +89,9 @@ def main():
                 suffix='mean_deltas' if paired else 'mean_curves'
                 extra='_'+cohort[:8] if len(cohorts)>1 else ''
                 fig.savefig(HERE/(suffix+extra+'.png'),dpi=120,facecolor='white')
-                fig.savefig(HERE/(suffix+extra+'.svg'),facecolor='white')
+                svg=HERE/(suffix+extra+'.svg')
+                fig.savefig(svg,facecolor='white')
+                svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
                 pdf.savefig(fig,facecolor='white');plt.close(fig)
     print('Mean curves rendered for',len(cohorts),'separate cohort(s).')
 
