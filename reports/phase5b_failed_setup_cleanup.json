@@ -1,0 +1,12 @@
+{
+  "container": "milestone_seed_5f5da48_1_sub-01-phase5b_ponytail_r02-runner",
+  "source_archive": "results/retained_workspaces/phase5b_ponytail_r02_failed/source-with-git.tar.gz",
+  "archive_sha256": "83404d39bb02556f6ec8993ee65c5314590f3e0fa216dab112c68d6b11c3cea0",
+  "archive_bytes": 3843742,
+  "git_and_uncommitted_source_preserved": true,
+  "excluded": "regenerable /testbed/target only",
+  "executor_session_id": null,
+  "sessions_found": false,
+  "failed_record": "reports/phase5b_ponytail_r02_s01.json",
+  "action": "remove obsolete quota-failed container after verified source archive; all failure logs retained"
+}

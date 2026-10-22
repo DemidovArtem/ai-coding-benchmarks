@@ -1,0 +1,9 @@
+{
+  "container": "milestone_seed_5f5da48_1_sub-01-phase6b_baseline_r01-runner",
+  "source_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "working_tree_clean": true,
+  "executor_sessions": "absent",
+  "model_calls": 0,
+  "failed_record": "reports/phase6b_baseline_r01_s01.json",
+  "action": "remove failed setup container only; reproducible common source, no unique changes or model history"
+}
