@@ -837,5 +837,185 @@
       "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
       "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c"
     }
+  },
+  {
+    "trial_id": "phase6_serena_r01_s03",
+    "variant": "serena",
+    "repetition": 1,
+    "step": 3,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": null,
+    "quota_observation_status": "timeout",
+    "failure_category": "operational_recovery_failure",
+    "profile_config_sha256": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+    "skill_version": "1.6.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": "2026-10-22T19:52:13.695274+00:00",
+    "operational_recovery": {
+      "observed_at": "2026-10-22T19:41:00.226999+00:00",
+      "original_metadata": {
+        "phase": "trial",
+        "trial_kind": "continuous_step",
+        "measured_comparison": true,
+        "state": "running",
+        "variant": "serena",
+        "trajectory_id": "phase6_serena_r01",
+        "step": 2,
+        "repetition": 1,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "started_at": "2026-10-21T21:41:17.173584+00:00",
+        "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+        "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+        "implementation_commit": "3df99528f007947ed786f4bc5ea69bdc1d238b62"
+      },
+      "interrupted_stage": "grader",
+      "inference_replayed": false,
+      "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
+      "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c",
+      "continuation_adapter_sha256": "df4d348ab0887b6bc161611856b6ce752eec81523402372ee87ae5bee6918431"
+    }
+  },
+  {
+    "trial_id": "phase6_serena_r01_s03_retry01",
+    "variant": "serena",
+    "repetition": 1,
+    "step": 3,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "snapshot_sha256": "342c29e076bd8d976ab0a1402a8fe34e1488c48100eb4290f45ded71ac5cf85d",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 28,
+          "windowDurationMins": 300,
+          "resetsAt": 1792707943
+        },
+        "secondary": {
+          "usedPercent": 4,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793294743
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "quota_observation_status": "observed",
+    "failure_category": null,
+    "profile_config_sha256": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+    "skill_version": "1.6.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T19:55:16.510443+00:00",
+    "operational_recovery": {
+      "observed_at": "2026-10-22T19:41:00.226999+00:00",
+      "original_metadata": {
+        "phase": "trial",
+        "trial_kind": "continuous_step",
+        "measured_comparison": true,
+        "state": "running",
+        "variant": "serena",
+        "trajectory_id": "phase6_serena_r01",
+        "step": 2,
+        "repetition": 1,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "started_at": "2026-10-21T21:41:17.173584+00:00",
+        "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+        "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+        "implementation_commit": "3df99528f007947ed786f4bc5ea69bdc1d238b62"
+      },
+      "interrupted_stage": "grader",
+      "inference_replayed": false,
+      "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
+      "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c",
+      "continuation_adapter_sha256": "c563f8efa7942d76eaca16b6998e2961e1616af7cd641f5106cfa9eb1a2b4f8f"
+    }
+  },
+  {
+    "trial_id": "phase6_serena_r01_s04",
+    "variant": "serena",
+    "repetition": 1,
+    "step": 4,
+    "state": "failed",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "snapshot_sha256": "f66625849b4daf5609d08bcb70f3a1bedd50b6ef8ef53081e7522d1176ac288c",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 38,
+          "windowDurationMins": 300,
+          "resetsAt": 1792707943
+        },
+        "secondary": {
+          "usedPercent": 6,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793294743
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "quota_observation_status": "observed",
+    "failure_category": "evaluation_failure",
+    "profile_config_sha256": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+    "skill_version": "1.6.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T20:03:30.299654+00:00",
+    "operational_recovery": {
+      "observed_at": "2026-10-22T19:41:00.226999+00:00",
+      "original_metadata": {
+        "phase": "trial",
+        "trial_kind": "continuous_step",
+        "measured_comparison": true,
+        "state": "running",
+        "variant": "serena",
+        "trajectory_id": "phase6_serena_r01",
+        "step": 2,
+        "repetition": 1,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "started_at": "2026-10-21T21:41:17.173584+00:00",
+        "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+        "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+        "implementation_commit": "3df99528f007947ed786f4bc5ea69bdc1d238b62"
+      },
+      "interrupted_stage": "grader",
+      "inference_replayed": false,
+      "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
+      "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c",
+      "continuation_adapter_sha256": "c563f8efa7942d76eaca16b6998e2961e1616af7cd641f5106cfa9eb1a2b4f8f"
+    }
   }
 ]

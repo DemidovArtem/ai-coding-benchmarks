@@ -6,7 +6,7 @@
 
 **[Живой реестр экспериментов — результаты, метрики и будущие этапы](EXPERIMENT_STATUS.md).** Обновляется после запуска, завершения, ошибки или изменения плана. Регенерация из сохранённых records: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`.
 
-**Isolated pilot v1 завершён:** все шесть variants реально выполнены через unchanged grader в двух matched cohorts; все получили resolved=true. [Итоговый отчёт](reports/pilot_report.md), [результаты](reports/summary.md), [проверка требований](reports/implementation_status.md). Continuous явно отложен по предусмотренному handoff варианту; Phase 6 не запускалась. Raw artifacts сохранены в ignored results/trials; /tmp содержит рабочие копии.
+**Isolated pilot v1 завершён:** все шесть variants реально выполнены через unchanged grader в двух matched cohorts; все получили resolved=true. [Итоговый отчёт](reports/pilot_report.md), [результаты](reports/summary.md), [проверка требований](reports/implementation_status.md). На том историческом этапе continuous был отложен. Текущие continuous trials и их ограничения отражены в живом реестре ниже. Raw artifacts сохранены в ignored results/trials; /tmp содержит рабочие копии.
 
 - [Аудит среды и следующие действия](environment_report.md)
 - [Закреплённые параметры](experiment.yaml) — JSON, совместимый с YAML 1.2; неизвестные значения остаются `null`.
@@ -94,4 +94,8 @@ Collector не запускает grader заново. Он проверяет s
 
 Ponytail/Caveman имеют реальные native-hook audits. Serena прошла Codex MCP symbol smoke после фикса Rust env и required startup. В measured trial Serena не вызвала MCP и не выполнила onboarding: usage=0, memories=0, при подтверждённом server/RustAnalyzer startup. Польза MCP/памяти этим запуском не установлена.
 
-Continuous pilot пока отложен: [точный blocker, выбранная DAG-пара и оценка 3–5 дней](reports/continuous_feasibility.md). Большой Phase 6 запуск не выполнялся.
+Continuous реализован: Phase 5 дала 12 принятых двухшаговых submissions в историческом cohort. В Phase 6 подтверждены реальные Serena calls и сохранение memories между правками; четвёртый grader остановился на source-overlay collision. [Результаты и диагностика](reports/phase6_progress.md). Для исправленной пятишаговой матрицы подготовлен [отдельный протокол Phase 6b](reports/phase6b_protocol.md); прежние frozen cohorts не смешиваются.
+
+## Пятишаговая матрица Phase 6b
+
+[Отдельная frozen конфигурация](reports/phase6b_experiment.json) задаёт baseline, Caveman, Ponytail и Serena, два круга по пять задач. Запуск подготовленной очереди: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.phase6b`. Выполненные траектории пропускаются; незавершённая траектория требует явного recovery и не запускается заново под прежним ID. [Zero-model preflight](reports/phase6b_preflight.json), [порядок и ограничения](reports/phase6b_protocol.md). Актуальное число выполненных шагов — только в [живом реестре](EXPERIMENT_STATUS.md).

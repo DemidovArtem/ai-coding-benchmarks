@@ -1,6 +1,6 @@
 {
   "status": "blocked_quarantine",
-  "label": "\u041f\u0438\u043b\u043e\u0442 \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d: quarantine preflight",
+  "label": "Пилот остановлен: quarantine preflight",
   "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
   "selected_milestones": [
     "milestone_seed_5f5da48_1_sub-01",
@@ -55,7 +55,7 @@
   ],
   "serena_required": false,
   "first_slice": "Exact two-task continuous baseline with one executor session and per-step grading, Git and Sonar collection; then add planner dispatch/ack for plan and goal_plan.",
-  "summary": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/8 \u0442\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439, 12/16 \u043f\u0440\u0430\u0432\u043e\u043a; \u0432\u0441\u0435 12 \u043f\u0440\u0438\u043d\u044f\u0442\u044b grader \u0438 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b Sonar. Ponytail \u0438 plan repetition 2 \u0437\u0430\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u044b \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u043e\u0439 \u0441\u0435\u0442\u0438 \u0434\u043e model invocation.",
+  "summary": "Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation.",
   "execution_protocol": "reports/phase5_protocol.md",
   "pilot_runs": [
     {
@@ -247,10 +247,10 @@
       "variant": "serena",
       "repetition": 1,
       "cohort": "phase6",
-      "state": "running",
+      "state": "failed",
       "completed_steps": 3,
       "total_steps": 5,
-      "active_step": 4,
+      "active_step": null,
       "last_step": "phase6_serena_r01_s03_retry01",
       "failure_category": "operational_recovery_failure",
       "operational_recovery": "host restart after step 2 submission; no inference replay"
@@ -317,9 +317,81 @@
       "state": "planned",
       "completed_steps": 0,
       "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_serena_r01",
+      "variant": "serena",
+      "repetition": 1,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
+    },
+    {
+      "trial_id": "phase6b_serena_r02",
+      "variant": "serena",
+      "repetition": 2,
+      "cohort": "phase6b",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 5
     }
   ],
-  "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
+  "image_download_authorization": "User instruction: запусти, проверь, following the exact two-image budget request.",
   "quota_stop": {
     "observed_at": "2026-10-20T20:33:19.154118+00:00",
     "primary_used_percent": 85,
@@ -330,7 +402,7 @@
   },
   "progress_report": "reports/phase5_progress.md",
   "quota_override": {
-    "authorization": "\u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u0439 \u043d\u0435\u0441\u043c\u043e\u0442\u0440\u044f \u043d\u0430 \u043d\u0438\u0437\u043a\u0443\u044e \u043a\u0432\u043e\u0442\u0443",
+    "authorization": "продолжай несмотря на низкую квоту",
     "scope": "Phase 5 pilot only",
     "previous_threshold_percent": 85,
     "percentage_gate_disabled": true,
@@ -365,18 +437,27 @@
     "phase5b": {
       "title": "Phase 5b: baseline / Caveman / Ponytail",
       "status": "superseded",
-      "label": "\u0417\u0430\u043c\u0435\u043d\u0451\u043d \u0430\u0432\u0442\u043e\u0440\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u043e\u0439 Phase 6",
-      "summary": "\u041d\u043e\u0432\u044b\u0435 \u0434\u0432\u0443\u0445\u0448\u0430\u0433\u043e\u0432\u044b\u0435 trials \u043d\u0435 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u044e\u0442\u0441\u044f: \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0440\u0430\u0441\u0448\u0438\u0440\u0438\u043b \u043f\u043b\u0430\u043d \u0434\u043e \u0447\u0435\u0442\u044b\u0440\u0451\u0445 setups, \u0434\u0432\u0443\u0445 \u043a\u0440\u0443\u0433\u043e\u0432 \u043f\u043e \u043f\u044f\u0442\u044c \u043f\u0440\u0430\u0432\u043e\u043a. \u041f\u0440\u0435\u0436\u043d\u0438\u0439 quota failure \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d.",
+      "label": "Заменён авторизованной Phase 6",
+      "summary": "Новые двухшаговые trials не запускаются: пользователь расширил план до четырёх setups, двух кругов по пять правок. Прежний quota failure сохранён.",
       "protocol": "reports/phase5b_protocol.md",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     },
     "phase6": {
-      "title": "Phase 6: baseline / Caveman / Ponytail / Serena, 2\u00d75",
-      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "status": "running",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 0/8; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "title": "Phase 6: baseline / Caveman / Ponytail / Serena, 2×5",
+      "label": "Пилот выполнен частично",
+      "status": "partial",
+      "summary": "Траекторий завершено 0/8; ошибок 1. Метрики по шагам и протокол ниже.",
       "protocol": "reports/phase6_protocol.md",
+      "same_executor_session_verified": false,
+      "continuous_result_claimed": false
+    },
+    "phase6b": {
+      "title": "Phase 6b: исправленный grader и совместимые 5 задач, 2×5",
+      "label": "Заморожен; preflight пройден",
+      "status": "prepared",
+      "summary": "8 независимых траекторий, 40 шагов. Source pruning включён; compatible maintenance fixes заменяет after-context. Первым запускается baseline; новые model calls ещё не начались.",
+      "protocol": "reports/phase6b_protocol.md",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     }

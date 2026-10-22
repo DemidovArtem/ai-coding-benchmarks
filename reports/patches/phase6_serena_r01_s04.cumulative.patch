@@ -1,0 +1,1819 @@
+diff --git a/crates/core/flags/hiargs.rs b/crates/core/flags/hiargs.rs
+index 840e850f93194fb50c24fa6c748798f3128b6559..c3bded21c200a95337f3883a433c59d9481bfccf 100644
+--- a/crates/core/flags/hiargs.rs
++++ b/crates/core/flags/hiargs.rs
+@@ -45,6 +45,7 @@ pub(crate) struct HiArgs {
+     context: ContextMode,
+     context_separator: ContextSeparator,
+     crlf: bool,
++    cwd: PathBuf,
+     dfa_size_limit: Option<usize>,
+     encoding: EncodingMode,
+     engine: EngineChoice,
+@@ -262,6 +263,7 @@ impl HiArgs {
+             context: low.context,
+             context_separator: low.context_separator,
+             crlf: low.crlf,
++            cwd: state.cwd.clone(),
+             dfa_size_limit: low.dfa_size_limit,
+             encoding: low.encoding,
+             engine: low.engine,
+@@ -867,6 +869,7 @@ impl HiArgs {
+     /// the unnecessary overhead of synchronization.
+     pub(crate) fn walk_builder(&self) -> anyhow::Result<ignore::WalkBuilder> {
+         let mut builder = ignore::WalkBuilder::new(&self.paths.paths[0]);
++        builder.current_dir(&self.cwd);
+         for path in self.paths.paths.iter().skip(1) {
+             builder.add(path);
+         }
+diff --git a/crates/globset/src/glob.rs b/crates/globset/src/glob.rs
+index c25e3f22227d855bc839523c471b30444c6d65f9..437b0ae4e9ebdf6b0a9a0e4487bccb40b4e3b9e9 100644
+--- a/crates/globset/src/glob.rs
++++ b/crates/globset/src/glob.rs
+@@ -132,52 +132,7 @@ impl GlobMatcher {
+     }
+ }
+ 
+-/// A strategic matcher for a single pattern.
+-#[cfg(test)]
+-#[derive(Clone, Debug)]
+-struct GlobStrategic {
+-    /// The match strategy to use.
+-    strategy: MatchStrategy,
+-    /// The pattern, as a compiled regex.
+-    re: Regex,
+-}
+ 
+-#[cfg(test)]
+-impl GlobStrategic {
+-    /// Tests whether the given path matches this pattern or not.
+-    fn is_match<P: AsRef<Path>>(&self, path: P) -> bool {
+-        self.is_match_candidate(&Candidate::new(path.as_ref()))
+-    }
+-
+-    /// Tests whether the given path matches this pattern or not.
+-    fn is_match_candidate(&self, candidate: &Candidate<'_>) -> bool {
+-        let byte_path = &*candidate.path;
+-
+-        match self.strategy {
+-            MatchStrategy::Literal(ref lit) => lit.as_bytes() == byte_path,
+-            MatchStrategy::BasenameLiteral(ref lit) => {
+-                lit.as_bytes() == &*candidate.basename
+-            }
+-            MatchStrategy::Extension(ref ext) => {
+-                ext.as_bytes() == &*candidate.ext
+-            }
+-            MatchStrategy::Prefix(ref pre) => {
+-                starts_with(pre.as_bytes(), byte_path)
+-            }
+-            MatchStrategy::Suffix { ref suffix, component } => {
+-                if component && byte_path == &suffix.as_bytes()[1..] {
+-                    return true;
+-                }
+-                ends_with(suffix.as_bytes(), byte_path)
+-            }
+-            MatchStrategy::RequiredExtension(ref ext) => {
+-                let ext = ext.as_bytes();
+-                &*candidate.ext == ext && self.re.is_match(byte_path)
+-            }
+-            MatchStrategy::Regex => self.re.is_match(byte_path),
+-        }
+-    }
+-}
+ 
+ /// A builder for a pattern.
+ ///
+@@ -206,6 +161,8 @@ struct GlobOptions {
+     /// Whether or not an empty case in an alternate will be removed.
+     /// e.g., when enabled, `{,a}` will match "" and "a".
+     empty_alternates: bool,
++    /// Whether an unclosed character class is treated as literal text.
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GlobOptions {
+@@ -215,6 +172,7 @@ impl GlobOptions {
+             literal_separator: false,
+             backslash_escape: !is_separator('\\'),
+             empty_alternates: false,
++            allow_unclosed_class: false,
+         }
+     }
+ }
+@@ -565,6 +523,8 @@ impl<'a> GlobBuilder<'a> {
+         let mut p = Parser {
+             glob: &self.glob,
+             stack: vec![Tokens::default()],
++            alternates: vec![],
++            class_closers_exhausted: false,
+             chars: self.glob.chars().peekable(),
+             prev: None,
+             cur: None,
+@@ -631,6 +591,17 @@ impl<'a> GlobBuilder<'a> {
+         self.opts.empty_alternates = yes;
+         self
+     }
++
++    /// Toggle whether unclosed character classes are treated as literal text.
++    ///
++    /// When enabled, an unclosed `[` and the remaining text in its alternation
++    /// branch are matched literally. Closed character classes are unaffected.
++    ///
++    /// This is disabled by default.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.opts.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ impl Tokens {
+@@ -758,6 +729,10 @@ fn bytes_to_escaped_literal(bs: &[u8]) -> String {
+ struct Parser<'a> {
+     glob: &'a str,
+     stack: Vec<Tokens>,
++    /// Stack indices of the first branch of each open alternation group.
++    alternates: Vec<usize>,
++    /// Avoid rescanning suffixes with no character class closing bracket.
++    class_closers_exhausted: bool,
+     chars: std::iter::Peekable<std::str::Chars<'a>>,
+     prev: Option<char>,
+     cur: Option<char>,
+@@ -786,17 +761,16 @@ impl<'a> Parser<'a> {
+     }
+ 
+     fn push_alternate(&mut self) -> Result<(), Error> {
+-        if self.stack.len() > 1 {
+-            return Err(self.error(ErrorKind::NestedAlternates));
+-        }
++        self.alternates.push(self.stack.len());
+         Ok(self.stack.push(Tokens::default()))
+     }
+ 
+     fn pop_alternate(&mut self) -> Result<(), Error> {
+-        let mut alts = vec![];
+-        while self.stack.len() >= 2 {
+-            alts.push(self.stack.pop().unwrap());
+-        }
++        let start = match self.alternates.pop() {
++            Some(start) => start,
++            None => return Err(self.error(ErrorKind::UnopenedAlternates)),
++        };
++        let alts = self.stack.split_off(start);
+         self.push_token(Token::Alternates(alts))
+     }
+ 
+@@ -908,6 +882,33 @@ impl<'a> Parser<'a> {
+     }
+ 
+     fn parse_class(&mut self) -> Result<(), Error> {
++        if self.opts.allow_unclosed_class {
++            // A leading ']' (after optional negation) is a class member, so
++            // only a later ']' can close the class. Look ahead before parsing
++            // ranges so even an unclosed '[z-a' can fall back to literal text.
++            let mut chars = self.chars.clone();
++            if matches!(chars.peek(), Some('!') | Some('^')) {
++                chars.next();
++            }
++            if chars.peek() == Some(&']') {
++                chars.next();
++            }
++            if self.class_closers_exhausted || !chars.any(|c| c == ']') {
++                // Once no more closing brackets remain, later branches can
++                // fall back without repeatedly scanning the same suffix.
++                self.class_closers_exhausted = true;
++                self.push_token(Token::Literal('['))?;
++                while let Some(c) = self.peek() {
++                    // Leave branch separators for the alternation parser.
++                    if !self.alternates.is_empty() && (c == ',' || c == '}') {
++                        break;
++                    }
++                    self.bump();
++                    self.push_token(Token::Literal(c))?;
++                }
++                return Ok(());
++            }
++        }
+         fn add_to_last_range(
+             glob: &str,
+             r: &mut (char, char),
+@@ -998,561 +999,3 @@ impl<'a> Parser<'a> {
+         self.chars.peek().map(|&ch| ch)
+     }
+ }
+-
+-#[cfg(test)]
+-fn starts_with(needle: &[u8], haystack: &[u8]) -> bool {
+-    needle.len() <= haystack.len() && needle == &haystack[..needle.len()]
+-}
+-
+-#[cfg(test)]
+-fn ends_with(needle: &[u8], haystack: &[u8]) -> bool {
+-    if needle.len() > haystack.len() {
+-        return false;
+-    }
+-    needle == &haystack[haystack.len() - needle.len()..]
+-}
+-
+-#[cfg(test)]
+-mod tests {
+-    use super::Token::*;
+-    use super::{Glob, GlobBuilder, Token};
+-    use crate::{ErrorKind, GlobSetBuilder};
+-
+-    #[derive(Clone, Copy, Debug, Default)]
+-    struct Options {
+-        casei: Option<bool>,
+-        litsep: Option<bool>,
+-        bsesc: Option<bool>,
+-        ealtre: Option<bool>,
+-    }
+-
+-    macro_rules! syntax {
+-        ($name:ident, $pat:expr, $tokens:expr) => {
+-            #[test]
+-            fn $name() {
+-                let pat = Glob::new($pat).unwrap();
+-                assert_eq!($tokens, pat.tokens.0);
+-            }
+-        };
+-    }
+-
+-    macro_rules! syntaxerr {
+-        ($name:ident, $pat:expr, $err:expr) => {
+-            #[test]
+-            fn $name() {
+-                let err = Glob::new($pat).unwrap_err();
+-                assert_eq!(&$err, err.kind());
+-            }
+-        };
+-    }
+-
+-    macro_rules! toregex {
+-        ($name:ident, $pat:expr, $re:expr) => {
+-            toregex!($name, $pat, $re, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $re:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                assert_eq!(format!("(?-u){}", $re), pat.regex());
+-            }
+-        };
+-    }
+-
+-    macro_rules! matches {
+-        ($name:ident, $pat:expr, $path:expr) => {
+-            matches!($name, $pat, $path, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $path:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                let matcher = pat.compile_matcher();
+-                let strategic = pat.compile_strategic_matcher();
+-                let set = GlobSetBuilder::new().add(pat).build().unwrap();
+-                assert!(matcher.is_match($path));
+-                assert!(strategic.is_match($path));
+-                assert!(set.is_match($path));
+-            }
+-        };
+-    }
+-
+-    macro_rules! nmatches {
+-        ($name:ident, $pat:expr, $path:expr) => {
+-            nmatches!($name, $pat, $path, Options::default());
+-        };
+-        ($name:ident, $pat:expr, $path:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                let matcher = pat.compile_matcher();
+-                let strategic = pat.compile_strategic_matcher();
+-                let set = GlobSetBuilder::new().add(pat).build().unwrap();
+-                assert!(!matcher.is_match($path));
+-                assert!(!strategic.is_match($path));
+-                assert!(!set.is_match($path));
+-            }
+-        };
+-    }
+-
+-    fn s(string: &str) -> String {
+-        string.to_string()
+-    }
+-
+-    fn class(s: char, e: char) -> Token {
+-        Class { negated: false, ranges: vec![(s, e)] }
+-    }
+-
+-    fn classn(s: char, e: char) -> Token {
+-        Class { negated: true, ranges: vec![(s, e)] }
+-    }
+-
+-    fn rclass(ranges: &[(char, char)]) -> Token {
+-        Class { negated: false, ranges: ranges.to_vec() }
+-    }
+-
+-    fn rclassn(ranges: &[(char, char)]) -> Token {
+-        Class { negated: true, ranges: ranges.to_vec() }
+-    }
+-
+-    syntax!(literal1, "a", vec![Literal('a')]);
+-    syntax!(literal2, "ab", vec![Literal('a'), Literal('b')]);
+-    syntax!(any1, "?", vec![Any]);
+-    syntax!(any2, "a?b", vec![Literal('a'), Any, Literal('b')]);
+-    syntax!(seq1, "*", vec![ZeroOrMore]);
+-    syntax!(seq2, "a*b", vec![Literal('a'), ZeroOrMore, Literal('b')]);
+-    syntax!(
+-        seq3,
+-        "*a*b*",
+-        vec![ZeroOrMore, Literal('a'), ZeroOrMore, Literal('b'), ZeroOrMore,]
+-    );
+-    syntax!(rseq1, "**", vec![RecursivePrefix]);
+-    syntax!(rseq2, "**/", vec![RecursivePrefix]);
+-    syntax!(rseq3, "/**", vec![RecursiveSuffix]);
+-    syntax!(rseq4, "/**/", vec![RecursiveZeroOrMore]);
+-    syntax!(
+-        rseq5,
+-        "a/**/b",
+-        vec![Literal('a'), RecursiveZeroOrMore, Literal('b'),]
+-    );
+-    syntax!(cls1, "[a]", vec![class('a', 'a')]);
+-    syntax!(cls2, "[!a]", vec![classn('a', 'a')]);
+-    syntax!(cls3, "[a-z]", vec![class('a', 'z')]);
+-    syntax!(cls4, "[!a-z]", vec![classn('a', 'z')]);
+-    syntax!(cls5, "[-]", vec![class('-', '-')]);
+-    syntax!(cls6, "[]]", vec![class(']', ']')]);
+-    syntax!(cls7, "[*]", vec![class('*', '*')]);
+-    syntax!(cls8, "[!!]", vec![classn('!', '!')]);
+-    syntax!(cls9, "[a-]", vec![rclass(&[('a', 'a'), ('-', '-')])]);
+-    syntax!(cls10, "[-a-z]", vec![rclass(&[('-', '-'), ('a', 'z')])]);
+-    syntax!(cls11, "[a-z-]", vec![rclass(&[('a', 'z'), ('-', '-')])]);
+-    syntax!(
+-        cls12,
+-        "[-a-z-]",
+-        vec![rclass(&[('-', '-'), ('a', 'z'), ('-', '-')]),]
+-    );
+-    syntax!(cls13, "[]-z]", vec![class(']', 'z')]);
+-    syntax!(cls14, "[--z]", vec![class('-', 'z')]);
+-    syntax!(cls15, "[ --]", vec![class(' ', '-')]);
+-    syntax!(cls16, "[0-9a-z]", vec![rclass(&[('0', '9'), ('a', 'z')])]);
+-    syntax!(cls17, "[a-z0-9]", vec![rclass(&[('a', 'z'), ('0', '9')])]);
+-    syntax!(cls18, "[!0-9a-z]", vec![rclassn(&[('0', '9'), ('a', 'z')])]);
+-    syntax!(cls19, "[!a-z0-9]", vec![rclassn(&[('a', 'z'), ('0', '9')])]);
+-    syntax!(cls20, "[^a]", vec![classn('a', 'a')]);
+-    syntax!(cls21, "[^a-z]", vec![classn('a', 'z')]);
+-
+-    syntaxerr!(err_unclosed1, "[", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed2, "[]", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed3, "[!", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_unclosed4, "[!]", ErrorKind::UnclosedClass);
+-    syntaxerr!(err_range1, "[z-a]", ErrorKind::InvalidRange('z', 'a'));
+-    syntaxerr!(err_range2, "[z--]", ErrorKind::InvalidRange('z', '-'));
+-
+-    const CASEI: Options =
+-        Options { casei: Some(true), litsep: None, bsesc: None, ealtre: None };
+-    const SLASHLIT: Options =
+-        Options { casei: None, litsep: Some(true), bsesc: None, ealtre: None };
+-    const NOBSESC: Options = Options {
+-        casei: None,
+-        litsep: None,
+-        bsesc: Some(false),
+-        ealtre: None,
+-    };
+-    const BSESC: Options =
+-        Options { casei: None, litsep: None, bsesc: Some(true), ealtre: None };
+-    const EALTRE: Options = Options {
+-        casei: None,
+-        litsep: None,
+-        bsesc: Some(true),
+-        ealtre: Some(true),
+-    };
+-
+-    toregex!(re_casei, "a", "(?i)^a$", &CASEI);
+-
+-    toregex!(re_slash1, "?", r"^[^/]$", SLASHLIT);
+-    toregex!(re_slash2, "*", r"^[^/]*$", SLASHLIT);
+-
+-    toregex!(re1, "a", "^a$");
+-    toregex!(re2, "?", "^.$");
+-    toregex!(re3, "*", "^.*$");
+-    toregex!(re4, "a?", "^a.$");
+-    toregex!(re5, "?a", "^.a$");
+-    toregex!(re6, "a*", "^a.*$");
+-    toregex!(re7, "*a", "^.*a$");
+-    toregex!(re8, "[*]", r"^[\*]$");
+-    toregex!(re9, "[+]", r"^[\+]$");
+-    toregex!(re10, "+", r"^\+$");
+-    toregex!(re11, "☃", r"^\xe2\x98\x83$");
+-    toregex!(re12, "**", r"^.*$");
+-    toregex!(re13, "**/", r"^.*$");
+-    toregex!(re14, "**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re15, "**/**", r"^.*$");
+-    toregex!(re16, "**/**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re17, "**/**/**", r"^.*$");
+-    toregex!(re18, "**/**/**/*", r"^(?:/?|.*/).*$");
+-    toregex!(re19, "a/**", r"^a/.*$");
+-    toregex!(re20, "a/**/**", r"^a/.*$");
+-    toregex!(re21, "a/**/**/**", r"^a/.*$");
+-    toregex!(re22, "a/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re23, "a/**/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re24, "a/**/**/**/b", r"^a(?:/|/.*/)b$");
+-    toregex!(re25, "**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re26, "**/**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re27, "**/**/**/b", r"^(?:/?|.*/)b$");
+-    toregex!(re28, "a**", r"^a.*.*$");
+-    toregex!(re29, "**a", r"^.*.*a$");
+-    toregex!(re30, "a**b", r"^a.*.*b$");
+-    toregex!(re31, "***", r"^.*.*.*$");
+-    toregex!(re32, "/a**", r"^/a.*.*$");
+-    toregex!(re33, "/**a", r"^/.*.*a$");
+-    toregex!(re34, "/a**b", r"^/a.*.*b$");
+-    toregex!(re35, "{a,b}", r"^(?:b|a)$");
+-
+-    matches!(match1, "a", "a");
+-    matches!(match2, "a*b", "a_b");
+-    matches!(match3, "a*b*c", "abc");
+-    matches!(match4, "a*b*c", "a_b_c");
+-    matches!(match5, "a*b*c", "a___b___c");
+-    matches!(match6, "abc*abc*abc", "abcabcabcabcabcabcabc");
+-    matches!(match7, "a*a*a*a*a*a*a*a*a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+-    matches!(match8, "a*b[xyz]c*d", "abxcdbxcddd");
+-    matches!(match9, "*.rs", ".rs");
+-    matches!(match10, "☃", "☃");
+-
+-    matches!(matchrec1, "some/**/needle.txt", "some/needle.txt");
+-    matches!(matchrec2, "some/**/needle.txt", "some/one/needle.txt");
+-    matches!(matchrec3, "some/**/needle.txt", "some/one/two/needle.txt");
+-    matches!(matchrec4, "some/**/needle.txt", "some/other/needle.txt");
+-    matches!(matchrec5, "**", "abcde");
+-    matches!(matchrec6, "**", "");
+-    matches!(matchrec7, "**", ".asdf");
+-    matches!(matchrec8, "**", "/x/.asdf");
+-    matches!(matchrec9, "some/**/**/needle.txt", "some/needle.txt");
+-    matches!(matchrec10, "some/**/**/needle.txt", "some/one/needle.txt");
+-    matches!(matchrec11, "some/**/**/needle.txt", "some/one/two/needle.txt");
+-    matches!(matchrec12, "some/**/**/needle.txt", "some/other/needle.txt");
+-    matches!(matchrec13, "**/test", "one/two/test");
+-    matches!(matchrec14, "**/test", "one/test");
+-    matches!(matchrec15, "**/test", "test");
+-    matches!(matchrec16, "/**/test", "/one/two/test");
+-    matches!(matchrec17, "/**/test", "/one/test");
+-    matches!(matchrec18, "/**/test", "/test");
+-    matches!(matchrec19, "**/.*", ".abc");
+-    matches!(matchrec20, "**/.*", "abc/.abc");
+-    matches!(matchrec21, "**/foo/bar", "foo/bar");
+-    matches!(matchrec22, ".*/**", ".abc/abc");
+-    matches!(matchrec23, "test/**", "test/");
+-    matches!(matchrec24, "test/**", "test/one");
+-    matches!(matchrec25, "test/**", "test/one/two");
+-    matches!(matchrec26, "some/*/needle.txt", "some/one/needle.txt");
+-
+-    matches!(matchrange1, "a[0-9]b", "a0b");
+-    matches!(matchrange2, "a[0-9]b", "a9b");
+-    matches!(matchrange3, "a[!0-9]b", "a_b");
+-    matches!(matchrange4, "[a-z123]", "1");
+-    matches!(matchrange5, "[1a-z23]", "1");
+-    matches!(matchrange6, "[123a-z]", "1");
+-    matches!(matchrange7, "[abc-]", "-");
+-    matches!(matchrange8, "[-abc]", "-");
+-    matches!(matchrange9, "[-a-c]", "b");
+-    matches!(matchrange10, "[a-c-]", "b");
+-    matches!(matchrange11, "[-]", "-");
+-    matches!(matchrange12, "a[^0-9]b", "a_b");
+-
+-    matches!(matchpat1, "*hello.txt", "hello.txt");
+-    matches!(matchpat2, "*hello.txt", "gareth_says_hello.txt");
+-    matches!(matchpat3, "*hello.txt", "some/path/to/hello.txt");
+-    matches!(matchpat4, "*hello.txt", "some\\path\\to\\hello.txt");
+-    matches!(matchpat5, "*hello.txt", "/an/absolute/path/to/hello.txt");
+-    matches!(matchpat6, "*some/path/to/hello.txt", "some/path/to/hello.txt");
+-    matches!(
+-        matchpat7,
+-        "*some/path/to/hello.txt",
+-        "a/bigger/some/path/to/hello.txt"
+-    );
+-
+-    matches!(matchescape, "_[[]_[]]_[?]_[*]_!_", "_[_]_?_*_!_");
+-
+-    matches!(matchcasei1, "aBcDeFg", "aBcDeFg", CASEI);
+-    matches!(matchcasei2, "aBcDeFg", "abcdefg", CASEI);
+-    matches!(matchcasei3, "aBcDeFg", "ABCDEFG", CASEI);
+-    matches!(matchcasei4, "aBcDeFg", "AbCdEfG", CASEI);
+-
+-    matches!(matchalt1, "a,b", "a,b");
+-    matches!(matchalt2, ",", ",");
+-    matches!(matchalt3, "{a,b}", "a");
+-    matches!(matchalt4, "{a,b}", "b");
+-    matches!(matchalt5, "{**/src/**,foo}", "abc/src/bar");
+-    matches!(matchalt6, "{**/src/**,foo}", "foo");
+-    matches!(matchalt7, "{[}],foo}", "}");
+-    matches!(matchalt8, "{foo}", "foo");
+-    matches!(matchalt9, "{}", "");
+-    matches!(matchalt10, "{,}", "");
+-    matches!(matchalt11, "{*.foo,*.bar,*.wat}", "test.foo");
+-    matches!(matchalt12, "{*.foo,*.bar,*.wat}", "test.bar");
+-    matches!(matchalt13, "{*.foo,*.bar,*.wat}", "test.wat");
+-    matches!(matchalt14, "foo{,.txt}", "foo.txt");
+-    nmatches!(matchalt15, "foo{,.txt}", "foo");
+-    matches!(matchalt16, "foo{,.txt}", "foo", EALTRE);
+-
+-    matches!(matchslash1, "abc/def", "abc/def", SLASHLIT);
+-    #[cfg(unix)]
+-    nmatches!(matchslash2, "abc?def", "abc/def", SLASHLIT);
+-    #[cfg(not(unix))]
+-    nmatches!(matchslash2, "abc?def", "abc\\def", SLASHLIT);
+-    nmatches!(matchslash3, "abc*def", "abc/def", SLASHLIT);
+-    matches!(matchslash4, "abc[/]def", "abc/def", SLASHLIT); // differs
+-    #[cfg(unix)]
+-    nmatches!(matchslash5, "abc\\def", "abc/def", SLASHLIT);
+-    #[cfg(not(unix))]
+-    matches!(matchslash5, "abc\\def", "abc/def", SLASHLIT);
+-
+-    matches!(matchbackslash1, "\\[", "[", BSESC);
+-    matches!(matchbackslash2, "\\?", "?", BSESC);
+-    matches!(matchbackslash3, "\\*", "*", BSESC);
+-    matches!(matchbackslash4, "\\[a-z]", "\\a", NOBSESC);
+-    matches!(matchbackslash5, "\\?", "\\a", NOBSESC);
+-    matches!(matchbackslash6, "\\*", "\\\\", NOBSESC);
+-    #[cfg(unix)]
+-    matches!(matchbackslash7, "\\a", "a");
+-    #[cfg(not(unix))]
+-    matches!(matchbackslash8, "\\a", "/a");
+-
+-    nmatches!(matchnot1, "a*b*c", "abcd");
+-    nmatches!(matchnot2, "abc*abc*abc", "abcabcabcabcabcabcabca");
+-    nmatches!(matchnot3, "some/**/needle.txt", "some/other/notthis.txt");
+-    nmatches!(matchnot4, "some/**/**/needle.txt", "some/other/notthis.txt");
+-    nmatches!(matchnot5, "/**/test", "test");
+-    nmatches!(matchnot6, "/**/test", "/one/notthis");
+-    nmatches!(matchnot7, "/**/test", "/notthis");
+-    nmatches!(matchnot8, "**/.*", "ab.c");
+-    nmatches!(matchnot9, "**/.*", "abc/ab.c");
+-    nmatches!(matchnot10, ".*/**", "a.bc");
+-    nmatches!(matchnot11, ".*/**", "abc/a.bc");
+-    nmatches!(matchnot12, "a[0-9]b", "a_b");
+-    nmatches!(matchnot13, "a[!0-9]b", "a0b");
+-    nmatches!(matchnot14, "a[!0-9]b", "a9b");
+-    nmatches!(matchnot15, "[!-]", "-");
+-    nmatches!(matchnot16, "*hello.txt", "hello.txt-and-then-some");
+-    nmatches!(matchnot17, "*hello.txt", "goodbye.txt");
+-    nmatches!(
+-        matchnot18,
+-        "*some/path/to/hello.txt",
+-        "some/path/to/hello.txt-and-then-some"
+-    );
+-    nmatches!(
+-        matchnot19,
+-        "*some/path/to/hello.txt",
+-        "some/other/path/to/hello.txt"
+-    );
+-    nmatches!(matchnot20, "a", "foo/a");
+-    nmatches!(matchnot21, "./foo", "foo");
+-    nmatches!(matchnot22, "**/foo", "foofoo");
+-    nmatches!(matchnot23, "**/foo/bar", "foofoo/bar");
+-    nmatches!(matchnot24, "/*.c", "mozilla-sha1/sha1.c");
+-    nmatches!(matchnot25, "*.c", "mozilla-sha1/sha1.c", SLASHLIT);
+-    nmatches!(
+-        matchnot26,
+-        "**/m4/ltoptions.m4",
+-        "csharp/src/packages/repositories.config",
+-        SLASHLIT
+-    );
+-    nmatches!(matchnot27, "a[^0-9]b", "a0b");
+-    nmatches!(matchnot28, "a[^0-9]b", "a9b");
+-    nmatches!(matchnot29, "[^-]", "-");
+-    nmatches!(matchnot30, "some/*/needle.txt", "some/needle.txt");
+-    nmatches!(
+-        matchrec31,
+-        "some/*/needle.txt",
+-        "some/one/two/needle.txt",
+-        SLASHLIT
+-    );
+-    nmatches!(
+-        matchrec32,
+-        "some/*/needle.txt",
+-        "some/one/two/three/needle.txt",
+-        SLASHLIT
+-    );
+-    nmatches!(matchrec33, ".*/**", ".abc");
+-    nmatches!(matchrec34, "foo/**", "foo");
+-
+-    macro_rules! extract {
+-        ($which:ident, $name:ident, $pat:expr, $expect:expr) => {
+-            extract!($which, $name, $pat, $expect, Options::default());
+-        };
+-        ($which:ident, $name:ident, $pat:expr, $expect:expr, $options:expr) => {
+-            #[test]
+-            fn $name() {
+-                let mut builder = GlobBuilder::new($pat);
+-                if let Some(casei) = $options.casei {
+-                    builder.case_insensitive(casei);
+-                }
+-                if let Some(litsep) = $options.litsep {
+-                    builder.literal_separator(litsep);
+-                }
+-                if let Some(bsesc) = $options.bsesc {
+-                    builder.backslash_escape(bsesc);
+-                }
+-                if let Some(ealtre) = $options.ealtre {
+-                    builder.empty_alternates(ealtre);
+-                }
+-                let pat = builder.build().unwrap();
+-                assert_eq!($expect, pat.$which());
+-            }
+-        };
+-    }
+-
+-    macro_rules! literal {
+-        ($($tt:tt)*) => { extract!(literal, $($tt)*); }
+-    }
+-
+-    macro_rules! basetokens {
+-        ($($tt:tt)*) => { extract!(basename_tokens, $($tt)*); }
+-    }
+-
+-    macro_rules! ext {
+-        ($($tt:tt)*) => { extract!(ext, $($tt)*); }
+-    }
+-
+-    macro_rules! required_ext {
+-        ($($tt:tt)*) => { extract!(required_ext, $($tt)*); }
+-    }
+-
+-    macro_rules! prefix {
+-        ($($tt:tt)*) => { extract!(prefix, $($tt)*); }
+-    }
+-
+-    macro_rules! suffix {
+-        ($($tt:tt)*) => { extract!(suffix, $($tt)*); }
+-    }
+-
+-    macro_rules! baseliteral {
+-        ($($tt:tt)*) => { extract!(basename_literal, $($tt)*); }
+-    }
+-
+-    literal!(extract_lit1, "foo", Some(s("foo")));
+-    literal!(extract_lit2, "foo", None, CASEI);
+-    literal!(extract_lit3, "/foo", Some(s("/foo")));
+-    literal!(extract_lit4, "/foo/", Some(s("/foo/")));
+-    literal!(extract_lit5, "/foo/bar", Some(s("/foo/bar")));
+-    literal!(extract_lit6, "*.foo", None);
+-    literal!(extract_lit7, "foo/bar", Some(s("foo/bar")));
+-    literal!(extract_lit8, "**/foo/bar", None);
+-
+-    basetokens!(
+-        extract_basetoks1,
+-        "**/foo",
+-        Some(&*vec![Literal('f'), Literal('o'), Literal('o'),])
+-    );
+-    basetokens!(extract_basetoks2, "**/foo", None, CASEI);
+-    basetokens!(
+-        extract_basetoks3,
+-        "**/foo",
+-        Some(&*vec![Literal('f'), Literal('o'), Literal('o'),]),
+-        SLASHLIT
+-    );
+-    basetokens!(extract_basetoks4, "*foo", None, SLASHLIT);
+-    basetokens!(extract_basetoks5, "*foo", None);
+-    basetokens!(extract_basetoks6, "**/fo*o", None);
+-    basetokens!(
+-        extract_basetoks7,
+-        "**/fo*o",
+-        Some(&*vec![Literal('f'), Literal('o'), ZeroOrMore, Literal('o'),]),
+-        SLASHLIT
+-    );
+-
+-    ext!(extract_ext1, "**/*.rs", Some(s(".rs")));
+-    ext!(extract_ext2, "**/*.rs.bak", None);
+-    ext!(extract_ext3, "*.rs", Some(s(".rs")));
+-    ext!(extract_ext4, "a*.rs", None);
+-    ext!(extract_ext5, "/*.c", None);
+-    ext!(extract_ext6, "*.c", None, SLASHLIT);
+-    ext!(extract_ext7, "*.c", Some(s(".c")));
+-
+-    required_ext!(extract_req_ext1, "*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext2, "/foo/bar/*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext3, "/foo/bar/*.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext4, "/foo/bar/.rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext5, ".rs", Some(s(".rs")));
+-    required_ext!(extract_req_ext6, "./rs", None);
+-    required_ext!(extract_req_ext7, "foo", None);
+-    required_ext!(extract_req_ext8, ".foo/", None);
+-    required_ext!(extract_req_ext9, "foo/", None);
+-
+-    prefix!(extract_prefix1, "/foo", Some(s("/foo")));
+-    prefix!(extract_prefix2, "/foo/*", Some(s("/foo/")));
+-    prefix!(extract_prefix3, "**/foo", None);
+-    prefix!(extract_prefix4, "foo/**", Some(s("foo/")));
+-
+-    suffix!(extract_suffix1, "**/foo/bar", Some((s("/foo/bar"), true)));
+-    suffix!(extract_suffix2, "*/foo/bar", Some((s("/foo/bar"), false)));
+-    suffix!(extract_suffix3, "*/foo/bar", None, SLASHLIT);
+-    suffix!(extract_suffix4, "foo/bar", Some((s("foo/bar"), false)));
+-    suffix!(extract_suffix5, "*.foo", Some((s(".foo"), false)));
+-    suffix!(extract_suffix6, "*.foo", None, SLASHLIT);
+-    suffix!(extract_suffix7, "**/*_test", Some((s("_test"), false)));
+-
+-    baseliteral!(extract_baselit1, "**/foo", Some(s("foo")));
+-    baseliteral!(extract_baselit2, "foo", None);
+-    baseliteral!(extract_baselit3, "*foo", None);
+-    baseliteral!(extract_baselit4, "*/foo", None);
+-}
+diff --git a/crates/globset/src/lib.rs b/crates/globset/src/lib.rs
+index b1fc696af2c634ce983254d81eb7712cf06e6db3..3a678ad523a12d6bf7a1a30a81d7b077ed61a731 100644
+--- a/crates/globset/src/lib.rs
++++ b/crates/globset/src/lib.rs
+@@ -169,8 +169,9 @@ pub enum ErrorKind {
+     UnopenedAlternates,
+     /// Occurs when a `{` is found without a matching `}`.
+     UnclosedAlternates,
+-    /// Occurs when an alternating group is nested inside another alternating
+-    /// group, e.g., `{{a,b},{c,d}}`.
++    /// **DEPRECATED**.
++    ///
++    /// Nested alternate groups are now supported. This error is no longer used.
+     NestedAlternates,
+     /// Occurs when an unescaped '\' is found at the end of a glob.
+     DanglingEscape,
+diff --git a/crates/globset/tests/nested_alternates.rs b/crates/globset/tests/nested_alternates.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..6133104f68049658381543c7efaab4dea8035ec2
+--- /dev/null
++++ b/crates/globset/tests/nested_alternates.rs
+@@ -0,0 +1,128 @@
++use globset::{ErrorKind, Glob, GlobBuilder, GlobSetBuilder};
++
++#[test]
++fn regex_preserves_alternation_scope_and_order() {
++    for (pattern, regex) in [
++        ("{a,b}", "(?:a|b)"),
++        ("{a,{b,c}}", "(?:a|(?:b|c))"),
++        ("{{a,b},{c,d}}", "(?:(?:a|b)|(?:c|d))"),
++        ("{a,b{c,d}}", "(?:a|b(?:c|d))"),
++        ("{a,{b,{c,d}},e}", "(?:a|(?:b|(?:c|d))|e)"),
++        ("x{{a,b},c}{d,{e,f}}y", "x(?:(?:a|b)|c)(?:d|(?:e|f))y"),
++        ("a,{b,{c,d}},e", "a,(?:b|(?:c|d)),e"),
++        ("{{a,b}}", "(?:(?:a|b))"),
++    ] {
++        let glob = Glob::new(pattern).unwrap();
++        assert_eq!(glob.regex(), format!("(?-u)^{regex}$"), "{pattern}");
++    }
++}
++
++#[test]
++fn malformed_alternations_report_the_unmatched_brace() {
++    for pattern in ["{", "{a,b", "{a,{b,c}", "{{a,b}", "{a,{b,c"] {
++        assert_eq!(
++            Glob::new(pattern).unwrap_err().kind(),
++            &ErrorKind::UnclosedAlternates,
++            "{pattern}"
++        );
++    }
++    for pattern in ["}", "a,b}", "{a,b}}", "{{a,b},c}}", "a}b{c"] {
++        assert_eq!(
++            Glob::new(pattern).unwrap_err().kind(),
++            &ErrorKind::UnopenedAlternates,
++            "{pattern}"
++        );
++    }
++}
++
++fn check_matches(pattern: &str, yes: &[&str], no: &[&str]) {
++    let glob = Glob::new(pattern).unwrap();
++    let matcher = glob.compile_matcher();
++    let set = GlobSetBuilder::new().add(glob).build().unwrap();
++    for (paths, expected) in [(yes, true), (no, false)] {
++        for path in paths {
++            assert_eq!(matcher.is_match(path), expected, "{pattern}: {path}");
++            assert_eq!(set.is_match(path), expected, "{pattern}: {path}");
++        }
++    }
++}
++
++#[test]
++fn nested_branches_match_in_single_globs_and_sets() {
++    check_matches("{a,{b,c}}", &["a", "b", "c"], &["", "d", "ab"]);
++    check_matches("{{a,b},{c,d}}", &["a", "b", "c", "d"], &["", "ac"]);
++    check_matches("{a,b{c,d}}", &["a", "bc", "bd"], &["b", "be", "abc"]);
++    check_matches(
++        "x{{a,b},c}{d,{e,f}}y",
++        &["xady", "xbey", "xcfy"],
++        &["xay", "xdcy", "xagy"],
++    );
++    check_matches("{a,{b,c}},d", &["a,d", "b,d", "c,d"], &["a", "d"]);
++    check_matches("a,b", &["a,b"], &["a", "b"]);
++}
++
++#[test]
++fn nested_alternates_combine_with_other_glob_features() {
++    check_matches(
++        "**/{node_modules/**/*/{ts,js},crates/**/*.{rs,toml}}",
++        &[
++            "node_modules/pkg/ts",
++            "app/node_modules/pkg/lib/js",
++            "crates/main.rs",
++            "app/crates/core/Cargo.toml",
++        ],
++        &["crates/main.js", "node_modules/pkg/rs", "src/main.rs"],
++    );
++    check_matches(
++        "{src/{[ab]*.rs,?.{c,h}},README}",
++        &["src/abc.rs", "src/b.rs", "src/x.c", "src/y.h", "README"],
++        &["src/c.rs", "src/xx.c", "README.md"],
++    );
++    let glob = GlobBuilder::new("{src/{*.rs,*.{c,h}},README}")
++        .literal_separator(true)
++        .case_insensitive(true)
++        .build()
++        .unwrap()
++        .compile_matcher();
++    assert!(glob.is_match("src/MAIN.RS"));
++    assert!(glob.is_match("src/main.h"));
++    assert!(!glob.is_match("src/sub/main.rs"));
++}
++
++#[test]
++fn empty_nested_alternates_respect_the_builder_option() {
++    for empty in [false, true] {
++        let glob = GlobBuilder::new("{a,{b,}}")
++            .empty_alternates(empty)
++            .build()
++            .unwrap();
++        assert_eq!(
++            glob.regex(),
++            if empty { "(?-u)^(?:a|(?:b|))$" } else { "(?-u)^(?:a|(?:b))$" }
++        );
++        let matcher = glob.compile_matcher();
++        assert!(matcher.is_match("a"));
++        assert!(matcher.is_match("b"));
++        assert_eq!(matcher.is_match(""), empty);
++    }
++}
++
++#[test]
++fn braces_in_classes_and_escapes_do_not_open_groups() {
++    check_matches("{[{}],{a,b}}", &["{", "}", "a", "b"], &["ab"]);
++    let matcher = GlobBuilder::new(r"{\{,{a\,b,c\}}}")
++        .backslash_escape(true)
++        .build()
++        .unwrap()
++        .compile_matcher();
++    for path in ["{", "a,b", "c}"] {
++        assert!(matcher.is_match(path));
++    }
++}
++
++#[test]
++fn many_levels_of_nesting_are_supported() {
++    let depth = 32;
++    let pattern = format!("{}a{}", "{b,".repeat(depth), "}".repeat(depth));
++    check_matches(&pattern, &["a", "b"], &["", "ab", "c"]);
++}
+diff --git a/crates/globset/tests/unclosed_classes.rs b/crates/globset/tests/unclosed_classes.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..cd6864c555299305b54a530a9ccaa6b1e9849bed
+--- /dev/null
++++ b/crates/globset/tests/unclosed_classes.rs
+@@ -0,0 +1,126 @@
++use globset::{ErrorKind, Glob, GlobBuilder, GlobSetBuilder};
++
++#[test]
++fn unclosed_classes_are_strict_by_default() {
++    for pattern in ["[", "[abc", "[]", "[][", "[!", "[!]", "[^]"] {
++        assert_eq!(
++            Glob::new(pattern).unwrap_err().kind(),
++            &ErrorKind::UnclosedClass,
++            "{pattern}"
++        );
++        assert_eq!(
++            GlobBuilder::new(pattern)
++                .allow_unclosed_class(false)
++                .build()
++                .unwrap_err()
++                .kind(),
++            &ErrorKind::UnclosedClass,
++            "{pattern}"
++        );
++    }
++}
++
++#[test]
++fn unclosed_class_text_matches_literally() {
++    for pattern in [
++        "[", "[abc", "[]", "[][", "[!", "[!]", "[^]", "[z-a", "[a*?",
++        "[☃", "[a,b", "[{x,y}",
++    ] {
++        let glob = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        let matcher = glob.compile_matcher();
++        let set = GlobSetBuilder::new().add(glob).build().unwrap();
++        assert!(matcher.is_match(pattern), "{pattern}");
++        assert!(set.is_match(pattern), "{pattern}");
++        assert!(!matcher.is_match(&format!("{pattern}x")), "{pattern}");
++        assert!(!set.is_match(&format!("{pattern}x")), "{pattern}");
++    }
++    let matcher = GlobBuilder::new("[a*?")
++        .allow_unclosed_class(true)
++        .build()
++        .unwrap()
++        .compile_matcher();
++    assert!(!matcher.is_match("[abc"));
++}
++
++#[test]
++fn unclosed_classes_respect_alternation_branches() {
++    for (pattern, yes, no) in [
++        ("{[abc,xyz}", vec!["[abc", "xyz"], vec!["a", "[abc,xyz}"]),
++        ("{[abc,[xyz}", vec!["[abc", "[xyz"], vec!["a", "x"]),
++        ("{[abc],[xyz}", vec!["a", "b", "c", "[xyz"], vec!["[abc]", "x"]),
++        ("{{a,b},[xyz}", vec!["a", "b", "[xyz"], vec!["x", "ab"]),
++        ("{[abc,{[xyz,q}}", vec!["[abc", "[xyz", "q"], vec!["a", "x"]),
++    ] {
++        let glob = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        let matcher = glob.compile_matcher();
++        let set = GlobSetBuilder::new().add(glob).build().unwrap();
++        for path in yes {
++            assert!(matcher.is_match(path), "{pattern}: {path}");
++            assert!(set.is_match(path), "{pattern}: {path}");
++        }
++        for path in no {
++            assert!(!matcher.is_match(path), "{pattern}: {path}");
++            assert!(!set.is_match(path), "{pattern}: {path}");
++        }
++    }
++}
++
++#[test]
++fn closed_classes_and_errors_keep_their_meaning() {
++    for pattern in ["[abc]", "[]]", "[!]]", "[a-z]", "{[}],foo}"] {
++        let strict = Glob::new(pattern).unwrap();
++        let permissive = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        assert_eq!(strict.regex(), permissive.regex(), "{pattern}");
++    }
++    for (pattern, error) in [
++        ("[z-a]", ErrorKind::InvalidRange('z', 'a')),
++        ("{[abc", ErrorKind::UnclosedAlternates),
++        ("{a,[xyz}}", ErrorKind::UnopenedAlternates),
++    ] {
++        assert_eq!(
++            GlobBuilder::new(pattern)
++                .allow_unclosed_class(true)
++                .build()
++                .unwrap_err()
++                .kind(),
++            &error,
++            "{pattern}"
++        );
++    }
++}
++
++#[test]
++fn option_chains_and_can_be_disabled_again() {
++    let mut builder = GlobBuilder::new("*/[ABC");
++    builder.allow_unclosed_class(true).case_insensitive(true);
++    builder.literal_separator(true).backslash_escape(true);
++    let matcher = builder.build().unwrap().compile_matcher();
++    assert!(matcher.is_match("src/[abc"));
++    assert!(!matcher.is_match("src/sub/[abc"));
++    builder.allow_unclosed_class(false);
++    assert_eq!(builder.build().unwrap_err().kind(), &ErrorKind::UnclosedClass);
++}
++
++#[test]
++fn many_open_brackets_and_unclosed_branches_parse_successfully() {
++    let pattern = "[".repeat(20_000);
++    assert!(GlobBuilder::new(&pattern)
++        .allow_unclosed_class(true)
++        .build()
++        .is_ok());
++    let branches = vec!["["; 10_000].join(",");
++    let pattern = format!("{{{branches}}}");
++    assert!(GlobBuilder::new(&pattern)
++        .allow_unclosed_class(true)
++        .build()
++        .is_ok());
++}
+diff --git a/crates/ignore/src/dir.rs b/crates/ignore/src/dir.rs
+index b302943ab5a210f2ddad2a77c1611106a6f52165..1e7dee9c0a66e4b2e69496f00760c82960439101 100644
+--- a/crates/ignore/src/dir.rs
++++ b/crates/ignore/src/dir.rs
+@@ -19,7 +19,7 @@ use std::{
+     fs::{File, FileType},
+     io::{self, BufRead},
+     path::{Path, PathBuf},
+-    sync::{Arc, RwLock, Weak},
++    sync::{Arc, OnceLock, RwLock, Weak},
+ };
+ 
+ use crate::{
+@@ -565,6 +565,8 @@ impl<'a> Iterator for Parents<'a> {
+ /// A builder for creating an Ignore matcher.
+ #[derive(Clone, Debug)]
+ pub(crate) struct IgnoreBuilder {
++    /// Working directory resolved at most once for global ignore matchers.
++    cwd: OnceLock<Option<PathBuf>>,
+     /// The root directory path for this ignore matcher.
+     dir: PathBuf,
+     /// An override matcher (default is empty).
+@@ -586,6 +588,7 @@ impl IgnoreBuilder {
+     /// working directory.
+     pub(crate) fn new() -> IgnoreBuilder {
+         IgnoreBuilder {
++            cwd: OnceLock::new(),
+             dir: Path::new("").to_path_buf(),
+             overrides: Arc::new(Override::empty()),
+             types: Arc::new(Types::empty()),
+@@ -604,23 +607,45 @@ impl IgnoreBuilder {
+         }
+     }
+ 
++    /// Returns the working directory, querying it at most once.
++    pub(crate) fn current_dir(&self) -> Option<&Path> {
++        self.cwd
++            .get_or_init(|| match std::env::current_dir() {
++                Ok(cwd) => Some(cwd),
++                Err(err) => {
++                    log::debug!(
++                        "ignoring global ignore files: \
++                         no current directory: {err}"
++                    );
++                    None
++                }
++            })
++            .as_deref()
++    }
++
++    /// Sets the working directory used to root global ignore matchers.
++    pub(crate) fn set_current_dir(&mut self, cwd: Option<PathBuf>) {
++        self.cwd = OnceLock::from(cwd);
++    }
++
+     /// Builds a new `Ignore` matcher.
+     ///
+     /// The matcher returned won't match anything until ignore rules from
+     /// directories are added to it.
+     pub(crate) fn build(&self) -> Ignore {
+-        let git_global_matcher = if !self.opts.git_global {
+-            Gitignore::empty()
+-        } else {
+-            let mut builder = GitignoreBuilder::new("");
+-            builder
+-                .case_insensitive(self.opts.ignore_case_insensitive)
+-                .unwrap();
+-            let (gi, err) = builder.build_global();
+-            if let Some(err) = err {
+-                log::debug!("{}", err);
++        let git_global_matcher = match self.current_dir() {
++            Some(cwd) if self.opts.git_global => {
++                let mut builder = GitignoreBuilder::new(cwd);
++                builder
++                    .case_insensitive(self.opts.ignore_case_insensitive)
++                    .unwrap();
++                let (gi, err) = builder.build_global();
++                if let Some(err) = err {
++                    log::debug!("{}", err);
++                }
++                gi
+             }
+-            gi
++            _ => Gitignore::empty(),
+         };
+ 
+         Ignore(Arc::new(IgnoreInner {
+diff --git a/crates/ignore/src/gitignore.rs b/crates/ignore/src/gitignore.rs
+index 19a347cdbe2b0680b9e0320631d5ac824f148100..e44489910d8a63726ab89480c88fb0fcb56d254a 100644
+--- a/crates/ignore/src/gitignore.rs
++++ b/crates/ignore/src/gitignore.rs
+@@ -120,6 +120,9 @@ impl Gitignore {
+     /// Creates a new gitignore matcher from the global ignore file, if one
+     /// exists.
+     ///
++    /// Patterns are interpreted relative to the current working directory.
++    /// If it cannot be determined, an empty matcher is returned without error.
++    ///
+     /// The global config file path is specified by git's `core.excludesFile`
+     /// config option.
+     ///
+@@ -128,7 +131,15 @@ impl Gitignore {
+     /// `$XDG_CONFIG_HOME/git/ignore` is read. If `$XDG_CONFIG_HOME` is not
+     /// set or is empty, then `$HOME/.config/git/ignore` is used instead.
+     pub fn global() -> (Gitignore, Option<Error>) {
+-        GitignoreBuilder::new("").build_global()
++        match std::env::current_dir() {
++            Ok(cwd) => GitignoreBuilder::new(cwd).build_global(),
++            Err(err) => {
++                log::debug!(
++                    "ignoring global ignore file: no current directory: {err}"
++                );
++                (Gitignore::empty(), None)
++            }
++        }
+     }
+ 
+     /// Creates a new empty gitignore matcher that never matches anything.
+@@ -308,6 +319,7 @@ pub struct GitignoreBuilder {
+     root: PathBuf,
+     globs: Vec<Glob>,
+     case_insensitive: bool,
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GitignoreBuilder {
+@@ -324,6 +336,7 @@ impl GitignoreBuilder {
+             root: strip_prefix("./", root).unwrap_or(root).to_path_buf(),
+             globs: vec![],
+             case_insensitive: false,
++            allow_unclosed_class: true,
+         }
+     }
+ 
+@@ -353,8 +366,8 @@ impl GitignoreBuilder {
+     /// This consumes ownership of the builder unlike `build` because it
+     /// must mutate the builder to add the global gitignore globs.
+     ///
+-    /// Note that this ignores the path given to this builder's constructor
+-    /// and instead derives the path automatically from git's global
++    /// Patterns are interpreted relative to the root given to this builder's
++    /// constructor. The ignore file's location is derived from git's global
+     /// configuration.
+     pub fn build_global(mut self) -> (Gitignore, Option<Error>) {
+         match gitconfig_excludes_path() {
+@@ -504,6 +517,7 @@ impl GitignoreBuilder {
+         let parsed = GlobBuilder::new(&glob.actual)
+             .literal_separator(true)
+             .case_insensitive(self.case_insensitive)
++            .allow_unclosed_class(self.allow_unclosed_class)
+             .backslash_escape(true)
+             .build()
+             .map_err(|err| Error::Glob {
+@@ -530,6 +544,17 @@ impl GitignoreBuilder {
+         self.case_insensitive = yes;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are treated as literal text.
++    ///
++    /// When this option is changed, only globs added after the change will be
++    /// affected.
++    ///
++    /// This is enabled by default, matching gitignore behavior.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ /// Return the file path of the current environment's global gitignore file.
+diff --git a/crates/ignore/src/overrides.rs b/crates/ignore/src/overrides.rs
+index 1b02b4d4ee9a1ca3592a517d3d741fdf611292b0..61f4d2a2d30b132170fd2d9b5c786d607957f55f 100644
+--- a/crates/ignore/src/overrides.rs
++++ b/crates/ignore/src/overrides.rs
+@@ -120,7 +120,9 @@ impl OverrideBuilder {
+     ///
+     /// Matching is done relative to the directory path provided.
+     pub fn new<P: AsRef<Path>>(path: P) -> OverrideBuilder {
+-        OverrideBuilder { builder: GitignoreBuilder::new(path) }
++        let mut builder = GitignoreBuilder::new(path);
++        builder.allow_unclosed_class(false);
++        OverrideBuilder { builder }
+     }
+ 
+     /// Builds a new override matcher from the globs added so far.
+@@ -155,6 +157,17 @@ impl OverrideBuilder {
+         self.builder.case_insensitive(yes)?;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are treated as literal text.
++    ///
++    /// When this option is changed, only globs added after the change will be
++    /// affected.
++    ///
++    /// This is disabled by default so malformed override globs report errors.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut Self {
++        self.builder.allow_unclosed_class(yes);
++        self
++    }
+ }
+ 
+ #[cfg(test)]
+diff --git a/crates/ignore/src/walk.rs b/crates/ignore/src/walk.rs
+index d6ea9c2172b38926abd9e54f61de8ff1a9766995..1077fa9451c553926ad17f35401d206ad1824f9d 100644
+--- a/crates/ignore/src/walk.rs
++++ b/crates/ignore/src/walk.rs
+@@ -483,6 +483,7 @@ impl DirEntryRaw {
+ pub struct WalkBuilder {
+     paths: Vec<PathBuf>,
+     ig_builder: IgnoreBuilder,
++    min_depth: Option<usize>,
+     max_depth: Option<usize>,
+     max_filesize: Option<u64>,
+     follow_links: bool,
+@@ -507,6 +508,7 @@ impl std::fmt::Debug for WalkBuilder {
+         f.debug_struct("WalkBuilder")
+             .field("paths", &self.paths)
+             .field("ig_builder", &self.ig_builder)
++            .field("min_depth", &self.min_depth)
+             .field("max_depth", &self.max_depth)
+             .field("max_filesize", &self.max_filesize)
+             .field("follow_links", &self.follow_links)
+@@ -527,6 +529,7 @@ impl WalkBuilder {
+         WalkBuilder {
+             paths: vec![path.as_ref().to_path_buf()],
+             ig_builder: IgnoreBuilder::new(),
++            min_depth: None,
+             max_depth: None,
+             max_filesize: None,
+             follow_links: false,
+@@ -538,10 +541,24 @@ impl WalkBuilder {
+         }
+     }
+ 
++    /// Set the working directory used to interpret global ignore patterns.
++    ///
++    /// This should be an absolute path. By default, the process's current
++    /// directory is queried once when first needed. If it cannot be
++    /// determined, global ignore files are skipped.
++    ///
++    /// This affects Git's global ignore file and ignore files subsequently
++    /// added with [`WalkBuilder::add_ignore`]. It does not change the
++    /// process's current directory or the paths traversed by this walker.
++    pub fn current_dir<P: AsRef<Path>>(&mut self, cwd: P) -> &mut WalkBuilder {
++        self.ig_builder.set_current_dir(Some(cwd.as_ref().to_path_buf()));
++        self
++    }
++
+     /// Build a new `Walk` iterator.
+     pub fn build(&self) -> Walk {
+         let follow_links = self.follow_links;
+-        let max_depth = self.max_depth;
++        let max_depth = self.effective_max_depth();
+         let sorter = self.sorter.clone();
+         let its = self
+             .paths
+@@ -581,6 +598,7 @@ impl WalkBuilder {
+             it: None,
+             ig_root: ig_root.clone(),
+             ig: ig_root.clone(),
++            min_depth: self.min_depth.unwrap_or(0),
+             max_filesize: self.max_filesize,
+             skip: self.skip.clone(),
+             filter: self.filter.clone(),
+@@ -596,7 +614,8 @@ impl WalkBuilder {
+         WalkParallel {
+             paths: self.paths.clone().into_iter(),
+             ig_root: self.ig_builder.build(),
+-            max_depth: self.max_depth,
++            min_depth: self.min_depth.unwrap_or(0),
++            max_depth: self.effective_max_depth(),
+             max_filesize: self.max_filesize,
+             follow_links: self.follow_links,
+             same_file_system: self.same_file_system,
+@@ -618,12 +637,31 @@ impl WalkBuilder {
+ 
+     /// The maximum depth to recurse.
+     ///
+-    /// The default, `None`, imposes no depth restriction.
++    /// The default, `None`, imposes no depth restriction. If the configured
++    /// minimum depth is greater, this limit is raised to that minimum when
++    /// building the walker.
+     pub fn max_depth(&mut self, depth: Option<usize>) -> &mut WalkBuilder {
+         self.max_depth = depth;
+         self
+     }
+ 
++    /// The minimum depth of entries to yield. The root has depth `0`.
++    ///
++    /// The default, `None`, imposes no minimum depth restriction. Directories
++    /// below this depth are still traversed, and their ignore rules are used.
++    ///
++    /// If this is greater than the configured maximum depth, the effective
++    /// maximum is raised to this minimum when building the walker, regardless
++    /// of the order in which the bounds are set.
++    pub fn min_depth(&mut self, depth: Option<usize>) -> &mut WalkBuilder {
++        self.min_depth = depth;
++        self
++    }
++
++    fn effective_max_depth(&self) -> Option<usize> {
++        self.max_depth.map(|max| max.max(self.min_depth.unwrap_or(0)))
++    }
++
+     /// Whether to follow symbolic links or not.
+     pub fn follow_links(&mut self, yes: bool) -> &mut WalkBuilder {
+         self.follow_links = yes;
+@@ -649,6 +687,9 @@ impl WalkBuilder {
+ 
+     /// Add a global ignore file to the matcher.
+     ///
++    /// Patterns are interpreted relative to the working directory set with
++    /// [`WalkBuilder::current_dir`]. If unavailable, the file is skipped.
++    ///
+     /// This has lower precedence than all other sources of ignore rules.
+     ///
+     /// If there was a problem adding the ignore file, then an error is
+@@ -656,7 +697,16 @@ impl WalkBuilder {
+     /// example, if an ignore file contains an invalid glob, all other globs
+     /// are still applied.
+     pub fn add_ignore<P: AsRef<Path>>(&mut self, path: P) -> Option<Error> {
+-        let mut builder = GitignoreBuilder::new("");
++        let cwd = match self.ig_builder.current_dir() {
++            Some(cwd) => cwd,
++            None => {
++                log::debug!(
++                    "ignoring global ignore file: no current directory"
++                );
++                return None;
++            }
++        };
++        let mut builder = GitignoreBuilder::new(cwd);
+         let mut errs = PartialErrorBuilder::default();
+         errs.maybe_push(builder.add(path));
+         match builder.build() {
+@@ -914,6 +964,7 @@ pub struct Walk {
+     it: Option<WalkEventIter>,
+     ig_root: Ignore,
+     ig: Ignore,
++    min_depth: usize,
+     max_filesize: Option<u64>,
+     skip: Option<Arc<Handle>>,
+     filter: Option<Filter>,
+@@ -978,7 +1029,9 @@ impl Iterator for Walk {
+                     match self.its.next() {
+                         None => return None,
+                         Some((_, None)) => {
+-                            return Some(Ok(DirEntry::new_stdin()));
++                            if self.min_depth == 0 {
++                                return Some(Ok(DirEntry::new_stdin()));
++                            }
+                         }
+                         Some((path, Some(it))) => {
+                             self.it = Some(it);
+@@ -1021,6 +1074,9 @@ impl Iterator for Walk {
+                     let (igtmp, err) = self.ig.add_child(ent.path());
+                     self.ig = igtmp;
+                     ent.err = err;
++                    if ent.depth() < self.min_depth {
++                        continue;
++                    }
+                     return Some(Ok(ent));
+                 }
+                 Ok(WalkEvent::File(ent)) => {
+@@ -1029,7 +1085,7 @@ impl Iterator for Walk {
+                         Err(err) => return Some(Err(err)),
+                         Ok(should_skip) => should_skip,
+                     };
+-                    if should_skip {
++                    if should_skip || ent.depth() < self.min_depth {
+                         continue;
+                     }
+                     return Some(Ok(ent));
+@@ -1190,6 +1246,7 @@ pub struct WalkParallel {
+     paths: std::vec::IntoIter<PathBuf>,
+     ig_root: Ignore,
+     max_filesize: Option<u64>,
++    min_depth: usize,
+     max_depth: Option<usize>,
+     follow_links: bool,
+     same_file_system: bool,
+@@ -1289,6 +1346,7 @@ impl WalkParallel {
+                     stack,
+                     quit_now: quit_now.clone(),
+                     active_workers: active_workers.clone(),
++                    min_depth: self.min_depth,
+                     max_depth: self.max_depth,
+                     max_filesize: self.max_filesize,
+                     follow_links: self.follow_links,
+@@ -1473,6 +1531,8 @@ struct Worker<'s> {
+     quit_now: Arc<AtomicBool>,
+     /// The number of currently active workers.
+     active_workers: Arc<AtomicUsize>,
++    /// The minimum depth of entries passed to the visitor.
++    min_depth: usize,
+     /// The maximum depth of directories to descend. A value of `0` means no
+     /// descension at all.
+     max_depth: Option<usize>,
+@@ -1504,9 +1564,13 @@ impl<'s> Worker<'s> {
+     }
+ 
+     fn run_one(&mut self, mut work: Work) -> WalkState {
++        let depth = work.dent.depth();
+         // If the work is not a directory, then we can just execute the
+         // caller's callback immediately and move on.
+         if work.is_symlink() || !work.is_dir() {
++            if depth < self.min_depth {
++                return WalkState::Continue;
++            }
+             return self.visitor.visit(Ok(work.dent));
+         }
+         if let Some(err) = work.add_parents() {
+@@ -1537,10 +1601,13 @@ impl<'s> Worker<'s> {
+         // as we may receive an `Err` value e.g. in the case when we do not
+         // have sufficient read permissions to list the directory.
+         // In that case we still want to provide the closure with a valid
+-        // entry before passing the error value.
++        // entry, if it meets the minimum depth, before passing the error.
+         let readdir = work.read_dir();
+-        let depth = work.dent.depth();
+-        let state = self.visitor.visit(Ok(work.dent));
++        let state = if depth < self.min_depth {
++            WalkState::Continue
++        } else {
++            self.visitor.visit(Ok(work.dent))
++        };
+         if !state.is_continue() {
+             return state;
+         }
+@@ -2091,6 +2158,59 @@ mod tests {
+         assert_paths(td.path(), &builder, &["bar", "a", "a/bar"]);
+     }
+ 
++    #[test]
++    fn global_ignore_current_dir_absolute_paths() {
++        let td = tmpdir();
++        let cwd = td.path().join("a/b/c");
++        mkdirp(cwd.join("nested"));
++        mkdirp(cwd.join("ignored"));
++        for path in &["haystack", "keep", "nested/haystack", "ignored/keep"] {
++            wfile(cwd.join(path), "");
++        }
++        let ignore = td.path().join(".global-ignore");
++        wfile(&ignore, "/haystack\n/ignored/\n");
++
++        let mut builder = WalkBuilder::new(&cwd);
++        builder.current_dir(&cwd);
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert_paths(&cwd, &builder, &["keep", "nested", "nested/haystack"]);
++
++        // Global patterns are anchored to the context, not the search root.
++        let mut builder = WalkBuilder::new(&cwd);
++        builder.current_dir(td.path());
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert_paths(
++            &cwd,
++            &builder,
++            &[
++                "haystack",
++                "keep",
++                "nested",
++                "nested/haystack",
++                "ignored",
++                "ignored/keep",
++            ],
++        );
++    }
++
++    #[test]
++    fn global_ignore_without_current_dir() {
++        let td = tmpdir();
++        wfile(td.path().join("haystack"), "");
++        let ignore = td.path().join(".global-ignore");
++        wfile(&ignore, "/haystack\n");
++        let mut builder = WalkBuilder::new(td.path());
++        builder.ig_builder.set_current_dir(None);
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert!(builder.add_ignore(td.path().join("missing")).is_none());
++        assert_paths(td.path(), &builder, &["haystack"]);
++
++        // An explicit context can recover from a failed cwd query.
++        builder.current_dir(td.path());
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert_paths(td.path(), &builder, &[]);
++    }
++
+     #[test]
+     fn explicit_ignore_exclusive_use() {
+         let td = tmpdir();
+@@ -2149,6 +2269,156 @@ mod tests {
+         );
+     }
+ 
++    fn assert_depth_paths(
++        prefix: &Path,
++        builder: &WalkBuilder,
++        expected: &[(&str, usize)],
++    ) {
++        let describe = |dent: DirEntry| {
++            let relative = dent.path().strip_prefix(prefix).unwrap();
++            (normal_path(relative.to_str().unwrap()), dent.depth())
++        };
++        let mut expected: Vec<_> =
++            expected.iter().map(|&(p, d)| (p.to_string(), d)).collect();
++        expected.sort();
++        let mut serial: Vec<_> =
++            builder.build().map(|dent| describe(dent.unwrap())).collect();
++        serial.sort();
++        assert_eq!(serial, expected, "serial");
++
++        let parallel = Arc::new(Mutex::new(vec![]));
++        builder.build_parallel().run(|| {
++            let parallel = parallel.clone();
++            let describe = &describe;
++            Box::new(move |dent| {
++                parallel.lock().unwrap().push(describe(dent.unwrap()));
++                WalkState::Continue
++            })
++        });
++        let mut parallel = parallel.lock().unwrap();
++        parallel.sort();
++        assert_eq!(*parallel, expected, "parallel");
++    }
++
++    #[test]
++    fn min_depth_bounds() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b/c"));
++        for path in &["top", "a/mid", "a/b/inner", "a/b/c/deep"] {
++            wfile(td.path().join(path), "");
++        }
++        let all = &[
++            ("", 0),
++            ("a", 1),
++            ("top", 1),
++            ("a/b", 2),
++            ("a/mid", 2),
++            ("a/b/c", 3),
++            ("a/b/inner", 3),
++            ("a/b/c/deep", 4),
++        ];
++        let cases = [
++            (None, None, &all[..]),
++            (Some(0), None, &all[..]),
++            (Some(1), None, &all[1..]),
++            (Some(2), None, &all[3..]),
++            (Some(3), None, &all[5..]),
++            (Some(5), None, &all[0..0]),
++            (None, Some(0), &all[..1]),
++            (Some(0), Some(0), &all[..1]),
++            (Some(1), Some(2), &all[1..5]),
++            (Some(2), Some(2), &all[3..5]),
++            (Some(3), Some(1), &all[5..7]),
++            (Some(3), Some(0), &all[5..7]),
++            (Some(usize::MAX), Some(0), &all[0..0]),
++        ];
++        for (min, max, expected) in cases {
++            for threads in [1, 4] {
++                let mut builder = WalkBuilder::new(td.path());
++                builder.threads(threads).min_depth(min).max_depth(max);
++                assert_depth_paths(td.path(), &builder, expected);
++                let mut builder = WalkBuilder::new(td.path());
++                builder.threads(threads).max_depth(max).min_depth(min);
++                assert_depth_paths(td.path(), &builder, expected);
++            }
++        }
++    }
++
++    #[test]
++    fn min_depth_reset_keeps_configured_maximum() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b"));
++        wfile(td.path().join("a/b/file"), "");
++        let mut builder = WalkBuilder::new(td.path());
++        builder.min_depth(Some(2)).max_depth(Some(0));
++        assert_depth_paths(td.path(), &builder, &[("a/b", 2)]);
++        // Building must not change the stored bounds.
++        builder.min_depth(None);
++        assert_depth_paths(td.path(), &builder, &[("", 0)]);
++        builder.min_depth(Some(2));
++        assert_depth_paths(td.path(), &builder, &[("a/b", 2)]);
++        builder.max_depth(None);
++        assert_depth_paths(
++            td.path(),
++            &builder,
++            &[("a/b", 2), ("a/b/file", 3)],
++        );
++    }
++
++    #[test]
++    fn min_depth_preserves_shallow_ignore_rules() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b"));
++        mkdirp(td.path().join("ignored/b"));
++        wfile(td.path().join(".ignore"), "ignored/\nroot-ignored\n");
++        wfile(td.path().join("a/.ignore"), "child-ignored\n");
++        for path in &[
++            "a/b/keep",
++            "a/b/root-ignored",
++            "a/b/child-ignored",
++            "ignored/b/keep",
++        ] {
++            wfile(td.path().join(path), "");
++        }
++        let mut builder = WalkBuilder::new(td.path());
++        builder.min_depth(Some(3));
++        assert_depth_paths(td.path(), &builder, &[("a/b/keep", 3)]);
++    }
++
++    #[test]
++    fn min_depth_applies_to_each_root_and_explicit_files() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b"));
++        mkdirp(td.path().join("other"));
++        wfile(td.path().join("a/b/deep"), "");
++        wfile(td.path().join("other/leaf"), "");
++        wfile(td.path().join("explicit"), "");
++        let mut builder = WalkBuilder::new(td.path().join("explicit"));
++        builder.add(td.path().join("a")).add(td.path().join("other"));
++        builder.min_depth(Some(1)).max_depth(Some(1));
++        assert_depth_paths(
++            td.path(),
++            &builder,
++            &[("a/b", 1), ("other/leaf", 1)],
++        );
++        builder.min_depth(Some(0)).max_depth(Some(0));
++        assert_depth_paths(
++            td.path(),
++            &builder,
++            &[("explicit", 0), ("a", 0), ("other", 0)],
++        );
++    }
++
++    #[test]
++    fn min_depth_applies_to_stdin() {
++        let mut builder = WalkBuilder::new("-");
++        assert_depth_paths(Path::new(""), &builder, &[("<stdin>", 0)]);
++        builder.min_depth(Some(1));
++        assert_depth_paths(Path::new(""), &builder, &[]);
++        builder.min_depth(None);
++        assert_depth_paths(Path::new(""), &builder, &[("<stdin>", 0)]);
++    }
++
+     #[test]
+     fn max_filesize() {
+         let td = tmpdir();
+diff --git a/crates/ignore/tests/unclosed_classes.rs b/crates/ignore/tests/unclosed_classes.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..0eb64b0f648c3dea1b912e32b8c79cd43f91e4ae
+--- /dev/null
++++ b/crates/ignore/tests/unclosed_classes.rs
+@@ -0,0 +1,41 @@
++use ignore::{gitignore::GitignoreBuilder, overrides::OverrideBuilder};
++
++#[test]
++fn gitignore_allows_unclosed_classes_by_default() {
++    let mut builder = GitignoreBuilder::new(".");
++    for pattern in ["[", "[abc", "[]", "[][", "[!", "[!]"] {
++        builder.add_line(None, pattern).unwrap();
++    }
++    let ignore = builder.build().unwrap();
++    for path in ["[", "[abc", "dir/[abc", "[]", "[][", "[!", "[!]"] {
++        assert!(ignore.matched(path, false).is_ignore(), "{path}");
++    }
++    assert!(ignore.matched("abc", false).is_none());
++}
++
++#[test]
++fn gitignore_option_affects_only_subsequent_patterns() {
++    let mut builder = GitignoreBuilder::new(".");
++    builder.allow_unclosed_class(false);
++    assert!(builder.add_line(None, "[abc").is_err());
++    builder.allow_unclosed_class(true).add_line(None, "[abc").unwrap();
++    builder.allow_unclosed_class(false).add_line(None, "[xyz]").unwrap();
++    assert!(builder.add_line(None, "[def").is_err());
++    let ignore = builder.build().unwrap();
++    assert!(ignore.matched("[abc", false).is_ignore());
++    assert!(ignore.matched("x", false).is_ignore());
++    assert!(ignore.matched("[def", false).is_none());
++}
++
++#[test]
++fn overrides_are_strict_and_can_opt_in() {
++    let mut builder = OverrideBuilder::new(".");
++    assert!(builder.add("[abc").is_err());
++    builder.allow_unclosed_class(true).add("[abc").unwrap();
++    builder.allow_unclosed_class(false).add("[xyz]").unwrap();
++    assert!(builder.add("[def").is_err());
++    let overrides = builder.build().unwrap();
++    assert!(overrides.matched("[abc", false).is_whitelist());
++    assert!(overrides.matched("x", false).is_whitelist());
++    assert!(!overrides.matched("[def", false).is_whitelist());
++}
+diff --git a/tests/regression.rs b/tests/regression.rs
+index e28af4a31aa1b019e6080cd1cfe19f350d89851d..e07a366cc29ec9b3bb38ec1ffc9bee4b669705a7 100644
+--- a/tests/regression.rs
++++ b/tests/regression.rs
+@@ -1,6 +1,52 @@
+ use crate::hay::SHERLOCK;
+ use crate::util::{sort_lines, Dir, TestCommand};
+ 
++rgtest!(global_ignore_absolute_paths, |dir: Dir, _: TestCommand| {
++    dir.create_dir(".git");
++    dir.create_dir("a/b/c/nested");
++    dir.create("a/b/c/haystack", "test");
++    dir.create("a/b/c/keep", "test");
++    dir.create("a/b/c/nested/haystack", "test");
++    dir.create(".global-ignore", "/haystack\n");
++    let ignore = dir.path().join(".global-ignore");
++    let config = format!(
++        "[core]\nexcludesFile = {}\n",
++        ignore.to_string_lossy().replace('\\', "/")
++    );
++    dir.create(".gitconfig", &config);
++    let cwd = dir.path().join("a/b/c").canonicalize().unwrap();
++    let searches = [
++        (std::path::PathBuf::from("."), vec!["keep", "nested/haystack"]),
++        (cwd.clone(), vec!["keep", "nested/haystack"]),
++        (std::path::PathBuf::from("nested"), vec!["haystack"]),
++        (cwd.join("nested"), vec!["haystack"]),
++    ];
++    for git_global in [false, true] {
++        for threads in ["1", "4"] {
++            for (search, files) in &searches {
++                let mut cmd = dir.command();
++                cmd.current_dir(&cwd);
++                cmd.cmd().env("HOME", dir.path());
++                cmd.cmd().env("USERPROFILE", dir.path());
++                cmd.cmd().env("XDG_CONFIG_HOME", dir.path().join("xdg"));
++                if !git_global {
++                    cmd.args(&["--no-ignore-global", "--ignore-file"]);
++                    cmd.arg(&ignore);
++                }
++                cmd.args(&["--files", "--threads", threads]).arg(search);
++                let expected = files
++                    .iter()
++                    .map(|file| {
++                        search.join(file).to_string_lossy().replace('\\', "/")
++                    })
++                    .collect::<Vec<_>>()
++                    .join("\n");
++                eqnice!(sort_lines(&expected), sort_lines(&cmd.stdout()));
++            }
++        }
++    }
++});
++
+ // See: https://github.com/BurntSushi/ripgrep/issues/16
+ rgtest!(r16, |dir: Dir, mut cmd: TestCommand| {
+     dir.create_dir(".git");
+@@ -1217,3 +1263,24 @@ rgtest!(r2658_null_data_line_regexp, |dir: Dir, mut cmd: TestCommand| {
+     let got = cmd.args(&["--null-data", "--line-regexp", r"bar"]).stdout();
+     eqnice!("haystack:bar\0", got);
+ });
++
++// See: https://github.com/BurntSushi/ripgrep/issues/3127
++rgtest!(
++    r3127_gitignore_allow_unclosed_class,
++    |dir: Dir, mut cmd: TestCommand| {
++        dir.create_dir(".git");
++        dir.create(".gitignore", "[\n[abc\n[]\n[][\n[!\n[!]\n");
++        for path in &["[", "[abc", "[]", "[][", "[!", "[!]", "keep"] {
++            dir.create(path, "test");
++        }
++        eqnice!("keep\n", cmd.arg("--files").stdout());
++    }
++);
++
++rgtest!(r3127_override_rejects_unclosed_class, |_: Dir, mut cmd: TestCommand| {
++    cmd.args(&["--files", "-g", "[abc"]);
++    let output = cmd.raw_output();
++    assert_eq!(output.status.code(), Some(2));
++    let stderr = String::from_utf8_lossy(&output.stderr);
++    assert!(stderr.contains("unclosed character class"));
++});

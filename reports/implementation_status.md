@@ -1,6 +1,10 @@
-# Состояние реализации v1
+# Состояние реализации
 
-**Isolated pilot v1 завершён.** Реально выполнены все шесть variants в двух корректно разделённых matched cohorts. Continuous flow **не реализован**: применён явный вариант deferral из handoff §9.7 и definition of done, с точным blocker, следующим slice и оценкой. Phase 6 не запускалась.
+Текущий статус: continuous runner, source checkpoints, средние кривые и Serena warm-memory continuity реализованы. Phase 5 завершила 12 submissions; Phase 6 сохранила четыре Serena submissions и остановилась на несовместимости grader overlay четвёртого шага. Готовность полного 2×5 ещё не заявляется: исправленный grading режим и совместимый набор задач прошли zero-model preflight; новый Phase 6b cohort заморожен отдельно. [Живой реестр](../EXPERIMENT_STATUS.md), [Phase 6 evidence](phase6_progress.md), [новый протокол](phase6b_protocol.md).
+
+## Исторический isolated pilot v1
+
+**Isolated pilot v1 завершён.** Реально выполнены все шесть variants в двух корректно разделённых matched cohorts. Continuous flow **не реализован**: применён явный вариант deferral из handoff §9.7 и definition of done, с точным blocker, следующим slice и оценкой. На момент isolated pilot Phase 6 ещё не запускалась; последующее состояние приведено выше.
 
 | Требование | Авторитетное доказательство |
 | --- | --- |

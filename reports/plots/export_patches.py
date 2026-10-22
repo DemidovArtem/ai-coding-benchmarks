@@ -17,6 +17,12 @@ def git(repo,*args,env=None):
     return subprocess.check_output(['git','-C',str(repo),*args],env=env)
 
 
+def has_submission(row):
+    return bool(row.get('continuous', {}).get('trajectory_id') and row.get('ending_commit')
+                and row.get('snapshot_sha256') and row.get('verified_snapshot_rust_files')
+                and not row.get('collection_errors'))
+
+
 def main():
     from experiment.security import credential_values
     secrets=credential_values(Path.home()/'.codex/auth.json')
@@ -25,7 +31,7 @@ def main():
     manifest=[]
     for row in rows:
         continuous=row.get('continuous') or {}
-        if row.get('trial_state')!='finished' or not continuous.get('trajectory_id') or row.get('collection_errors'):
+        if not has_submission(row):
             continue
         repo=Path(row['artifacts_path'])/'metrics_repository'
         bundle=Path(row['artifacts_path'])/'repository.bundle'

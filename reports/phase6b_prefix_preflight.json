@@ -1,0 +1,26 @@
+{
+  "inference_calls": 0,
+  "checks": [
+    {
+      "trial_id": "phase6_serena_r01_s01",
+      "snapshot_sha256": "fc9e7bcbb24b80241a23c09ddb9288d2081d1df39a7ef40bb64e1af2a07ba499",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-01",
+      "prune_set": [],
+      "basis": "existing measured grader completed; conservative pruning dry-run removes zero source files"
+    },
+    {
+      "trial_id": "phase6_serena_r01_s02",
+      "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+      "prune_set": [],
+      "basis": "existing measured grader completed; conservative pruning dry-run removes zero source files"
+    },
+    {
+      "trial_id": "phase6_serena_r01_s03_retry01",
+      "snapshot_sha256": "342c29e076bd8d976ab0a1402a8fe34e1488c48100eb4290f45ded71ac5cf85d",
+      "milestone_id": "milestone_seed_2924d0c_1",
+      "prune_set": [],
+      "basis": "existing measured grader completed; conservative pruning dry-run removes zero source files"
+    }
+  ]
+}

@@ -2507,7 +2507,8 @@
     "phase5_baseline_r02_s02",
     "phase5_ponytail_r02_s01",
     "phase5b_ponytail_r02_s01",
-    "phase6_serena_r01_s03"
+    "phase6_serena_r01_s03",
+    "phase6_serena_r01_s04"
   ],
   "aggregation": "Arithmetic mean at each edit count within one frozen cohort; range is min\u2013max, not a confidence interval."
 }

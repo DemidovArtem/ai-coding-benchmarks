@@ -10,6 +10,15 @@ import time
 
 
 def read_quota(timeout=20):
+    report = _read_quota_once(timeout)
+    if report['status'] == 'timeout':
+        retry = _read_quota_once(timeout)
+        retry['previous_observation'] = report
+        return retry
+    return report
+
+
+def _read_quota_once(timeout):
     report = {"observed_at": datetime.now(timezone.utc).isoformat(),
               "source": "codex app-server account/rateLimits/read", "approximate": True,
               "status": "timeout", "rate_limits": None}

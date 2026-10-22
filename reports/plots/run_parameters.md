@@ -26,8 +26,14 @@
 | phase6_serena_r01_s01 | serena | 1 / 1 | gpt-6.1-sol / high | 5b12ad30f6f6 | finished / resolved=True |
 | phase6_serena_r01_s02 | serena | 1 / 2 | gpt-6.1-sol / high | 5b12ad30f6f6 | finished / resolved=True |
 
+| phase6_serena_r01_s03 | serena | 1 / 3 | gpt-6.1-sol / high | 5b12ad30f6f6 | failed / resolved=None |
+| phase6_serena_r01_s03_retry01 | serena | 1 / 3 | gpt-6.1-sol / high | 5b12ad30f6f6 | finished / resolved=False |
+| phase6_serena_r01_s04 | serena | 1 / 4 | gpt-6.1-sol / high | 5b12ad30f6f6 | failed / resolved=False |
+
 Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
 
 Для каждого исходного measured trial CLI 0.163.0, model gpt-6.1-sol, effort high и общий runtime зафиксированы в frozen configs. Нулевые/отсутствующие поля в JSON не подменяются текущими настройками host.
 
 Phase 6 использует прежний model/runtime и усиленную registry policy, но новый scope: четыре workflows и пять задач, два независимых круга. Serena cold memories создаются заново в каждом круге, warm memories сохраняются между задачами. Перезапуск grader второго шага после перезагрузки хоста зафиксирован отдельно; inference не повторялся.
+
+Phase 6b заморожен отдельно: включён существующий upstream source-residue pruning, after-context заменён совместимыми maintenance fixes, timeout quota observation повторяется один раз. Model/CLI/runtime/Sonar/quarantine прежние. Phase 6 и Phase 6b не усредняются вместе. [Новый протокол](../phase6b_protocol.md).
