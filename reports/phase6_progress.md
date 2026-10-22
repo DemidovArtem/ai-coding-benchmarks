@@ -6,6 +6,7 @@
 | --- | --- | --- | --- | --- | --- |
 | phase6_serena_r01_s01 | True | True | 12 / 12 | 0 / 7 | 30 |
 | phase6_serena_r01_s02 | True | True | 84 / 13 | 7 / 8 | 32 |
+| phase6_serena_r01_s03_retry01 | False | True | 133 / 21 | 8 / 10 | 55 |
 
 Первый Serena turn остановился на предположении о недоступных filesystem tools. Стандартное upstream напоминание о submission продолжило тот же thread; последующая реализация прошла исходную строгую Serena-проверку без изменения policy. Дополнительные вызовы и время входят в метрики этой задачи; это не дополнительный независимый повтор.
 
@@ -20,3 +21,5 @@
 Grader и Sonar второго шага завершены успешно. Служебный экспорт patches остановил дальнейшее планирование из-за отсутствующего project root в Python import path. Исправлен только host-side exporter; 28 patches из 14 исторических и новых submissions проверены воспроизведением. Продолжение читает уже собранный второй шаг, без нового inference и без повторного grader.
 
 Перед executor третьего шага запрос `account/rateLimits/read` превысил 20-секундный timeout. Модель не вызывалась; failed attempt `phase6_serena_r01_s03` сохранён с отсутствующими метриками. Повторная свежая quota observation успешна (26% short / 4% weekly); подготовка продолжается как `phase6_serena_r01_s03_retry01`, с прежним submitted source и executor thread.
+
+Третий submitted шаг имеет raw `resolved=false`: новая проверка `walk::tests::min_depth` проходит, P2P — 1092/1093, failure `glob::tests::re35`. Task-local filtered evaluation даёт `resolved=true` (P2P 1081/1081). Основной реестр по замороженному протоколу сохраняет исходный raw grader и не подменяет его filtered-результатом. Это расхождение ограничивает интерпретацию: до сравнения остальных setups нельзя приписывать его качеству одного workflow. Результаты grader не передаются executor; четвёртый шаг продолжает исходный план.
