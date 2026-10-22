@@ -56,13 +56,21 @@ def main():
     lock = trial_lock(runtime)
     chain = 'phase6_serena_r01'
     output = runtime / (chain + '_s02')
-    old = load(output / 'run_metadata.json')
+    interrupted = output / 'host_restart.json'
+    collected = (ROOT / 'results/trials' / output.name).exists()
+    old = load(interrupted)['original_metadata'] if collected else load(output / 'run_metadata.json')
     previous = load(ROOT / 'reports' / (chain + '_s01.json'))
     snapshot = output / 'evaluation/source_snapshot.tar'
     sidecar = load(snapshot.with_name('source_snapshot.integrity.json'))
     verify_checkpoint(old, previous, config, sidecar, snapshot)
-    if (ROOT / 'results/trials' / output.name).exists() or (output / 'evaluation/evaluation_result.json').exists():
+    if not collected and (output / 'evaluation/evaluation_result.json').exists():
         raise ValueError('Recovery cannot overwrite a terminal result')
+    if collected:
+        recovered = load(ROOT / 'reports' / (output.name + '.json'))
+        if (recovered['trial_state'] != 'finished' or recovered['collection_errors']
+                or recovered['ending_commit'] != sidecar['agent_tag_commit']
+                or recovered['setup_fingerprint'] != old['setup_fingerprint']):
+            raise ValueError('Collected checkpoint is not a valid submitted step')
     benchmark = config['benchmark']
     workspace = ROOT / benchmark['dataset_root'] / benchmark['repo']
     milestones = benchmark['continuous_pilot']['milestones']
@@ -77,6 +85,7 @@ def main():
     session = old['executor_session_id']
     previous_memory = load(output / 'serena_state.json')['after']
     memory_before = load(output / 'serena_memory_before.json')
+    verify_memory_boundary(memory_before, load(runtime / (chain + '_s01') / 'serena_state.json')['after'])
     task = (output / 'dispatched_task.txt').read_text()
     dispatch_path = '/home/fakeroot/continuous-step-2.txt'
     index = 2
@@ -147,13 +156,13 @@ def main():
     runner.container_setup.lock_network()
     if not runner.agent_runner.refresh_container_credentials():
         raise RuntimeError('OAuth refresh failed before recovery')
-    interrupted = output / 'host_restart.json'
-    if interrupted.exists():
+    if interrupted.exists() and not collected:
         raise ValueError('Repeated recovery needs a new explicit audit')
-    save(interrupted, {'observed_at': datetime.now(timezone.utc).isoformat(), 'original_metadata': old,
-        'interrupted_stage': 'grader', 'inference_replayed': False,
-        'snapshot_sha256': sidecar['snapshot_sha256'],
-        'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
+    if not interrupted.exists():
+        save(interrupted, {'observed_at': datetime.now(timezone.utc).isoformat(), 'original_metadata': old,
+            'interrupted_stage': 'grader', 'inference_replayed': False,
+            'snapshot_sha256': sidecar['snapshot_sha256'],
+            'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
     original_resume = runner.agent_runner.resume_session
     def timed_resume(*args, **kwargs):
         started = time.monotonic()
@@ -163,7 +172,11 @@ def main():
             save(output / 'execution.json', {'duration_seconds': time.monotonic() - started})
     runner.agent_runner.resume_session = timed_resume
     submissions = {milestones[0]: previous['ending_commit'], milestones[1]: sidecar['agent_tag_commit']}
-    for index in range(2, 6):
+    if collected:
+        verify_memory_boundary(memory_state(runner.container_setup), previous_memory)
+        analyze(recovered)
+        previous = recovered
+    for index in range(3 if collected else 2, 6):
         output = runtime / (chain + '_s' + str(index).zfill(2))
         if index > 2:
             output.mkdir(mode=0o700, exist_ok=False)
@@ -176,7 +189,8 @@ def main():
         step_config['benchmark']['smoke_milestone'] = runner.milestone_id
         save(output / 'experiment.json', step_config)
         metadata = old.copy() if index == 2 else {**old, 'step': index, 'started_at': datetime.now(timezone.utc).isoformat()}
-        metadata['operational_recovery'] = load(interrupted)
+        metadata['operational_recovery'] = {**load(interrupted),
+            'continuation_adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
         save(output / 'run_metadata.json', metadata)
         update_progress(chain, state='running', completed_steps=index - 1, active_step=index,
                         operational_recovery='host restart after step 2 submission; no inference replay')

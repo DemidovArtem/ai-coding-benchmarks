@@ -5,9 +5,11 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT))
 OUTPUT=ROOT/'reports/patches'
 
 
