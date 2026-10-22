@@ -1,13 +1,13 @@
 # Сохранённые diffs по шагам
 
-Сохранены **32 текстовых patch-файла для 16 сохранённых continuous submissions**. Для каждого шага есть:
+Для каждой проверенной continuous submission сохраняются **два текстовых patch-файла**. Актуальный список и SHA находятся в [manifest.json](manifest.json). Для каждого шага есть:
 
 - `*.incremental.patch` — изменение относительно входного commit этого шага.
 - `*.cumulative.patch` — изменение относительно исходного commit всей траектории.
 
 [manifest.json](manifest.json) содержит trial/trajectory/step, starting и ending commits, ending tree, snapshot SHA, SHA-256 каждого patch, исходный executor session ID и путь/SHA локального Git bundle. Предыдущие trials, failures и raw session traces сохранены в локальном ignored `results/`; credentials не экспортируются.
 
-Каждый patch уже применён к временному Git index правильного base commit. Полученный tree SHA совпал с immutable submitted tree. Проверены все 32 replay. Binary diffs и file modes сохранены через Git `--binary --full-index`.
+Каждый patch уже применён к временному Git index правильного base commit. Полученный tree SHA совпал с immutable submitted tree. Для каждого экспортированного patch проверено точное воспроизведение submitted tree. Binary diffs и file modes сохранены через Git `--binary --full-index`.
 
 Это точные **полные repository diffs**, включая benchmark test masking и тестовые изменения. Они не совпадают с production-only LOC на графиках: production LOC отдельно фильтрует тесты. Patch-файлы не следует применять к пользовательскому checkout вслепую; для просмотра или восстановления используйте отдельный scratch repository с указанными commits.
 
