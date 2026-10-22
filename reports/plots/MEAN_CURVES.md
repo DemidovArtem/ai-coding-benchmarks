@@ -1,8 +1,12 @@
 # Основные графики: среднее по повторам
 
-**Phase 6 разрешён:** к baseline/Caveman/Ponytail добавлена Serena, пять шагов и два круга. Новые средние считаются отдельно от прежнего двухшагового cohort. После появления измерений генератор создаёт файлы `mean_curves_<cohort>.png` и `mean_deltas_<cohort>.png` и добавляет страницы в общий PDF. Число правок по X расширяется до пяти по мере завершения шагов. [Протокол](../phase6_protocol.md).
+**Текущий scope — Phase 6c:** baseline, Caveman и Ponytail, по три последовательные правки, затем второй независимый круг. Новые повторы добавляют наблюдения к тем же кривым этого cohort. Serena больше не запускается; её три собранных шага и четвёртая submission с ошибкой grader сохранены отдельно. [Протокол](../phase6c_protocol.md), [живой реестр](../../EXPERIMENT_STATUS.md).
 
-[Текущие результаты Phase 6](../phase6_progress.md) · [Кривые нового cohort с Serena](mean_curves_5b12ad30.png) · [Парные дельты нового cohort](mean_deltas_5b12ad30.png). Пока matching baseline не выполнен, его отсутствие остаётся пропуском, а не нулём.
+![Текущие средние кривые Phase 6c](mean_curves_e6a3c102.png)
+
+[Текущие парные дельты к baseline](mean_deltas_e6a3c102.png) · [Параметры и различия запусков](run_parameters.md). Точки появляются только после collection и Sonar; отсутствующие подходы и повторы не добавляют нулей. Число наблюдений `n` указано на графиках.
+
+## Исторический двухшаговый cohort
 
 ![Средние кривые](mean_curves.png)
 
@@ -20,7 +24,7 @@
 
 ## Что сохраняется
 
-- [PDF с двумя страницами](mean_comparison.pdf), PNG и SVG.
+- [PDF по всем отдельным cohorts](mean_comparison.pdf), PNG и SVG.
 - [mean_data.json](mean_data.json): отдельные наблюдения, среднее, min/max, стандартное отклонение и `n` для каждой метрики.
 - [run_parameters.md](run_parameters.md), [run_parameters.json](run_parameters.json): условия каждого запуска и технические паузы. Изменение model, effort, runtime, prompts, tasks или quarantine создаёт другую группу сравнения.
 - [Патчи и replay manifest](../patches/README.md): исходные textual diffs и точные Git bindings. Они не заменяют историю сессии и сами не реализуют продолжение эксперимента.
@@ -33,6 +37,8 @@ python reports/plots/mean_curves.py --refresh-data
 
 Plan и goal_plan исключены из новых экспериментов и основных средних кривых. Их исторические результаты и прежние графики сохранены. Phase 2/3, исходный Phase 5 и новая registry policy не объединяются. У нового Phase 5b пока нет завершённых измерений, поэтому он не добавляет точек в графики.
 
-Новый benchmark запускается только по явной отмашке пользователя. [Актуальный реестр](../../EXPERIMENT_STATUS.md). Две правки и мало повторов не подтверждают долгосрочное накопление ошибок; текущие кривые показывают только измеренные изменения.
+Новый benchmark запускается только по явной отмашке пользователя. [Актуальный реестр](../../EXPERIMENT_STATUS.md). Короткие цепочки и мало повторов не подтверждают долгосрочное накопление ошибок; кривые показывают только измеренные изменения.
 
 Phase 6: у третьего Serena шага raw grader и task-local filtered grader расходятся из-за проверки порядка веток эквивалентного regex. Canonical raw score сохранён; интерпретировать его как ухудшение поведения без дополнительного анализа нельзя. [Доказательства совместимости grader](../phase6_grader_compatibility.json), [текущие результаты Phase 6](../phase6_progress.md).
+
+Phase 6c: baseline на третьем шаге воспроизвёл тот же `re35` mismatch; canonical raw score не изменён. [Наблюдения и SHA исходных grader records](../phase6c_grader_observations.json).

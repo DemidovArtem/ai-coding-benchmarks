@@ -1017,5 +1017,233 @@
       "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c",
       "continuation_adapter_sha256": "c563f8efa7942d76eaca16b6998e2961e1616af7cd641f5106cfa9eb1a2b4f8f"
     }
+  },
+  {
+    "trial_id": "phase5_plan_r01_s01",
+    "variant": "plan",
+    "repetition": 1,
+    "step": 1,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b9bf8525af17889c302876b10b21b95b571b806f6507de2b5b787a2945c0c3dd",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": null,
+    "starting_tree": null,
+    "executor_session_id": null,
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": null,
+    "failure_category": "host_restart_before_executor",
+    "profile_config_sha256": null,
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": null,
+    "started_at": null,
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
+  },
+  {
+    "trial_id": "phase6b_baseline_r01_s01",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 1,
+    "state": "failed",
+    "resolved": null,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "c53820c8b7c305ea62470dc29a8263843c8c7b6b680c3d50364513d8eb0bfb33",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": null,
+    "starting_tree": null,
+    "executor_session_id": null,
+    "snapshot_sha256": null,
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 78,
+          "windowDurationMins": 300,
+          "resetsAt": 1792707943
+        },
+        "secondary": {
+          "usedPercent": 12,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793294743
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": "continuous_step_failure",
+    "profile_config_sha256": null,
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T20:42:51.599571+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "maintenance_fixes_1_sub-01",
+      "milestone_seed_b610d1c_1"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "enablement": "SWE_MILESTONE_RESIDUE_PRUNE=1",
+      "compatibility_preflight": "reports/phase6b_preflight.json"
+    }
+  },
+  {
+    "trial_id": "phase6c_baseline_r01_s01",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+    "snapshot_sha256": "c31e90b6036e43a6669e8529efe5284cb9ec2ba54945763415c9c5af3303a9c1",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 14,
+          "windowDurationMins": 300,
+          "resetsAt": 1792722103
+        },
+        "secondary": {
+          "usedPercent": 2,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793308903
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T21:27:06.490696+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
+  },
+  {
+    "trial_id": "phase6c_baseline_r01_s02",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+    "snapshot_sha256": "bc8455ad9dd5c64e831396b52a3e43fb5fb0d54e13ac6e64980d60478286523e",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 27,
+          "windowDurationMins": 300,
+          "resetsAt": 1792722103
+        },
+        "secondary": {
+          "usedPercent": 4,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793308903
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T21:33:19.772155+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
+  },
+  {
+    "trial_id": "phase6c_baseline_r01_s03",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 3,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+    "snapshot_sha256": "61eae7e913181bf4055ad2aeb465eec4a0e92760e51ae600e7a096a2a120083b",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 39,
+          "windowDurationMins": 300,
+          "resetsAt": 1792722103
+        },
+        "secondary": {
+          "usedPercent": 6,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793308903
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T21:40:00.233093+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
   }
 ]

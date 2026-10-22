@@ -1,0 +1,31 @@
+{
+  "canonical_scores_unchanged": true,
+  "observations": [
+    {
+      "trial_id": "phase6c_baseline_r01_s03",
+      "canonical_resolved": false,
+      "task_local_filtered_resolved": true,
+      "test_summary": {
+        "total": 1113,
+        "passed": 1098,
+        "failed": 14,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 0,
+        "fail_to_pass_achieved": 0,
+        "none_to_pass_required": 1,
+        "none_to_pass_achieved": 1,
+        "pass_to_pass_required": 1093,
+        "pass_to_pass_achieved": 1092,
+        "pass_to_pass_failed": 1,
+        "pass_to_pass_missing": 0,
+        "none_to_pass_missing": 0
+      },
+      "test": "glob::tests::re35",
+      "failure_excerpt": "---- glob::tests::re35 stdout ----\n\nthread 'glob::tests::re35' panicked at crates/globset/src/glob.rs:1325:5:\nassertion `left == right` failed\n  left: \"(?-u)^(?:b|a)$\"\n right: \"(?-u)^(?:a|b)$\"",
+      "interpretation": "The observed exact-string assertion differs only in alternation order for the same anchored a/b language. This is the previously documented historical grader-version mismatch; raw rejection alone does not prove behavioral regression. Other raw-suite failures remain in the unmodified canonical report.",
+      "canonical_report_sha256": "f20a3609018bc77f5d88ca36ea5b5cf7f073d61a93715003ff7c8e275d56beec",
+      "grader_log_sha256": "5c81a288026f79120829abad0e489c546d4e88bca328607f910a93e3ab5aa2ef"
+    }
+  ]
+}
