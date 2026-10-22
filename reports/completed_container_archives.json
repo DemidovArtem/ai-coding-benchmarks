@@ -1,0 +1,149 @@
+{
+  "reason": "Preserve completed benchmark source and sessions while recovering Docker capacity for the authorized three-edit queue",
+  "entries": [
+    {
+      "trial_id": "phase2_baseline_001",
+      "container": "maintenance_fixes_1_sub-01-phase2_baseline_001-runner",
+      "ending_commit": "ba77b20a09537e19fda1c2a043800247b9db8fe6",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_baseline_001/repository.bundle",
+      "durable_bundle_sha256": "569a33d4379d5ebf8cf6420222401a7ea5deb2167330862161afe02e9036ad3c",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase2_baseline_001/source-with-git.tar.gz",
+          "bytes": 3924988,
+          "sha256": "f60c6c0dd0199c6bc80eab391c114f95977b8456e62ea0e6fbc1c72f722f4784"
+        },
+        {
+          "path": "results/retained_workspaces/phase2_baseline_001/codex-sessions.tar.gz",
+          "bytes": 127976,
+          "sha256": "1f251bbdf068733ef8d12b0d9ac1d060c1df28e1b02d493fb6761ead8cbb6fb5"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    },
+    {
+      "trial_id": "phase2_plan_001",
+      "container": "maintenance_fixes_1_sub-01-phase2_plan_001-runner",
+      "ending_commit": "952f1ec7a570cf5e0308c4f7c9fd651df947bbda",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_plan_001/repository.bundle",
+      "durable_bundle_sha256": "c7be6da6ae54cb78657b38f2d694059628104db4df8b88c6e7a1be44ad8b29f4",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase2_plan_001/source-with-git.tar.gz",
+          "bytes": 3927896,
+          "sha256": "0180fcb07cf54d79034b347accd9c8e62019f491b45d1b74b1ec02dd42041e6e"
+        },
+        {
+          "path": "results/retained_workspaces/phase2_plan_001/codex-sessions.tar.gz",
+          "bytes": 169543,
+          "sha256": "3e0d66ccb056afeb4530042abe6f6dc39e304272f4ef05ba4cd39006e12f2fdc"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    },
+    {
+      "trial_id": "phase2_goal_plan_001",
+      "container": "maintenance_fixes_1_sub-01-phase2_goal_plan_001-runner",
+      "ending_commit": "a9a448922f85c50a09c9309333c8d9bde85a023b",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase2_goal_plan_001/repository.bundle",
+      "durable_bundle_sha256": "96b37671b5abf1bf757ff17d70d5a4fa4ded98aadc2a7ff75cd5a868eb629539",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase2_goal_plan_001/source-with-git.tar.gz",
+          "bytes": 3938695,
+          "sha256": "e5eeb5a444bb5ddffbd4a9119e804b335bccb785717e100bde554ed419e8c6b4"
+        },
+        {
+          "path": "results/retained_workspaces/phase2_goal_plan_001/codex-sessions.tar.gz",
+          "bytes": 228094,
+          "sha256": "32754740ec9af09e0edfaaa814ad3cabdf8de6bd43e4b71bc7fc696a138c3413"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    },
+    {
+      "trial_id": "phase3_baseline_001",
+      "container": "maintenance_fixes_1_sub-01-phase3_baseline_001-runner",
+      "ending_commit": "507af15f89d3f516f8e50678595603b239ae962f",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_baseline_001/repository.bundle",
+      "durable_bundle_sha256": "f7d20ec84d0315765785fb3a48b5734b024ae9fed4464bf70d62f9725b53eb53",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase3_baseline_001/source-with-git.tar.gz",
+          "bytes": 3921835,
+          "sha256": "31d9530170c1cef9cfa2c13f6a0a489f32498ef62c3c95b0aa847e1ff850985e"
+        },
+        {
+          "path": "results/retained_workspaces/phase3_baseline_001/codex-sessions.tar.gz",
+          "bytes": 147670,
+          "sha256": "377a42ea9aa8fda2755f9304cefebb75b72ea61b35aab01ce56b77ed5b570ab6"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    },
+    {
+      "trial_id": "phase3_caveman_001",
+      "container": "maintenance_fixes_1_sub-01-phase3_caveman_001-runner",
+      "ending_commit": "bbab8e7cfd770e42c0118769096c92c0610bdd5b",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_caveman_001/repository.bundle",
+      "durable_bundle_sha256": "230b0b861934d3e3422898db911edb528421069d432dd77ed67b2623eb3a89b3",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase3_caveman_001/source-with-git.tar.gz",
+          "bytes": 3936419,
+          "sha256": "e2ed7826ba4352e4cfe4153654a4e75a9bb9d5b0ebddf28fabc7694067a1bd09"
+        },
+        {
+          "path": "results/retained_workspaces/phase3_caveman_001/codex-sessions.tar.gz",
+          "bytes": 193851,
+          "sha256": "3b17bb3710aa7144271ff97e952ef5dc535ab6784b26d5e9926415f005f1e4ab"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    },
+    {
+      "trial_id": "phase3_ponytail_001",
+      "container": "maintenance_fixes_1_sub-01-phase3_ponytail_001-runner",
+      "ending_commit": "5f8b184167ed793397c558d692d11aaea161d054",
+      "snapshot_verified": true,
+      "durable_bundle": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase3_ponytail_001/repository.bundle",
+      "durable_bundle_sha256": "9832149e58e3948df4999900aa9a741c97805bb1c69d9e7090887f7f3bf8035e",
+      "durable_rollouts": 1,
+      "archives": [
+        {
+          "path": "results/retained_workspaces/phase3_ponytail_001/source-with-git.tar.gz",
+          "bytes": 3923412,
+          "sha256": "89fa173a178b5ab7d5f702c8caf52500d939925756f09069e90d7bcf7bab9a92"
+        },
+        {
+          "path": "results/retained_workspaces/phase3_ponytail_001/codex-sessions.tar.gz",
+          "bytes": 167513,
+          "sha256": "e4f642d40067c21ab5a4f1c5f1f3f38cbc9920a8ed29f2d4abd5a1129946381e"
+        }
+      ],
+      "preserved": "Complete /testbed with .git and uncommitted source; complete Codex sessions; existing durable grader/usage/profile/Sonar records",
+      "omitted": "Regenerable Cargo target cache; credentials and installed runtime binaries are not archived",
+      "action": "remove completed container only after archive verification"
+    }
+  ]
+}

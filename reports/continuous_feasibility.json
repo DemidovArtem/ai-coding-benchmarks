@@ -413,10 +413,10 @@
       "repetition": 1,
       "cohort": "phase6c",
       "state": "running",
-      "completed_steps": 1,
+      "completed_steps": 2,
       "total_steps": 3,
-      "active_step": 2,
-      "last_step": "phase6c_baseline_r01_s01",
+      "active_step": 3,
+      "last_step": "phase6c_baseline_r01_s02",
       "failure_category": null
     },
     {
