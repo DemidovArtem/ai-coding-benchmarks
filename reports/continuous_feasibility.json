@@ -425,9 +425,11 @@
       "repetition": 1,
       "cohort": "phase6c",
       "state": "running",
-      "completed_steps": 0,
+      "completed_steps": 3,
       "total_steps": 3,
-      "active_step": 1
+      "active_step": null,
+      "last_step": "phase6c_caveman_r01_s03",
+      "failure_category": null
     },
     {
       "trial_id": "phase6c_ponytail_r01",

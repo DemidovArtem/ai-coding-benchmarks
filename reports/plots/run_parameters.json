@@ -1245,5 +1245,101 @@
     "grading_policy": {
       "mode": "upstream default; no residue-pruning environment override"
     }
+  },
+  {
+    "trial_id": "phase6c_caveman_r01_s01",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 1,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+    "snapshot_sha256": "b017366fd8d130cdae061cb555f9a3455677a12b9949926cffc7667f533c2dc6",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 50,
+          "windowDurationMins": 300,
+          "resetsAt": 1792722103
+        },
+        "secondary": {
+          "usedPercent": 8,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793308903
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T21:45:35.715226+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
+  },
+  {
+    "trial_id": "phase6c_caveman_r01_s02",
+    "variant": "caveman",
+    "repetition": 1,
+    "step": 2,
+    "state": "finished",
+    "resolved": true,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+    "snapshot_sha256": "8331516961f06ea4d3871faf891a8213a8606d37fa15250452305d507a40fe8b",
+    "resume": null,
+    "quota_before": {
+      "codex": {
+        "primary": {
+          "usedPercent": 62,
+          "windowDurationMins": 300,
+          "resetsAt": 1792722103
+        },
+        "secondary": {
+          "usedPercent": 10,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793308903
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "v4.0.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-22T21:52:33.956486+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1"
+    ],
+    "grading_policy": {
+      "mode": "upstream default; no residue-pruning environment override"
+    }
   }
 ]

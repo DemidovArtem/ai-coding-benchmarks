@@ -15,6 +15,7 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 sys.path.insert(0,str(ROOT))
 from experiment.curves import aggregate
+from reports.plots.current_view import comparison_view
 
 COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87','serena':'#c9802a'}
 STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D','serena':':^'}
@@ -42,12 +43,18 @@ def main():
     data=json.loads((HERE/'mean_data.json').read_text())
     cohorts=sorted({p['setup_fingerprint'] for p in data['points']})
     if not cohorts:raise ValueError('No completed measured points to plot')
+    combined=comparison_view(data,json.loads((ROOT/'reports/phase6c_experiment.json').read_text()),
+                             json.loads((ROOT/'reports/phase6_experiment.json').read_text()))
+    (HERE/'current_comparison.json').write_text(json.dumps(combined,indent=2)+'\n')
+    views=([(None,combined['points'],list(NAMES))] if combined['points'] else [])
+    for cohort in cohorts:
+        points=[p for p in data['points'] if p['setup_fingerprint']==cohort]
+        variants=list(NAMES) if any(p['variant']=='serena' for p in points) else ['baseline','caveman','ponytail']
+        views.append((cohort,points,variants))
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':10,'pdf.fonttype':42,'svg.fonttype':'none'})
     with PdfPages(HERE/'mean_comparison.pdf') as pdf:
-        for cohort in cohorts:
-            points=[p for p in data['points'] if p['setup_fingerprint']==cohort]
-            variants=list(NAMES) if any(p['variant']=='serena' for p in points) else ['baseline','caveman','ponytail']
-            for paired in (False,True):
+        for cohort,points,variants in views:
+            for paired in ((False,) if cohort is None else (False,True)):
                 fig,axes=plt.subplots(3,3,figsize=(15,11))
                 for ax,(metric,title,unit) in zip(axes.flat,MEASURES):
                     ax.axhline(0,color='#9ba9b5',linewidth=.8)
@@ -82,18 +89,24 @@ def main():
                         ax.set_ylim(-1,1);ax.set_yticks([0])
                 title='Средние изменения по правкам' if not paired else 'Средние парные дельты к baseline по правкам'
                 fig.suptitle(title,x=.035,ha='left',fontsize=19,fontweight='medium')
-                fig.text(.035,.936,'Линия — среднее повторов; полоса — min–max. n — число наблюдений в последней точке. Один cohort.',fontsize=10,color='#526474')
+                subtitle='Линия — среднее повторов; полоса — min–max. n — число наблюдений в последней точке.'
+                fig.text(.035,.936,subtitle+(' Один cohort.' if cohort else ' Первые три задачи одинаковы.'),fontsize=10,color='#526474')
+                provenance=('Serena: исходный runtime; остальные: offline-сборка с тем же Codex 0.163.0. Средние каждой линии сохранены.'
+                            if cohort is None else 'Правка 0 — исходная точка отсчёта. Мало повторов; полосы не являются доверительным интервалом. Cohort: '+cohort[:12])
                 fig.text(.035,.028,'Churn/Net сравниваются с началом траектории; токены накапливаются. Sonar включает тесты и маскирование.\n'
-                         'Правка 0 — исходная точка отсчёта. Мало повторов; полосы не являются доверительным интервалом. Cohort: '+cohort[:12],fontsize=9,color='#526474')
+                         +provenance,fontsize=9,color='#526474')
                 fig.tight_layout(rect=(.015,.08,.99,.915),h_pad=2,w_pad=2)
                 suffix='mean_deltas' if paired else 'mean_curves'
-                extra='_'+cohort[:8] if len(cohorts)>1 else ''
+                extra='_current' if cohort is None else '_'+cohort[:8] if len(cohorts)>1 or combined['points'] else ''
                 fig.savefig(HERE/(suffix+extra+'.png'),dpi=120,facecolor='white')
                 svg=HERE/(suffix+extra+'.svg')
                 fig.savefig(svg,facecolor='white')
                 svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
+                if cohort is None:
+                    (HERE/'mean_curves.png').write_bytes((HERE/(suffix+extra+'.png')).read_bytes())
+                    (HERE/'mean_curves.svg').write_bytes(svg.read_bytes())
                 pdf.savefig(fig,facecolor='white');plt.close(fig)
-    print('Mean curves rendered for',len(cohorts),'separate cohort(s).')
+    print('Mean curves rendered:',len(views),'views from',len(cohorts),'source cohorts.')
 
 
 if __name__=='__main__':main()

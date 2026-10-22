@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-22 23:47:33**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-23 00:07:38**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -13,7 +13,7 @@
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Работает: 13 MCP calls, 2 symbol calls, 6 memories | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
 | Текущий состав экспериментов | baseline, caveman, ponytail | Plan исключён из новых запусков; прежние результаты сохранены. |
-| Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
+| Phase 4: Sonar before/after | Частично выполнен / ожидает анализов | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Пилот остановлен: quarantine preflight | Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 5b: baseline / Caveman / Ponytail | Заменён авторизованной Phase 6 | Новые двухшаговые trials не запускаются: пользователь расширил план до четырёх setups, двух кругов по пять правок. Прежний quota failure сохранён. [Протокол](reports/phase5b_protocol.md) |
 | Phase 6: baseline / Caveman / Ponytail / Serena, 2×5 | Дальнейшие запуски отменены | Serena: три шага собраны; четвёртая submission сохранена с ошибкой grader. Checkpoint и 10 memories проверены. [Протокол](reports/phase6_protocol.md) |
@@ -55,7 +55,7 @@
 | phase6b_ponytail_r02 | ponytail | 2 | 0/5 | Исключён из новых запусков |
 | phase6b_serena_r02 | serena | 2 | 0/5 | Исключён из новых запусков |
 | phase6c_baseline_r01 | baseline | 1 | 3/3 | Завершён |
-| phase6c_caveman_r01 | caveman | 1 | 0/3 | Выполняется |
+| phase6c_caveman_r01 | caveman | 1 | 3/3 | Выполняется |
 | phase6c_ponytail_r01 | ponytail | 1 | 0/3 | Запланирован |
 | phase6c_baseline_r02 | baseline | 2 | 0/3 | Запланирован |
 | phase6c_caveman_r02 | caveman | 2 | 0/3 | Запланирован |
@@ -105,7 +105,9 @@
 | phase6c_baseline_r01_s01 | baseline | Завершён; grader принят | 17 | 19 | -2 | 36 | 2 |
 | phase6c_baseline_r01_s02 | baseline | Завершён; grader принят | 98 | 21 | 77 | 119 | 4 |
 | phase6c_baseline_r01_s03 | baseline | Завершён; grader не принят | 149 | 28 | 121 | 177 | 5 |
-| phase6c_caveman_r01_s01 | caveman | Выполняется | — | — | — | — | — |
+| phase6c_caveman_r01_s01 | caveman | Завершён; grader принят | 15 | 15 | 0 | 30 | 2 |
+| phase6c_caveman_r01_s02 | caveman | Завершён; grader принят | 81 | 16 | 65 | 97 | 4 |
+| phase6c_caveman_r01_s03 | caveman | Завершён; grader не принят | 136 | 23 | 113 | 159 | 5 |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
 
@@ -151,7 +153,9 @@ Input уже включает cached input: эти столбцы не скла�
 | phase6c_baseline_r01_s01 | 603 396 | 530 688 | 7 182 | 0 | 177.0 | 73.3 | 17.4 | 312.7 |
 | phase6c_baseline_r01_s02 | 1 050 095 | 999 552 | 10 982 | 0 | 242.4 | 68.9 | 19.5 | 335.7 |
 | phase6c_baseline_r01_s03 | 1 231 539 | 1 193 984 | 8 992 | 0 | 180.2 | 68.0 | 17.4 | 272.6 |
-| phase6c_caveman_r01_s01 | — | — | — | — | — | — | — | — |
+| phase6c_caveman_r01_s01 | 648 985 | 604 544 | 8 344 | 0 | 204.0 | 72.6 | 16.1 | 359.1 |
+| phase6c_caveman_r01_s02 | 1 026 873 | 999 936 | 12 775 | 0 | 292.9 | 66.5 | 16.1 | 383.8 |
+| phase6c_caveman_r01_s03 | 1 416 510 | 1 384 064 | 12 595 | 0 | 282.6 | 99.2 | — | 407.4 |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
 
@@ -197,11 +201,13 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase6c_baseline_r01_s01 | Готов | 31 079 | 2 392 | 281 | 1 433 | — | — |
 | phase6c_baseline_r01_s02 | Готов | 31 131 | 2 414 | 281 | 1 433 | — | — |
 | phase6c_baseline_r01_s03 | Готов | 31 361 | 2 430 | 281 | 1 433 | — | — |
-| phase6c_caveman_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| phase6c_caveman_r01_s01 | Готов | 31 086 | 2 391 | 282 | 1 438 | — | — |
+| phase6c_caveman_r01_s02 | Готов | 31 130 | 2 408 | 282 | 1 438 | — | — |
+| phase6c_caveman_r01_s03 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 
-Несобранных trials: **1**, из них выполняется: **1**. Для Phase 5 пользователь разрешил продолжение выше 85%; явный отказ сервиса по квоте по-прежнему останавливает запуск. [Разрешённое изменение](reports/phase5_quota_override.md). Этот документ сам ничего не запускает и не следит по расписанию.
+Несобранных trials: **0**, из них выполняется: **0**. Для Phase 5 пользователь разрешил продолжение выше 85%; явный отказ сервиса по квоте по-прежнему останавливает запуск. [Разрешённое изменение](reports/phase5_quota_override.md). Этот документ сам ничего не запускает и не следит по расписанию.
 
 ## Как обновляется реестр
 
