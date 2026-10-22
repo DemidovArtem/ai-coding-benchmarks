@@ -249,7 +249,8 @@
       "total_steps": 5,
       "active_step": 2,
       "last_step": "phase6_serena_r01_s01",
-      "failure_category": null
+      "failure_category": null,
+      "operational_recovery": "host restart after step 2 submission; no inference replay"
     },
     {
       "trial_id": "phase6_baseline_r01",
