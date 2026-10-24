@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-24T14:19:48.548633+00:00",
+  "failed_trial": "phase6c_caveman_r02_s01",
+  "error": "Reviewed Node runtime changed",
+  "failed_before_model": true,
+  "host_node": {
+    "path": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "sha256": "61ab14cd750fc24d5db53490ec5fc40f756e4b6e136b78cf7004265471d9bd1d",
+    "size_bytes": 126939688,
+    "version": "v24.22.1"
+  },
+  "restored_node": {
+    "path": "results/runtime_dependencies/node-v24.19.0",
+    "source_container": "milestone_seed_5f5da48_1_sub-01-phase6_serena_r01-runner",
+    "container_path": "/opt/experiment-node/node",
+    "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+    "size_bytes": 125989464,
+    "version": "v24.19.0"
+  },
+  "transport": "bwrap private mount namespace; read-only bind restored bytes at original local_source for benchmark orchestrator and its child processes",
+  "host_runtime_modified": false,
+  "frozen_files_modified": false,
+  "model_runtime_image_modified": false,
+  "downloaded_bytes": 0,
+  "private_namespace_smoke_passed": true,
+  "retry_trajectory": "phase6c_caveman_r02_retry01",
+  "private_namespace_dev": "bwrap --dev /dev",
+  "frozen_validation_in_namespace_passed": true,
+  "orchestration_script": "results/runtime_dependencies/phase6c_round2_recovery.py",
+  "orchestration_script_sha256": "ffd50c7e45a296f3924d7941ffe6885f4392f2b7238d1a3ff82f200f445fb504"
+}
