@@ -1,0 +1,416 @@
+diff --git a/crates/globset/src/glob.rs b/crates/globset/src/glob.rs
+index 0d12d09922977cd199dc537815f57c13d900e7de..9293496bdf26c9af9f81fe870ff6c02625af473e 100644
+--- a/crates/globset/src/glob.rs
++++ b/crates/globset/src/glob.rs
+@@ -159,6 +159,8 @@ struct GlobOptions {
+     /// Whether or not an empty case in an alternate will be removed.
+     /// e.g., when enabled, `{,a}` will match "" and "a".
+     empty_alternates: bool,
++    /// Whether an unclosed character class is treated as literal text.
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GlobOptions {
+@@ -168,6 +170,7 @@ impl GlobOptions {
+             literal_separator: false,
+             backslash_escape: !is_separator('\\'),
+             empty_alternates: false,
++            allow_unclosed_class: false,
+         }
+     }
+ }
+@@ -506,6 +509,7 @@ impl<'a> GlobBuilder<'a> {
+             glob: &self.glob,
+             stack: vec![Tokens::default()],
+             alternates: vec![],
++            no_class_close: false,
+             chars: self.glob.chars().peekable(),
+             prev: None,
+             cur: None,
+@@ -572,6 +576,19 @@ impl<'a> GlobBuilder<'a> {
+         self.opts.empty_alternates = yes;
+         self
+     }
++
++    /// Toggle whether an unclosed character class is treated as literal text.
++    ///
++    /// When enabled, an opening `[` without a closing `]` and the remaining
++    /// text are matched literally. Inside an alternation group, this literal
++    /// text ends at the next branch separator or the end of the group.
++    ///
++    /// This is disabled by default. When disabled, an unclosed character
++    /// class results in an error.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut GlobBuilder<'a> {
++        self.opts.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ impl Tokens {
+@@ -701,6 +718,9 @@ struct Parser<'a> {
+     stack: Vec<Tokens>,
+     /// The index in `stack` of the first branch of each open group.
+     alternates: Vec<usize>,
++    /// Once a class cannot be closed, no later class can be closed either.
++    /// Remember this to avoid rescanning the same suffix in each branch.
++    no_class_close: bool,
+     chars: std::iter::Peekable<std::str::Chars<'a>>,
+     prev: Option<char>,
+     cur: Option<char>,
+@@ -850,6 +870,17 @@ impl<'a> Parser<'a> {
+     }
+ 
+     fn parse_class(&mut self) -> Result<(), Error> {
++        if self.opts.allow_unclosed_class && !self.has_class_close() {
++            self.push_token(Token::Literal('['))?;
++            while let Some(c) = self.peek() {
++                if !self.alternates.is_empty() && (c == ',' || c == '}') {
++                    break;
++                }
++                self.bump();
++                self.push_token(Token::Literal(c))?;
++            }
++            return Ok(());
++        }
+         fn add_to_last_range(
+             glob: &str,
+             r: &mut (char, char),
+@@ -930,6 +961,26 @@ impl<'a> Parser<'a> {
+         self.push_token(Token::Class { negated, ranges })
+     }
+ 
++    /// Look for a class terminator without consuming the class. A leading
++    /// `]`, after an optional negation, belongs to the class itself.
++    fn has_class_close(&mut self) -> bool {
++        if self.no_class_close {
++            return false;
++        }
++        let mut chars = self.chars.clone();
++        if matches!(chars.peek(), Some('!') | Some('^')) {
++            chars.next();
++        }
++        if chars.peek() == Some(&']') {
++            chars.next();
++        }
++        if chars.any(|c| c == ']') {
++            return true;
++        }
++        self.no_class_close = true;
++        false
++    }
++
+     fn bump(&mut self) -> Option<char> {
+         self.prev = self.cur;
+         self.cur = self.chars.next();
+diff --git a/crates/globset/tests/unclosed_class.rs b/crates/globset/tests/unclosed_class.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..747e2be855c32161dc6432574d22562a5b77fd93
+--- /dev/null
++++ b/crates/globset/tests/unclosed_class.rs
+@@ -0,0 +1,144 @@
++use globset::{ErrorKind, Glob, GlobBuilder, GlobSetBuilder};
++
++fn check_matches(glob: Glob, matches: &[&str], nonmatches: &[&str]) {
++    let matcher = glob.compile_matcher();
++    let set = GlobSetBuilder::new().add(glob).build().unwrap();
++    for &path in matches {
++        assert!(matcher.is_match(path), "matcher should match {path:?}");
++        assert!(set.is_match(path), "set should match {path:?}");
++    }
++    for &path in nonmatches {
++        assert!(!matcher.is_match(path), "matcher should reject {path:?}");
++        assert!(!set.is_match(path), "set should reject {path:?}");
++    }
++}
++
++#[test]
++fn strict_by_default_and_when_explicitly_disabled() {
++    for pattern in ["[", "[abc", "[]", "[][", "[!", "[!]", "[^"] {
++        assert_eq!(
++            Glob::new(pattern).unwrap_err().kind(),
++            &ErrorKind::UnclosedClass,
++            "{pattern}",
++        );
++        let err = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .allow_unclosed_class(false)
++            .build()
++            .unwrap_err();
++        assert_eq!(err.kind(), &ErrorKind::UnclosedClass, "{pattern}");
++    }
++}
++
++#[test]
++fn unclosed_classes_match_literal_text() {
++    for pattern in [
++        "[", "[abc", "[]", "[][", "[!", "[!]", "[^]", "[z-a", "[☃",
++    ] {
++        let glob = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        check_matches(glob, &[pattern], &["", "a", "abc", "☃"]);
++    }
++}
++
++#[test]
++fn fallback_treats_the_remaining_text_literally() {
++    let glob = GlobBuilder::new("prefix*[a*?{b,c}")
++        .allow_unclosed_class(true)
++        .backslash_escape(true)
++        .build()
++        .unwrap();
++    check_matches(
++        glob,
++        &["prefix[a*?{b,c}", "prefix-extra[a*?{b,c}"],
++        &["prefix[anything", "prefix[aX{b,c}", "prefixab"],
++    );
++    let glob = GlobBuilder::new(r"[\*")
++        .allow_unclosed_class(true)
++        .backslash_escape(true)
++        .build()
++        .unwrap();
++    assert_eq!(glob.regex(), r"(?-u)^\[\\\*$");
++}
++
++#[test]
++fn alternation_branches_fall_back_independently() {
++    let cases: &[(&str, &[&str], &[&str])] = &[
++        ("{[abc,xyz}", &["[abc", "xyz"], &["a", "abc", "[abc,xyz}"]),
++        ("{[abc,[xyz}", &["[abc", "[xyz"], &["abc", "xyz"]),
++        ("{[abc],[xyz}", &["a", "b", "c", "[xyz"], &["[abc]", "xyz"]),
++        ("{a,{[b,[c}}", &["a", "[b", "[c"], &["b", "c"]),
++        ("{[abc,xyz}*", &["[abc!", "xyz!"], &["abc!", "[xyz"]),
++    ];
++    for &(pattern, matches, nonmatches) in cases {
++        let glob = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        check_matches(glob, matches, nonmatches);
++    }
++}
++
++#[test]
++fn closed_classes_and_other_errors_are_preserved() {
++    let cases: &[(&str, &[&str], &[&str])] = &[
++        ("[abc]", &["a", "b", "c"], &["[abc]", "d"]),
++        ("[]]", &["]"], &["[]]", "["]),
++        ("[!a]", &["b", "c"], &["a", "[!a]"]),
++        ("{[}],x}", &["}", "x"], &["[}", "y"]),
++        ("{[a,b],x}", &["a", ",", "b", "x"], &["a,b", "y"]),
++    ];
++    for &(pattern, matches, nonmatches) in cases {
++        let glob = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap();
++        check_matches(glob, matches, nonmatches);
++    }
++    for (pattern, error) in [
++        ("[z-a]", ErrorKind::InvalidRange('z', 'a')),
++        ("{[abc", ErrorKind::UnclosedAlternates),
++        ("a}", ErrorKind::UnopenedAlternates),
++    ] {
++        let err = GlobBuilder::new(pattern)
++            .allow_unclosed_class(true)
++            .build()
++            .unwrap_err();
++        assert_eq!(err.kind(), &error, "{pattern}");
++    }
++}
++
++#[test]
++fn combines_with_other_builder_options() {
++    let glob = GlobBuilder::new("src/*[ABC")
++        .allow_unclosed_class(true)
++        .case_insensitive(true)
++        .literal_separator(true)
++        .build()
++        .unwrap();
++    check_matches(
++        glob,
++        &["src/file[abc", "SRC/[ABC"],
++        &["src/sub/file[abc", "src/fileabc"],
++    );
++}
++
++#[test]
++fn many_opening_brackets() {
++    let pattern = "[".repeat(10_000);
++    let glob = GlobBuilder::new(&pattern)
++        .allow_unclosed_class(true)
++        .build()
++        .unwrap();
++    check_matches(glob, &[&pattern], &["[", ""]);
++
++    // Each branch would otherwise rescan all remaining branches for a `]`.
++    let pattern = format!("{{{}[}}", "[,".repeat(10_000));
++    let glob = GlobBuilder::new(&pattern)
++        .allow_unclosed_class(true)
++        .build()
++        .unwrap();
++    check_matches(glob, &["["], &["", "[["]);
++}
+diff --git a/crates/ignore/src/gitignore.rs b/crates/ignore/src/gitignore.rs
+index 19a347cdbe2b0680b9e0320631d5ac824f148100..c654871d93c162b01bed44e16420e957af470f86 100644
+--- a/crates/ignore/src/gitignore.rs
++++ b/crates/ignore/src/gitignore.rs
+@@ -308,6 +308,7 @@ pub struct GitignoreBuilder {
+     root: PathBuf,
+     globs: Vec<Glob>,
+     case_insensitive: bool,
++    allow_unclosed_class: bool,
+ }
+ 
+ impl GitignoreBuilder {
+@@ -324,6 +325,7 @@ impl GitignoreBuilder {
+             root: strip_prefix("./", root).unwrap_or(root).to_path_buf(),
+             globs: vec![],
+             case_insensitive: false,
++            allow_unclosed_class: true,
+         }
+     }
+ 
+@@ -505,6 +507,7 @@ impl GitignoreBuilder {
+             .literal_separator(true)
+             .case_insensitive(self.case_insensitive)
+             .backslash_escape(true)
++            .allow_unclosed_class(self.allow_unclosed_class)
+             .build()
+             .map_err(|err| Error::Glob {
+                 glob: Some(glob.original.clone()),
+@@ -530,6 +533,17 @@ impl GitignoreBuilder {
+         self.case_insensitive = yes;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are treated as literal text.
++    ///
++    /// When this option is changed, only globs added after the change will be
++    /// affected. When disabled, an unclosed character class is an error.
++    ///
++    /// This is enabled by default to match gitignore behavior.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut GitignoreBuilder {
++        self.allow_unclosed_class = yes;
++        self
++    }
+ }
+ 
+ /// Return the file path of the current environment's global gitignore file.
+diff --git a/crates/ignore/src/overrides.rs b/crates/ignore/src/overrides.rs
+index 1b02b4d4ee9a1ca3592a517d3d741fdf611292b0..956689c8efe57be3a8069edb4b97b6bba1fde6d2 100644
+--- a/crates/ignore/src/overrides.rs
++++ b/crates/ignore/src/overrides.rs
+@@ -120,7 +120,9 @@ impl OverrideBuilder {
+     ///
+     /// Matching is done relative to the directory path provided.
+     pub fn new<P: AsRef<Path>>(path: P) -> OverrideBuilder {
+-        OverrideBuilder { builder: GitignoreBuilder::new(path) }
++        let mut builder = GitignoreBuilder::new(path);
++        builder.allow_unclosed_class(false);
++        OverrideBuilder { builder }
+     }
+ 
+     /// Builds a new override matcher from the globs added so far.
+@@ -155,6 +157,17 @@ impl OverrideBuilder {
+         self.builder.case_insensitive(yes)?;
+         Ok(self)
+     }
++
++    /// Toggle whether unclosed character classes are treated as literal text.
++    ///
++    /// When this option is changed, only globs added after the change will be
++    /// affected. When disabled, an unclosed character class is an error.
++    ///
++    /// This is disabled by default.
++    pub fn allow_unclosed_class(&mut self, yes: bool) -> &mut OverrideBuilder {
++        self.builder.allow_unclosed_class(yes);
++        self
++    }
+ }
+ 
+ #[cfg(test)]
+diff --git a/crates/ignore/tests/unclosed_class.rs b/crates/ignore/tests/unclosed_class.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..fa16d21f70de28a8fb2e436994600343865aa129
+--- /dev/null
++++ b/crates/ignore/tests/unclosed_class.rs
+@@ -0,0 +1,44 @@
++use ignore::{gitignore::GitignoreBuilder, overrides::OverrideBuilder};
++
++#[test]
++fn gitignore_allows_unclosed_classes_by_default() {
++    for pattern in ["[", "[abc", "[]", "[][", "[!", "[!]"] {
++        let matcher = GitignoreBuilder::new("")
++            .add_line(None, pattern)
++            .unwrap()
++            .build()
++            .unwrap();
++        assert!(matcher.matched(pattern, false).is_ignore(), "{pattern}");
++        assert!(
++            matcher.matched(format!("sub/{pattern}"), false).is_ignore(),
++            "{pattern}",
++        );
++        assert!(matcher.matched("other", false).is_none());
++    }
++}
++
++#[test]
++fn gitignore_toggle_only_affects_subsequent_globs() {
++    let mut builder = GitignoreBuilder::new("");
++    builder.add_line(None, "[abc").unwrap();
++    builder.allow_unclosed_class(false);
++    assert!(builder.add_line(None, "[def").is_err());
++    builder.allow_unclosed_class(true).add_line(None, "[ghi").unwrap();
++    let matcher = builder.build().unwrap();
++    assert!(matcher.matched("[abc", false).is_ignore());
++    assert!(matcher.matched("[def", false).is_none());
++    assert!(matcher.matched("[ghi", false).is_ignore());
++}
++
++#[test]
++fn overrides_are_strict_by_default_and_can_opt_in() {
++    let mut builder = OverrideBuilder::new("");
++    assert!(builder.add("[abc").is_err());
++    builder.allow_unclosed_class(true).add("[abc").unwrap();
++    builder.allow_unclosed_class(false);
++    assert!(builder.add("[def").is_err());
++    let matcher = builder.build().unwrap();
++    assert!(matcher.matched("[abc", false).is_whitelist());
++    assert!(matcher.matched("sub/[abc", false).is_whitelist());
++    assert!(matcher.matched("[def", false).is_ignore());
++}
+diff --git a/tests/regression.rs b/tests/regression.rs
+index e28af4a31aa1b019e6080cd1cfe19f350d89851d..ab86279374b5bf6987df99b0b5504fa70c1b3fac 100644
+--- a/tests/regression.rs
++++ b/tests/regression.rs
+@@ -1217,3 +1217,28 @@ rgtest!(r2658_null_data_line_regexp, |dir: Dir, mut cmd: TestCommand| {
+     let got = cmd.args(&["--null-data", "--line-regexp", r"bar"]).stdout();
+     eqnice!("haystack:bar\0", got);
+ });
++
++// See: https://github.com/BurntSushi/ripgrep/issues/3127
++rgtest!(r3127_gitignore_allow_unclosed_class, |dir: Dir, mut cmd: TestCommand| {
++    dir.create_dir(".git");
++    dir.create(".gitignore", "[abc\n[]\n[][\n[!\n[!]\n");
++    for name in ["[abc", "[]", "[][", "[!", "[!]"] {
++        dir.create(name, "ignored");
++    }
++    dir.create("visible", "visible");
++    cmd.arg("--files");
++    let output = cmd.output();
++    eqnice!("visible\n", String::from_utf8_lossy(&output.stdout));
++    assert!(output.stderr.is_empty());
++});
++
++rgtest!(r3127_override_rejects_unclosed_class, |dir: Dir, _: TestCommand| {
++    dir.create("[abc", "contents");
++    for flag in ["-g", "--glob"] {
++        let output =
++            dir.command().args(&["--files", flag, "[abc"]).raw_output();
++        assert_eq!(output.status.code(), Some(2));
++        assert!(String::from_utf8_lossy(&output.stderr)
++            .contains("unclosed character class"));
++    }
++});

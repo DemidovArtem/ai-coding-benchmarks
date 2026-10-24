@@ -753,6 +753,64 @@
           "tree_replay_verified": true
         }
       }
+    },
+    {
+      "trial_id": "phase6c_baseline_r02_s02",
+      "variant": "baseline",
+      "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+      "trajectory_id": "phase6c_baseline_r02",
+      "step": 2,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "da1cff8a90d80e18c5f16b79de26dc4506981447",
+      "ending_tree": "dd1fe896ac5a975202a04fbadd59cd6ca5185972",
+      "snapshot_sha256": "09d4ec57e3d5e946b60975ac4dc919b695128834804cdd793279a0351cd9cfd0",
+      "executor_session_id": "01a16e2d-eb1b-77d0-954b-56c88cc24b15",
+      "local_bundle": "results/trials/phase6c_baseline_r02_s02/repository.bundle",
+      "bundle_sha256": "331225630960b9db19a777620312331ca4a18150167cf810fbf23f913b5407a8",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase6c_baseline_r02_s02.cumulative.patch",
+          "sha256": "54906faeeb502ada5494b0fca44375134cf29fb3d71ea63c226be69d883ec1bb",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase6c_baseline_r02_s02.incremental.patch",
+          "sha256": "9a8e5fcd6e7573bc2510131d60a2452669e4be007cf623061943cba7c73f0ae1",
+          "base_commit": "b365c0dcd74eb69c58b88109e85b8e2b09f1f8f9",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "phase6c_baseline_r02_s03",
+      "variant": "baseline",
+      "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+      "trajectory_id": "phase6c_baseline_r02",
+      "step": 3,
+      "repetition": 2,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "5e10b0cf694c42d514b0629c7631fa64ff4667e1",
+      "ending_tree": "b004cc58890aea36303a572d8cdc960dc5f2130d",
+      "snapshot_sha256": "3348bfed2642cac3daa1862913eb4077658f2fba5e2cb7dc03e074165c9b97d2",
+      "executor_session_id": "01a16e2d-eb1b-77d0-954b-56c88cc24b15",
+      "local_bundle": "results/trials/phase6c_baseline_r02_s03/repository.bundle",
+      "bundle_sha256": "c1e58243823fda30790a06b95edd17b61920ae6b59ea194127f8242c16d262cc",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase6c_baseline_r02_s03.cumulative.patch",
+          "sha256": "c94bb8b721810ddbba096e451c9506375d91a142062c4f40b5f685618ca24067",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase6c_baseline_r02_s03.incremental.patch",
+          "sha256": "981209d3aae1a99b7db2ff16f439825833f6c3321c343b8474a9045ffd473886",
+          "base_commit": "da1cff8a90d80e18c5f16b79de26dc4506981447",
+          "tree_replay_verified": true
+        }
+      }
     }
   ],
   "limits": "Patches restore source trees, including benchmark test masking. They do not restore a Codex session or provide an implemented continuation runner."
