@@ -488,9 +488,11 @@
       "repetition": 2,
       "cohort": "phase6c",
       "state": "running",
-      "completed_steps": 0,
+      "completed_steps": 1,
       "total_steps": 3,
-      "active_step": 1
+      "active_step": 2,
+      "last_step": "phase6c_ponytail_r02_s01",
+      "failure_category": null
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
