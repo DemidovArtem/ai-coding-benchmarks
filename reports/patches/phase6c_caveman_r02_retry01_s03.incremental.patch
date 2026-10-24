@@ -1,0 +1,401 @@
+diff --git a/crates/ignore/src/walk.rs b/crates/ignore/src/walk.rs
+index d6ea9c2172b38926abd9e54f61de8ff1a9766995..725c015ebd05054ebb941de90660715a6033b1e2 100644
+--- a/crates/ignore/src/walk.rs
++++ b/crates/ignore/src/walk.rs
+@@ -483,6 +483,7 @@ impl DirEntryRaw {
+ pub struct WalkBuilder {
+     paths: Vec<PathBuf>,
+     ig_builder: IgnoreBuilder,
++    min_depth: Option<usize>,
+     max_depth: Option<usize>,
+     max_filesize: Option<u64>,
+     follow_links: bool,
+@@ -507,6 +508,7 @@ impl std::fmt::Debug for WalkBuilder {
+         f.debug_struct("WalkBuilder")
+             .field("paths", &self.paths)
+             .field("ig_builder", &self.ig_builder)
++            .field("min_depth", &self.min_depth)
+             .field("max_depth", &self.max_depth)
+             .field("max_filesize", &self.max_filesize)
+             .field("follow_links", &self.follow_links)
+@@ -527,6 +529,7 @@ impl WalkBuilder {
+         WalkBuilder {
+             paths: vec![path.as_ref().to_path_buf()],
+             ig_builder: IgnoreBuilder::new(),
++            min_depth: None,
+             max_depth: None,
+             max_filesize: None,
+             follow_links: false,
+@@ -541,7 +544,7 @@ impl WalkBuilder {
+     /// Build a new `Walk` iterator.
+     pub fn build(&self) -> Walk {
+         let follow_links = self.follow_links;
+-        let max_depth = self.max_depth;
++        let max_depth = self.effective_max_depth();
+         let sorter = self.sorter.clone();
+         let its = self
+             .paths
+@@ -581,6 +584,7 @@ impl WalkBuilder {
+             it: None,
+             ig_root: ig_root.clone(),
+             ig: ig_root.clone(),
++            min_depth: self.min_depth.unwrap_or(0),
+             max_filesize: self.max_filesize,
+             skip: self.skip.clone(),
+             filter: self.filter.clone(),
+@@ -596,7 +600,8 @@ impl WalkBuilder {
+         WalkParallel {
+             paths: self.paths.clone().into_iter(),
+             ig_root: self.ig_builder.build(),
+-            max_depth: self.max_depth,
++            min_depth: self.min_depth.unwrap_or(0),
++            max_depth: self.effective_max_depth(),
+             max_filesize: self.max_filesize,
+             follow_links: self.follow_links,
+             same_file_system: self.same_file_system,
+@@ -616,9 +621,29 @@ impl WalkBuilder {
+         self
+     }
+ 
++    /// The minimum depth of entries to yield.
++    ///
++    /// The root has depth 0. Entries at depths less than this minimum are not
++    /// yielded, but their directories are still traversed and their ignore
++    /// files are still respected.
++    ///
++    /// The default, `None`, imposes no minimum depth restriction, as does
++    /// `Some(0)`.
++    ///
++    /// If this is greater than the maximum depth, the effective maximum depth
++    /// is raised to this minimum when building the walker, regardless of the
++    /// order in which the bounds are set.
++    pub fn min_depth(&mut self, depth: Option<usize>) -> &mut WalkBuilder {
++        self.min_depth = depth;
++        self
++    }
++
+     /// The maximum depth to recurse.
+     ///
+     /// The default, `None`, imposes no depth restriction.
++    ///
++    /// If this is less than the minimum depth, the effective maximum depth is
++    /// raised to the minimum when building the walker.
+     pub fn max_depth(&mut self, depth: Option<usize>) -> &mut WalkBuilder {
+         self.max_depth = depth;
+         self
+@@ -901,6 +926,10 @@ impl WalkBuilder {
+         self.filter = Some(Filter(Arc::new(filter)));
+         self
+     }
++
++    fn effective_max_depth(&self) -> Option<usize> {
++        self.max_depth.map(|max| max.max(self.min_depth.unwrap_or(0)))
++    }
+ }
+ 
+ /// Walk is a recursive directory iterator over file paths in one or more
+@@ -914,6 +943,7 @@ pub struct Walk {
+     it: Option<WalkEventIter>,
+     ig_root: Ignore,
+     ig: Ignore,
++    min_depth: usize,
+     max_filesize: Option<u64>,
+     skip: Option<Arc<Handle>>,
+     filter: Option<Filter>,
+@@ -978,6 +1008,9 @@ impl Iterator for Walk {
+                     match self.its.next() {
+                         None => return None,
+                         Some((_, None)) => {
++                            if self.min_depth > 0 {
++                                continue;
++                            }
+                             return Some(Ok(DirEntry::new_stdin()));
+                         }
+                         Some((path, Some(it))) => {
+@@ -1021,6 +1054,9 @@ impl Iterator for Walk {
+                     let (igtmp, err) = self.ig.add_child(ent.path());
+                     self.ig = igtmp;
+                     ent.err = err;
++                    if ent.depth() < self.min_depth {
++                        continue;
++                    }
+                     return Some(Ok(ent));
+                 }
+                 Ok(WalkEvent::File(ent)) => {
+@@ -1029,7 +1065,7 @@ impl Iterator for Walk {
+                         Err(err) => return Some(Err(err)),
+                         Ok(should_skip) => should_skip,
+                     };
+-                    if should_skip {
++                    if should_skip || ent.depth() < self.min_depth {
+                         continue;
+                     }
+                     return Some(Ok(ent));
+@@ -1190,6 +1226,7 @@ pub struct WalkParallel {
+     paths: std::vec::IntoIter<PathBuf>,
+     ig_root: Ignore,
+     max_filesize: Option<u64>,
++    min_depth: usize,
+     max_depth: Option<usize>,
+     follow_links: bool,
+     same_file_system: bool,
+@@ -1289,6 +1326,7 @@ impl WalkParallel {
+                     stack,
+                     quit_now: quit_now.clone(),
+                     active_workers: active_workers.clone(),
++                    min_depth: self.min_depth,
+                     max_depth: self.max_depth,
+                     max_filesize: self.max_filesize,
+                     follow_links: self.follow_links,
+@@ -1473,6 +1511,8 @@ struct Worker<'s> {
+     quit_now: Arc<AtomicBool>,
+     /// The number of currently active workers.
+     active_workers: Arc<AtomicUsize>,
++    /// The minimum depth of entries passed to the visitor.
++    min_depth: usize,
+     /// The maximum depth of directories to descend. A value of `0` means no
+     /// descension at all.
+     max_depth: Option<usize>,
+@@ -1507,7 +1547,7 @@ impl<'s> Worker<'s> {
+         // If the work is not a directory, then we can just execute the
+         // caller's callback immediately and move on.
+         if work.is_symlink() || !work.is_dir() {
+-            return self.visitor.visit(Ok(work.dent));
++            return self.visit_entry(work.dent);
+         }
+         if let Some(err) = work.add_parents() {
+             let state = self.visitor.visit(Err(err));
+@@ -1540,7 +1580,7 @@ impl<'s> Worker<'s> {
+         // entry before passing the error value.
+         let readdir = work.read_dir();
+         let depth = work.dent.depth();
+-        let state = self.visitor.visit(Ok(work.dent));
++        let state = self.visit_entry(work.dent);
+         if !state.is_continue() {
+             return state;
+         }
+@@ -1572,6 +1612,14 @@ impl<'s> Worker<'s> {
+         WalkState::Continue
+     }
+ 
++    fn visit_entry(&mut self, dent: DirEntry) -> WalkState {
++        if dent.depth() < self.min_depth {
++            WalkState::Continue
++        } else {
++            self.visitor.visit(Ok(dent))
++        }
++    }
++
+     /// Decides whether to submit the given directory entry as a file to
+     /// search.
+     ///
+@@ -2006,6 +2054,48 @@ mod tests {
+         assert_eq!(got, mkpaths(expected), "parallel");
+     }
+ 
++    fn assert_depth_entries(
++        prefix: &Path,
++        builder: &WalkBuilder,
++        expected: &[(&str, usize)],
++    ) {
++        let normalize = |dent: DirEntry| {
++            let path = if dent.is_stdin() {
++                "<stdin>".to_string()
++            } else {
++                let path = dent.path().strip_prefix(prefix).unwrap();
++                normal_path(path.to_str().unwrap())
++            };
++            (path, dent.depth())
++        };
++        let mut expected: Vec<_> = expected
++            .iter()
++            .map(|&(path, depth)| (path.to_string(), depth))
++            .collect();
++        expected.sort();
++        let mut serial: Vec<_> =
++            builder.build().map(|dent| normalize(dent.unwrap())).collect();
++        serial.sort();
++        assert_eq!(serial, expected, "single threaded");
++        for threads in [1, 4] {
++            let entries = Mutex::new(vec![]);
++            builder.clone().threads(threads).build_parallel().run(|| {
++                Box::new(|dent| {
++                    entries.lock().unwrap().push(dent);
++                    WalkState::Continue
++                })
++            });
++            let mut parallel: Vec<_> = entries
++                .into_inner()
++                .unwrap()
++                .into_iter()
++                .map(|dent| normalize(dent.unwrap()))
++                .collect();
++            parallel.sort();
++            assert_eq!(parallel, expected, "parallel with {threads} threads");
++        }
++    }
++
+     #[test]
+     fn no_ignores() {
+         let td = tmpdir();
+@@ -2125,6 +2215,160 @@ mod tests {
+         assert_paths(&root, &WalkBuilder::new(&root), &["bar"]);
+     }
+ 
++    #[test]
++    fn min_depth() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b/c"));
++        wfile(td.path().join("foo"), "");
++        wfile(td.path().join("a/foo"), "");
++        wfile(td.path().join("a/b/foo"), "");
++        wfile(td.path().join("a/b/c/foo"), "");
++
++        let all = &[
++            ("", 0),
++            ("a", 1),
++            ("foo", 1),
++            ("a/b", 2),
++            ("a/foo", 2),
++            ("a/b/c", 3),
++            ("a/b/foo", 3),
++            ("a/b/c/foo", 4),
++        ];
++        let mut builder = WalkBuilder::new(td.path());
++        assert_depth_entries(td.path(), &builder, all);
++        assert_depth_entries(td.path(), builder.min_depth(Some(0)), all);
++        assert_depth_entries(td.path(), builder.min_depth(Some(1)), &all[1..]);
++        assert_depth_entries(td.path(), builder.min_depth(Some(2)), &all[3..]);
++        assert_depth_entries(td.path(), builder.min_depth(Some(3)), &all[5..]);
++        assert_depth_entries(td.path(), builder.min_depth(Some(4)), &all[7..]);
++        assert_depth_entries(td.path(), builder.min_depth(Some(5)), &[]);
++        assert_depth_entries(
++            td.path(),
++            builder.min_depth(Some(usize::MAX)),
++            &[],
++        );
++        assert_depth_entries(td.path(), builder.min_depth(None), all);
++    }
++
++    #[test]
++    fn min_depth_with_max_depth() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b/c"));
++        wfile(td.path().join("a/foo"), "");
++        wfile(td.path().join("a/b/c/foo"), "");
++
++        for (min, max, expected) in [
++            (0, 0, &[("", 0)][..]),
++            (1, 2, &[("a", 1), ("a/b", 2), ("a/foo", 2)][..]),
++            (2, 2, &[("a/b", 2), ("a/foo", 2)][..]),
++            (2, 1, &[("a/b", 2), ("a/foo", 2)][..]),
++            (3, 0, &[("a/b/c", 3)][..]),
++            (4, 1, &[("a/b/c/foo", 4)][..]),
++            (5, 1, &[][..]),
++            (usize::MAX, 0, &[][..]),
++        ] {
++            let mut builder = WalkBuilder::new(td.path());
++            builder.min_depth(Some(min)).max_depth(Some(max));
++            assert_depth_entries(td.path(), &builder, expected);
++            let mut builder = WalkBuilder::new(td.path());
++            builder.max_depth(Some(max)).min_depth(Some(min));
++            assert_depth_entries(td.path(), &builder, expected);
++        }
++
++        let mut builder = WalkBuilder::new(td.path());
++        builder.min_depth(Some(3)).max_depth(Some(1));
++        assert_depth_entries(td.path(), &builder, &[("a/b/c", 3)]);
++        assert_depth_entries(
++            td.path(),
++            builder.min_depth(None),
++            &[("", 0), ("a", 1)],
++        );
++        assert_depth_entries(
++            td.path(),
++            builder.min_depth(Some(3)).max_depth(None),
++            &[("a/b/c", 3), ("a/b/c/foo", 4)],
++        );
++    }
++
++    #[test]
++    fn min_depth_respects_ancestor_filters() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b"));
++        mkdirp(td.path().join("other"));
++        wfile(td.path().join(".ignore"), "blocked\n");
++        wfile(td.path().join("a/.ignore"), "skipme\n");
++        wfile(td.path().join("a/b/keep"), "");
++        wfile(td.path().join("a/b/blocked"), "");
++        wfile(td.path().join("a/b/skipme"), "");
++        wfile(td.path().join("other/keep"), "");
++        wfile(td.path().join("other/skipme"), "");
++        wfile(td.path().join("other/blocked"), "");
++
++        let mut builder = WalkBuilder::new(td.path());
++        builder.min_depth(Some(2));
++        assert_depth_entries(
++            td.path(),
++            &builder,
++            &[
++                ("a/b", 2),
++                ("a/b/keep", 3),
++                ("other/keep", 2),
++                ("other/skipme", 2),
++            ],
++        );
++        builder.filter_entry(|entry| entry.file_name() != OsStr::new("a"));
++        assert_depth_entries(
++            td.path(),
++            &builder,
++            &[("other/keep", 2), ("other/skipme", 2)],
++        );
++    }
++
++    #[test]
++    fn min_depth_multiple_roots_and_stdin() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b"));
++        mkdirp(td.path().join("x/y"));
++        wfile(td.path().join("foo"), "");
++
++        let mut builder = WalkBuilder::new(td.path().join("a"));
++        builder.add(td.path().join("x")).add(td.path().join("foo")).add("-");
++        assert_depth_entries(
++            td.path(),
++            &builder,
++            &[
++                ("a", 0),
++                ("a/b", 1),
++                ("x", 0),
++                ("x/y", 1),
++                ("foo", 0),
++                ("<stdin>", 0),
++            ],
++        );
++        assert_depth_entries(
++            td.path(),
++            builder.min_depth(Some(1)),
++            &[("a/b", 1), ("x/y", 1)],
++        );
++    }
++
++    #[test]
++    fn min_depth_parallel_skip() {
++        let td = tmpdir();
++        mkdirp(td.path().join("a/b/c"));
++        let mut builder = WalkBuilder::new(td.path());
++        builder.min_depth(Some(2)).threads(4);
++        let entries = Mutex::new(vec![]);
++        builder.build_parallel().run(|| {
++            Box::new(|result| {
++                let dent = result.unwrap();
++                entries.lock().unwrap().push(dent.into_path());
++                WalkState::Skip
++            })
++        });
++        assert_eq!(entries.into_inner().unwrap(), vec![td.path().join("a/b")]);
++    }
++
+     #[test]
+     fn max_depth() {
+         let td = tmpdir();
