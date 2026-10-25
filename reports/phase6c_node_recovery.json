@@ -27,5 +27,9 @@
   "private_namespace_dev": "bwrap --dev /dev",
   "frozen_validation_in_namespace_passed": true,
   "orchestration_script": "results/runtime_dependencies/phase6c_round2_recovery.py",
-  "orchestration_script_sha256": "ffd50c7e45a296f3924d7941ffe6885f4392f2b7238d1a3ff82f200f445fb504"
+  "orchestration_script_sha256": "ffd50c7e45a296f3924d7941ffe6885f4392f2b7238d1a3ff82f200f445fb504",
+  "recovery_status": "completed",
+  "recovered_caveman_edits": 3,
+  "subsequent_ponytail_edits": 3,
+  "all_recovered_edits_sonar_ok": true
 }

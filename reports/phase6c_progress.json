@@ -1,0 +1,224 @@
+{
+  "updated_at": "2026-10-24T18:17:53.779418+00:00",
+  "status": "completed",
+  "completed_trajectories": 6,
+  "completed_edits": 18,
+  "sonar_analyses": 18,
+  "independent_sessions": 6,
+  "setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+  "canonical_accepted_edits": 12,
+  "canonical_rejected_edits": 6,
+  "known_re35_rejections": [
+    "phase6c_baseline_r01_s03",
+    "phase6c_caveman_r01_s03",
+    "phase6c_ponytail_r01_s03",
+    "phase6c_baseline_r02_s03",
+    "phase6c_caveman_r02_retry01_s03",
+    "phase6c_ponytail_r02_s03"
+  ],
+  "retained_setup_failures": [
+    "phase6c_caveman_r02_s01"
+  ],
+  "trajectories": [
+    {
+      "variant": "baseline",
+      "repetition": 1,
+      "trajectory_id": "phase6c_baseline_r01",
+      "trial_ids": [
+        "phase6c_baseline_r01_s01",
+        "phase6c_baseline_r01_s02",
+        "phase6c_baseline_r01_s03"
+      ],
+      "session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+      "output_tokens": 27156,
+      "input_tokens_including_cache": 2885030,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 177,
+      "final_net_prod_loc": 121,
+      "sonar_delta": {
+        "ncloc": -275,
+        "lines": -280,
+        "complexity": 24,
+        "cognitive_complexity": 30,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": -1,
+        "sqale_index": -5,
+        "software_quality_maintainability_issues": -1,
+        "software_quality_maintainability_remediation_effort": -5
+      }
+    },
+    {
+      "variant": "baseline",
+      "repetition": 2,
+      "trajectory_id": "phase6c_baseline_r02",
+      "trial_ids": [
+        "phase6c_baseline_r02_s01",
+        "phase6c_baseline_r02_s02",
+        "phase6c_baseline_r02_s03"
+      ],
+      "session_id": "01a16e2d-eb1b-77d0-954b-56c88cc24b15",
+      "output_tokens": 22400,
+      "input_tokens_including_cache": 2599671,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 174,
+      "final_net_prod_loc": 124,
+      "sonar_delta": {
+        "ncloc": -308,
+        "lines": -305,
+        "complexity": 18,
+        "cognitive_complexity": 26,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      }
+    },
+    {
+      "variant": "caveman",
+      "repetition": 1,
+      "trajectory_id": "phase6c_caveman_r01",
+      "trial_ids": [
+        "phase6c_caveman_r01_s01",
+        "phase6c_caveman_r01_s02",
+        "phase6c_caveman_r01_s03"
+      ],
+      "session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+      "output_tokens": 33714,
+      "input_tokens_including_cache": 3092368,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 159,
+      "final_net_prod_loc": 113,
+      "sonar_delta": {
+        "ncloc": -282,
+        "lines": -284,
+        "complexity": 19,
+        "cognitive_complexity": 23,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 2,
+        "sqale_index": 10,
+        "software_quality_maintainability_issues": 2,
+        "software_quality_maintainability_remediation_effort": 10
+      }
+    },
+    {
+      "variant": "caveman",
+      "repetition": 2,
+      "trajectory_id": "phase6c_caveman_r02_retry01",
+      "trial_ids": [
+        "phase6c_caveman_r02_retry01_s01",
+        "phase6c_caveman_r02_retry01_s02",
+        "phase6c_caveman_r02_retry01_s03"
+      ],
+      "session_id": "01a16e4a-b5bb-79a0-ad36-8161e617637a",
+      "output_tokens": 33411,
+      "input_tokens_including_cache": 3362819,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 177,
+      "final_net_prod_loc": 135,
+      "sonar_delta": {
+        "ncloc": -282,
+        "lines": -269,
+        "complexity": 22,
+        "cognitive_complexity": 25,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      }
+    },
+    {
+      "variant": "ponytail",
+      "repetition": 1,
+      "trajectory_id": "phase6c_ponytail_r01",
+      "trial_ids": [
+        "phase6c_ponytail_r01_s01",
+        "phase6c_ponytail_r01_s02",
+        "phase6c_ponytail_r01_s03"
+      ],
+      "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "output_tokens": 24726,
+      "input_tokens_including_cache": 3145508,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 148,
+      "final_net_prod_loc": 100,
+      "sonar_delta": {
+        "ncloc": -342,
+        "lines": -369,
+        "complexity": 17,
+        "cognitive_complexity": 42,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      }
+    },
+    {
+      "variant": "ponytail",
+      "repetition": 2,
+      "trajectory_id": "phase6c_ponytail_r02",
+      "trial_ids": [
+        "phase6c_ponytail_r02_s01",
+        "phase6c_ponytail_r02_s02",
+        "phase6c_ponytail_r02_s03"
+      ],
+      "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+      "output_tokens": 25229,
+      "input_tokens_including_cache": 2721534,
+      "canonical_accepted": 2,
+      "final_churn_prod_loc": 155,
+      "final_net_prod_loc": 111,
+      "sonar_delta": {
+        "ncloc": -347,
+        "lines": -369,
+        "complexity": 14,
+        "cognitive_complexity": 36,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      }
+    }
+  ],
+  "summary": [
+    {
+      "variant": "baseline",
+      "output_tokens_round1": 27156,
+      "output_tokens_round2": 22400,
+      "mean_output_tokens": 24778,
+      "mean_final_churn_prod_loc": 175.5,
+      "mean_final_cognitive_delta": 28
+    },
+    {
+      "variant": "caveman",
+      "output_tokens_round1": 33714,
+      "output_tokens_round2": 33411,
+      "mean_output_tokens": 33562.5,
+      "mean_final_churn_prod_loc": 168,
+      "mean_final_cognitive_delta": 24
+    },
+    {
+      "variant": "ponytail",
+      "output_tokens_round1": 24726,
+      "output_tokens_round2": 25229,
+      "mean_output_tokens": 24977.5,
+      "mean_final_churn_prod_loc": 151.5,
+      "mean_final_cognitive_delta": 39
+    }
+  ],
+  "limitations": [
+    "Two repeats, three tasks, one repository; descriptive pilot, not a stable ranking.",
+    "Sonar includes differing inline tests and benchmark masking; quality deltas are not production-only effects.",
+    "Step-three canonical rejections retain the historical exact-regex-order assertion; scores were not rewritten.",
+    "Serena remains in its original cohort with one three-step trajectory; no new Serena inference."
+  ]
+}

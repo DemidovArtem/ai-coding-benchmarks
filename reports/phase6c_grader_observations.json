@@ -130,6 +130,32 @@
       "interpretation": "The observed exact-string assertion differs only in alternation order for the same anchored a/b language. This is the previously documented historical grader-version mismatch; raw rejection alone does not prove behavioral regression. Other raw-suite failures remain in the unmodified canonical report.",
       "canonical_report_sha256": "709fddd536017b185f1cef88003ba272f56bb4911b30cba38d352fab377014e8",
       "grader_log_sha256": "8e481233b7393af68bc0f8be8f496593e30ce037998b5c290de9c9f7834f0aad"
+    },
+    {
+      "trial_id": "phase6c_ponytail_r02_s03",
+      "canonical_resolved": false,
+      "task_local_filtered_resolved": true,
+      "test_summary": {
+        "total": 1113,
+        "passed": 1098,
+        "failed": 14,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 0,
+        "fail_to_pass_achieved": 0,
+        "none_to_pass_required": 1,
+        "none_to_pass_achieved": 1,
+        "pass_to_pass_required": 1093,
+        "pass_to_pass_achieved": 1092,
+        "pass_to_pass_failed": 1,
+        "pass_to_pass_missing": 0,
+        "none_to_pass_missing": 0
+      },
+      "test": "glob::tests::re35",
+      "failure_excerpt": "---- glob::tests::re35 stdout ----\n\nthread 'glob::tests::re35' panicked at crates/globset/src/glob.rs:1308:5:\nassertion `left == right` failed\n  left: \"(?-u)^(?:b|a)$\"\n right: \"(?-u)^(?:a|b)$\"\nstack backtrace:\n   0: rust_begin_unwind\n             at /rustc/4d91de4e48198da2e33413efdcd9cd2cc0c46688/library/std/src/panicking.rs:692:5\n   1: core::panicking::panic_fmt\n             at /rustc/4d91de4e48198da2e33413efdcd9cd2cc0c46688/library/core/src/panicking.rs:75:14\n   2: core::panicking::assert_failed_inner\n   3: core::panicking::assert_failed\n             at /rustc/4d91de4e48198da2e33413efdcd9cd2cc0c46688/library/core/src/panicking.rs:364:5\n   4: globset::glob::tests::re35\n             at ./src/glob.rs:1110:17\n   5: globset::glob::tests::re35::{{closure}}\n             at ./src/glob.rs:1095:23\n   6: core::ops::function::FnOnce::call_once\n             at /rustc/4d91de4e48198da2e33413efdcd9cd2cc0c46688/library/core/src/ops/function.rs:250:5\n   7: core::ops::function::FnOnce::call_once\n             at /rustc/4d91de4e48198da2e33413efdcd9cd2cc0c46688/library/core/src/ops/function.rs:250:5\nnote: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.",
+      "interpretation": "The observed exact-string assertion differs only in alternation order for the same anchored a/b language. This is the previously documented historical grader-version mismatch; raw rejection alone does not prove behavioral regression. Other raw-suite failures remain in the unmodified canonical report.",
+      "canonical_report_sha256": "e74d47b933b1e261e81ea4bfb75dc7ce6c3b8a924700a5d448dd85536a953626",
+      "grader_log_sha256": "1c3f9d6a82f2c328e1f40eb57378740feb2b3801d4f2ea94c09970df2a674baa"
     }
   ]
 }
