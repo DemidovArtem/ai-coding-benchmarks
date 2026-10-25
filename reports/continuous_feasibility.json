@@ -493,6 +493,83 @@
       "active_step": null,
       "last_step": "phase6c_ponytail_r02_s03",
       "failure_category": null
+    },
+    {
+      "trial_id": "phase6d_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_baseline_r01_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_caveman_r01_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_ponytail_r01_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_baseline_r02_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_caveman_r02_retry01_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6c_ponytail_r02_s03",
+      "actual_edit_number": 4
+    },
+    {
+      "trial_id": "phase6d_serena_r01",
+      "variant": "serena",
+      "repetition": 1,
+      "cohort": "phase6d",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "parent_trial": "phase6_serena_r01_s03_retry01",
+      "actual_edit_number": 4
     }
   ],
   "image_download_authorization": "User instruction: запусти, проверь, following the exact two-image budget request.",
@@ -617,6 +694,23 @@
       "round2_authorization": "2026-10-24: пользователь разрешил продолжить эксперимент и запустить второй круг для всех активных вариантов: baseline, Caveman, Ponytail.",
       "node_recovery": "reports/phase6c_node_recovery.json",
       "results_report": "reports/phase6c_progress.md"
+    },
+    "phase6d": {
+      "title": "Phase 6d: четвёртая правка как продолжение, включая Serena",
+      "status": "preparing",
+      "label": "Preflight пройден: grader и восстановление истории",
+      "summary": "Preflight пройден. План: шесть четвёртых правок из восстановленной истории плюс переоценка готовой четвёртой Serena submission. Первые три правки не выполняются заново. Новые checkpoints сохраняют также native SQLite storage.",
+      "protocol": "reports/phase6d_protocol.md",
+      "active_preflight": "results/phase6d_serena_grader_probe_retry01.log",
+      "restore_preflight": "reports/phase6d_legacy_restore_probe.json",
+      "preflight_setup_failures": [
+        {
+          "log": "results/phase6d_serena_grader_probe.log",
+          "model_calls": 0,
+          "reason": "Historical Phase 6b source pins differ; current verified Phase 6c configuration used for diagnostic grader."
+        }
+      ],
+      "grader_preflight": "reports/phase6d_grader_preflight.json"
     }
   },
   "active_variants": [
@@ -629,6 +723,6 @@
     "goal_plan"
   ],
   "scope_authorization": "User requested only baseline, Caveman and Ponytail, mean curves over edits, and a separate working Serena check.",
-  "new_trials_require_explicit_user_signal": true,
-  "latest_authorization": "2026-10-24: user requested second round for all active workflows; baseline/Caveman/Ponytail now completed, two independent trajectories of three edits each."
+  "new_trials_require_explicit_user_signal": false,
+  "latest_authorization": "2026-10-26: продолжить с четвёртой правки, не сначала; все активные варианты и Serena."
 }

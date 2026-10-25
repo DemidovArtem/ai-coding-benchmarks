@@ -1,0 +1,18 @@
+{
+  "source_trial": "phase6c_baseline_r01_s03",
+  "source_rollout_sha256": "33381eee3aec2eeb5a10702888c6df9436a480c31ad16487897d9ba1a1903435",
+  "restored_rollout_sha256": "ee896d969c5356b488270e1bc256c9ba699231435941cc0175ac76a200b0255e",
+  "change": "session_meta.payload.history_mode: paginated -> legacy; other metadata values and all subsequent log lines unchanged",
+  "model_messages_changed": false,
+  "inference_calls": 0,
+  "compaction_events": 0,
+  "native_history_verified": true,
+  "restored_turn_ids": [
+    "01a16583-a344-77d2-9495-e20c818c4380",
+    "01a16588-bf36-7f41-aa46-0f3465a93be2",
+    "01a1658e-dc7e-7c12-8cd1-241ff54d7829"
+  ],
+  "restored_completed_turns": 3,
+  "rollback_backup": "/tmp/phase6d-before-legacy-probe in isolated zero-model container",
+  "prior_automatic_review_rejection": "Deletion without backup rejected; not executed. Safer backed-up reversible move approved and executed."
+}

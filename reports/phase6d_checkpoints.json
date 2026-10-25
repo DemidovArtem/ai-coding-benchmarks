@@ -1,0 +1,91 @@
+{
+  "milestone": "milestone_seed_b610d1c_1",
+  "first_three_edits_replayed": false,
+  "entries": [
+    {
+      "parent_trial": "phase6c_baseline_r01_s03",
+      "variant": "baseline",
+      "repetition": 1,
+      "ending_commit": "9f0054f70ad9342d49d367a6ec8b78351a26b233",
+      "session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_baseline_r01_s03/log/codex/rollout-2026-10-22T21-28-08-01a16583-a176-7063-a367-c4d11bbe81c1.jsonl",
+      "rollout_sha256": "33381eee3aec2eeb5a10702888c6df9436a480c31ad16487897d9ba1a1903435",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6c_caveman_r01_s03",
+      "variant": "caveman",
+      "repetition": 1,
+      "ending_commit": "c0a72131b93e49f40aa493cea1a5b89b28c9403c",
+      "session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_caveman_r01_s03/log/codex/rollout-2026-10-22T21-46-57-01a16594-dd09-7ac0-9e8d-2c15680bf6fd.jsonl",
+      "rollout_sha256": "18c6548bfdd783ddfda36d1b3d195d2a821681257d4037de6de245e32c2364a6",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6c_ponytail_r01_s03",
+      "variant": "ponytail",
+      "repetition": 1,
+      "ending_commit": "cf745fc790d4ccf01ad8010eed7f9a175a73b12c",
+      "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_ponytail_r01_s03/log/codex/rollout-2026-10-22T22-09-32-01a165a9-8b4c-7b30-8194-fba8a53d9ef4.jsonl",
+      "rollout_sha256": "d16a9a0fb7729672043352dbaeb11a9bd67540ae5f4812d9ad30fa73680d2d86",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6c_baseline_r02_s03",
+      "variant": "baseline",
+      "repetition": 2,
+      "ending_commit": "5e10b0cf694c42d514b0629c7631fa64ff4667e1",
+      "session_id": "01a16e2d-eb1b-77d0-954b-56c88cc24b15",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_baseline_r02_s03/log/codex/rollout-2026-10-24T13-51-06-01a16e2d-eb1b-77d0-954b-56c88cc24b15.jsonl",
+      "rollout_sha256": "9202ba9fbb3aac39c9cdc69df691d8c3c2cefc2b783737676bf39e062976566d",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6c_caveman_r02_retry01_s03",
+      "variant": "caveman",
+      "repetition": 2,
+      "ending_commit": "e01ddcbd8b3905db5426d160a9417232bf4a271a",
+      "session_id": "01a16e4a-b5bb-79a0-ad36-8161e617637a",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_caveman_r02_retry01_s03/log/codex/rollout-2026-10-24T14-22-32-01a16e4a-b5bb-79a0-ad36-8161e617637a.jsonl",
+      "rollout_sha256": "03c07bff38928bc250536fa9364db7f3ee8b314c3eca91ad30eff795ae1d5ce6",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6c_ponytail_r02_s03",
+      "variant": "ponytail",
+      "repetition": 2,
+      "ending_commit": "476ea87094afe8e7e6fd08ed5ae9dac3ce48dc02",
+      "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6c_ponytail_r02_s03/log/codex/rollout-2026-10-24T14-49-05-01a16e63-039b-7653-aff4-bfd3ae7116af.jsonl",
+      "rollout_sha256": "a96470d7c3d9c98baa18453bd0c29ae8f428a7a55eea2ed42d5df2c6c9f78570",
+      "completed_model_turns": 3,
+      "parent_steps": 3,
+      "new_model_work_required": true
+    },
+    {
+      "parent_trial": "phase6_serena_r01_s03_retry01",
+      "variant": "serena",
+      "repetition": 1,
+      "ending_commit": "6a402155d716d43e52911dc6deddf185505c7919",
+      "session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+      "rollout_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6_serena_r01_s03_retry01/log/codex/rollout-2026-10-21T21-33-01-01a16061-becc-7e21-ba6e-8601cd1c4329.jsonl",
+      "rollout_sha256": "38e36353ac8fdb7baa6cd1684af9d87ae8439797153c518cf8ef15213a51e2fa",
+      "completed_model_turns": 4,
+      "parent_steps": 3,
+      "new_model_work_required": false
+    }
+  ],
+  "serena_existing_submission": "phase6_serena_r01_s04"
+}
