@@ -1,0 +1,283 @@
+{
+  "experiment_id": "ripgrep-fourth-edit-continuation-v1",
+  "trial_id": "phase6d_ponytail_r02_s04",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "ponytail",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_b610d1c_1",
+  "repetition": 2,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": null,
+  "starting_tree": null,
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "ponytail",
+    "skill": "ponytail",
+    "skill_version": "5.3.2",
+    "mode": "full",
+    "manifest_sha256": "40cfc9215cf63cb427686f8da78d1d4d4e0327e9fdde9e9f01362dcdb3df6b6c",
+    "hooks_sha256": "c6278cbb3f27a8d103346f2dfcf66ffd064ed5962ed22fff5ce2e656164ad512",
+    "node": {
+      "version": "v24.19.0",
+      "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+      "size_bytes": 125989464,
+      "local_source": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+    },
+    "hook_trust": "one invocation bypass after external source/hash review",
+    "remote_plugins_enabled": false,
+    "native_hook_activation_verified": false,
+    "extension": {
+      "parent_trial": "phase6c_ponytail_r02_s03",
+      "prefix_trials": [
+        "phase6c_ponytail_r02_s01",
+        "phase6c_ponytail_r02_s02",
+        "phase6c_ponytail_r02_s03"
+      ],
+      "parent_setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+      "history_restore": {
+        "source_sha256": "a96470d7c3d9c98baa18453bd0c29ae8f428a7a55eea2ed42d5df2c6c9f78570",
+        "restored_sha256": "662f4f051c6cc269a19d5ff676ba3fbb6b6f58bb1b06f47c71bd2414d599f338",
+        "turn_ids": [
+          "01a16e63-05b0-7791-92f3-58fc9c554ac6",
+          "01a16e69-7563-7872-aaa9-23dd90262d62",
+          "01a16e71-c235-7f93-aff4-85649b15d13b"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+        "completed_turns": 3,
+        "parent_trial": "phase6c_ponytail_r02_s03",
+        "new_model_calls": 0
+      },
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0
+    }
+  },
+  "duration_seconds": 45.703842118000466,
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-26T01:32:07.693924+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 98,
+            "windowDurationMins": 300,
+            "resetsAt": 1792987816
+          },
+          "secondary": {
+            "usedPercent": 19,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793552174
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-26T01:34:02.198836+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 100,
+            "windowDurationMins": 300,
+            "resetsAt": 1792987816
+          },
+          "secondary": {
+            "usedPercent": 19,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793552174
+          },
+          "rateLimitReachedType": "rate_limit_reached",
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6d_ponytail_r02_s04",
+  "snapshot_sha256": null,
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "implementation_commit": "67889a7c887e6ab3e4562170e174d33dbc6e327a",
+  "trial_state": "failed",
+  "trial_failure_category": "continuation_failure",
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "continuation_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {
+        "shell": 5
+      },
+      "anomalies": [],
+      "counter_semantics": "no completed step counters"
+    },
+    "total": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null
+    },
+    "executor_cumulative": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {
+        "shell": 5
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 22.41589866600043,
+    "evaluation": null,
+    "sonar": null
+  },
+  "setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
+  "continuous": {
+    "trajectory_id": "phase6d_ponytail_r02",
+    "step": 4,
+    "repetition": 2,
+    "executor_session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+    "input_commit": "476ea87094afe8e7e6fd08ed5ae9dac3ce48dc02",
+    "dispatch": null,
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948"
+  },
+  "extension": {
+    "parent_trial": "phase6c_ponytail_r02_s03",
+    "prefix_trials": [
+      "phase6c_ponytail_r02_s01",
+      "phase6c_ponytail_r02_s02",
+      "phase6c_ponytail_r02_s03"
+    ],
+    "parent_setup_fingerprint": "e6a3c102dc4c3ea9f28c22c42ef492a0ee07b5794b521f871f71abc24b07deec",
+    "history_restore": {
+      "source_sha256": "a96470d7c3d9c98baa18453bd0c29ae8f428a7a55eea2ed42d5df2c6c9f78570",
+      "restored_sha256": "662f4f051c6cc269a19d5ff676ba3fbb6b6f58bb1b06f47c71bd2414d599f338",
+      "turn_ids": [
+        "01a16e63-05b0-7791-92f3-58fc9c554ac6",
+        "01a16e69-7563-7872-aaa9-23dd90262d62",
+        "01a16e71-c235-7f93-aff4-85649b15d13b"
+      ],
+      "messages_changed": false,
+      "transport": "native legacy header; original response/event bytes retained",
+      "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+      "completed_turns": 3,
+      "parent_trial": "phase6c_ponytail_r02_s03",
+      "new_model_calls": 0
+    },
+    "new_inference_executed": true,
+    "replayed_prefix_model_calls": 0
+  }
+}

@@ -555,23 +555,32 @@
       "variant": "caveman",
       "repetition": 2,
       "cohort": "phase6d",
-      "state": "running",
-      "completed_steps": 0,
+      "state": "finished",
+      "completed_steps": 1,
       "total_steps": 1,
       "parent_trial": "phase6c_caveman_r02_retry01_s03",
       "actual_edit_number": 4,
-      "active_step": 4
+      "active_step": null,
+      "last_step": "phase6d_caveman_r02_s04",
+      "failure_category": null
     },
     {
       "trial_id": "phase6d_ponytail_r02",
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase6d",
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 1,
       "parent_trial": "phase6c_ponytail_r02_s03",
-      "actual_edit_number": 4
+      "actual_edit_number": 4,
+      "active_step": 4,
+      "last_step": "phase6d_ponytail_r02_s04",
+      "failure_category": null,
+      "resumed_attempt": "phase6d_ponytail_r02_s04_resume01",
+      "failed_attempts": [
+        "phase6d_ponytail_r02_s04"
+      ]
     },
     {
       "trial_id": "phase6d_serena_r01",
@@ -714,7 +723,7 @@
       "title": "Phase 6d: \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u0430\u044f \u043f\u0440\u0430\u0432\u043a\u0430 \u043a\u0430\u043a \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0435, \u0432\u043a\u043b\u044e\u0447\u0430\u044f Serena",
       "status": "running",
       "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 5/7; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/7; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
       "protocol": "reports/phase6d_protocol.md",
       "active_preflight": "results/phase6d_serena_grader_probe_retry01.log",
       "restore_preflight": "reports/phase6d_legacy_restore_probe.json",
@@ -728,7 +737,8 @@
       "grader_preflight": "reports/phase6d_grader_preflight.json",
       "same_executor_session_verified": true,
       "continuous_result_claimed": true,
-      "results_report": "reports/phase6d_progress.md"
+      "results_report": "reports/phase6d_progress.md",
+      "recovery_protocol": "reports/phase6d_resume_protocol.md"
     }
   },
   "active_variants": [
@@ -743,5 +753,5 @@
   ],
   "scope_authorization": "2026-10-26: User explicitly included Serena in the fourth-edit continuation. Six Phase 6c model continuations plus one existing Serena submission re-evaluation; no fifth edit or fresh prefix.",
   "new_trials_require_explicit_user_signal": false,
-  "latest_authorization": "2026-10-26: \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u0442\u044c \u0441 \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u043e\u0439 \u043f\u0440\u0430\u0432\u043a\u0438, \u043d\u0435 \u0441\u043d\u0430\u0447\u0430\u043b\u0430; \u0432\u0441\u0435 \u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0435 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u044b \u0438 Serena."
+  "latest_authorization": "2026-10-26: User confirmed reset limits and authorized continuing remaining experiments. Resume the retained Ponytail fourth quota stop; no completed prefix replay."
 }

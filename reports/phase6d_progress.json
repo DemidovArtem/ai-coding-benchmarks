@@ -1,6 +1,6 @@
 {
   "scope": "Six fourth-edit continuations and one existing Serena fourth submission re-evaluation; no prefix replay.",
-  "completed": 5,
+  "completed": 6,
   "planned": 7,
   "results": [
     {
@@ -450,9 +450,107 @@
         "parent_trial": "phase6c_baseline_r02_s03",
         "new_model_calls": 0
       }
+    },
+    {
+      "trial_id": "phase6d_caveman_r02_s04",
+      "variant": "caveman",
+      "repetition": 2,
+      "parent_trial": "phase6c_caveman_r02_retry01_s03",
+      "state": "finished",
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0,
+      "session_id": "01a16e4a-b5bb-79a0-ad36-8161e617637a",
+      "snapshot_sha256": "16722a39beb17f3f8e0e2af855fe66e54c166160fb41bf276e6902f5e3c2ad40",
+      "ending_commit": "2e957ded6700f394788dea3850caaa2179e415be",
+      "resolved": false,
+      "sonar_ok": true,
+      "common_base_verified": true,
+      "fourth_output_tokens": 12845,
+      "cumulative_output_tokens": 46256,
+      "production_churn": 262,
+      "sonar_delta": {
+        "ncloc": -147,
+        "lines": -107,
+        "complexity": 39,
+        "cognitive_complexity": 35,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      },
+      "test_summary": {
+        "total": 1111,
+        "passed": 1091,
+        "failed": 19,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 1,
+        "fail_to_pass_achieved": 1,
+        "none_to_pass_required": 0,
+        "none_to_pass_achieved": 0,
+        "pass_to_pass_required": 1104,
+        "pass_to_pass_achieved": 1085,
+        "pass_to_pass_failed": 10,
+        "pass_to_pass_missing": 9,
+        "none_to_pass_missing": 0
+      },
+      "raw_failed_tests": [
+        "gitignore_skip_bom",
+        "glob::tests::re35",
+        "json::replacement",
+        "regression::f1757",
+        "regression::r1334_invert_empty_patterns",
+        "regression::r2094",
+        "regression::r2770_gitignore_error",
+        "regression::r2944_incorrect_bytes_searched",
+        "regression::r2990_trip_over_trailing_dot",
+        "regression::r3108_files_without_match_quiet_exit",
+        "regression::r3139_multiline_lookahead_files_with_matches",
+        "regression::r3173_hidden_whitelist_only_dot",
+        "regression::r3180_look_around_panic",
+        "regression::r428_unrecognized_style",
+        "regression::r829_2747",
+        "regression::r829_2778",
+        "regression::r829_2836",
+        "regression::r829_2933",
+        "standard::tests::regression_crlf_preserve"
+      ],
+      "grader_payload_sha256": "dcf35e1cca41c74428dbffc28654bc06b0fb7746e3a53eff888b9a6498d4b0d8",
+      "pruned_files": [
+        "crates/printer/src/hyperlink/aliases.rs",
+        "crates/printer/src/hyperlink/mod.rs"
+      ],
+      "native_store_verified": true,
+      "native_store_manifest": {
+        "state_5.sqlite": "b3c9122c7f8eaecdf30e1f70c301bee6b69e20deb344306f02f2fb8238d2f118"
+      },
+      "history_restore": {
+        "source_sha256": "03c07bff38928bc250536fa9364db7f3ee8b314c3eca91ad30eff795ae1d5ce6",
+        "restored_sha256": "f19fe712761c0696c3e6d0009658194b919985d624a62e92f58b86ed79856438",
+        "turn_ids": [
+          "01a16e4a-b781-7373-b778-a3dc2957ec0d",
+          "01a16e51-d85c-7f71-9e0a-26650d9fad9b",
+          "01a16e5b-6472-7da1-920c-7ec5dbd32bb1"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a16e4a-b5bb-79a0-ad36-8161e617637a",
+        "completed_turns": 3,
+        "parent_trial": "phase6c_caveman_r02_retry01_s03",
+        "new_model_calls": 0
+      }
     }
   ],
-  "unfinished_attempts": [],
+  "unfinished_attempts": [
+    {
+      "trial_id": "phase6d_ponytail_r02_s04",
+      "state": "failed",
+      "failure_category": "continuation_failure",
+      "collection_errors": []
+    }
+  ],
   "frozen_prefix_comparison": {
     "commit": "173ea51",
     "original_mean_points": 12,
