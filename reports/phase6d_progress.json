@@ -1,6 +1,6 @@
 {
   "scope": "Six fourth-edit continuations and one existing Serena fourth submission re-evaluation; no prefix replay.",
-  "completed": 3,
+  "completed": 4,
   "planned": 7,
   "results": [
     {
@@ -74,9 +74,18 @@
         "crates/printer/src/hyperlink/aliases.rs",
         "crates/printer/src/hyperlink/mod.rs"
       ],
-      "native_store_verified": false,
+      "native_store_verified": null,
       "native_store_manifest": null,
-      "history_restore": null
+      "history_restore": null,
+      "reused_serena_usage": {
+        "required_usage_verified": true,
+        "semantic_calls": 25,
+        "retained_memory_read_verified": true,
+        "memory_write_observed": true,
+        "memory_files_before": 10,
+        "memory_files_after": 11,
+        "measured_mcp_tool_calls": 65
+      }
     },
     {
       "trial_id": "phase6d_baseline_r01_s04",
@@ -259,7 +268,104 @@
         "parent_trial": "phase6c_caveman_r01_s03",
         "new_model_calls": 0
       }
+    },
+    {
+      "trial_id": "phase6d_ponytail_r01_s04",
+      "variant": "ponytail",
+      "repetition": 1,
+      "parent_trial": "phase6c_ponytail_r01_s03",
+      "state": "finished",
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0,
+      "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "snapshot_sha256": "bba1e9a61b5f7f8596633b03bb3e1ecd3bafe393b803f9875ab9039f7c3eba5c",
+      "ending_commit": "366bbb2f4be8305f003b097fc2fcdacce4fe5eba",
+      "resolved": false,
+      "sonar_ok": true,
+      "common_base_verified": true,
+      "fourth_output_tokens": 12956,
+      "cumulative_output_tokens": 37682,
+      "production_churn": 230,
+      "sonar_delta": {
+        "ncloc": -277,
+        "lines": -287,
+        "complexity": 28,
+        "cognitive_complexity": 44,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 1,
+        "sqale_index": 5,
+        "software_quality_maintainability_issues": 1,
+        "software_quality_maintainability_remediation_effort": 5
+      },
+      "test_summary": {
+        "total": 1111,
+        "passed": 1091,
+        "failed": 19,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 1,
+        "fail_to_pass_achieved": 1,
+        "none_to_pass_required": 0,
+        "none_to_pass_achieved": 0,
+        "pass_to_pass_required": 1104,
+        "pass_to_pass_achieved": 1085,
+        "pass_to_pass_failed": 10,
+        "pass_to_pass_missing": 9,
+        "none_to_pass_missing": 0
+      },
+      "raw_failed_tests": [
+        "gitignore_skip_bom",
+        "glob::tests::re35",
+        "json::replacement",
+        "regression::f1757",
+        "regression::r1334_invert_empty_patterns",
+        "regression::r2094",
+        "regression::r2770_gitignore_error",
+        "regression::r2944_incorrect_bytes_searched",
+        "regression::r2990_trip_over_trailing_dot",
+        "regression::r3108_files_without_match_quiet_exit",
+        "regression::r3139_multiline_lookahead_files_with_matches",
+        "regression::r3173_hidden_whitelist_only_dot",
+        "regression::r3180_look_around_panic",
+        "regression::r428_unrecognized_style",
+        "regression::r829_2747",
+        "regression::r829_2778",
+        "regression::r829_2836",
+        "regression::r829_2933",
+        "standard::tests::regression_crlf_preserve"
+      ],
+      "grader_payload_sha256": "a3e18d9c5d7ecad8d9ef698fda89880f8dc24a2dca2e0ebb303e01da2b3a62e1",
+      "pruned_files": [
+        "crates/printer/src/hyperlink/aliases.rs",
+        "crates/printer/src/hyperlink/mod.rs"
+      ],
+      "native_store_verified": true,
+      "native_store_manifest": {
+        "state_5.sqlite": "aa9f4076a1df879d49ea006f04a04987e459e0045e8122a9bf813bcc395ff9a1"
+      },
+      "history_restore": {
+        "source_sha256": "d16a9a0fb7729672043352dbaeb11a9bd67540ae5f4812d9ad30fa73680d2d86",
+        "restored_sha256": "6aa4c79174c4761a60a6fc3a3d7240ead59b91205aeb6f00d13142aee6fb866a",
+        "turn_ids": [
+          "01a165a9-8cc0-7fa3-a52c-a190492cef9f",
+          "01a165af-da34-7aa1-be6a-761cf2311b61",
+          "01a165b6-270c-7771-a563-d2b0988af883"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+        "completed_turns": 3,
+        "parent_trial": "phase6c_ponytail_r01_s03",
+        "new_model_calls": 0
+      }
     }
   ],
+  "frozen_prefix_comparison": {
+    "commit": "173ea51",
+    "original_mean_points": 12,
+    "all_unchanged": true
+  },
+  "same_raw_failure_set": true,
   "grading_limit": "Full raw scores remain canonical. Target F2P success alone does not establish regression safety. Identical failure sets do not prove infrastructure causality."
 }

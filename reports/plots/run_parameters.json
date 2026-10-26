@@ -2224,5 +2224,67 @@
     "usage_origin_trial": "phase6d_caveman_r01_s04",
     "history_transport": "native legacy header; original response/event bytes retained",
     "assessment_implementation_commit": "f41e445d837060d62796da6bf2d4b0f36a52c73f"
+  },
+  {
+    "trial_id": "phase6d_ponytail_r01_s04",
+    "variant": "ponytail",
+    "repetition": 1,
+    "step": 4,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+    "snapshot_sha256": "bba1e9a61b5f7f8596633b03bb3e1ecd3bafe393b803f9875ab9039f7c3eba5c",
+    "resume": null,
+    "quota_before": {
+      "observed_at": "2026-10-26T00:28:26.427189+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 65,
+            "windowDurationMins": 300,
+            "resetsAt": 1792987817
+          },
+          "secondary": {
+            "usedPercent": 14,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793552174
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-26T00:28:26.423519+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "milestone_seed_b610d1c_1"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "fourth-step evaluations only",
+      "compatibility_preflight": "reports/phase6d_grader_preflight.json"
+    },
+    "parent_trial": "phase6c_ponytail_r01_s03",
+    "new_inference_executed": true,
+    "usage_origin_trial": "phase6d_ponytail_r01_s04",
+    "history_transport": "native legacy header; original response/event bytes retained",
+    "assessment_implementation_commit": "920485e64ebca4744cc15951611573e55e28b44c"
   }
 ]
