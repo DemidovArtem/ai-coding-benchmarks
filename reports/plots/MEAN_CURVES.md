@@ -8,7 +8,7 @@
 
 Это общий визуальный вид. Значения и средние исходных групп не пересчитываются вместе. [current_comparison.json](current_comparison.json) хранит отображённые точки и источник каждой линии; [mean_data.json](mean_data.json) сохраняет все исходные наблюдения. Парные baseline deltas сохраняются в рамках исходных групп, где есть соответствующий baseline. Этот рисунок сам не создаёт пар для Serena из другой группы.
 
-[Живой реестр](../../EXPERIMENT_STATUS.md) · [PNG](mean_curves_current.png) · [SVG](mean_curves_current.svg) · [PDF, общий вид на первой странице](mean_comparison.pdf). Продолжения выполняются по [протоколу Phase 6d](../phase6d_protocol.md). Для Serena переоценена уже сохранённая четвёртая submission; её исходные токены и Sonar используются один раз, без нового inference. Четвёртый grader одинаково включает source-residue pruning для всех подходов; первые три raw scores не переписаны. Поэтому это продолжение с явно изменённым четвёртым grading protocol, а не новый повтор первых трёх задач.
+[Живой реестр](../../EXPERIMENT_STATUS.md) · [PNG](mean_curves_current.png) · [SVG](mean_curves_current.svg) · [PDF, общий вид на первой странице](mean_comparison.pdf). Все семь продолжений завершены по [протоколу Phase 6d](../phase6d_protocol.md). Для Serena переоценена уже сохранённая четвёртая submission; её исходные токены и Sonar используются один раз, без нового inference. Четвёртый grader одинаково включает source-residue pruning для всех подходов; первые три raw scores не переписаны. Поэтому это продолжение с явно изменённым четвёртым grading protocol, а не новый повтор первых трёх задач.
 
 ## Исторический двухшаговый cohort
 
@@ -46,3 +46,5 @@ Plan и goal_plan исключены из новых экспериментов 
 Phase 6: у третьего Serena шага raw grader и task-local filtered grader расходятся из-за проверки порядка веток эквивалентного regex. Canonical raw score сохранён; интерпретировать его как ухудшение поведения без дополнительного анализа нельзя. [Доказательства совместимости grader](../phase6_grader_compatibility.json), [текущие результаты Phase 6](../phase6_progress.md).
 
 Phase 6c: baseline на третьем шаге воспроизвёл тот же `re35` mismatch; canonical raw score не изменён. [Наблюдения и SHA исходных grader records](../phase6c_grader_observations.json).
+
+Phase 6d завершена: на четвёртом шаге baseline/Caveman/Ponytail имеют n=2, Serena — n=1. Последний quota stop Ponytail восстановлен в той же сессии; исходная ошибка сохранена. [Итоги](../phase6d_progress.md), [проверка сохранности и средних](../phase6d_completion_audit.json). Новые повторы или пятая правка автоматически не запускаются.

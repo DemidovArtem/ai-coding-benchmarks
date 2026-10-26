@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Continue the authorized fourth edit for all six Phase 6c trajectories and re-evaluate the retained Serena fourth submission; do not replay edits one through three.",
+  "next_step": "Review the completed four-edit curves. Fifth edits, additional repetitions and new repositories are outside this completed authorization.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -569,13 +569,13 @@
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase6d",
-      "state": "running",
-      "completed_steps": 0,
+      "state": "finished",
+      "completed_steps": 1,
       "total_steps": 1,
       "parent_trial": "phase6c_ponytail_r02_s03",
       "actual_edit_number": 4,
-      "active_step": 4,
-      "last_step": "phase6d_ponytail_r02_s04",
+      "active_step": null,
+      "last_step": "phase6d_ponytail_r02_s04_resume01",
       "failure_category": null,
       "resumed_attempt": "phase6d_ponytail_r02_s04_resume01",
       "failed_attempts": [
@@ -721,9 +721,9 @@
     },
     "phase6d": {
       "title": "Phase 6d: \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u0430\u044f \u043f\u0440\u0430\u0432\u043a\u0430 \u043a\u0430\u043a \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0435, \u0432\u043a\u043b\u044e\u0447\u0430\u044f Serena",
-      "status": "running",
-      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/7; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "status": "completed",
+      "label": "\u0417\u0430\u0432\u0435\u0440\u0448\u0451\u043d: \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u044b\u0439 \u0448\u0430\u0433 \u0432\u0441\u0435\u0445 \u0441\u0435\u043c\u0438 \u0442\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439",
+      "summary": "\u0421\u043e\u0431\u0440\u0430\u043d\u044b 7/7 \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u044b\u0445 \u0448\u0430\u0433\u043e\u0432 \u0438 7/7 Sonar assessments: baseline/Caveman/Ponytail \u043f\u043e \u0434\u0432\u0430 \u043f\u043e\u0432\u0442\u043e\u0440\u0430, Serena \u043e\u0434\u0438\u043d \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d\u043d\u044b\u0439. \u041f\u0435\u0440\u0432\u044b\u0435 \u0442\u0440\u0438 \u0448\u0430\u0433\u0430 \u043d\u0435 \u043f\u043e\u0432\u0442\u043e\u0440\u044f\u043b\u0438\u0441\u044c. Quota failure Ponytail \u0438 \u043e\u0448\u0438\u0431\u043a\u0430 SQLite collection \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b \u0441 recovery proofs.",
       "protocol": "reports/phase6d_protocol.md",
       "active_preflight": "results/phase6d_serena_grader_probe_retry01.log",
       "restore_preflight": "reports/phase6d_legacy_restore_probe.json",
@@ -738,7 +738,8 @@
       "same_executor_session_verified": true,
       "continuous_result_claimed": true,
       "results_report": "reports/phase6d_progress.md",
-      "recovery_protocol": "reports/phase6d_resume_protocol.md"
+      "recovery_protocol": "reports/phase6d_resume_protocol.md",
+      "collection_recovery": "reports/phase6d_collection_recovery.json"
     }
   },
   "active_variants": [
@@ -752,6 +753,6 @@
     "goal_plan"
   ],
   "scope_authorization": "2026-10-26: User explicitly included Serena in the fourth-edit continuation. Six Phase 6c model continuations plus one existing Serena submission re-evaluation; no fifth edit or fresh prefix.",
-  "new_trials_require_explicit_user_signal": false,
+  "new_trials_require_explicit_user_signal": true,
   "latest_authorization": "2026-10-26: User confirmed reset limits and authorized continuing remaining experiments. Resume the retained Ponytail fourth quota stop; no completed prefix replay."
 }

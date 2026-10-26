@@ -1,6 +1,6 @@
 {
   "scope": "Six fourth-edit continuations and one existing Serena fourth submission re-evaluation; no prefix replay.",
-  "completed": 6,
+  "completed": 7,
   "planned": 7,
   "results": [
     {
@@ -541,6 +541,97 @@
         "parent_trial": "phase6c_caveman_r02_retry01_s03",
         "new_model_calls": 0
       }
+    },
+    {
+      "trial_id": "phase6d_ponytail_r02_s04_resume01",
+      "variant": "ponytail",
+      "repetition": 2,
+      "parent_trial": "phase6c_ponytail_r02_s03",
+      "state": "finished",
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0,
+      "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+      "snapshot_sha256": "35ce1dbf89a325df0175114ec2569734c0171419bd191ee422ae72fb5bf65302",
+      "ending_commit": "29a48ee9b5302a4a610b0fd262ab56cd14bc56f7",
+      "resolved": false,
+      "sonar_ok": true,
+      "common_base_verified": true,
+      "fourth_output_tokens": 7063,
+      "cumulative_output_tokens": 32292,
+      "production_churn": 213,
+      "sonar_delta": {
+        "ncloc": -290,
+        "lines": -292,
+        "complexity": 21,
+        "cognitive_complexity": 36,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 0,
+        "sqale_index": 0,
+        "software_quality_maintainability_issues": 0,
+        "software_quality_maintainability_remediation_effort": 0
+      },
+      "test_summary": {
+        "total": 1111,
+        "passed": 1091,
+        "failed": 19,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 1,
+        "fail_to_pass_achieved": 1,
+        "none_to_pass_required": 0,
+        "none_to_pass_achieved": 0,
+        "pass_to_pass_required": 1104,
+        "pass_to_pass_achieved": 1085,
+        "pass_to_pass_failed": 10,
+        "pass_to_pass_missing": 9,
+        "none_to_pass_missing": 0
+      },
+      "raw_failed_tests": [
+        "gitignore_skip_bom",
+        "glob::tests::re35",
+        "json::replacement",
+        "regression::f1757",
+        "regression::r1334_invert_empty_patterns",
+        "regression::r2094",
+        "regression::r2770_gitignore_error",
+        "regression::r2944_incorrect_bytes_searched",
+        "regression::r2990_trip_over_trailing_dot",
+        "regression::r3108_files_without_match_quiet_exit",
+        "regression::r3139_multiline_lookahead_files_with_matches",
+        "regression::r3173_hidden_whitelist_only_dot",
+        "regression::r3180_look_around_panic",
+        "regression::r428_unrecognized_style",
+        "regression::r829_2747",
+        "regression::r829_2778",
+        "regression::r829_2836",
+        "regression::r829_2933",
+        "standard::tests::regression_crlf_preserve"
+      ],
+      "grader_payload_sha256": "8c0d86e34d62b4d35aab0e48e9553ee233281a67f7173fdb3d6a6efdd8c5c11a",
+      "pruned_files": [
+        "crates/printer/src/hyperlink/aliases.rs",
+        "crates/printer/src/hyperlink/mod.rs"
+      ],
+      "native_store_verified": true,
+      "native_store_manifest": {
+        "state_5.sqlite": "1637ecf76c978cdb8553214b1da15661a3736f296f761ce024dc1221e5284935"
+      },
+      "history_restore": {
+        "source_sha256": "a96470d7c3d9c98baa18453bd0c29ae8f428a7a55eea2ed42d5df2c6c9f78570",
+        "restored_sha256": "662f4f051c6cc269a19d5ff676ba3fbb6b6f58bb1b06f47c71bd2414d599f338",
+        "turn_ids": [
+          "01a16e63-05b0-7791-92f3-58fc9c554ac6",
+          "01a16e69-7563-7872-aaa9-23dd90262d62",
+          "01a16e71-c235-7f93-aff4-85649b15d13b"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+        "completed_turns": 3,
+        "parent_trial": "phase6c_ponytail_r02_s03",
+        "new_model_calls": 0
+      }
     }
   ],
   "unfinished_attempts": [
@@ -557,5 +648,35 @@
     "all_unchanged": true
   },
   "same_raw_failure_set": true,
-  "grading_limit": "Full raw scores remain canonical. Target F2P success alone does not establish regression safety. Identical failure sets do not prove infrastructure causality."
+  "grading_limit": "Full raw scores remain canonical. Target F2P success alone does not establish regression safety. Identical failure sets do not prove infrastructure causality.",
+  "fourth_step_means": [
+    {
+      "variant": "baseline",
+      "n": 2,
+      "cumulative_output_tokens": 36057.5,
+      "production_churn": 261.5,
+      "sonar_delta_cognitive_complexity": 31.5
+    },
+    {
+      "variant": "caveman",
+      "n": 2,
+      "cumulative_output_tokens": 50415,
+      "production_churn": 258.5,
+      "sonar_delta_cognitive_complexity": 34.5
+    },
+    {
+      "variant": "ponytail",
+      "n": 2,
+      "cumulative_output_tokens": 34987,
+      "production_churn": 221.5,
+      "sonar_delta_cognitive_complexity": 40
+    },
+    {
+      "variant": "serena",
+      "n": 1,
+      "cumulative_output_tokens": 53216,
+      "production_churn": 251,
+      "sonar_delta_cognitive_complexity": 30
+    }
+  ]
 }

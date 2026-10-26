@@ -1,0 +1,19 @@
+{
+  "kind": "collection_only_recovery",
+  "new_model_calls": 0,
+  "new_grader_runs": 0,
+  "failed_manifest": {
+    "state_5.sqlite": "37d75fec18904e9ff671d2b15523d32335526606b0c5bfc6f307ae0faf65418a"
+  },
+  "actual_failed_copy": {
+    "state_5.sqlite": "7654bdcf9d745f66dd14a5cef43b219e44f8341e18a361999ffd1cde5a5b1b40"
+  },
+  "cause": "sqlite3 connection context commits transactions but does not close; backup hash was computed before final close",
+  "reproduction": "Offline backup into an existing WAL-mode target reproduced the same premature manifest hash.",
+  "original_helper_sha256": "4e9c49694cf3ca5da4dc670ebf3c28ba951656928805d7e6385eafb1f6900d35",
+  "backup_helper_sha256": "b9c1e8f4ecc7379c8bbfaa72fc5c6b5b84fef764796c68ff3828e95c9774d26d",
+  "verified_manifest": {
+    "state_5.sqlite": "1637ecf76c978cdb8553214b1da15661a3736f296f761ce024dc1221e5284935"
+  },
+  "ending_commit": "29a48ee9b5302a4a610b0fd262ab56cd14bc56f7"
+}

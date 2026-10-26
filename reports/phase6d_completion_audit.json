@@ -1,0 +1,70 @@
+{
+  "fourth_results": [
+    {
+      "trial_id": "phase6d_serena_r01_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": null
+    },
+    {
+      "trial_id": "phase6d_baseline_r01_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    },
+    {
+      "trial_id": "phase6d_caveman_r01_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    },
+    {
+      "trial_id": "phase6d_ponytail_r01_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    },
+    {
+      "trial_id": "phase6d_baseline_r02_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    },
+    {
+      "trial_id": "phase6d_caveman_r02_s04",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    },
+    {
+      "trial_id": "phase6d_ponytail_r02_s04_resume01",
+      "source_parent_and_session_verified": true,
+      "snapshot_and_bundle_sha_verified": true,
+      "incremental_and_cumulative_replay_verified": true,
+      "sonar_common_base_verified": true,
+      "native_store_sha_verified": true
+    }
+  ],
+  "frozen_mean_points_unchanged": 12,
+  "fourth_n": {
+    "baseline": 2,
+    "caveman": 2,
+    "ponytail": 2,
+    "serena": 1
+  },
+  "failed_quota_trial_retained": true,
+  "frozen_source_pins_unchanged": true,
+  "limits": "Raw grading failures remain canonical; no causal quality ranking or new Serena model repetition is claimed."
+}

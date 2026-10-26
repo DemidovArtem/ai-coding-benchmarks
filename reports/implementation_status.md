@@ -1,6 +1,11 @@
 # Состояние реализации
 
-Phase 6c завершена: baseline/Caveman/Ponytail, два независимых круга по три последовательные правки; 18 результатов и 18 анализов Sonar. По новой отмашке выполняется Phase 6d: четвёртая правка из сохранённых checkpoints без повторения первых трёх. Serena включена: её готовая четвёртая submission переоценена без нового inference, с сохранёнными memories и usage. Текущие числа и ограничения — в [итогах Phase 6d](phase6d_progress.md) и [живом реестре](../EXPERIMENT_STATUS.md). Native history восстановлена из полных rollout через поддерживаемый legacy transport; исходная paginated SQLite не была архивирована. Для новых продолжений добавлен проверяемый backup SQLite. Пятая правка и новые репозитории не запускаются.
+Phase 6d завершена: baseline/Caveman/Ponytail имеют по два независимых повтора из четырёх последовательных правок, Serena — один сохранённый четырёхшаговый повтор с 11 memories. Первые три правки не повторялись. Собраны все 7 четвёртых assessments и Sonar; source patches, native history и новые закрытые SQLite backups проверены. [Итоги и средние](phase6d_progress.md), [общий график](plots/mean_curves_current.png), [живой реестр](../EXPERIMENT_STATUS.md).
+
+Последний Ponytail остановился на квоте и продолжен в той же сессии после сброса. Исходная ошибка сохранена. После grader исправлен отдельный сбой коллектора: SHA SQLite считался до закрытия соединения. Новая копия проверена без повторного inference или grader. [Recovery](phase6d_resume_protocol.md), [доказательство collection recovery](phase6d_collection_recovery.json). Frozen inference adapter и исходные оценки не переписаны.
+
+У всех четвёртых submissions целевой тест проходит, но raw grader сохраняет одинаковые 19 падений и 9 отсутствующих P2P identities. Причины не изолированы; это ограничивает выводы о накоплении ошибок. Serena использует исходные inference/usage/Sonar; у новых продолжений другой history transport. Sonar включает inline tests. Пятая правка и новые репозитории не запускались.
+
 
 ## Исторический isolated pilot v1
 
