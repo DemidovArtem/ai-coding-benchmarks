@@ -1,6 +1,6 @@
 {
   "scope": "Six fourth-edit continuations and one existing Serena fourth submission re-evaluation; no prefix replay.",
-  "completed": 2,
+  "completed": 3,
   "planned": 7,
   "results": [
     {
@@ -166,6 +166,97 @@
         "session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
         "completed_turns": 3,
         "parent_trial": "phase6c_baseline_r01_s03",
+        "new_model_calls": 0
+      }
+    },
+    {
+      "trial_id": "phase6d_caveman_r01_s04",
+      "variant": "caveman",
+      "repetition": 1,
+      "parent_trial": "phase6c_caveman_r01_s03",
+      "state": "finished",
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0,
+      "session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+      "snapshot_sha256": "b7e71e56f5a38c36442f01ea453a5fb30364d00ca54a4242af4852916e746495",
+      "ending_commit": "ffaf0f47f6747b6fdbf61748adb72dd9e3625bdb",
+      "resolved": false,
+      "sonar_ok": true,
+      "common_base_verified": true,
+      "fourth_output_tokens": 20860,
+      "cumulative_output_tokens": 54574,
+      "production_churn": 255,
+      "sonar_delta": {
+        "ncloc": -124,
+        "lines": -95,
+        "complexity": 38,
+        "cognitive_complexity": 34,
+        "duplicated_lines": 0,
+        "duplicated_lines_density": 0.0,
+        "code_smells": 3,
+        "sqale_index": 15,
+        "software_quality_maintainability_issues": 3,
+        "software_quality_maintainability_remediation_effort": 15
+      },
+      "test_summary": {
+        "total": 1111,
+        "passed": 1091,
+        "failed": 19,
+        "error": 0,
+        "skipped": 1,
+        "fail_to_pass_required": 1,
+        "fail_to_pass_achieved": 1,
+        "none_to_pass_required": 0,
+        "none_to_pass_achieved": 0,
+        "pass_to_pass_required": 1104,
+        "pass_to_pass_achieved": 1085,
+        "pass_to_pass_failed": 10,
+        "pass_to_pass_missing": 9,
+        "none_to_pass_missing": 0
+      },
+      "raw_failed_tests": [
+        "gitignore_skip_bom",
+        "glob::tests::re35",
+        "json::replacement",
+        "regression::f1757",
+        "regression::r1334_invert_empty_patterns",
+        "regression::r2094",
+        "regression::r2770_gitignore_error",
+        "regression::r2944_incorrect_bytes_searched",
+        "regression::r2990_trip_over_trailing_dot",
+        "regression::r3108_files_without_match_quiet_exit",
+        "regression::r3139_multiline_lookahead_files_with_matches",
+        "regression::r3173_hidden_whitelist_only_dot",
+        "regression::r3180_look_around_panic",
+        "regression::r428_unrecognized_style",
+        "regression::r829_2747",
+        "regression::r829_2778",
+        "regression::r829_2836",
+        "regression::r829_2933",
+        "standard::tests::regression_crlf_preserve"
+      ],
+      "grader_payload_sha256": "efec39b0741d7c2f2ccd016168d714ced23aa5c7a1b8cb08278ba36f8021a605",
+      "pruned_files": [
+        "crates/printer/src/hyperlink/aliases.rs",
+        "crates/printer/src/hyperlink/mod.rs"
+      ],
+      "native_store_verified": true,
+      "native_store_manifest": {
+        "state_5.sqlite": "34bb8b12bde737d4ff165df27cd04f4f7ae1fe7be7678516d596d913730f1a56"
+      },
+      "history_restore": {
+        "source_sha256": "18c6548bfdd783ddfda36d1b3d195d2a821681257d4037de6de245e32c2364a6",
+        "restored_sha256": "8df2a053ea121e1a29d6a1af11d2f0864ab022426bafbeefcee52ade1bc5c1ac",
+        "turn_ids": [
+          "01a16594-dead-7f73-a019-89f2549bdc67",
+          "01a1659a-5bca-7200-b04b-b561bcb614cc",
+          "01a165a1-21e5-7bd1-a1ae-9ee576e3d2ba"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+        "completed_turns": 3,
+        "parent_trial": "phase6c_caveman_r01_s03",
         "new_model_calls": 0
       }
     }

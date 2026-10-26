@@ -46,10 +46,13 @@ def main():
     data=json.loads((HERE/'mean_data.json').read_text())
     cohorts=sorted({p['setup_fingerprint'] for p in data['points']})
     if not cohorts:raise ValueError('No completed measured points to plot')
-    combined=comparison_view(data,json.loads((ROOT/'reports/phase6c_experiment.json').read_text()),
-                             json.loads((ROOT/'reports/phase6_experiment.json').read_text()))
-    combined=append_fourth(combined,[json.loads(line) for line in (ROOT/'results/results.jsonl').read_text().splitlines() if line.strip()])
-    (HERE/'current_comparison.json').write_text(json.dumps(combined,indent=2)+'\n')
+    if args.refresh_data:
+        combined=comparison_view(data,json.loads((ROOT/'reports/phase6c_experiment.json').read_text()),
+                                 json.loads((ROOT/'reports/phase6_experiment.json').read_text()))
+        combined=append_fourth(combined,rows)
+        (HERE/'current_comparison.json').write_text(json.dumps(combined,indent=2)+'\n')
+    else:
+        combined=json.loads((HERE/'current_comparison.json').read_text())
     views=([(None,combined['points'],list(NAMES))] if combined['points'] else [])
     for cohort in cohorts:
         points=[p for p in data['points'] if p['setup_fingerprint']==cohort]
