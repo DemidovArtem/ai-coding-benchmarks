@@ -16,6 +16,7 @@ ROOT=HERE.parents[1]
 sys.path.insert(0,str(ROOT))
 from experiment.curves import aggregate
 from reports.plots.current_view import comparison_view
+from reports.plots.extension_view import append_fourth
 
 COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87','serena':'#c9802a'}
 STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D','serena':':^'}
@@ -37,7 +38,9 @@ def main():
     args=parser.parse_args()
     if args.refresh_data:
         source=ROOT/'results/results.jsonl'
-        data=aggregate([json.loads(x) for x in source.read_text().splitlines() if x.strip()])
+        # Linked extensions have no new independent prefix; append them explicitly below.
+        rows=[json.loads(line) for line in source.read_text().splitlines() if line.strip()]
+        data=aggregate([row for row in rows if not row.get('extension')])
         data['source_sha256']=hashlib.sha256(source.read_bytes()).hexdigest()
         (HERE/'mean_data.json').write_text(json.dumps(data,indent=2)+'\n')
     data=json.loads((HERE/'mean_data.json').read_text())
@@ -45,6 +48,7 @@ def main():
     if not cohorts:raise ValueError('No completed measured points to plot')
     combined=comparison_view(data,json.loads((ROOT/'reports/phase6c_experiment.json').read_text()),
                              json.loads((ROOT/'reports/phase6_experiment.json').read_text()))
+    combined=append_fourth(combined,[json.loads(line) for line in (ROOT/'results/results.jsonl').read_text().splitlines() if line.strip()])
     (HERE/'current_comparison.json').write_text(json.dumps(combined,indent=2)+'\n')
     views=([(None,combined['points'],list(NAMES))] if combined['points'] else [])
     for cohort in cohorts:
@@ -90,9 +94,11 @@ def main():
                 title='Средние изменения по правкам' if not paired else 'Средние парные дельты к baseline по правкам'
                 fig.suptitle(title,x=.035,ha='left',fontsize=19,fontweight='medium')
                 subtitle='Линия — среднее повторов; полоса — min–max. n — число наблюдений в последней точке.'
-                fig.text(.035,.936,subtitle+(' Один cohort.' if cohort else ' Первые три задачи одинаковы.'),fontsize=10,color='#526474')
+                fig.text(.035,.936,subtitle+(' Один cohort.' if cohort else ' Продолжения связаны с исходными траекториями.'),fontsize=10,color='#526474')
                 provenance=('Serena: исходный runtime; остальные: offline-сборка с тем же Codex 0.163.0. Средние каждой линии сохранены.'
                             if cohort is None else 'Правка 0 — исходная точка отсчёта. Мало повторов; полосы не являются доверительным интервалом. Cohort: '+cohort[:12])
+                if cohort is None and combined.get('extension_sources'):
+                    provenance='Правка 4: отдельный протокол grader с pruning. Serena — исходная submission; остальные — восстановленная история.'
                 fig.text(.035,.028,'Churn/Net сравниваются с началом траектории; токены накапливаются. Sonar включает тесты и маскирование.\n'
                          +provenance,fontsize=9,color='#526474')
                 fig.tight_layout(rect=(.015,.08,.99,.915),h_pad=2,w_pad=2)

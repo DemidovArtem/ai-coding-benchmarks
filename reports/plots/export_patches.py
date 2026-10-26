@@ -63,7 +63,7 @@ def main():
                          'local_bundle':str(bundle.relative_to(ROOT)),
                          'bundle_sha256':hashlib.sha256(bundle.read_bytes()).hexdigest(), 'patches':patches})
     (OUTPUT/'manifest.json').write_text(json.dumps({'entries':manifest,
-        'limits':'Patches restore source trees, including benchmark test masking. They do not restore a Codex session or provide an implemented continuation runner.'},indent=2)+'\n')
+        'limits':'Patches restore source trees, including benchmark test masking. Model continuation additionally requires the retained native session history and matching runtime; Phase 6d restoration is documented separately.'},indent=2)+'\n')
     print('Exported and replay-verified',len(manifest)*2,'patches from',len(manifest),'immutable submissions.')
 
 

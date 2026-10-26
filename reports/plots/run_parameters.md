@@ -48,6 +48,8 @@
 | phase6c_ponytail_r02_s01 | ponytail | 2 / 1 | gpt-6.1-sol / high | e6a3c102dc4c | finished / resolved=True |
 | phase6c_ponytail_r02_s02 | ponytail | 2 / 2 | gpt-6.1-sol / high | e6a3c102dc4c | finished / resolved=True |
 | phase6c_ponytail_r02_s03 | ponytail | 2 / 3 | gpt-6.1-sol / high | e6a3c102dc4c | finished / resolved=False |
+| phase6d_serena_r01_s04 | serena | 1 / 4 | gpt-6.1-sol / high | 8b58878e393e | finished / resolved=False |
+| phase6d_baseline_r01_s04 | baseline | 1 / 4 | gpt-6.1-sol / high | e96bc3fb44b8 | finished / resolved=False |
 
 Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
 
@@ -60,3 +62,6 @@ Phase 6b заморожен отдельно: включён существую�
 Phase 6c использует первые три задачи Phase 6, baseline/Caveman/Ponytail и два независимых круга. Serena сохранена без новых запусков. Все новые workflows используют один offline runtime с тем же Codex 0.163.0, но новым image ID; grader работает в исходном режиме без pruning override. Поэтому setup fingerprint `e6a3c102dc4c` отделён от старых cohorts. [Текущий протокол](../phase6c_protocol.md).
 
 Основной рисунок теперь показывает четыре подхода вместе по одинаковым первым трём задачам. Serena сохраняет свой исходный runtime/cohort; остальные — новый offline runtime. Расчёт средних каждой линии и исходные данные групп сохранены. [Общий вид и provenance](current_comparison.json).
+
+
+Phase 6d продолжает конкретные checkpoints третьего шага. Шесть новых четвёртых turns сохраняют исходный session ID и сообщения через native legacy rollout transport; прежние paginated SQLite не были архивированы. Serena использует свою уже выполненную четвёртую submission, исходные usage и Sonar; это переоценка grader без нового inference. Все четвёртые оценки включают source-residue pruning. Первые три шага не повторяются и не считаются новыми наблюдениями. [Протокол](../phase6d_protocol.md).

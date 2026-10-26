@@ -1,6 +1,6 @@
 # Состояние реализации
 
-Текущий статус: continuous runner, source checkpoints, средние кривые и Serena warm-memory continuity реализованы. Phase 6c завершена: baseline/Caveman/Ponytail, два независимых круга по три последовательные правки; собраны 18 результатов и 18 анализов Sonar. Проверены шесть независимых сессий, source hashes и replay patches. [Итоги Phase 6c](phase6c_progress.md), [живой реестр](../EXPERIMENT_STATUS.md). Три собранных шага Serena и её checkpoint с memories сохранены; новых запусков Serena не было. Более длинные цепочки и новые репозитории пока не запускались; ограничение третьего grader и inline tests описано в итогах.
+Phase 6c завершена: baseline/Caveman/Ponytail, два независимых круга по три последовательные правки; 18 результатов и 18 анализов Sonar. По новой отмашке выполняется Phase 6d: четвёртая правка из сохранённых checkpoints без повторения первых трёх. Serena включена: её готовая четвёртая submission переоценена без нового inference, с сохранёнными memories и usage. Текущие числа и ограничения — в [итогах Phase 6d](phase6d_progress.md) и [живом реестре](../EXPERIMENT_STATUS.md). Native history восстановлена из полных rollout через поддерживаемый legacy transport; исходная paginated SQLite не была архивирована. Для новых продолжений добавлен проверяемый backup SQLite. Пятая правка и новые репозитории не запускаются.
 
 ## Исторический isolated pilot v1
 

@@ -5149,5 +5149,6 @@
     "phase6b_baseline_r01_s01",
     "phase6c_caveman_r02_s01"
   ],
-  "aggregation": "Arithmetic mean at each edit count within one frozen cohort; range is min\u2013max, not a confidence interval."
+  "aggregation": "Arithmetic mean at each edit count within one frozen cohort; range is min\u2013max, not a confidence interval.",
+  "source_sha256": "0c6eab25a4ccf3024ff0701853e7fe975866b92c98559fd823d13e15c5de8413"
 }

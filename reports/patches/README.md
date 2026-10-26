@@ -20,7 +20,7 @@ git -C /tmp/inspect-baseline-step2 checkout --detach <ending_commit из manifes
 
 Для восстановления только через cumulative patch начните с `starting_commit`, указанного в manifest, затем выполните `git apply --check` и `git apply` нужного patch в том же scratch checkout. Восстановленный tree уже проверен генератором.
 
-Патч восстанавливает исходники, **не контекст модели**. Для продолжения именно прежнего Codex thread нужны сохранённые session traces, валидная сессия и соответствующий runner. Checkpoint третьей правки Serena, включая 10 memories, проверен отдельно: [доказательство сохранности](../serena_checkpoint_retention.json). Текущий thread уже видел четвёртую правку; точный restart с третьей требует отдельной сессии с восстановленным source/memory checkpoint. Новые запуски Serena не запланированы.
+Патч восстанавливает исходники; контекст модели хранится отдельно. Phase 6d уже продолжает прежние threads с четвёртой правки: source восстанавливается из Git bundle, полная native history — из сохранённого rollout с проверкой session ID и границ turns. Изменение storage header на legacy явно зафиксировано; исходные сообщения не меняются. Для новых checkpoints дополнительно сохраняются проверенные SQLite backups. [Протокол продолжения](../phase6d_protocol.md). Serena повторно не выполняет готовую четвёртую правку: сохранённая submission переоценивается grader, исходные memories и usage сохраняются.
 
 Чтобы повторить экспорт из существующих локальных immutable artifacts:
 
