@@ -3108,66 +3108,67 @@
       "variant": "baseline",
       "step": 4,
       "milestone_id": "milestone_seed_b610d1c_1",
-      "n_trajectories": 1,
+      "n_trajectories": 2,
       "trial_ids": [
-        "phase6d_baseline_r01_s04"
+        "phase6d_baseline_r01_s04",
+        "phase6d_baseline_r02_s04"
       ],
       "metrics": {
         "churn_prod_loc": {
-          "n": 1,
-          "mean": 249,
+          "n": 2,
+          "mean": 261.5,
           "min": 249,
-          "max": 249,
-          "sd": null
+          "max": 274,
+          "sd": 17.67766952966369
         },
         "net_prod_loc": {
-          "n": 1,
-          "mean": 175,
+          "n": 2,
+          "mean": 183.5,
           "min": 175,
-          "max": 175,
-          "sd": null
+          "max": 192,
+          "sd": 12.020815280171307
         },
         "added_prod_loc": {
-          "n": 1,
-          "mean": 212,
+          "n": 2,
+          "mean": 222.5,
           "min": 212,
-          "max": 212,
-          "sd": null
+          "max": 233,
+          "sd": 14.849242404917497
         },
         "deleted_prod_loc": {
-          "n": 1,
-          "mean": 37,
+          "n": 2,
+          "mean": 39,
           "min": 37,
-          "max": 37,
-          "sd": null
+          "max": 41,
+          "sd": 2.8284271247461903
         },
         "input_tokens": {
-          "n": 1,
-          "mean": 4838919,
-          "min": 4838919,
+          "n": 2,
+          "mean": 4726775.5,
+          "min": 4614632,
           "max": 4838919,
-          "sd": null
+          "sd": 158594.85863198718
         },
         "cached_input_tokens": {
-          "n": 1,
-          "mean": 4517248,
-          "min": 4517248,
+          "n": 2,
+          "mean": 4437568,
+          "min": 4357888,
           "max": 4517248,
-          "sd": null
+          "sd": 112684.5366498882
         },
         "output_tokens": {
-          "n": 1,
-          "mean": 37100,
-          "min": 37100,
+          "n": 2,
+          "mean": 36057.5,
+          "min": 35015,
           "max": 37100,
-          "sd": null
+          "sd": 1474.3176387739516
         },
         "uncached_input_tokens": {
-          "n": 1,
-          "mean": 321671,
-          "min": 321671,
+          "n": 2,
+          "mean": 289207.5,
+          "min": 256744,
           "max": 321671,
-          "sd": null
+          "sd": 45910.32198209897
         },
         "model_seconds": {
           "n": 0,
@@ -3177,53 +3178,53 @@
           "sd": null
         },
         "sonar_delta_ncloc": {
-          "n": 1,
-          "mean": -177,
-          "min": -177,
+          "n": 2,
+          "mean": -204,
+          "min": -231,
           "max": -177,
-          "sd": null
+          "sd": 38.18376618407357
         },
         "sonar_delta_complexity": {
-          "n": 1,
-          "mean": 36,
-          "min": 36,
+          "n": 2,
+          "mean": 34,
+          "min": 32,
           "max": 36,
-          "sd": null
+          "sd": 2.8284271247461903
         },
         "sonar_delta_cognitive_complexity": {
-          "n": 1,
-          "mean": 34,
-          "min": 34,
+          "n": 2,
+          "mean": 31.5,
+          "min": 29,
           "max": 34,
-          "sd": null
+          "sd": 3.5355339059327378
         },
         "sonar_delta_duplicated_lines": {
-          "n": 1,
+          "n": 2,
           "mean": 0,
           "min": 0,
           "max": 0,
-          "sd": null
+          "sd": 0.0
         },
         "sonar_delta_software_quality_maintainability_issues": {
-          "n": 1,
-          "mean": -1,
+          "n": 2,
+          "mean": -0.5,
           "min": -1,
-          "max": -1,
-          "sd": null
+          "max": 0,
+          "sd": 0.7071067811865476
         },
         "sonar_delta_software_quality_maintainability_remediation_effort": {
-          "n": 1,
-          "mean": -5,
+          "n": 2,
+          "mean": -2.5,
           "min": -5,
-          "max": -5,
-          "sd": null
+          "max": 0,
+          "sd": 3.5355339059327378
         },
         "grader_acceptance": {
-          "n": 1,
+          "n": 2,
           "mean": 0,
           "min": 0,
           "max": 0,
-          "sd": null
+          "sd": 0.0
         }
       },
       "paired_delta": {
@@ -3868,6 +3869,13 @@
     {
       "trial_id": "phase6d_ponytail_r01_s04",
       "parent_trial": "phase6c_ponytail_r01_s03",
+      "setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
+      "new_inference_executed": true,
+      "prefix_recounted_as_new_repetitions": false
+    },
+    {
+      "trial_id": "phase6d_baseline_r02_s04",
+      "parent_trial": "phase6c_baseline_r02_s03",
       "setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
       "new_inference_executed": true,
       "prefix_recounted_as_new_repetitions": false

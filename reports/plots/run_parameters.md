@@ -52,6 +52,7 @@
 | phase6d_baseline_r01_s04 | baseline | 1 / 4 | gpt-6.1-sol / high | e96bc3fb44b8 | finished / resolved=False |
 | phase6d_caveman_r01_s04 | caveman | 1 / 4 | gpt-6.1-sol / high | e96bc3fb44b8 | finished / resolved=False |
 | phase6d_ponytail_r01_s04 | ponytail | 1 / 4 | gpt-6.1-sol / high | e96bc3fb44b8 | finished / resolved=False |
+| phase6d_baseline_r02_s04 | baseline | 2 / 4 | gpt-6.1-sol / high | e96bc3fb44b8 | finished / resolved=False |
 
 Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
 

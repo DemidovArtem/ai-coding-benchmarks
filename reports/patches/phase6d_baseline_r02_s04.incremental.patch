@@ -1,0 +1,318 @@
+diff --git a/crates/ignore/src/dir.rs b/crates/ignore/src/dir.rs
+index b302943ab5a210f2ddad2a77c1611106a6f52165..f42096a6eb8c42eb724cbadcc4b9730e4d8ac1be 100644
+--- a/crates/ignore/src/dir.rs
++++ b/crates/ignore/src/dir.rs
+@@ -567,6 +567,8 @@ impl<'a> Iterator for Parents<'a> {
+ pub(crate) struct IgnoreBuilder {
+     /// The root directory path for this ignore matcher.
+     dir: PathBuf,
++    /// The working directory used as the root of global ignore matchers.
++    cwd: Option<PathBuf>,
+     /// An override matcher (default is empty).
+     overrides: Arc<Override>,
+     /// A type matcher (default is empty).
+@@ -585,8 +587,16 @@ impl IgnoreBuilder {
+     /// All relative file paths are resolved with respect to the current
+     /// working directory.
+     pub(crate) fn new() -> IgnoreBuilder {
++        let cwd = match std::env::current_dir() {
++            Ok(cwd) => Some(cwd),
++            Err(err) => {
++                log::debug!("could not determine current directory: {}", err);
++                None
++            }
++        };
+         IgnoreBuilder {
+             dir: Path::new("").to_path_buf(),
++            cwd,
+             overrides: Arc::new(Override::empty()),
+             types: Arc::new(Types::empty()),
+             explicit_ignores: vec![],
+@@ -609,18 +619,19 @@ impl IgnoreBuilder {
+     /// The matcher returned won't match anything until ignore rules from
+     /// directories are added to it.
+     pub(crate) fn build(&self) -> Ignore {
+-        let git_global_matcher = if !self.opts.git_global {
+-            Gitignore::empty()
+-        } else {
+-            let mut builder = GitignoreBuilder::new("");
+-            builder
+-                .case_insensitive(self.opts.ignore_case_insensitive)
+-                .unwrap();
+-            let (gi, err) = builder.build_global();
+-            if let Some(err) = err {
+-                log::debug!("{}", err);
++        let git_global_matcher = match self.cwd.as_ref() {
++            Some(cwd) if self.opts.git_global => {
++                let mut builder = GitignoreBuilder::new(cwd);
++                builder
++                    .case_insensitive(self.opts.ignore_case_insensitive)
++                    .unwrap();
++                let (gi, err) = builder.build_global();
++                if let Some(err) = err {
++                    log::debug!("{}", err);
++                }
++                gi
+             }
+-            gi
++            _ => Gitignore::empty(),
+         };
+ 
+         Ignore(Arc::new(IgnoreInner {
+@@ -645,6 +656,20 @@ impl IgnoreBuilder {
+         }))
+     }
+ 
++    /// Return the cached current working directory, if available.
++    pub(crate) fn get_current_dir(&self) -> Option<&Path> {
++        self.cwd.as_deref()
++    }
++
++    /// Set the root used to match global and explicit ignore files.
++    pub(crate) fn current_dir(&mut self, cwd: &Path) -> &mut IgnoreBuilder {
++        self.cwd = Some(cwd.to_path_buf());
++        for gi in &mut self.explicit_ignores {
++            gi.set_root(cwd);
++        }
++        self
++    }
++
+     /// Add an override matcher.
+     ///
+     /// By default, no override matcher is used.
+@@ -917,6 +942,18 @@ mod tests {
+         assert!(ig.matched("baz", false).is_none());
+     }
+ 
++    #[test]
++    fn unavailable_current_dir() {
++        let mut builder = IgnoreBuilder::new();
++        builder.cwd = None;
++        assert!(builder.get_current_dir().is_none());
++        assert!(builder.build().0.git_global_matcher.is_empty());
++
++        let td = tmpdir();
++        builder.current_dir(td.path());
++        assert_eq!(builder.get_current_dir(), Some(td.path()));
++    }
++
+     #[test]
+     fn git_exclude() {
+         let td = tmpdir();
+diff --git a/crates/ignore/src/gitignore.rs b/crates/ignore/src/gitignore.rs
+index c654871d93c162b01bed44e16420e957af470f86..5b39eb89c3ccf86edd22dfe85f7252f9277d8acb 100644
+--- a/crates/ignore/src/gitignore.rs
++++ b/crates/ignore/src/gitignore.rs
+@@ -127,8 +127,18 @@ impl Gitignore {
+     /// does not exist or does not specify `core.excludesFile`, then
+     /// `$XDG_CONFIG_HOME/git/ignore` is read. If `$XDG_CONFIG_HOME` is not
+     /// set or is empty, then `$HOME/.config/git/ignore` is used instead.
++    ///
++    /// Patterns are matched relative to the current working directory. If
++    /// that directory cannot be determined, an empty matcher is returned.
+     pub fn global() -> (Gitignore, Option<Error>) {
+-        GitignoreBuilder::new("").build_global()
++        let cwd = match std::env::current_dir() {
++            Ok(cwd) => cwd,
++            Err(err) => {
++                log::debug!("could not determine current directory: {}", err);
++                return (Gitignore::empty(), None);
++            }
++        };
++        GitignoreBuilder::new(cwd).build_global()
+     }
+ 
+     /// Creates a new empty gitignore matcher that never matches anything.
+@@ -152,6 +162,11 @@ impl Gitignore {
+         &*self.root
+     }
+ 
++    /// Change the directory relative to which patterns are matched.
++    pub(crate) fn set_root(&mut self, root: &Path) {
++        self.root = root.to_path_buf();
++    }
++
+     /// Returns true if and only if this gitignore has zero globs, and
+     /// therefore never matches any file path.
+     pub fn is_empty(&self) -> bool {
+@@ -355,9 +370,9 @@ impl GitignoreBuilder {
+     /// This consumes ownership of the builder unlike `build` because it
+     /// must mutate the builder to add the global gitignore globs.
+     ///
+-    /// Note that this ignores the path given to this builder's constructor
+-    /// and instead derives the path automatically from git's global
+-    /// configuration.
++    /// The ignore file path is derived from git's global configuration.
++    /// Patterns are matched relative to the root passed to this builder's
++    /// constructor.
+     pub fn build_global(mut self) -> (Gitignore, Option<Error>) {
+         match gitconfig_excludes_path() {
+             None => (Gitignore::empty(), None),
+diff --git a/crates/ignore/src/walk.rs b/crates/ignore/src/walk.rs
+index 25cbe192bc4d0a19fc8b6a93db9e9807a0139348..b861b287b871d838d779313ea474922f7f45d44f 100644
+--- a/crates/ignore/src/walk.rs
++++ b/crates/ignore/src/walk.rs
+@@ -622,6 +622,21 @@ impl WalkBuilder {
+         self
+     }
+ 
++    /// Set the directory relative to which global ignore patterns are matched.
++    ///
++    /// This applies to git's global ignore file and files added with
++    /// [`WalkBuilder::add_ignore`], including files already added. The path
++    /// should be absolute. This sets the matching context; relative search
++    /// paths are still resolved using the process's working directory.
++    ///
++    /// By default, the process's current directory is queried once when the
++    /// builder is created. If that fails, global ignore files are skipped
++    /// unless this method supplies a directory.
++    pub fn current_dir<P: AsRef<Path>>(&mut self, cwd: P) -> &mut WalkBuilder {
++        self.ig_builder.current_dir(cwd.as_ref());
++        self
++    }
++
+     /// The minimum depth of entries to yield.
+     ///
+     /// The root has depth `0`. Entries at depths less than this minimum are
+@@ -681,13 +696,26 @@ impl WalkBuilder {
+     /// Add a global ignore file to the matcher.
+     ///
+     /// This has lower precedence than all other sources of ignore rules.
++    /// Patterns are matched relative to the current working directory, or
++    /// the directory set with [`WalkBuilder::current_dir`]. If no working
++    /// directory is available, the ignore file is skipped.
+     ///
+     /// If there was a problem adding the ignore file, then an error is
+     /// returned. Note that the error may indicate *partial* failure. For
+     /// example, if an ignore file contains an invalid glob, all other globs
+     /// are still applied.
+     pub fn add_ignore<P: AsRef<Path>>(&mut self, path: P) -> Option<Error> {
+-        let mut builder = GitignoreBuilder::new("");
++        let cwd = match self.ig_builder.get_current_dir() {
++            Some(cwd) => cwd,
++            None => {
++                log::debug!(
++                    "skipping ignore file {}: no current directory",
++                    path.as_ref().display(),
++                );
++                return None;
++            }
++        };
++        let mut builder = GitignoreBuilder::new(cwd);
+         let mut errs = PartialErrorBuilder::default();
+         errs.maybe_push(builder.add(path));
+         match builder.build() {
+@@ -2175,6 +2203,35 @@ mod tests {
+         assert_paths(td.path(), &builder, &["bar", "a", "a/bar"]);
+     }
+ 
++    #[test]
++    fn explicit_ignore_current_dir() {
++        let td = tmpdir();
++        let cwd = td.path().join("a/b/c");
++        mkdirp(cwd.join("child"));
++        let ignore = td.path().join("global-ignore");
++        wfile(&ignore, "/haystack");
++        wfile(cwd.join("haystack"), "");
++        wfile(cwd.join("keep"), "");
++        wfile(cwd.join("child/haystack"), "");
++
++        let mut builder = WalkBuilder::new(&cwd);
++        builder.current_dir(&cwd);
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert_paths(&cwd, &builder, &["keep", "child", "child/haystack"]);
++
++        // The context also applies to ignore files that were already added.
++        let mut builder = WalkBuilder::new(&cwd);
++        assert!(builder.add_ignore(&ignore).is_none());
++        builder.current_dir(&cwd);
++        assert_paths(&cwd, &builder, &["keep", "child", "child/haystack"]);
++
++        // Anchors refer to the working directory, rather than the walk root.
++        let mut builder = WalkBuilder::new(cwd.join("child"));
++        builder.current_dir(&cwd);
++        assert!(builder.add_ignore(&ignore).is_none());
++        assert_paths(&cwd, &builder, &["child", "child/haystack"]);
++    }
++
+     #[test]
+     fn explicit_ignore_exclusive_use() {
+         let td = tmpdir();
+diff --git a/tests/regression.rs b/tests/regression.rs
+index ab86279374b5bf6987df99b0b5504fa70c1b3fac..0b3b1301a8c68aeed085639cf944cc0644c792c5 100644
+--- a/tests/regression.rs
++++ b/tests/regression.rs
+@@ -1242,3 +1242,73 @@ rgtest!(r3127_override_rejects_unclosed_class, |dir: Dir, _: TestCommand| {
+             .contains("unclosed character class"));
+     }
+ });
++
++fn check_anchored_global_ignores(dir: &Dir, global: bool) {
++    use std::path::{Path, PathBuf};
++
++    dir.create_dir("a/b/c/.git");
++    dir.create_dir("a/b/c/child");
++    dir.create_dir("home");
++    dir.create_dir("config");
++    dir.create("ignore", "/haystack");
++    dir.create("a/b/c/haystack", "ignored");
++    dir.create("a/b/c/keep", "visible");
++    dir.create("a/b/c/child/haystack", "visible");
++    let ignore = dir.path().join("ignore");
++    dir.create(
++        "home/.gitconfig",
++        &format!("[core]\nexcludesFile = {}\n", ignore.display()),
++    );
++    let cwd = dir.path().join("a/b/c");
++    for search in [
++        PathBuf::from("."),
++        PathBuf::from("./"),
++        cwd.clone(),
++        PathBuf::from("child"),
++        cwd.join("child"),
++    ] {
++        for serial in [false, true] {
++            let mut cmd = dir.command();
++            cmd.current_dir(&cwd).arg("--files");
++            cmd.cmd().env("HOME", dir.path().join("home"));
++            cmd.cmd().env("USERPROFILE", dir.path().join("home"));
++            cmd.cmd().env("XDG_CONFIG_HOME", dir.path().join("config"));
++            if !global {
++                cmd.arg("--no-ignore-global")
++                    .arg("--ignore-file")
++                    .arg(&ignore);
++            }
++            if serial {
++                cmd.args(&["--sort", "path"]);
++            } else {
++                cmd.args(&["-j", "2"]);
++            }
++            let output = cmd.arg(&search).output();
++            assert!(output.stderr.is_empty());
++            let searching_child =
++                search.file_name() == Some(Path::new("child").as_os_str());
++            let expected = if searching_child {
++                vec![search.join("haystack")]
++            } else {
++                vec![search.join("keep"), search.join("child/haystack")]
++            };
++            let expected = expected
++                .iter()
++                .map(|path| path.to_string_lossy().replace('\\', "/"))
++                .collect::<Vec<_>>()
++                .join("\n");
++            eqnice!(
++                sort_lines(&format!("{expected}\n")),
++                sort_lines(&String::from_utf8_lossy(&output.stdout))
++            );
++        }
++    }
++}
++
++rgtest!(global_gitignore_absolute_paths, |dir: Dir, _: TestCommand| {
++    check_anchored_global_ignores(&dir, true);
++});
++
++rgtest!(explicit_ignore_absolute_paths, |dir: Dir, _: TestCommand| {
++    check_anchored_global_ignores(&dir, false);
++});
