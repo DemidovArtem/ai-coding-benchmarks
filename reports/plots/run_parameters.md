@@ -71,3 +71,6 @@ Phase 6c использует первые три задачи Phase 6, baseline
 
 
 Phase 6d продолжает конкретные checkpoints третьего шага. Шесть новых четвёртых turns сохраняют исходный session ID и сообщения через native legacy rollout transport; прежние paginated SQLite не были архивированы. Serena использует свою уже выполненную четвёртую submission, исходные usage и Sonar; это переоценка grader без нового inference. Все четвёртые оценки включают source-residue pruning. Первые три шага не повторяются и не считаются новыми наблюдениями. [Протокол](../phase6d_protocol.md).
+
+
+Phase 6e продолжает исходной пятой задачей after-context. Семь model turns из четвёртых checkpoints; Serena один раз. Известная undeclared API dependency grader учитывается отдельно от source/Sonar. [Протокол](../phase6e_protocol.md).

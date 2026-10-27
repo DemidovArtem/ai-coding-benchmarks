@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-26 03:12:10**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-28 00:19:29**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -20,6 +20,7 @@
 | Phase 6b: исправленный grader и совместимые 5 задач, 2×5 | Дальнейшие запуски отменены | Baseline остановился до модели: installer HTTP 404. Пятишаговая матрица заменена тремя правками; история сохранена. [Протокол](reports/phase6b_protocol.md) |
 | Phase 6c: baseline / Caveman / Ponytail, 2×3 | Завершён: два круга по три правки | Завершены 6/6 независимых траекторий и 18/18 правок; Sonar готов для всех 18. Средние baseline/Caveman/Ponytail имеют n=2 в каждой точке. [Итоги и ограничения](reports/phase6c_progress.md). Ошибка Node до модели и retry сохранены отдельно. [Протокол](reports/phase6c_protocol.md) |
 | Phase 6d: четвёртая правка как продолжение, включая Serena | Завершён: четвёртый шаг всех семи траекторий | Собраны 7/7 четвёртых шагов и 7/7 Sonar assessments: baseline/Caveman/Ponytail по два повтора, Serena один сохранённый. Первые три шага не повторялись. Quota failure Ponytail и ошибка SQLite collection сохранены с recovery proofs. [Протокол](reports/phase6d_protocol.md) |
+| Phase 6e: исходная пятая правка SWE, after-context | Подготовка продолжений | Семь продолжений из четвёртых checkpoints: первый круг четырёх методов, затем baseline/Caveman/Ponytail во втором. Serena один раз. Исходный grader имеет известную undeclared API dependency; метрики выполнения и валидность grading учитываются отдельно. [Протокол](reports/phase6e_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -68,6 +69,13 @@
 | phase6d_caveman_r02 | caveman | 2 | 1/1 | Завершён |
 | phase6d_ponytail_r02 | ponytail | 2 | 1/1 | Завершён |
 | phase6d_serena_r01 | serena | 1 | 1/1 | Завершён |
+| phase6e_baseline_r01 | baseline | 1 | 0/1 | Запланирован |
+| phase6e_caveman_r01 | caveman | 1 | 0/1 | Запланирован |
+| phase6e_ponytail_r01 | ponytail | 1 | 0/1 | Запланирован |
+| phase6e_serena_r01 | serena | 1 | 0/1 | Запланирован |
+| phase6e_baseline_r02 | baseline | 2 | 0/1 | Запланирован |
+| phase6e_caveman_r02 | caveman | 2 | 0/1 | Запланирован |
+| phase6e_ponytail_r02 | ponytail | 2 | 0/1 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 

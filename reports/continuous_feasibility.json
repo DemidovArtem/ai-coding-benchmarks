@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Review the completed four-edit curves. Fifth edits, additional repetitions and new repositories are outside this completed authorization.",
+  "next_step": "Run exact original after-context fifth SRS for the seven existing trajectories; preserve all four prefix edits and isolate each source/session/memory.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -594,6 +594,83 @@
       "actual_edit_number": 4,
       "active_step": null,
       "last_step": "phase6d_serena_r01_s04"
+    },
+    {
+      "trial_id": "phase6e_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_baseline_r01_s04"
+    },
+    {
+      "trial_id": "phase6e_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_caveman_r01_s04"
+    },
+    {
+      "trial_id": "phase6e_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_ponytail_r01_s04"
+    },
+    {
+      "trial_id": "phase6e_serena_r01",
+      "variant": "serena",
+      "repetition": 1,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_serena_r01_s04"
+    },
+    {
+      "trial_id": "phase6e_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_baseline_r02_s04"
+    },
+    {
+      "trial_id": "phase6e_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_caveman_r02_s04"
+    },
+    {
+      "trial_id": "phase6e_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "cohort": "phase6e",
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 1,
+      "actual_edit_number": 5,
+      "parent_trial": "phase6d_ponytail_r02_s04_resume01"
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -740,6 +817,14 @@
       "results_report": "reports/phase6d_progress.md",
       "recovery_protocol": "reports/phase6d_resume_protocol.md",
       "collection_recovery": "reports/phase6d_collection_recovery.json"
+    },
+    "phase6e": {
+      "title": "Phase 6e: \u0438\u0441\u0445\u043e\u0434\u043d\u0430\u044f \u043f\u044f\u0442\u0430\u044f \u043f\u0440\u0430\u0432\u043a\u0430 SWE, after-context",
+      "status": "preparing",
+      "label": "\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0439",
+      "summary": "\u0421\u0435\u043c\u044c \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0439 \u0438\u0437 \u0447\u0435\u0442\u0432\u0451\u0440\u0442\u044b\u0445 checkpoints: \u043f\u0435\u0440\u0432\u044b\u0439 \u043a\u0440\u0443\u0433 \u0447\u0435\u0442\u044b\u0440\u0451\u0445 \u043c\u0435\u0442\u043e\u0434\u043e\u0432, \u0437\u0430\u0442\u0435\u043c baseline/Caveman/Ponytail \u0432\u043e \u0432\u0442\u043e\u0440\u043e\u043c. Serena \u043e\u0434\u0438\u043d \u0440\u0430\u0437. \u0418\u0441\u0445\u043e\u0434\u043d\u044b\u0439 grader \u0438\u043c\u0435\u0435\u0442 \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u0443\u044e undeclared API dependency; \u043c\u0435\u0442\u0440\u0438\u043a\u0438 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f \u0438 \u0432\u0430\u043b\u0438\u0434\u043d\u043e\u0441\u0442\u044c grading \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u044e\u0442\u0441\u044f \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e.",
+      "protocol": "reports/phase6e_protocol.md",
+      "results_report": "reports/phase6e_progress.md"
     }
   },
   "active_variants": [
@@ -752,7 +837,7 @@
     "plan",
     "goal_plan"
   ],
-  "scope_authorization": "2026-10-26: User explicitly included Serena in the fourth-edit continuation. Six Phase 6c model continuations plus one existing Serena submission re-evaluation; no fifth edit or fresh prefix.",
-  "new_trials_require_explicit_user_signal": true,
-  "latest_authorization": "2026-10-26: User confirmed reset limits and authorized continuing remaining experiments. Resume the retained Ponytail fourth quota stop; no completed prefix replay."
+  "scope_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once.",
+  "new_trials_require_explicit_user_signal": false,
+  "latest_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once."
 }

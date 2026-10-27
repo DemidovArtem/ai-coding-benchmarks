@@ -1,5 +1,8 @@
 # Состояние реализации
 
+2026-10-28: авторизована Phase 6e — исходная пятая SWE задача after-context, без замены. Семь продолжений: первый круг четырёх методов, затем второй baseline/Caveman/Ponytail. Serena один раз, с сохранёнными 11 memories. Проверки source/context выполняются перед inference; известная несовместимость grader учитывается отдельно от source/Sonar. [План и протокол](phase6e_protocol.md), [живые результаты](phase6e_progress.md).
+
+
 Phase 6d завершена: baseline/Caveman/Ponytail имеют по два независимых повтора из четырёх последовательных правок, Serena — один сохранённый четырёхшаговый повтор с 11 memories. Первые три правки не повторялись. Собраны все 7 четвёртых assessments и Sonar; source patches, native history и новые закрытые SQLite backups проверены. [Итоги и средние](phase6d_progress.md), [общий график](plots/mean_curves_current.png), [живой реестр](../EXPERIMENT_STATUS.md).
 
 Последний Ponytail остановился на квоте и продолжен в той же сессии после сброса. Исходная ошибка сохранена. После grader исправлен отдельный сбой коллектора: SHA SQLite считался до закрытия соединения. Новая копия проверена без повторного inference или grader. [Recovery](phase6d_resume_protocol.md), [доказательство collection recovery](phase6d_collection_recovery.json). Frozen inference adapter и исходные оценки не переписаны.

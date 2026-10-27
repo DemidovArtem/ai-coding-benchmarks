@@ -102,6 +102,8 @@ def main():
                             if cohort is None else 'Правка 0 — исходная точка отсчёта. Мало повторов; полосы не являются доверительным интервалом. Cohort: '+cohort[:12])
                 if cohort is None and combined.get('extension_sources'):
                     provenance='Правка 4: отдельный протокол grader с pruning. Serena — исходная submission; остальные — восстановленная история.'
+                    if any(p['step']==5 for p in combined['points']):
+                        provenance+='\nПравка 5: исходная SWE after-context. Известный max_matches compile failure не считается измеренным test score.'
                 fig.text(.035,.028,'Churn/Net сравниваются с началом траектории; токены накапливаются. Sonar включает тесты и маскирование.\n'
                          +provenance,fontsize=9,color='#526474')
                 fig.tight_layout(rect=(.015,.08,.99,.915),h_pad=2,w_pad=2)

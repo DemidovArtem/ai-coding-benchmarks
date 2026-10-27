@@ -1,0 +1,9 @@
+{
+  "kind": "prior zero-model fifth grader compatibility evidence",
+  "new_model_calls": 0,
+  "source_result": "results/phase6_diagnostics/prune_on_s05_compatibility/evaluation/evaluation_result.json",
+  "source_sha256": "b7c19aa440f72b065d81c2e8399c7b2a6ea323f50c0182d367c01fd8370f40b0",
+  "known_error": "No valid test report files generated under /home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/phase6_diagnostics/prune_on_s05_compatibility/evaluation/artifacts/681056\nFirst fatal error (eval_default.log):\nerror[E0599]: no method named `max_matches` found for mutable reference `&mut SearcherBuilder` in the current scope\n    --> crates/printer/src/standard.rs:2723:14\n     |\n2721 | /         SearcherBuilder::new()\n2722 | |             .line_number(false)\n2723 | |             .max_matches(Some(1))\n     | |             -^^^^^^^^^^^ method not found in `&mut SearcherBuilder`\n     | |_____________|\n     |",
+  "reason": "undeclared SearcherBuilder::max_matches dependency",
+  "action": "Run exact user-selected SRS; retain known invalid grader results explicitly, collect source/usage/Sonar independently. No task substitution or grading change."
+}

@@ -52,3 +52,20 @@ class ExtensionViewTests(unittest.TestCase):
         metric=append_fourth(view,rows)['points'][-1]['metrics']['sonar_delta_cognitive_complexity']
         self.assertIsNone(metric['mean'])
         self.assertEqual(metric['n'],0)
+
+    def test_fifth_source_metrics_survive_known_invalid_grader(self):
+        view,rows=fixtures()
+        fifth=copy.deepcopy(rows[-1])
+        fifth.update(trial_id='t5',ending_commit='c5',milestone_id='milestone_seed_8c6595c_1',
+                     setup_fingerprint='fifth',failure_category='grader_infrastructure',
+                     grading_state={'valid':False,'reason':'known_undeclared_max_matches_dependency'})
+        fifth['continuous'].update(step=5,input_commit='c4')
+        fifth['extension'].update(parent_trial='t4',prefix_trials=['t1','t2','t3','t4'])
+        fifth['usage']['executor_cumulative'].update(output_tokens=140,input_tokens=280,cached_input_tokens=140)
+        result=append_fourth(view,rows+[fifth])
+        fourth=next(p for p in result['points'] if p['step']==4)
+        fifth_point=next(p for p in result['points'] if p['step']==5)
+        self.assertEqual(fourth['metrics']['output_tokens']['mean'],100)
+        self.assertEqual(fifth_point['metrics']['output_tokens']['mean'],140)
+        self.assertIsNone(fifth_point['metrics']['grader_acceptance']['mean'])
+        self.assertEqual(fifth_point['n_trajectories'],1)
