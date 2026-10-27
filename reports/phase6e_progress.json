@@ -1,7 +1,29 @@
 {
   "task": "milestone_seed_8c6595c_1",
-  "completed": 0,
+  "completed": 1,
   "planned": 7,
-  "means_after_five_edits": [],
-  "trials": []
+  "means_after_five_edits": [
+    {
+      "variant": "baseline",
+      "n": 1,
+      "output_tokens": 45115,
+      "production_churn": 359,
+      "sonar_delta_cognitive_complexity": 55
+    }
+  ],
+  "trials": [
+    {
+      "trial_id": "phase6e_baseline_r01_s05",
+      "state": "finished",
+      "grading_state": {
+        "valid": false,
+        "reason": "known_undeclared_max_matches_dependency",
+        "raw_score_preserved": true,
+        "code_metrics_available": true
+      },
+      "source_trial": "phase6d_baseline_r01_s04",
+      "collection_errors": [],
+      "sonar": true
+    }
+  ]
 }

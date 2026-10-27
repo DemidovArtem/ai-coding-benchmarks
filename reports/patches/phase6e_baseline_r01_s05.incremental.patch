@@ -1,0 +1,346 @@
+diff --git a/crates/searcher/src/line_buffer.rs b/crates/searcher/src/line_buffer.rs
+index e73c650468d965a3cc42f016072c479ab259e4fa..58e13ed153761b9c3004cf87789fbc4f0c5bd339 100644
+--- a/crates/searcher/src/line_buffer.rs
++++ b/crates/searcher/src/line_buffer.rs
+@@ -390,6 +390,8 @@ impl LineBuffer {
+     /// that has been consumed. The free space created by discarding the
+     /// consumed part of the buffer is then filled with new data from the given
+     /// reader.
++    /// Short reads are retried until the available capacity is filled or EOF
++    /// is reached, with binary detection applied to every read.
+     ///
+     /// Callers should provide the same reader to this line buffer in
+     /// subsequent calls to fill. A different reader can only be used
+@@ -415,57 +417,64 @@ impl LineBuffer {
+         assert_eq!(self.pos, 0);
+         loop {
+             self.ensure_capacity()?;
+-            let readlen = rdr.read(self.free_buffer().as_bytes_mut())?;
+-            if readlen == 0 {
+-                // We're only done reading for good once the caller has
+-                // consumed everything.
+-                self.last_lineterm = self.end;
+-                return Ok(!self.buffer().is_empty());
+-            }
+-
+-            // Get a mutable view into the bytes we've just read. These are
+-            // the bytes that we do binary detection on, and also the bytes we
+-            // search to find the last line terminator. We need a mutable slice
+-            // in the case of binary conversion.
+             let oldend = self.end;
+-            self.end += readlen;
+-            let newbytes = &mut self.buf[oldend..self.end];
+-
+-            // Binary detection.
+-            match self.config.binary {
+-                BinaryDetection::None => {} // nothing to do
+-                BinaryDetection::Quit(byte) => {
+-                    if let Some(i) = newbytes.find_byte(byte) {
+-                        self.end = oldend + i;
+-                        self.last_lineterm = self.end;
+-                        self.binary_byte_offset =
+-                            Some(self.absolute_byte_offset + self.end as u64);
+-                        // If the first byte in our buffer is a binary byte,
+-                        // then our buffer is empty and we should report as
+-                        // such to the caller.
+-                        return Ok(self.pos < self.end);
+-                    }
++            let mut eof = false;
++            while !self.free_buffer().is_empty() {
++                let readlen = rdr.read(self.free_buffer().as_bytes_mut())?;
++                if readlen == 0 {
++                    eof = true;
++                    break;
+                 }
+-                BinaryDetection::Convert(byte) => {
+-                    if let Some(i) =
+-                        replace_bytes(newbytes, byte, self.config.lineterm)
+-                    {
+-                        // Record only the first binary offset.
+-                        if self.binary_byte_offset.is_none() {
++
++                // Detect binary data in each batch before reading again.
++                let readstart = self.end;
++                self.end += readlen;
++                let newbytes = &mut self.buf[readstart..self.end];
++                match self.config.binary {
++                    BinaryDetection::None => {} // nothing to do
++                    BinaryDetection::Quit(byte) => {
++                        if let Some(i) = newbytes.find_byte(byte) {
++                            self.end = readstart + i;
++                            self.last_lineterm = self.end;
+                             self.binary_byte_offset = Some(
+-                                self.absolute_byte_offset
+-                                    + (oldend + i) as u64,
++                                self.absolute_byte_offset + self.end as u64,
+                             );
++                            return Ok(self.pos < self.end);
++                        }
++                    }
++                    BinaryDetection::Convert(byte) => {
++                        if let Some(i) =
++                            replace_bytes(newbytes, byte, self.config.lineterm)
++                        {
++                            // Record only the first binary offset.
++                            if self.binary_byte_offset.is_none() {
++                                self.binary_byte_offset = Some(
++                                    self.absolute_byte_offset
++                                        + (readstart + i) as u64,
++                                );
++                            }
+                         }
+                     }
+                 }
+             }
++            if self.end == oldend {
++                // We're only done reading for good once the caller has
++                // consumed everything.
++                self.last_lineterm = self.end;
++                return Ok(!self.buffer().is_empty());
++            }
+ 
+             // Update our `last_lineterm` positions if we read one.
+-            if let Some(i) = newbytes.rfind_byte(self.config.lineterm) {
++            if let Some(i) =
++                self.buf[oldend..self.end].rfind_byte(self.config.lineterm)
++            {
+                 self.last_lineterm = oldend + i + 1;
+                 return Ok(true);
+             }
++            if eof {
++                self.last_lineterm = self.end;
++                return Ok(!self.buffer().is_empty());
++            }
+             // At this point, if we couldn't find a line terminator, then we
+             // don't have a complete line. Therefore, we try to read more!
+         }
+@@ -609,6 +618,70 @@ and exhibited clearly, with a label attached.\
+         assert_eq!(rdr.binary_byte_offset(), None);
+     }
+ 
++    struct ShortReads<'a> {
++        bytes: &'a [u8],
++        chunk: usize,
++        calls: usize,
++    }
++
++    impl io::Read for ShortReads<'_> {
++        fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
++            self.calls += 1;
++            let len = buf.len().min(self.chunk).min(self.bytes.len());
++            buf[..len].copy_from_slice(&self.bytes[..len]);
++            self.bytes = &self.bytes[len..];
++            Ok(len)
++        }
++    }
++
++    #[test]
++    fn buffer_fills_capacity_with_short_reads() {
++        let mut source =
++            ShortReads { bytes: b"a\nb\nc\nd\ne", chunk: 2, calls: 0 };
++        let mut linebuf = LineBufferBuilder::new().capacity(8).build();
++        assert!(linebuf.fill(&mut source).unwrap());
++        assert_eq!(linebuf.buffer(), b"a\nb\nc\nd\n");
++        assert_eq!(source.calls, 4);
++        assert_eq!(linebuf.buf.len(), 8);
++        linebuf.consume(8);
++        assert!(linebuf.fill(&mut source).unwrap());
++        assert_eq!(linebuf.buffer(), b"e");
++        assert_eq!(source.calls, 6);
++        linebuf.consume(1);
++        assert!(!linebuf.fill(&mut source).unwrap());
++    }
++
++    #[test]
++    fn buffer_short_reads_detect_binary_before_reading_again() {
++        let mut source =
++            ShortReads { bytes: b"a\nb\0c\nd\n", chunk: 2, calls: 0 };
++        let mut linebuf = LineBufferBuilder::new()
++            .capacity(8)
++            .binary_detection(BinaryDetection::Quit(0))
++            .build();
++        assert!(linebuf.fill(&mut source).unwrap());
++        assert_eq!(source.calls, 2);
++        assert_eq!(linebuf.buffer(), b"a\nb");
++        assert_eq!(linebuf.binary_byte_offset(), Some(3));
++        linebuf.consume(3);
++        assert!(!linebuf.fill(&mut source).unwrap());
++        assert_eq!(source.calls, 2);
++    }
++
++    #[test]
++    fn buffer_short_reads_convert_each_batch() {
++        let mut source =
++            ShortReads { bytes: b"a\0b\0c\0d\0", chunk: 2, calls: 0 };
++        let mut linebuf = LineBufferBuilder::new()
++            .capacity(8)
++            .binary_detection(BinaryDetection::Convert(0))
++            .build();
++        assert!(linebuf.fill(&mut source).unwrap());
++        assert_eq!(source.calls, 4);
++        assert_eq!(linebuf.buffer(), b"a\nb\nc\nd\n");
++        assert_eq!(linebuf.binary_byte_offset(), Some(1));
++    }
++
+     #[test]
+     fn buffer_basics2() {
+         let bytes = "homer\nlisa\nmaggie\n";
+diff --git a/crates/searcher/src/searcher/core.rs b/crates/searcher/src/searcher/core.rs
+index 7d7e5cdcf16f36e326ec5c0b33c8b713af73a4f7..ea1c0bc4050f1f953784c2554119aeb5895e0d14 100644
+--- a/crates/searcher/src/searcher/core.rs
++++ b/crates/searcher/src/searcher/core.rs
+@@ -135,16 +135,20 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+         let consumed = if self.config.max_context() == 0 {
+             buf.len()
+         } else {
+-            // It might seem like all we need to care about here is just
+-            // the "before context," but in order to sink the context
+-            // separator (when before_context==0 and after_context>0), we
+-            // need to know something about the position of the previous
+-            // line visited, even if we're at the beginning of the buffer.
+-            let context_start = lines::preceding(
+-                buf,
+-                self.config.line_term.as_byte(),
+-                self.config.max_context(),
+-            );
++            // Keep before-context lines, as well as enough information to
++            // detect a gap after the previous line visited. The latter is
++            // needed for context separators even with only after-context.
++            let context_start = if self.config.before_context == 0 {
++                // One byte is enough to preserve a gap after the last line
++                // visited. No before-context lines need to be retained.
++                buf.len().saturating_sub(1)
++            } else {
++                lines::preceding(
++                    buf,
++                    self.config.line_term.as_byte(),
++                    self.config.before_context,
++                )
++            };
+             let consumed =
+                 std::cmp::max(context_start, self.last_line_visited);
+             consumed
+@@ -639,3 +643,49 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+         false
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::Core;
++    use crate::{
++        searcher::SearcherBuilder,
++        testutil::{KitchenSink, RegexMatcher},
++    };
++
++    #[test]
++    fn roll_after_context_retains_only_gap_information() {
++        let searcher = SearcherBuilder::new().after_context(10_000).build();
++        let mut core = Core::new(
++            &searcher,
++            RegexMatcher::new("match"),
++            KitchenSink::new(),
++            false,
++        );
++        let buf = b"a\nb\nc\nd\ne\n";
++        assert_eq!(core.roll(buf), buf.len() - 1);
++        assert_eq!(core.pos(), 1);
++
++        // When output ends at the buffer boundary, the next buffer is
++        // adjacent and no gap needs to be retained for a separator.
++        core.last_line_visited = buf.len();
++        assert_eq!(core.roll(buf), buf.len());
++        assert_eq!(core.pos(), 0);
++    }
++
++    #[test]
++    fn roll_retains_before_context_independently_of_after_context() {
++        let searcher = SearcherBuilder::new()
++            .before_context(2)
++            .after_context(10_000)
++            .build();
++        let mut core = Core::new(
++            &searcher,
++            RegexMatcher::new("match"),
++            KitchenSink::new(),
++            false,
++        );
++        // Retain two before-context lines plus one line to detect a gap.
++        assert_eq!(core.roll(b"a\nb\nc\nd\ne\n"), 4);
++        assert_eq!(core.pos(), 6);
++    }
++}
+diff --git a/crates/searcher/src/searcher/glue.rs b/crates/searcher/src/searcher/glue.rs
+index 006afad34c021ad665dad36251cccb947832cc70..a3a8113ce6457812010ab5baf2c83a91ceb5a0c8 100644
+--- a/crates/searcher/src/searcher/glue.rs
++++ b/crates/searcher/src/searcher/glue.rs
+@@ -668,6 +668,51 @@ d
+         assert!(result.is_err());
+     }
+ 
++    #[test]
++    fn large_after_context_short_reads() {
++        use std::io::Read;
++
++        // Match groups are adjacent, separated by one line, or separated by
++        // several buffers. This exercises separator state across rolls.
++        let matches = [0, 10_001, 20_003, 80_000];
++        let mut haystack = String::new();
++        for line in 0..100_000 {
++            let text = if matches.contains(&line) { "match" } else { "other" };
++            haystack.push_str(&format!("{line:06} {text} padding\n"));
++        }
++        let matcher = RegexMatcher::new("match");
++        for before in [0, 5] {
++            let mut builder = SearcherBuilder::new();
++            builder.before_context(before).after_context(10_000);
++            let mut expected = KitchenSink::new();
++            builder
++                .build()
++                .search_slice(&matcher, haystack.as_bytes(), &mut expected)
++                .unwrap();
++            for chunk in [1, 97, 8192] {
++                let short_reads =
++                    ShortReader { reader: haystack.as_bytes(), chunk };
++                let mut got = KitchenSink::new();
++                builder
++                    .build()
++                    .search_reader(&matcher, short_reads, &mut got)
++                    .unwrap();
++                assert_eq!(expected.as_bytes(), got.as_bytes());
++            }
++        }
++
++        struct ShortReader<R> {
++            reader: R,
++            chunk: usize,
++        }
++        impl<R: Read> Read for ShortReader<R> {
++            fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
++                let len = buf.len().min(self.chunk);
++                self.reader.read(&mut buf[..len])
++            }
++        }
++    }
++
+     #[test]
+     fn big_error_multi_line() {
+         let mut haystack = String::new();
+@@ -730,7 +775,7 @@ d
+         // Namely, it will *always* detect binary data in the current buffer
+         // before searching it. Thus, the total number of bytes searched is
+         // smaller than below.
+-        let exp = "0:a\n\nbyte count:262146\nbinary offset:262153\n";
++        let exp = "0:a\n\nbyte count:262142\nbinary offset:262153\n";
+         // In contrast, the slice readers (for multi line as well) will only
+         // look for binary data in the initial chunk of bytes. After that
+         // point, it only looks for binary data in matches. Note though that
+@@ -764,7 +809,7 @@ d
+         haystack.push_str("a\x00a\n");
+         haystack.push_str("a\n");
+ 
+-        let exp = "0:a\n\nbyte count:262146\nbinary offset:262149\n";
++        let exp = "0:a\n\nbyte count:262142\nbinary offset:262149\n";
+         // The binary offset for the Slice readers corresponds to the binary
+         // data in `a\x00a\n` since the first line with binary data
+         // (`b\x00b\n`) isn't part of a match, and is therefore undetected.

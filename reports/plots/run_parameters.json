@@ -2539,5 +2539,74 @@
     "usage_origin_trial": "phase6d_ponytail_r02_s04_resume01",
     "history_transport": "native legacy header; original response/event bytes retained",
     "assessment_implementation_commit": "67889a7c887e6ab3e4562170e174d33dbc6e327a"
+  },
+  {
+    "trial_id": "phase6e_baseline_r01_s05",
+    "variant": "baseline",
+    "repetition": 1,
+    "step": 5,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16583-a176-7063-a367-c4d11bbe81c1",
+    "snapshot_sha256": "3865c611bcb1974380d3faae8d77039bf8b5de90527b54dbe1f13011ad87933a",
+    "resume": null,
+    "quota_before": {
+      "observed_at": "2026-10-27T23:20:02.350203+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 33,
+            "windowDurationMins": 300,
+            "resetsAt": 1793153371
+          },
+          "secondary": {
+            "usedPercent": 45,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793605130
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "failure_category": "evaluation_failure",
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": null,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-27T23:20:02.346529+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "milestone_seed_b610d1c_1",
+      "milestone_seed_8c6595c_1"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "fifth-task original SWE evaluation",
+      "compatibility_preflight": "reports/phase6e_grader_compatibility.json",
+      "known_invalid_grader_dependency": "SearcherBuilder::max_matches; preserve invalid grading, collect source and Sonar"
+    },
+    "parent_trial": "phase6d_baseline_r01_s04",
+    "new_inference_executed": true,
+    "usage_origin_trial": "phase6e_baseline_r01_s05",
+    "history_transport": "native legacy header; original response/event bytes retained",
+    "grading_state": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    }
   }
 ]
