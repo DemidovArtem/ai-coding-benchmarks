@@ -1,0 +1,39 @@
+{
+  "observed_at": "2026-10-28T00:15:21.053013+00:00",
+  "trajectory": "phase6e_serena_r01",
+  "original_attempt": "results/runtime/phase6e/phase6e_serena_r01_s05",
+  "preserved_failed_attempt": "results/runtime/phase6e/phase6e_serena_r01_s05_quota01",
+  "preserved_file_sha256": {
+    "run_metadata.json": "44d8912a4552e9462d635686793f740ed52649b07686af6e7205026b1df24606",
+    "experiment.json": "68b90d4753bc61a5ca5ef702eaefa21741821af1d2290951a8d59cfc48c18f98",
+    "quota_before.json": "8f07f875a41edb27d634ed36128904071df09a1850bc7819d8d8fea0e4c55931"
+  },
+  "failure": "quota refusal at initial check before runtime setup and model dispatch",
+  "new_model_calls_in_failed_attempt": 0,
+  "source_or_history_restored_in_failed_attempt": false,
+  "recovery": "Preserve failed directory byte-for-byte under quota01; rerun unchanged frozen runner with same trajectory, parent checkpoint, session and memories.",
+  "frozen_runner_modified": false,
+  "quota_before_recovery": {
+    "observed_at": "2026-10-28T00:15:20.208154+00:00",
+    "source": "codex app-server account/rateLimits/read",
+    "approximate": true,
+    "status": "observed",
+    "rate_limits": {
+      "codex": {
+        "primary": {
+          "usedPercent": 6,
+          "windowDurationMins": 300,
+          "resetsAt": 1793164304
+        },
+        "secondary": {
+          "usedPercent": 54,
+          "windowDurationMins": 10080,
+          "resetsAt": 1793619788
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    }
+  },
+  "preparation_script_sha256": "3369bb367dc41117449d32d5c8fb181fddcd16f8e104dddd465e0eef20907b94"
+}

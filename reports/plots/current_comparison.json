@@ -4295,6 +4295,244 @@
           "sd": null
         }
       }
+    },
+    {
+      "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
+      "variant": "ponytail",
+      "step": 5,
+      "milestone_id": "milestone_seed_8c6595c_1",
+      "n_trajectories": 1,
+      "trial_ids": [
+        "phase6e_ponytail_r01_s05"
+      ],
+      "metrics": {
+        "churn_prod_loc": {
+          "n": 1,
+          "mean": 257,
+          "min": 257,
+          "max": 257,
+          "sd": null
+        },
+        "net_prod_loc": {
+          "n": 1,
+          "mean": 151,
+          "min": 151,
+          "max": 151,
+          "sd": null
+        },
+        "added_prod_loc": {
+          "n": 1,
+          "mean": 204,
+          "min": 204,
+          "max": 204,
+          "sd": null
+        },
+        "deleted_prod_loc": {
+          "n": 1,
+          "mean": 53,
+          "min": 53,
+          "max": 53,
+          "sd": null
+        },
+        "input_tokens": {
+          "n": 1,
+          "mean": 8017429,
+          "min": 8017429,
+          "max": 8017429,
+          "sd": null
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "mean": 7479808,
+          "min": 7479808,
+          "max": 7479808,
+          "sd": null
+        },
+        "output_tokens": {
+          "n": 1,
+          "mean": 44181,
+          "min": 44181,
+          "max": 44181,
+          "sd": null
+        },
+        "uncached_input_tokens": {
+          "n": 1,
+          "mean": 537621,
+          "min": 537621,
+          "max": 537621,
+          "sd": null
+        },
+        "model_seconds": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_ncloc": {
+          "n": 1,
+          "mean": -153,
+          "min": -153,
+          "max": -153,
+          "sd": null
+        },
+        "sonar_delta_complexity": {
+          "n": 1,
+          "mean": 44,
+          "min": 44,
+          "max": 44,
+          "sd": null
+        },
+        "sonar_delta_cognitive_complexity": {
+          "n": 1,
+          "mean": 64,
+          "min": 64,
+          "max": 64,
+          "sd": null
+        },
+        "sonar_delta_duplicated_lines": {
+          "n": 1,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_issues": {
+          "n": 1,
+          "mean": 1,
+          "min": 1,
+          "max": 1,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_remediation_effort": {
+          "n": 1,
+          "mean": 5,
+          "min": 5,
+          "max": 5,
+          "sd": null
+        },
+        "grader_acceptance": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        }
+      },
+      "paired_delta": {
+        "churn_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "net_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "added_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "deleted_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "cached_input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "uncached_input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "model_seconds": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_ncloc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_complexity": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_cognitive_complexity": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_duplicated_lines": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_issues": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_remediation_effort": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "grader_acceptance": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        }
+      }
     }
   ],
   "sources": {
@@ -4404,6 +4642,20 @@
     {
       "trial_id": "phase6e_caveman_r01_s05",
       "parent_trial": "phase6d_caveman_r01_s04",
+      "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
+      "new_inference_executed": true,
+      "step": 5,
+      "grading_state": {
+        "valid": false,
+        "reason": "known_undeclared_max_matches_dependency",
+        "raw_score_preserved": true,
+        "code_metrics_available": true
+      },
+      "prefix_recounted_as_new_repetitions": false
+    },
+    {
+      "trial_id": "phase6e_ponytail_r01_s05",
+      "parent_trial": "phase6d_ponytail_r01_s04",
       "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
       "new_inference_executed": true,
       "step": 5,

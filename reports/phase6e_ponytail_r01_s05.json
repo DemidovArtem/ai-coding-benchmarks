@@ -1,0 +1,762 @@
+{
+  "experiment_id": "ripgrep-original-fifth-edit-continuation-v1",
+  "trial_id": "phase6e_ponytail_r01_s05",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "ponytail",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_8c6595c_1",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "34c95f48bbb591f996b099d9168aa5534380e9e2",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "ponytail",
+    "skill": "ponytail",
+    "skill_version": "5.3.2",
+    "mode": "full",
+    "manifest_sha256": "40cfc9215cf63cb427686f8da78d1d4d4e0327e9fdde9e9f01362dcdb3df6b6c",
+    "hooks_sha256": "c6278cbb3f27a8d103346f2dfcf66ffd064ed5962ed22fff5ce2e656164ad512",
+    "node": {
+      "version": "v24.19.0",
+      "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+      "size_bytes": 125989464,
+      "local_source": "/home/artem-demidov/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+    },
+    "hook_trust": "one invocation bypass after external source/hash review",
+    "remote_plugins_enabled": false,
+    "native_hook_activation_verified": false,
+    "extension": {
+      "parent_trial": "phase6d_ponytail_r01_s04",
+      "prefix_trials": [
+        "phase6c_ponytail_r01_s01",
+        "phase6c_ponytail_r01_s02",
+        "phase6c_ponytail_r01_s03",
+        "phase6d_ponytail_r01_s04"
+      ],
+      "parent_setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
+      "history_restore": {
+        "source_sha256": "96672043d73e11d861450652a71952b1c6a6e9f020833fdea49cf928a5882ce8",
+        "restored_sha256": "96672043d73e11d861450652a71952b1c6a6e9f020833fdea49cf928a5882ce8",
+        "turn_ids": [
+          "01a165a9-8cc0-7fa3-a52c-a190492cef9f",
+          "01a165af-da34-7aa1-be6a-761cf2311b61",
+          "01a165b6-270c-7771-a563-d2b0988af883",
+          "01a1759d-3af5-79a0-924e-5e4d1b0bd2c2"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+        "parent_trial": "phase6d_ponytail_r01_s04",
+        "native_turns": [
+          {
+            "id": "01a165a9-8cc0-7fa3-a52c-a190492cef9f",
+            "status": "completed"
+          },
+          {
+            "id": "01a165af-da34-7aa1-be6a-761cf2311b61",
+            "status": "completed"
+          },
+          {
+            "id": "01a165b6-270c-7771-a563-d2b0988af883",
+            "status": "completed"
+          },
+          {
+            "id": "01a1759d-3af5-79a0-924e-5e4d1b0bd2c2",
+            "status": "completed"
+          }
+        ],
+        "sqlite_backups_restored": {
+          "state_5.sqlite": "aa9f4076a1df879d49ea006f04a04987e459e0045e8122a9bf813bcc395ff9a1"
+        },
+        "new_model_calls": 0
+      },
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0
+    }
+  },
+  "duration_seconds": 253.15792667200003,
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-6bbd09238dfa48390183f21d9113c15fc61ff466",
+    "task_id": "38e5249b-3acf-4ccb-81ab-3c6266632742",
+    "metrics": {
+      "ncloc": 31483,
+      "lines": 44306,
+      "complexity": 5101,
+      "cognitive_complexity": 2464,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6.1,
+      "code_smells": 283,
+      "sqale_index": 1443,
+      "software_quality_maintainability_issues": 283,
+      "software_quality_maintainability_remediation_effort": 1443
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "db2a2811713aefdee5916990aae802871346bb3aff1e2713ab6d85218c9bcefe",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "246ecf9f-4186-411a-b320-53b6b98b2462",
+    "duration_seconds": 28.60455241100135,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "df61c92b09a105561b724e10b70ab16af26c3ad07598996a6a63eb5c8ba5441f",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6e_ponytail_r01_s05/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": -153,
+      "lines": -162,
+      "complexity": 44,
+      "cognitive_complexity": 64,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": 0.0,
+      "code_smells": 1,
+      "sqale_index": 5,
+      "software_quality_maintainability_issues": 1,
+      "software_quality_maintainability_remediation_effort": 5
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-27T23:36:27.869463+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 80,
+            "windowDurationMins": 300,
+            "resetsAt": 1793153371
+          },
+          "secondary": {
+            "usedPercent": 52,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793605130
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-27T23:41:49.881507+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 96,
+            "windowDurationMins": 300,
+            "resetsAt": 1793153371
+          },
+          "secondary": {
+            "usedPercent": 54,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793605130
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6e_ponytail_r01_s05",
+  "snapshot_sha256": "db2a2811713aefdee5916990aae802871346bb3aff1e2713ab6d85218c9bcefe",
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 0,
+    "uncommitted_lost_sample": [],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "implementation_commit": "3ba3d577bc6c3b52dda923353d0e4d4ebae42ccc",
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "skill_state": null,
+  "hook_activation_audit": {
+    "variant": "ponytail",
+    "native_hook_activation_verified": true,
+    "audit": [
+      {
+        "entrypoint": "ponytail-activate.js",
+        "event": "SessionStart",
+        "exit_code": 0,
+        "mode": "full",
+        "context_chars": 4262,
+        "context_sha256": "10e2232f41e7fcae3490cd41bed868db29bb611a8eb30a6bc537a8d57bebfb0d",
+        "full_mode_context": true,
+        "unprivileged_uid": 1000
+      },
+      {
+        "entrypoint": "ponytail-mode-tracker.js",
+        "event": "UserPromptSubmit",
+        "exit_code": 0,
+        "mode": "full",
+        "context_chars": 0,
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_mode_context": false,
+        "unprivileged_uid": 1000
+      }
+    ]
+  },
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": false,
+  "grader_metrics": {
+    "milestone_id": "milestone_seed_8c6595c_1",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": false,
+    "resolved": false,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [],
+        "failure": [],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 0,
+        "failure": [],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "fail_to_pass_required": 0,
+      "fail_to_pass_achieved": 0,
+      "none_to_pass_required": 0,
+      "none_to_pass_achieved": 0,
+      "pass_to_pass_required": 0,
+      "pass_to_pass_achieved": 0,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": false,
+      "extensions": [],
+      "keep_list": [],
+      "policy_source": "",
+      "policy_sha256": "",
+      "enablement_source": "",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": null,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "",
+      "evaluator_head": "",
+      "base_reason": "",
+      "merged_count": 0,
+      "agent_exact_count": 0,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "",
+      "offline_cache_milestone_image_id": "",
+      "offline_cache_closure_image_id": "",
+      "offline_cache_effective_image_id": "",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": false,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "",
+      "untrusted": false
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "error_message": "No valid test report files generated under /home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/runtime/phase6e/phase6e_ponytail_r01_s05/evaluation/artifacts/100045\nFirst fatal error (eval_default.log):\nerror[E0599]: no method named `max_matches` found for mutable reference `&mut SearcherBuilder` in the current scope\n    --> crates/printer/src/standard.rs:2723:14\n     |\n2721 | /         SearcherBuilder::new()\n2722 | |             .line_number(false)\n2723 | |             .max_matches(Some(1))\n     | |             -^^^^^^^^^^^ method not found in `&mut SearcherBuilder`\n     | |_____________|\n     |",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 0,
+    "failure": [],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [],
+    "failure": [],
+    "missing": 0
+  },
+  "failure_category": "evaluation_failure",
+  "added_prod_loc": 204,
+  "deleted_prod_loc": 53,
+  "net_prod_loc": 151,
+  "churn_prod_loc": 257,
+  "changed_prod_files": 8,
+  "cumulative_prod_loc": 33840,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 2436624,
+      "output_tokens": 6499,
+      "cached_input_tokens": 2229760,
+      "reasoning_output_tokens": 1663,
+      "session_ids": [
+        "01a165a9-8b4c-7b30-8194-fba8a53d9ef4"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 19
+      },
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "total": {
+      "input_tokens": 2436624,
+      "output_tokens": 6499,
+      "cached_input_tokens": 2229760,
+      "reasoning_output_tokens": null
+    },
+    "executor_cumulative": {
+      "input_tokens": 8017429,
+      "output_tokens": 44181,
+      "cached_input_tokens": 7479808,
+      "reasoning_output_tokens": 19727,
+      "session_ids": [
+        "01a165a9-8b4c-7b30-8194-fba8a53d9ef4"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 19
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 136.98633589900055,
+    "evaluation": 90.4183988120003,
+    "sonar": 28.60455241100135
+  },
+  "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
+  "new_prod_files": 0,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "formatting_only_files": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "crates/globset/README.md",
+      "new_path": "crates/globset/README.md",
+      "raw_added": 1,
+      "raw_deleted": 1,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/glob.rs",
+      "new_path": "crates/globset/src/glob.rs",
+      "raw_added": 45,
+      "raw_deleted": 625,
+      "added_prod_loc": 45,
+      "deleted_prod_loc": 13
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/lib.rs",
+      "new_path": "crates/globset/src/lib.rs",
+      "raw_added": 4,
+      "raw_deleted": 3,
+      "added_prod_loc": 4,
+      "deleted_prod_loc": 3
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/alternates.rs",
+      "raw_added": 109,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/unclosed_class.rs",
+      "raw_added": 98,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/dir.rs",
+      "new_path": "crates/ignore/src/dir.rs",
+      "raw_added": 37,
+      "raw_deleted": 12,
+      "added_prod_loc": 37,
+      "deleted_prod_loc": 12
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/gitignore.rs",
+      "new_path": "crates/ignore/src/gitignore.rs",
+      "raw_added": 42,
+      "raw_deleted": 4,
+      "added_prod_loc": 26,
+      "deleted_prod_loc": 4
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/overrides.rs",
+      "new_path": "crates/ignore/src/overrides.rs",
+      "raw_added": 24,
+      "raw_deleted": 1,
+      "added_prod_loc": 11,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/walk.rs",
+      "new_path": "crates/ignore/src/walk.rs",
+      "raw_added": 214,
+      "raw_deleted": 8,
+      "added_prod_loc": 66,
+      "deleted_prod_loc": 8
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/line_buffer.rs",
+      "new_path": "crates/searcher/src/line_buffer.rs",
+      "raw_added": 58,
+      "raw_deleted": 8,
+      "added_prod_loc": 4,
+      "deleted_prod_loc": 2
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/searcher/core.rs",
+      "new_path": "crates/searcher/src/searcher/core.rs",
+      "raw_added": 40,
+      "raw_deleted": 10,
+      "added_prod_loc": 11,
+      "deleted_prod_loc": 10
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/searcher/glue.rs",
+      "new_path": "crates/searcher/src/searcher/glue.rs",
+      "raw_added": 47,
+      "raw_deleted": 2,
+      "added_prod_loc": 0,
+      "deleted_prod_loc": 0
+    },
+    {
+      "status": "M",
+      "old_path": "tests/regression.rs",
+      "new_path": "tests/regression.rs",
+      "raw_added": 52,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extension": ".rs",
+    "inline_tests": "removed by pinned upstream Rust AST filter",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor directory",
+      "generated directory"
+    ],
+    "loc": "physical lines including comments and blank lines",
+    "rename_detection": "-M50%"
+  },
+  "verified_snapshot_rust_files": 79,
+  "continuous": {
+    "trajectory_id": "phase6e_ponytail_r01",
+    "step": 5,
+    "repetition": 1,
+    "executor_session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+    "input_commit": "366bbb2f4be8305f003b097fc2fcdacce4fe5eba",
+    "dispatch": {
+      "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "read_item_id": "item_3",
+      "task_sha256": "0bdc6e12c64acfc39b966f794ffd0a1b0332dace6dbc09d02ac611bac2491391",
+      "read_verified": true,
+      "input_commit": "366bbb2f4be8305f003b097fc2fcdacce4fe5eba",
+      "milestone_id": "milestone_seed_8c6595c_1"
+    },
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "incremental_footprint": {
+      "starting_commit": "366bbb2f4be8305f003b097fc2fcdacce4fe5eba",
+      "ending_commit": "34c95f48bbb591f996b099d9168aa5534380e9e2",
+      "added_prod_loc": 15,
+      "deleted_prod_loc": 12,
+      "changed_prod_files": 2,
+      "new_prod_files": 0,
+      "deleted_prod_files": 0,
+      "renamed_prod_files": 0,
+      "binary_changes": [],
+      "formatting_only_files": [],
+      "files": [
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/line_buffer.rs",
+          "new_path": "crates/searcher/src/line_buffer.rs",
+          "raw_added": 58,
+          "raw_deleted": 8,
+          "added_prod_loc": 4,
+          "deleted_prod_loc": 2
+        },
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/searcher/core.rs",
+          "new_path": "crates/searcher/src/searcher/core.rs",
+          "raw_added": 40,
+          "raw_deleted": 10,
+          "added_prod_loc": 11,
+          "deleted_prod_loc": 10
+        },
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/searcher/glue.rs",
+          "new_path": "crates/searcher/src/searcher/glue.rs",
+          "raw_added": 47,
+          "raw_deleted": 2,
+          "added_prod_loc": 0,
+          "deleted_prod_loc": 0
+        }
+      ],
+      "rules": {
+        "extension": ".rs",
+        "inline_tests": "removed by pinned upstream Rust AST filter",
+        "excluded": [
+          "metadata tests/exclusions/generated",
+          "vendor directory",
+          "generated directory"
+        ],
+        "loc": "physical lines including comments and blank lines",
+        "rename_detection": "-M20%"
+      },
+      "net_prod_loc": 3,
+      "churn_prod_loc": 27,
+      "cumulative_prod_loc": 33840
+    }
+  },
+  "extension": {
+    "parent_trial": "phase6d_ponytail_r01_s04",
+    "prefix_trials": [
+      "phase6c_ponytail_r01_s01",
+      "phase6c_ponytail_r01_s02",
+      "phase6c_ponytail_r01_s03",
+      "phase6d_ponytail_r01_s04"
+    ],
+    "parent_setup_fingerprint": "e96bc3fb44b895429f4cab56f888608d7ce2a7585f09d8fb42e8c2a221da2cd0",
+    "history_restore": {
+      "source_sha256": "96672043d73e11d861450652a71952b1c6a6e9f020833fdea49cf928a5882ce8",
+      "restored_sha256": "96672043d73e11d861450652a71952b1c6a6e9f020833fdea49cf928a5882ce8",
+      "turn_ids": [
+        "01a165a9-8cc0-7fa3-a52c-a190492cef9f",
+        "01a165af-da34-7aa1-be6a-761cf2311b61",
+        "01a165b6-270c-7771-a563-d2b0988af883",
+        "01a1759d-3af5-79a0-924e-5e4d1b0bd2c2"
+      ],
+      "messages_changed": false,
+      "transport": "native legacy header; original response/event bytes retained",
+      "session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+      "parent_trial": "phase6d_ponytail_r01_s04",
+      "native_turns": [
+        {
+          "id": "01a165a9-8cc0-7fa3-a52c-a190492cef9f",
+          "status": "completed"
+        },
+        {
+          "id": "01a165af-da34-7aa1-be6a-761cf2311b61",
+          "status": "completed"
+        },
+        {
+          "id": "01a165b6-270c-7771-a563-d2b0988af883",
+          "status": "completed"
+        },
+        {
+          "id": "01a1759d-3af5-79a0-924e-5e4d1b0bd2c2",
+          "status": "completed"
+        }
+      ],
+      "sqlite_backups_restored": {
+        "state_5.sqlite": "aa9f4076a1df879d49ea006f04a04987e459e0045e8122a9bf813bcc395ff9a1"
+      },
+      "new_model_calls": 0
+    },
+    "new_inference_executed": true,
+    "replayed_prefix_model_calls": 0
+  },
+  "grading_state": {
+    "valid": false,
+    "reason": "known_undeclared_max_matches_dependency",
+    "raw_score_preserved": true,
+    "code_metrics_available": true
+  }
+}
