@@ -1,4 +1,4 @@
-"""Append linked fourth/fifth observations without re-counting their prefixes."""
+"""Append linked fourth through sixth observations without re-counting their prefixes."""
 
 import copy
 
@@ -19,7 +19,7 @@ def append_fourth(view, rows):
                 or row.get('sonar', {}).get('analysis_ok') is not True):
             continue
         step = row['continuous']['step']
-        expected_task = {4:'milestone_seed_b610d1c_1', 5:'milestone_seed_8c6595c_1'}.get(step)
+        expected_task = {4:'milestone_seed_b610d1c_1', 5:'milestone_seed_8c6595c_1', 6:'milestone_seed_a6e0be3_1_sub-01'}.get(step)
         parent = by_id[link['parent_trial']]
         prefix = [by_id[name] for name in link['prefix_trials']]
         if ([r['continuous']['step'] for r in prefix] != list(range(1,step))
@@ -67,7 +67,7 @@ def append_fourth(view, rows):
             'metrics': {field: summarize([values[field] for _, values in observations]) for field in fields},
             'paired_delta': {field: summarize([]) for field in fields}})
     result['extension_sources'] = sources
-    for step,task in ((4,'milestone_seed_b610d1c_1'),(5,'milestone_seed_8c6595c_1')):
+    for step,task in ((4,'milestone_seed_b610d1c_1'),(5,'milestone_seed_8c6595c_1'),(6,'milestone_seed_a6e0be3_1_sub-01')):
         if any(p['step']==step for p in sources) and task not in result.get('milestones', []):
             result.setdefault('milestones', []).append(task)
     result['extension_interpretation'] = ('Fourth points continue their explicitly linked source/session prefixes. '

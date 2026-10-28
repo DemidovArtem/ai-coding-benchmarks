@@ -104,9 +104,11 @@ def main():
                     provenance='Правка 4: отдельный протокол grader с pruning. Serena — исходная submission; остальные — восстановленная история.'
                     if any(p['step']==5 for p in combined['points']):
                         provenance+='\nПравка 5: исходная SWE after-context. Известный max_matches compile failure не считается измеренным test score.'
-                fig.text(.035,.028,'Churn/Net сравниваются с началом траектории; токены накапливаются. Sonar включает тесты и маскирование.\n'
+                    if any(p['step']==6 for p in combined['points']):
+                        provenance+='\nПравка 6: исходная SWE max_matches searcher migration; первые пять шагов не повторяются.'
+                fig.text(.035,.016,'Churn/Net сравниваются с началом траектории; токены накапливаются. Sonar включает тесты и маскирование.\n'
                          +provenance,fontsize=9,color='#526474')
-                fig.tight_layout(rect=(.015,.08,.99,.915),h_pad=2,w_pad=2)
+                fig.tight_layout(rect=(.015,.09,.99,.915),h_pad=2,w_pad=2)
                 suffix='mean_deltas' if paired else 'mean_curves'
                 extra='_current' if cohort is None else '_'+cohort[:8] if len(cohorts)>1 or combined['points'] else ''
                 fig.savefig(HERE/(suffix+extra+'.png'),dpi=120,facecolor='white')

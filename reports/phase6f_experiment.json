@@ -1,0 +1,330 @@
+{
+  "experiment_id": "ripgrep-sixth-edit-continuation-v1",
+  "stage": "phase6f_frozen",
+  "measurement_started": true,
+  "codex": {
+    "version": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "auth": "chatgpt_oauth_only",
+    "model_access_verified_by_inference": true
+  },
+  "benchmark": {
+    "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+    "version": "v1.0.2",
+    "upstream_url": "https://github.com/DeepCommit-ai/SWE-Milestone",
+    "dataset_url": "https://huggingface.co/datasets/DeepCommit-ai/SWE-Milestone-data",
+    "dataset_root": "results/setup/dataset",
+    "smoke_milestone": "milestone_seed_a6e0be3_1_sub-01",
+    "main_branch": "master",
+    "timeout_seconds": 1800,
+    "repetition": 1,
+    "continuous_pilot": {
+      "label": "pilot/non-official subset",
+      "milestones": [
+        "milestone_seed_5f5da48_1_sub-01",
+        "milestone_seed_5f5da48_1_sub-02",
+        "milestone_seed_2924d0c_1",
+        "milestone_seed_b610d1c_1",
+        "milestone_seed_8c6595c_1",
+        "milestone_seed_a6e0be3_1_sub-01"
+      ],
+      "repetitions": 2,
+      "same_executor_session_required": true,
+      "dispatch": "host-gated turns using codex exec resume; no background watcher",
+      "stop_after": 6,
+      "grader_feedback_to_agent": false,
+      "cohort": "phase6f"
+    },
+    "common_starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "skill_runtime_image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "runtime_policy_root": "profiles/runtime/registry_isolation_v2",
+    "grader_image_budget": "reports/phase6f_grader_images.json",
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "sixth-task original SWE evaluation",
+      "infrastructure_errors_stop_scheduling": true
+    }
+  },
+  "variants": [
+    "baseline",
+    "caveman",
+    "ponytail",
+    "serena"
+  ],
+  "profiles": {
+    "baseline": {
+      "status": "smoke_verified",
+      "activation_verified": true,
+      "evidence": "results/trials/baseline_smoke_001/effective_profile.json"
+    },
+    "plan": {
+      "status": "implemented_activation_pending",
+      "activation_verified": false
+    },
+    "goal_plan": {
+      "status": "implemented_activation_pending",
+      "activation_verified": false
+    },
+    "ponytail": {
+      "status": "not_implemented",
+      "activation_verified": false
+    },
+    "caveman": {
+      "status": "not_implemented",
+      "activation_verified": false
+    },
+    "serena": {
+      "status": "not_implemented",
+      "activation_verified": false
+    }
+  },
+  "skill_versions": {
+    "ponytail": null,
+    "caveman": null,
+    "serena": null
+  },
+  "sonar": {
+    "image_digest": null,
+    "scanner_version": null,
+    "rust_support_verified": false,
+    "bind_address": "127.0.0.1",
+    "analysis_feedback_to_agent": false
+  },
+  "resources": {
+    "parallel_trials": 1,
+    "min_workspace_free_bytes": 1000000000,
+    "docker_free_reserve_bytes": 12000000000,
+    "image_download_approved": true,
+    "proposed_runtime_root": "/tmp/ai-coding-experiment",
+    "runtime_root_approved": false,
+    "runtime_root": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/runtime/phase6f",
+    "runtime_root_selection": "agent-selected reversible temporary smoke storage; artifacts require later durable copy",
+    "quota_stop_percent": 101
+  },
+  "images": [
+    {
+      "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__base-offline:v1.0.2",
+      "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58",
+      "compressed_bytes": 954017008,
+      "layer_count": 18
+    },
+    {
+      "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01:v1.0.2",
+      "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__maintenance_fixes_1_sub-01@sha256:3157aa5b52406ddc6e48df65bf8f5003d650327c83cf89b11874c7f01113b425",
+      "compressed_bytes": 1164863467,
+      "layer_count": 26
+    }
+  ],
+  "paths": {
+    "results_jsonl": "results/results.jsonl",
+    "results_csv": "results/results.csv",
+    "summary": "reports/summary.md",
+    "audit": "reports/environment.json"
+  },
+  "phase1_blockers": [],
+  "pins": {
+    "git_commits": {
+      "vendor/SWE-Milestone": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+      "results/setup/dataset": "3500478e740d42583277c2658aa7729eb36e10f4"
+    },
+    "file_sha256": {
+      "vendor/SWE-Milestone/manifests/BENCHMARK_VERSION": "9362e356dc70deb5e30e3de8caca220d85d7034be0a1b708b9c9f1981de36135",
+      "vendor/SWE-Milestone/manifests/digests-v1.0.2.tsv": "79a28d303627cc3ca536ead11fc7141d16b678db82452355f3d430b9222cbe9b",
+      "vendor/SWE-Milestone/harness/e2e/agents/codex.py": "812db5ebf0b9cdf2810a2cfeabd97c51006fd4a5b5d2f3c63ba433dd46588c9c",
+      "vendor/SWE-Milestone/harness/e2e/e2e_config.yaml": "7a67dacab0b86d6b8007147759c1971b1e45caaac9b7add06461183f068283cd",
+      "vendor/SWE-Milestone/quarantine_configs/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "ac2471ce9f39b1fcecebb6cda19b516005b745f571f51d7c80c8537f0ea5fd3a",
+      "results/setup/dataset/config/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "requirements-setup.txt": "1a83059ff80e905a774d4bd29831f35865a2a030004a651c7d9bd6e743eacc14",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/metadata.json": "7b159cee9a19d4dea1a39115da73d73da87fa011928afdd19f95a248f27f7441",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/dependencies.csv": "3b71e3e2b46939a83a698aaec8c1cbedb9c4a91a0947bd45e48ca675186cd707",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/milestones.csv": "2a8975321e7412fbc87c19007ba97a916f63ecefe13f55b29dd097296bcdd5bf",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/selected_milestone_ids.txt": "f3a2f5792d5db4af7ed07e4e7ad6e98ac2e5f580a07716ef6a5aacba65d10b8c",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/additional_dependencies.csv": "0f04a6e2510c34e4bdc3e819ddc2640be2e6c3785622f62a052f50345185016b",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/non-graded_milestone_ids.txt": "11a003a706a35093d1b8d7338de42a2fab88061023b3ec6ad4279173620ac849",
+      "patches/swe-milestone-oauth.patch": "5e5e6274027ff7e0abc78877e58517e73ede1d20dcb27e95858d23f93602fc86",
+      "profiles/baseline/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "vendor/SWE-Milestone/harness/e2e/agent_runner.py": "325997767fbe8b1ce3a946384b1d741310af36018affdeaebeea2286ef8d0814",
+      "vendor/SWE-Milestone/harness/e2e/run_milestone.py": "fbdebfa8e6d3ddcfc4d08665d5e6ca134c2d04731e98c88728af6651b974cdd2",
+      "vendor/SWE-Milestone/harness/e2e/prompt/milestone_v1.md": "473545f3f8d050e0c2b422bc865006cadf1f109817313677f5d25b31531f55b1",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/maintenance_fixes_1_sub-01/SRS.md": "57655bafaa9b2e10cef09e6fcd16efb3024b4a0ef9285d1825127c43ecebcd26",
+      "prompts/planner.md": "b198d9f0e0329620e765140cc52ccc83d3ec2ee01ebb2433eb447f400bc3c395",
+      "prompts/executor.md": "2d8b4d81b6a5bbcef13cc2b89187c42ccfaecb51571a1930450f81be7b916560",
+      "profiles/plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/goal_plan/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "experiment/runner.py": "d73de2508abc30b8573cb8c48c4e62eee083b1c124e8db4cf35895b38a1baa42",
+      "experiment/profiles.py": "a03c4db04b65fd28d248f24168a596a4941b0dc1af68ca85ba63be09f5050e58",
+      "experiment/planning.py": "a2edebfe2900523e9435ca78fcb57cd28eacd42b097d35a35e6ba92864e94f19",
+      "experiment/security.py": "81b4aca0310089d03d44b03296b0ad0cd1b3aa65236fd80f5d824f0a098cda26",
+      "experiment/quota.py": "d289cb9d7b25d41c6e5c60d341a01dd3f7dfe449719b0fe70e3f37a3ec07627a",
+      "experiment/skill_trial.py": "a4f6d1d7bbfd8a0955fae531b60484a54aecf44a0cce4f8db66b1353905a4750",
+      "experiment/skill_profiles.py": "f84103dbb0688cff405671cee7297608a119af0b4a7c943d03062cd9224e432c",
+      "experiment/skill_smoke.py": "73fdb40497b0c74f2f1aa9a3bef8410e86701f243babb45d809858a22212dca0",
+      "experiment/serena_probe.py": "8eaacffdf50a9a9404302fd53e52666d14b76507220c804c2e29a207e1cbd063",
+      "experiment/collect.py": "6f4323bbfcab512c9c5e4edc33b0eb7a24fa34479ff0b6b4d81c9f769a158d0f",
+      "experiment/metrics.py": "da19e2ef5952f185192a924d4728779af257425c76279eb532c4a95811f1fa11",
+      "experiment/report.py": "f2f3340c6e148bd5eeb1a69c7d65c9637f0ae5099e74d99fbc73efaff94d395e",
+      "profiles/ponytail/native_hooks.json": "c6278cbb3f27a8d103346f2dfcf66ffd064ed5962ed22fff5ce2e656164ad512",
+      "profiles/ponytail/README.md": "0bcf72c91c14dea7a5103d50d7d2ef9eff250e6eb47bcf41b9aebee718c460c7",
+      "profiles/ponytail/manifest.json": "40cfc9215cf63cb427686f8da78d1d4d4e0327e9fdde9e9f01362dcdb3df6b6c",
+      "profiles/ponytail/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/hooks/caveman_dispatch.py": "79fb110dbed1e5f7eda22060ff46e0251281f98c68acf6443c04e7ab7585c839",
+      "profiles/hooks/dispatch.py": "78dda184b4a89d00f0bcf11cca69e3f5df4aa503e7d889303910f8ddab72ffef",
+      "profiles/serena/README.md": "27cb6ab8e3e945a6cbcafa4501428b8fcb7b8e7db9d9a348035fcd82ef93a372",
+      "profiles/serena/server_config.yml": "f2d75ac9d8c1a8627aab7d5f5be85e443db85e12e4d9470dbd7f8208bc7f24d2",
+      "profiles/serena/config.toml": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+      "profiles/caveman/native_hooks.json": "dadbd2f9ed93cd27b658215efedc225e3488ca45edae3a13e1dc7ec0b3729391",
+      "profiles/caveman/README.md": "fd566a6bdac0d9cfa1555d4027c9163b3ec23a31fc8dcc655312592af6f397b5",
+      "profiles/caveman/manifest.json": "c0c923cdf581a60d09d1598d987598c5a24c796d91f07b6e66b0c77e6f369e4c",
+      "profiles/caveman/config.toml": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+      "profiles/runtime/Dockerfile": "5af8c7026e3d4f9359e203836711a178946aa0685cf6817bf77e01b75512deea",
+      "profiles/runtime/README.md": "f85375c0440f9dc60e83e8e4a840dcba849d68a37f8ee78ece084ca2e9cf3b14",
+      "profiles/runtime/manifest.json": "25360ccb63b1b5b4395076e8c13a1617144af81108b5babd777f73d60f902556",
+      "profiles/runtime/download_budget.json": "861dc28cfb0e432ffefd42f7e7492ecf50b051a5c26b6d919b73457cae98c294",
+      "profiles/caveman/assets/LICENSE-MIT": "5eb826cd03151bcc7cce3f80d40e87733237fedfc6c36d6908aca5fd650a0bdb",
+      "profiles/caveman/assets/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "profiles/caveman/assets/.codex/codex-sessionstart.js": "742a53ae011c8adc8cd5d4ab2dea86cb3488f003acaa034f24c04f699b1c0037",
+      "profiles/caveman/assets/src/hooks/caveman-config.js": "64762133d3467b1f4ea479c0d4fbb40a141a3f0e4423e8fd37688e8233aab4c6",
+      "profiles/caveman/assets/skills/caveman/SKILL.md": "415d43518f2b1a9498c15a445d4657117b129ee5e81b19454ce348439cc6672b",
+      "profiles/ponytail/assets/LICENSE": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+      "profiles/ponytail/assets/hooks/ponytail-mode-tracker.js": "ab2a7d89a71fdbecd5ea4d12ffe980c2213b80fe112d623ca13ceac0258307e7",
+      "profiles/ponytail/assets/hooks/ponytail-runtime.js": "52d8e66d542d49217a9eb721942e7bd9f4ee46a56615fb3f53430276cfe3a592",
+      "profiles/ponytail/assets/hooks/ponytail-activate.js": "6e492e997aa3e01560046daaed288b1cf68c596cc2b227744ec8b9fbdb5a230a",
+      "profiles/ponytail/assets/hooks/ponytail-instructions.js": "36521752b3444ef8daa823edaa996170e6af2cd45c82193644acb3a42f3395f4",
+      "profiles/ponytail/assets/hooks/ponytail-subagent.js": "8da045eb96b5b919655bf4c12abfc7e5163af29b62b97ccaf633b75099390315",
+      "profiles/ponytail/assets/hooks/ponytail-map.js": "c876b087accb6655d04f7f48bda85d8304941d0ac0fb78c0c164eb9ec7d35e69",
+      "profiles/ponytail/assets/hooks/ponytail-config.js": "ae81c3552064c9a9f0b9c0e8ec8a959af56f5599f0c899dd79659ea9a101dfc4",
+      "profiles/ponytail/assets/skills/ponytail/SKILL.md": "9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509",
+      "reports/ponytail_activation.json": "4508b971e4115bccfe6a7613b6510cf5de8993349ac3a672604f6c48d50af925",
+      "reports/caveman_activation.json": "e2d6aa46aae8fd2364cd9b95b49c0aa4be41ef54e8d7bdb126c227b28d86500e",
+      "reports/serena_activation.json": "009aadf5afaf9f8a735fa9fe89a129f1b9bef39481ef0d4f15ac1faf34342728",
+      "experiment/continuous.py": "32e17a33a032bc31db41a6b07809aca0963e1cfe68d53866c9e3fe0ca98a7e12",
+      "reports/phase5_protocol.md": "3f3208b95bdba5f510190002c57072f4e6815759d974a40473c790515496787c",
+      "reports/continuous_image_budget.json": "32c82535fdff133a404b3befeeb3979ed9b48b1c4c8e964172cd108d75b06243",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-01/SRS.md": "b0168116b388f8e0377118e9a95ce86dc6c6546d1ee35fe9b6090e8710afb861",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-02/SRS.md": "6fdf6128b4d7d00901d35c426bf371d30d199e174877e35d9606096fb6c50786",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-01/milestone_seed_5f5da48_1_sub-01_classification.json": "67bd73a4c753b748b2e1a392ecd1b17df82d78d31af8a1f70b15ba0886d5de97",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-02/milestone_seed_5f5da48_1_sub-02_classification.json": "5ef7a82e1a4c7c7ac9c0435d9c35c934a5313016c3250bdbe4c5be2676d07041",
+      "reports/phase5b_protocol.md": "457b4e2140316d24acc246ae9b2c99e1285ee157860999d53801e508487122a6",
+      "profiles/runtime/registry_isolation_v2/fastly_ipv4.json": "75967d7a61f8b2a46615b8ea861b4298cbbdc0f0ba6f5fe57613aa61fa59b4e6",
+      "profiles/runtime/registry_isolation_v2/quarantine_configs/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+      "experiment/serena_required.py": "199e5e14398dc295f7e8d92491cfa6012cf4a5526d82d04816ccde0d351b8a6e",
+      "experiment/audit.py": "3cdf72e791fe0534bfa91f16bea186b069b8e7318cff9664e00a0763eb41c7ec",
+      "experiment/phase6.py": "8a88fc6df7301796d4e06fedc5b623b126f268db49608b3cc59662106fd8311c",
+      "experiment/curves.py": "1657c1bda81f7ab9a569ca0cd3b54bb0c4128ed0e2f226284f5c22143fb66fc7",
+      "experiment/__init__.py": "38ed6eb64a2fe1ab9fd95b89282e8628dfd73e59ff0511a588933489cb9bd3bd",
+      "experiment/resume_prepared.py": "9f5c79f47730f3627d929db9f1e0073ed2ca469d507ae144ae3d370cceaba7f0",
+      "experiment/continuous_resume.py": "5c634c5c6e87e11ff6fcee2e0f356e03ad4da977d8226b3caf95faca549a7565",
+      "experiment/sonar_proxy.py": "2fb160c90fc60d9e38c6bd2e8de25d9cff98747c59a12a14d8eece36cfb45204",
+      "experiment/serena_continuous.py": "ace3372dc40ce61d99472389f9536eb5ddd458f05f0040c7b985711dbb210c17",
+      "experiment/sonar.py": "1694be18a2c4460690a33900667397f38e96fa3775795fa77fdd24b788cb638e",
+      "experiment/sonar_scan.py": "2c682932e8e5618df8c2f155239d6d718c37ed08165f1cd324d661be6ef2d290",
+      "experiment/status.py": "04ed223d2b370495a6b99c104ad38248f9e496aab64df7d491ac4558f76510ff",
+      "experiment/sonar_bootstrap.py": "a041b68a62bd904026512c0ec1c1213d74f5d1cda0e8debeb86ae91374cf7752",
+      "profiles/serena_continuous/AGENTS.md": "8f03300cdb78f2c1b756804a5fe42eefc05f0e4d57110e447402b85177c6cf1f",
+      "profiles/serena_required/AGENTS.md": "f7838d614681ab67e183f24625195744ca927780a616c38f11a349acbe609e3e",
+      "reports/phase6_protocol.md": "8912984c8eba5bff22a11ca1c840313e98d60f4c57118d62c3414635579d4c36",
+      "reports/phase6_selection.json": "f96905867cc464a57d1650cdd5fadeea372c86c0d7843fb78e29ba59278c8dbe",
+      "reports/phase6_grader_images.json": "58388509ab2d6a4ac104d13f2f82ba302d91b20338253c3d19fb7d5237dddc53",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_2924d0c_1/SRS.md": "60bc8097c80ec2e1c411ede64adf6b37341b341c20b95fff2159ee610240a118",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_2924d0c_1/milestone_seed_2924d0c_1_classification.json": "89c1960f6ce8f8d113c55067c9c06953fcb25843bf1be9fd796a69bea05db040",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_b610d1c_1/SRS.md": "c1be6103fc9c796f8ae4418900f4b53d124aaa80e7d391f38f5686082e271f7f",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_b610d1c_1/milestone_seed_b610d1c_1_classification.json": "f6742879783fa86c36f86fe91fded90388c7b6a2237a581af2535e37fa86915d",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_8c6595c_1/SRS.md": "ef9fe8ff5f184baa5a07a9064bbfd7a35189b786b387c2973a0e9bbe2db1534a",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_8c6595c_1/milestone_seed_8c6595c_1_classification.json": "72812d21bf9f2a05af057174082be8b0e7790bf19b4bc9faa23c5fe8e9b35588",
+      "reports/phase6c_protocol.md": "ee61b49ebf37991344d1cf02c866157486e223ca55bd8716975ca2e13c009640",
+      "reports/phase6c_selection.json": "67ee4d142cbbe6332af0c1efd24e59ce9ea5466a976fa3a1492d58c78b263099",
+      "reports/phase6c_grader_images.json": "bcfc1b3c1de0232a7b29936fd20a062293974b752c9880bc21a886d8c58ed3d1",
+      "reports/codex_offline_payload.json": "b424bc9d80e92ce0c3faef39c49ba4604a5f8e8b9593111d70bcd7a7baf547fc",
+      "reports/codex_offline_runtime.json": "c4dd72caf3b8f621ad718413f6bc81ddd4616b81451725967e209bb697ebf7b1",
+      "reports/codex_offline_startup.json": "7e75ca6e9c8a50e0ee0245b24036d45d2dfd06709d5817834a5b7cd89cb12bd4",
+      "profiles/runtime/codex_offline/Dockerfile": "57a2b3d93a7ac1d8505bc502541e302d2d291e39d2cb0c93eed5794002196adb",
+      "experiment/checkpoint_restore.py": "2696b01797536906149ba07992edb4f0d5446fd704908257dc43623cde3cb500",
+      "experiment/phase6d.py": "3be3dc6d64dd47c1827f31b2ca27c28b462b73dfdf6a26cef329877c3b1d0347",
+      "tests/test_checkpoint_restore.py": "4e34cd52eb2ad15366c58be16f1fb1913a6a22b4a8760621f92d12d46b2a1987",
+      "reports/phase6d_protocol.md": "63fd47b71703d74b2207ee28cea407b01a69f904c1a77e36f3361276dc694820",
+      "reports/phase6d_checkpoints.json": "beed04a6fb0947fc8bc1b51140895c9640db3a9bf06b23b87e2173d75b0116f5",
+      "reports/phase6d_grader_preflight.json": "00fd312700270009c5baf7667dd354119298afc225542f5c6c046d00cd56d053",
+      "reports/phase6d_legacy_restore_probe.json": "6732a4e148340e7c592aa1f8a0dd66605dcb7887aed465bcd2be6cf1724d8e73",
+      "reports/phase6b_grader_images.json": "0ecf817ca8a5bd0f091d990fcf3e41780f88087a06bc7bc9872793f43d001461",
+      "experiment/phase6e.py": "1408fe776a1ec4ed750e3cefa72f6c9dd10041981d876708d6074d5afbb4fe66",
+      "experiment/phase6e_report.py": "f033ee7703c66aa193770c7bcad84d5d8afd117b7950ca01ffd852528c1c62b9",
+      "experiment/session_store.py": "b9c1e8f4ecc7379c8bbfaa72fc5c6b5b84fef764796c68ff3828e95c9774d26d",
+      "tests/test_phase6e.py": "f48bf7854af1936c587f4aaf0298f36fb1b2a5234af732589f7a398d31b8ef58",
+      "tests/test_session_store.py": "b4a26dab62c456f9be428e36451281d62938772c5447763249b15fca933319ae",
+      "reports/phase6e_checkpoints.json": "5121b6afaf86f26a95d407613ec03ac9f739522801761bc740d4634756330695",
+      "reports/phase6e_protocol.md": "737d112576f5d17f9b43f28f414ded0e6053c3d30a0116a5f4b9ca84c4046c02",
+      "reports/phase6e_grader_compatibility.json": "d4a5f3235e2671de4b2c0d5430ebad59a317bcfcc99cc98d75cd8aefb825d4c4",
+      "experiment/phase6f.py": "083e1cbe39e25ed50c8fb83ac86c1e47b2fbd9632781d758287f25ce9b2a00fe",
+      "experiment/phase6f_report.py": "e88e4b6dd39863585a8572de596da844847d2d4517409c434b9e7c33255d1f5a",
+      "tests/test_phase6f.py": "ef8a4e68082d6d27cab325c1ea078ee20ff6579414f8ea378c114a1075d46a8c",
+      "tests/test_extension_view.py": "95d879b484ac1af27e6f7c9f6468d61d48ea37aafc04f40ad21e7b3352de44b2",
+      "reports/plots/extension_view.py": "e5e4e094315f2a05b402134d0a46d00b35118ced99eb0896d5cdcd878b316a3d",
+      "reports/plots/mean_curves.py": "fedeadafcd6ed07e3622da967f86c18df611eb0f022278473cf0a1bdd8ec6069",
+      "reports/phase6f_checkpoints.json": "aa697f6f5f1c98033dd393ad4a535eeda94499bfb629f8712dc728914c7362eb",
+      "reports/phase6f_protocol.md": "c65f71f30b4343ae50dd723a2f205a1e938e847339d5d5118d93f4d38d208b44",
+      "reports/phase6f_grader_images.json": "8f93f19cc26c952421c8033fc3d60ab809588b1c4e5998f2015aaaae7eab2600",
+      "reports/phase6f_image_budget.json": "8df1bad9261a56ad124d92b35177983091685a44a92a4e94dfc4929f57b551c5",
+      "reports/phase6f_environment_preflight.json": "3c76dc285645aed66805f47c025701fbc3e9cbbce466bb0524d074108a125a70",
+      "reports/phase6f_serena_bootstrap.json": "669d5735c4bb9c251267eb6aff46f126dc5b13ec5e578718bf984ce8e7a9b7a2",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_a6e0be3_1_sub-01/SRS.md": "4f26d1b7f75f2fbae72bda5b53dd66779c5343f35ce885d3d47ad9594d2439fc",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_a6e0be3_1_sub-01/milestone_seed_a6e0be3_1_sub-01_classification.json": "36b67b6d13a08e419cf235d635af5e35072315c28f255a4d9ed00937a7436fd4"
+    },
+    "upstream_base_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+    "upstream_patch": "patches/swe-milestone-oauth.patch",
+    "patched_upstream_commit": "f4e1a18a1bc15281f06e62cf6b616be36235fae5",
+    "git_trees": {
+      "vendor/SWE-Milestone": "656bed23ae57d4ed4e2532447588399628f2ddb0"
+    }
+  },
+  "planning": {
+    "timeout_seconds": 180,
+    "max_output_bytes": 12000,
+    "max_list_entries": 12,
+    "max_item_characters": 1000,
+    "readonly_enforcement": "separate quarantined container with kernel read-only repository bind mount",
+    "native_sandbox_unavailable": "unprivileged user namespaces denied; no host settings changed"
+  },
+  "phase2": {
+    "order": [
+      "baseline",
+      "plan",
+      "goal_plan"
+    ],
+    "repetition": 1,
+    "trial_ids": {
+      "baseline": "phase2_baseline_001",
+      "plan": "phase2_plan_001",
+      "goal_plan": "phase2_goal_plan_001"
+    },
+    "prompt_freeze": "before first measured trial; SHA-256 pins below",
+    "smoke_baseline_reused": false
+  },
+  "execution_override": {
+    "authorization": "\u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u0439 \u043d\u0435\u0441\u043c\u043e\u0442\u0440\u044f \u043d\u0430 \u043d\u0438\u0437\u043a\u0443\u044e \u043a\u0432\u043e\u0442\u0443",
+    "scope": "Seven sixth-task continuations; baseline/Caveman/Ponytail twice, Serena once; stop on actual service refusal.",
+    "previous_threshold_percent": 85,
+    "percentage_gate_disabled": true,
+    "hard_rate_limit_stop_preserved": true,
+    "frozen_config_sha256": "73a9b6404075bc3086a291de0ba5dd863d21c0a94731d3ec47afbcf55cd4f336"
+  },
+  "continuation": {
+    "checkpoints": "reports/phase6f_checkpoints.json",
+    "prefix_replayed": false,
+    "history_transport": "native SQLite backups and retained response bytes; legacy header transport",
+    "serena": "one warm-memory sixth model turn from existing fifth checkpoint; twelve memories",
+    "new_model_tasks": 7,
+    "new_model_repetitions": 0,
+    "order": [
+      "baseline_r01",
+      "caveman_r01",
+      "ponytail_r01",
+      "serena_r01",
+      "baseline_r02",
+      "caveman_r02",
+      "ponytail_r02"
+    ],
+    "authorization": "2026-10-28: user requested sixth iteration as continuation",
+    "stop_after": 6
+  }
+}

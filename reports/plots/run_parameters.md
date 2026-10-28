@@ -81,3 +81,6 @@ Phase 6d продолжает конкретные checkpoints третьего 
 
 
 Phase 6e продолжает исходной пятой задачей after-context. Семь model turns из четвёртых checkpoints; Serena один раз. Известная undeclared API dependency grader учитывается отдельно от source/Sonar. [Протокол](../phase6e_protocol.md).
+
+
+Phase 6f продолжает исходной шестой задачей max_matches searcher migration. Семь model turns из пятых checkpoints; Serena один раз. Grader выполняется без изменений; при инфраструктурной ошибке очередь останавливается. [Протокол](../phase6f_protocol.md).

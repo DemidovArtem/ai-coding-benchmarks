@@ -69,3 +69,19 @@ class ExtensionViewTests(unittest.TestCase):
         self.assertEqual(fifth_point['metrics']['output_tokens']['mean'],140)
         self.assertIsNone(fifth_point['metrics']['grader_acceptance']['mean'])
         self.assertEqual(fifth_point['n_trajectories'],1)
+
+    def test_sixth_appends_without_recounting_five_step_prefix(self):
+        view,rows=fixtures()
+        for step,task in ((5,'milestone_seed_8c6595c_1'),(6,'milestone_seed_a6e0be3_1_sub-01')):
+            row=copy.deepcopy(rows[-1])
+            row.update(trial_id=f't{step}',ending_commit=f'c{step}',milestone_id=task,setup_fingerprint=f'extension{step}')
+            row['continuous'].update(step=step,input_commit=f'c{step-1}')
+            row['extension'].update(parent_trial=f't{step-1}',prefix_trials=[f't{s}' for s in range(1,step)])
+            row['usage']['executor_cumulative'].update(output_tokens=100+40*(step-4),input_tokens=200+80*(step-4),cached_input_tokens=100+40*(step-4))
+            row['grading_state']={'valid':True}
+            rows.append(row)
+        result=append_fourth(view,rows)
+        sixth=next(p for p in result['points'] if p['step']==6)
+        self.assertEqual(sixth['n_trajectories'],1)
+        self.assertEqual(sixth['metrics']['output_tokens']['mean'],180)
+        self.assertEqual(result['points'][0],view['points'][0])

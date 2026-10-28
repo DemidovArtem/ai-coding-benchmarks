@@ -1,0 +1,57 @@
+{
+  "image": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__milestone_seed_a6e0be3_1_sub-01@sha256:9afad34a6b8bbd488a678b977c8ea1565fc7136b71003c609633351000620b28",
+  "manifest_sha256": "sha256:9afad34a6b8bbd488a678b977c8ea1565fc7136b71003c609633351000620b28",
+  "compressed_bytes": 1172889025,
+  "estimated_new_unique_layer_bytes": 236582395,
+  "new_layers": [
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 239,
+      "digest": "sha256:79b400a7996e5e5c70090f381b4925672b960d72036a5de83a89c9400c86fa13"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 205134940,
+      "digest": "sha256:55fae9559863ea6e32b6a5559c1cf1ce844e0cfd4b0cde8a8d86f946c451e957"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 184758,
+      "digest": "sha256:5abdfcc91fda37456e4772b6b83da2a35409f3287075ff65e31dccb09cee202b"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 19561278,
+      "digest": "sha256:ff0a5bdcd0457cfe48dc168f5b5ba300e3c34f80e57ef6ca3a50af6af217a0af"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 5823101,
+      "digest": "sha256:1a55b3ec6eb18b74a8b95dba080acaafb56d32d92fa1c0069ef582afb5ef0908"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 110989,
+      "digest": "sha256:cc5583e883836b90c8842f8857bf49fe064b8b7c339fa7257d40e914875e5536"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 15474,
+      "digest": "sha256:5e3fc82d55f769d8100d0ba2c0326535f635766520ea173d5f1eef416b78b9c2"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 721,
+      "digest": "sha256:d964a8c85f2b221b010f2dc2fe003f8d1ca3970f251ef8466532005bf0900f03"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 5750895,
+      "digest": "sha256:6f79391f2b3be07c16b6e7188b31a5a6439f003e7581b8eccb7af310f5cb2df5"
+    }
+  ],
+  "estimate_basis": "Compared with previously approved image manifests; actual daemon cache availability is checked before pull.",
+  "download_authorized": true,
+  "registry_metadata_only": true,
+  "authorization": "2026-10-28: user explicitly approved this one grader image download"
+}

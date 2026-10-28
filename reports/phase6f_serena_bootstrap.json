@@ -1,0 +1,14 @@
+{
+  "variant": "serena",
+  "container": "milestone_seed_a6e0be3_1_sub-01-phase6f_serena_r01-runner",
+  "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+  "cli": "0.163.0",
+  "payload_manifest": "reports/codex_offline_payload.json",
+  "payload_files_verified": 43,
+  "network_downloads": 0,
+  "new_model_calls": 0,
+  "source_checkpoint_not_applied_yet": true,
+  "reason": "Original image lacks CLI. Stage the exact previously measured standalone bytes offline before the unchanged initialization script; runtime image/profile/history/tasks remain pinned.",
+  "init_script_sha256": "729ccc0e2100d96a6020437392dafb42e31c27de07cb2096f11a495f09364f3e",
+  "bootstrap_script_sha256": "5423ed1cc08d558732220d40a4bffda9c40108058c2efcd51201f76bf80ccde1"
+}

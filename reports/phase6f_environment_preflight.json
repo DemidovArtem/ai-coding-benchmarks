@@ -1,0 +1,16 @@
+{
+  "model_calls": 0,
+  "dependency_selection_valid": true,
+  "missing_strong_dependencies": [],
+  "grader_digest_verified": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__milestone_seed_a6e0be3_1_sub-01@sha256:9afad34a6b8bbd488a678b977c8ea1565fc7136b71003c609633351000620b28",
+  "grader_image_id": "ac02d022791459325ecff4c2b188d89c8e968ca1ff51cef05be2604d7014463d",
+  "closure_image_id": "06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+  "effective_evaluator_image_id": "ad9dad37c100c9bc553c81319256df0ab01ece0e4dc1e344b5a4a06982ffcef8",
+  "local_closure_built_offline": true,
+  "quarantine_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+  "host_cli": "codex-cli 0.165.0",
+  "orchestrator_cli": "codex-cli 0.163.0",
+  "retained_cli_sha256": "399ff69c431c066e40de318fba45c2b07f45a76b19939d247ee4828fc70c4215",
+  "retained_node_sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+  "disk_reserves_passed": true
+}
