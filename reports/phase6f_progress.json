@@ -22,6 +22,17 @@
       "source_trial": "phase6e_baseline_r01_s05",
       "collection_errors": [],
       "sonar": true
+    },
+    {
+      "trial_id": "phase6f_caveman_r01_s06",
+      "state": "failed",
+      "grading_state": {
+        "valid": false,
+        "reason": "execution_failure"
+      },
+      "source_trial": "phase6e_caveman_r01_s05",
+      "collection_errors": [],
+      "sonar": null
     }
   ]
 }

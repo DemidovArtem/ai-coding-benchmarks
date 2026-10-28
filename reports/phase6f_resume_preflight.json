@@ -1,0 +1,42 @@
+{
+  "failed_attempt": "phase6f_caveman_r01_s06",
+  "retained_container": "milestone_seed_a6e0be3_1_sub-01-phase6f_caveman_r01-runner",
+  "retained_work": {
+    "head": "d343e078259ac68381673f14d619fdf49657cb6f",
+    "unstaged_sha256": "ad988323bd193fff7a9480109f7905e762629a8ef55d9802e10c01cf2dae5eba",
+    "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_files": []
+  },
+  "native_turns": [
+    {
+      "id": "01a16594-dead-7f73-a019-89f2549bdc67",
+      "status": "completed"
+    },
+    {
+      "id": "01a1659a-5bca-7200-b04b-b561bcb614cc",
+      "status": "completed"
+    },
+    {
+      "id": "01a165a1-21e5-7bd1-a1ae-9ee576e3d2ba",
+      "status": "completed"
+    },
+    {
+      "id": "01a1758f-bb0e-76d0-8fbc-07cb0e2d59e6",
+      "status": "completed"
+    },
+    {
+      "id": "01a17fb2-8c52-70d0-8bc0-b8a2dc4d743d",
+      "status": "completed"
+    },
+    {
+      "id": "01a18474-62fb-76d0-9488-b88924abdc5a",
+      "status": "failed"
+    }
+  ],
+  "new_model_calls": 0,
+  "history_reimported": false,
+  "source_reset": false,
+  "adapter_sha256": "ad21125eac31e2226e8fadbbe3bf0870c91cec10762172ac0e068c0550d926bf",
+  "test_sha256": "2328bc57e50fd1fb24e183d971a53399a5ac87550360db4e7a5b28f4a1648f3d",
+  "partial_patch": "results/phase6f_retained_caveman_partial.patch"
+}
