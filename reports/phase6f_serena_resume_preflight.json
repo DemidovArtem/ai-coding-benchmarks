@@ -1,0 +1,119 @@
+{
+  "failed_attempt": "phase6f_serena_r01_s06",
+  "authorization": "User explicitly requested a separate Serena recovery in the same session on 2026-10-28.",
+  "retained_container": "milestone_seed_a6e0be3_1_sub-01-phase6f_serena_r01-runner",
+  "retained_work": {
+    "head": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+    "unstaged_sha256": "02f1135849a839e4df5517a87c0c68aebb68527db217ed850f002dfa783f63f1",
+    "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_files": []
+  },
+  "retained_memories": {
+    "files": {
+      "conventions.md": {
+        "sha256": "6b9190588fe292f81af593339a03b47c7bea915ad7dc939be49c1d3c2acbf5b6",
+        "bytes": 414
+      },
+      "core.md": {
+        "sha256": "a8c56a12ba89071161a8e43edcc79f6b06f4d3d7182b77c7202c76f28dd394fc",
+        "bytes": 1127
+      },
+      "globset/alternations.md": {
+        "sha256": "062962f3bfef3b715567c4223387a3c58e744d37d74f649e422f1c3ba8267390",
+        "bytes": 922
+      },
+      "globset/unclosed_classes.md": {
+        "sha256": "7ee52357651a0959ac1c6d8ca33cb4b25cc63e4e767615f59faf038c78b6ad4d",
+        "bytes": 1394
+      },
+      "ignore/core.md": {
+        "sha256": "9b1d6563a1ab44d809d45df8382e9f7a91b8ece71c433e502a5b9879392ad6a1",
+        "bytes": 744
+      },
+      "ignore/global_cwd.md": {
+        "sha256": "5cf1bfffc1f82b383c400e1d1e36b1fee2302652b36752af5a063ad3bce97351",
+        "bytes": 1823
+      },
+      "ignore/walk_depth.md": {
+        "sha256": "5d32db254e46792b52d01bf3d17bef8c12e10749e1bd0f82627c83e77bee62f9",
+        "bytes": 1395
+      },
+      "memory_maintenance.md": {
+        "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+        "bytes": 2043
+      },
+      "searcher/context.md": {
+        "sha256": "b0f0b59a7a20c401b273f366e1ec37e45247f8ac0cfb0bea9f8a9bf1031a2209",
+        "bytes": 1761
+      },
+      "searcher/max_matches.md": {
+        "sha256": "7515688492e77670beebd3777419065459bfc11d79c5bc8dba31d7464f28d0e6",
+        "bytes": 477
+      },
+      "suggested_commands.md": {
+        "sha256": "3b4214554cc01b39d8c75904ad0a14d934bb8a77e4a9af8449b32c73ec853611",
+        "bytes": 1192
+      },
+      "task_completion.md": {
+        "sha256": "f3713adaa7e1e52d45347d7cce49444d32dee22d43e98c78d839860b4898d2c0",
+        "bytes": 628
+      },
+      "tech_stack.md": {
+        "sha256": "352345b1f0bc81ff5693c0f1fb0162f7d15c6283d040811d2df781e2a8d0eea9",
+        "bytes": 559
+      }
+    },
+    "count": 13,
+    "bytes": 14479
+  },
+  "original_memory_files_before": 12,
+  "stopped_attempt_serena_usage": {
+    "required_usage_verified": true,
+    "memory_mode": "warm",
+    "observed_mcp_tool_calls": 30,
+    "semantic_calls": 12,
+    "retained_memory_read_verified": true,
+    "memory_write_observed": true
+  },
+  "original_dispatch": {
+    "session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "read_item_id": "item_1",
+    "task_sha256": "0d87876fd52959485036251ca061845095b8fba6c2a8a261597b57554e8edb49",
+    "read_verified": true
+  },
+  "native_turns": [
+    {
+      "id": "01a16061-cc07-7400-8ccd-2f9565eea0e0",
+      "status": "completed"
+    },
+    {
+      "id": "01a16063-233b-70f2-a3ed-02320d64487c",
+      "status": "completed"
+    },
+    {
+      "id": "01a16069-bc4e-7513-b31a-9185b443c262",
+      "status": "completed"
+    },
+    {
+      "id": "01a1652f-1b70-75a1-9ba9-ca0467f52a42",
+      "status": "completed"
+    },
+    {
+      "id": "01a16536-9d76-7201-94bc-58576370e3d7",
+      "status": "completed"
+    },
+    {
+      "id": "01a17fde-73fb-7c50-a0e2-ff9df9b09de9",
+      "status": "completed"
+    },
+    {
+      "id": "01a184ab-5cbb-7e12-ab00-4a02a2086560",
+      "status": "completed"
+    }
+  ],
+  "source_reset": false,
+  "history_reimported": false,
+  "new_model_calls": 0,
+  "partial_checkpoint": "results/phase6f_serena_tool_stop_checkpoint",
+  "adapter_sha256": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d"
+}
