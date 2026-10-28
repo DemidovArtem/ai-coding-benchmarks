@@ -1,6 +1,6 @@
 {
   "task": "milestone_seed_8c6595c_1",
-  "completed": 3,
+  "completed": 4,
   "planned": 7,
   "means_after_five_edits": [
     {
@@ -23,6 +23,13 @@
       "output_tokens": 44181,
       "production_churn": 257,
       "sonar_delta_cognitive_complexity": 64
+    },
+    {
+      "variant": "serena",
+      "n": 1,
+      "output_tokens": 62288,
+      "production_churn": 360,
+      "sonar_delta_cognitive_complexity": 62
     }
   ],
   "trials": [
@@ -62,6 +69,19 @@
         "code_metrics_available": true
       },
       "source_trial": "phase6d_ponytail_r01_s04",
+      "collection_errors": [],
+      "sonar": true
+    },
+    {
+      "trial_id": "phase6e_serena_r01_s05",
+      "state": "finished",
+      "grading_state": {
+        "valid": false,
+        "reason": "known_undeclared_max_matches_dependency",
+        "raw_score_preserved": true,
+        "code_metrics_available": true
+      },
+      "source_trial": "phase6d_serena_r01_s04",
       "collection_errors": [],
       "sonar": true
     }
