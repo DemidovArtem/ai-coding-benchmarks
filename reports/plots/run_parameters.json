@@ -3253,5 +3253,72 @@
       "valid": true,
       "raw_score_preserved": true
     }
+  },
+  {
+    "trial_id": "phase6f_ponytail_r01_s06",
+    "variant": "ponytail",
+    "repetition": 1,
+    "step": 6,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b8edbc5be2bb39fb867bc59cc73f7f6188ffa5fe1b7d46d2da35f6918b2841ac",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a165a9-8b4c-7b30-8194-fba8a53d9ef4",
+    "snapshot_sha256": "819c6831a5d9f71a178c382a0df2db243e9f4f77c56caeeee20db7b12689bcb5",
+    "resume": null,
+    "quota_before": {
+      "observed_at": "2026-10-28T22:22:39.998737+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 39,
+            "windowDurationMins": 300,
+            "resetsAt": 1793243205
+          },
+          "secondary": {
+            "usedPercent": 36,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793774542
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-28T22:22:39.994410+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "milestone_seed_b610d1c_1",
+      "milestone_seed_8c6595c_1",
+      "milestone_seed_a6e0be3_1_sub-01"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "sixth-task original SWE evaluation",
+      "infrastructure_errors_stop_scheduling": true
+    },
+    "parent_trial": "phase6e_ponytail_r01_s05",
+    "new_inference_executed": true,
+    "usage_origin_trial": "phase6f_ponytail_r01_s06",
+    "history_transport": "native legacy header; original response/event bytes retained",
+    "grading_state": {
+      "valid": true,
+      "raw_score_preserved": true
+    }
   }
 ]
