@@ -1,0 +1,78 @@
+{
+  "task": "milestone_seed_8c6595c_1",
+  "completed_fifth_steps": 7,
+  "independent_repetitions": {
+    "baseline": 2,
+    "caveman": 2,
+    "ponytail": 2,
+    "serena": 1
+  },
+  "frozen_pins_verified": true,
+  "prior_curve_points_unchanged": 16,
+  "same_executor_session_and_four_step_prefix_verified": true,
+  "prefix_model_calls_replayed": 0,
+  "source_ancestry_and_prior_tags_verified": true,
+  "all_sonar_analyses_ok": true,
+  "all_collection_errors_empty": true,
+  "closed_native_database_backup_hashes_verified": true,
+  "failed_premodel_attempt_preserved_byte_for_byte": true,
+  "grader_compatibility": {
+    "phase6e_baseline_r01_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_caveman_r01_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_ponytail_r01_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_serena_r01_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_baseline_r02_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_caveman_r02_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    },
+    "phase6e_ponytail_r02_s05": {
+      "valid": false,
+      "reason": "known_undeclared_max_matches_dependency",
+      "raw_score_preserved": true,
+      "code_metrics_available": true
+    }
+  },
+  "serena": {
+    "required_usage_verified": true,
+    "memory_mode": "warm",
+    "measured_mcp_tool_calls": 48,
+    "semantic_calls": 24,
+    "retained_memory_read_verified": true,
+    "memory_files_before": 11,
+    "memory_files_after": 12
+  },
+  "audit_script_path": "results/phase6e_final_audit.py",
+  "audit_script_sha256": "dade37ab304ae49eb9d6422e91a144491df28277f2e0810ca5ae1d2bc95a3d17",
+  "limits": [
+    "The fifth grader has an undeclared max_matches API dependency; invalid test scores are excluded.",
+    "Sonar includes inline tests. Two repeats per main approach and one Serena repeat support descriptive comparisons only."
+  ]
+}

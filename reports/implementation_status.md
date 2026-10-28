@@ -1,13 +1,15 @@
 # Состояние реализации
 
-2026-10-28: авторизована Phase 6e — исходная пятая SWE задача after-context, без замены. Семь продолжений: первый круг четырёх методов, затем второй baseline/Caveman/Ponytail. Serena один раз, с сохранёнными 11 memories. Проверки source/context выполняются перед inference; известная несовместимость grader учитывается отдельно от source/Sonar. [План и протокол](phase6e_protocol.md), [живые результаты](phase6e_progress.md).
+2026-10-28: Phase 6e завершена. Исходная пятая SWE-задача after-context выполнена как продолжение: baseline, Caveman и Ponytail имеют по два повтора из пяти последовательных правок; Serena — один повтор из пяти правок. Собраны все 7 пятых source/usage/Sonar records. Первые четыре правки не переигрывались; 16 прежних точек графика не изменились. Все 96 patches из 48 immutable submissions проверены повторным применением. Serena сохранила 11 memories и добавила двенадцатую; подтверждены 48 обязательных MCP-вызовов, включая 24 семантических. [Результаты и средние](phase6e_progress.md), [аудит](phase6e_completion_audit.json), [общий график](plots/mean_curves_current.png), [реестр](../EXPERIMENT_STATUS.md).
+
+Исходный grader пятой задачи во всех семи продолжениях падает на undeclared `SearcherBuilder::max_matches`. Это несовместимость grader; корректность пятой правки по нему не подтверждена, test score отсутствует. Source/usage/Sonar доступны; Sonar включает inline tests. Остановка Serena до model dispatch сохранена без изменения байтов; после восстановления квоты выполнен только её первый пятый model turn. [Quota recovery](phase6e_serena_quota_recovery.json). Шестой шаг и новые репозитории не запускались.
 
 
 Phase 6d завершена: baseline/Caveman/Ponytail имеют по два независимых повтора из четырёх последовательных правок, Serena — один сохранённый четырёхшаговый повтор с 11 memories. Первые три правки не повторялись. Собраны все 7 четвёртых assessments и Sonar; source patches, native history и новые закрытые SQLite backups проверены. [Итоги и средние](phase6d_progress.md), [общий график](plots/mean_curves_current.png), [живой реестр](../EXPERIMENT_STATUS.md).
 
 Последний Ponytail остановился на квоте и продолжен в той же сессии после сброса. Исходная ошибка сохранена. После grader исправлен отдельный сбой коллектора: SHA SQLite считался до закрытия соединения. Новая копия проверена без повторного inference или grader. [Recovery](phase6d_resume_protocol.md), [доказательство collection recovery](phase6d_collection_recovery.json). Frozen inference adapter и исходные оценки не переписаны.
 
-У всех четвёртых submissions целевой тест проходит, но raw grader сохраняет одинаковые 19 падений и 9 отсутствующих P2P identities. Причины не изолированы; это ограничивает выводы о накоплении ошибок. Serena использует исходные inference/usage/Sonar; у новых продолжений другой history transport. Sonar включает inline tests. Пятая правка и новые репозитории не запускались.
+У всех четвёртых submissions целевой тест проходит, но raw grader сохраняет одинаковые 19 падений и 9 отсутствующих P2P identities. Причины не изолированы; это ограничивает выводы о накоплении ошибок. Serena использует исходные inference/usage/Sonar; у новых продолжений другой history transport. Sonar включает inline tests. На момент завершения Phase 6d пятая правка и новые репозитории ещё не запускались.
 
 
 ## Исторический isolated pilot v1
