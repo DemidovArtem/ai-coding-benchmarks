@@ -3412,5 +3412,102 @@
       "valid": false,
       "reason": "execution_failure"
     }
+  },
+  {
+    "trial_id": "phase6f_serena_r01_s06_resume01",
+    "variant": "serena",
+    "repetition": 1,
+    "step": 6,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "snapshot_sha256": "bb5b629919ee9f0978bf8b69006e5b7729b9b21b6f2b803aab8744b99fcbfa12",
+    "resume": {
+      "attempt_of": "phase6f_serena_r01_s06",
+      "same_session_required": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+      "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6f_serena_r01_s06",
+      "adapter_sha256": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d"
+    },
+    "quota_before": {
+      "observed_at": "2026-10-28T22:47:48.382375+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 76,
+            "windowDurationMins": 300,
+            "resetsAt": 1793243205
+          },
+          "secondary": {
+            "usedPercent": 42,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793774542
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "quota_observation_status": "observed",
+    "failure_category": null,
+    "profile_config_sha256": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+    "skill_version": "1.6.1",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-28T22:47:48.379754+00:00",
+    "operational_recovery": {
+      "observed_at": "2026-10-22T19:41:00.226999+00:00",
+      "original_metadata": {
+        "phase": "trial",
+        "trial_kind": "continuous_step",
+        "measured_comparison": true,
+        "state": "running",
+        "variant": "serena",
+        "trajectory_id": "phase6_serena_r01",
+        "step": 2,
+        "repetition": 1,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "started_at": "2026-10-21T21:41:17.173584+00:00",
+        "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+        "setup_fingerprint": "5b12ad30f6f61ee069ecdde0a129603d9df1ec6169d769162504d630dee9acee",
+        "implementation_commit": "3df99528f007947ed786f4bc5ea69bdc1d238b62"
+      },
+      "interrupted_stage": "grader",
+      "inference_replayed": false,
+      "snapshot_sha256": "fb3cc8b18aaeecff26e0b40e57dc877c4b9722dcc154b7302ee21494368100a0",
+      "adapter_sha256": "e632f0aa3d74e8c0b48f41fe60e6efc8d2a5babcdb1129759fb77e9c1476ba3c",
+      "continuation_adapter_sha256": "c563f8efa7942d76eaca16b6998e2961e1616af7cd641f5106cfa9eb1a2b4f8f"
+    },
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "milestone_seed_b610d1c_1",
+      "milestone_seed_8c6595c_1",
+      "milestone_seed_a6e0be3_1_sub-01"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "sixth-task original SWE evaluation",
+      "infrastructure_errors_stop_scheduling": true
+    },
+    "parent_trial": "phase6e_serena_r01_s05",
+    "new_inference_executed": true,
+    "usage_origin_trial": "phase6f_serena_r01_s06_resume01",
+    "history_transport": "native legacy header; original response/event bytes retained",
+    "grading_state": {
+      "valid": true,
+      "raw_score_preserved": true
+    }
   }
 ]

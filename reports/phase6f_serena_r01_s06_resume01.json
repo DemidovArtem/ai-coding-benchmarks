@@ -1,0 +1,1169 @@
+{
+  "experiment_id": "ripgrep-sixth-edit-continuation-v1",
+  "trial_id": "phase6f_serena_r01_s06_resume01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "serena",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_a6e0be3_1_sub-01",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "5eb75c58c5f6d4379f408ac34a1089aac46a0334",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "effective_profile": {
+    "config_sha256": "f9092a99382008d4e349ae65486b7c6418bc9d225a681a3755070fa0e7165fab",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      },
+      "mcp_servers": {
+        "serena": {
+          "required": true,
+          "command": "/opt/experiment-serena/python/bin/python3",
+          "args": [
+            "-c",
+            "from serena.cli import top_level; top_level()",
+            "start-mcp-server",
+            "--project-from-cwd",
+            "--context",
+            "codex",
+            "--transport",
+            "stdio",
+            "--enable-web-dashboard",
+            "false",
+            "--open-web-dashboard",
+            "false",
+            "--enable-gui-log-window",
+            "false"
+          ],
+          "startup_timeout_sec": 120,
+          "tool_timeout_sec": 120,
+          "env": {
+            "PYTHONPATH": "/opt/experiment-serena/site-packages",
+            "PYTHONNOUSERSITE": "1",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "SERENA_HOME": "/home/fakeroot/.serena-profile",
+            "PIP_NO_INDEX": "1",
+            "SERENA_USAGE_REPORTING": "false",
+            "PATH": "/usr/local/cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "RUSTUP_HOME": "/usr/local/rustup",
+            "CARGO_HOME": "/usr/local/cargo",
+            "CARGO_NET_OFFLINE": "true"
+          }
+        }
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "serena",
+    "skill": "serena",
+    "skill_version": "1.6.1",
+    "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+    "memory_files_before": 12,
+    "memory_bytes_before": 14002,
+    "memory_policy": "warm memories restored from exact fifth checkpoint",
+    "mcp_activation_verified": false,
+    "continuous_policy_sha256": "8f03300cdb78f2c1b756804a5fe42eefc05f0e4d57110e447402b85177c6cf1f",
+    "extension": {
+      "parent_trial": "phase6e_serena_r01_s05",
+      "prefix_trials": [
+        "phase6_serena_r01_s01",
+        "phase6_serena_r01_s02",
+        "phase6_serena_r01_s03_retry01",
+        "phase6d_serena_r01_s04",
+        "phase6e_serena_r01_s05"
+      ],
+      "parent_setup_fingerprint": "d976252cc3bb65fe4e277de238c235bfb6b99dc3139c739f3676436af5b44d7e",
+      "history_restore": {
+        "source_sha256": "515b554491bbb9400ff5ef78664c775bc6b0662f2311027ab72eba7318e7dabe",
+        "restored_sha256": "515b554491bbb9400ff5ef78664c775bc6b0662f2311027ab72eba7318e7dabe",
+        "turn_ids": [
+          "01a16061-cc07-7400-8ccd-2f9565eea0e0",
+          "01a16063-233b-70f2-a3ed-02320d64487c",
+          "01a16069-bc4e-7513-b31a-9185b443c262",
+          "01a1652f-1b70-75a1-9ba9-ca0467f52a42",
+          "01a16536-9d76-7201-94bc-58576370e3d7",
+          "01a17fde-73fb-7c50-a0e2-ff9df9b09de9"
+        ],
+        "messages_changed": false,
+        "transport": "native legacy header; original response/event bytes retained",
+        "session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+        "parent_trial": "phase6e_serena_r01_s05",
+        "native_turns": [
+          {
+            "id": "01a16061-cc07-7400-8ccd-2f9565eea0e0",
+            "status": "completed"
+          },
+          {
+            "id": "01a16063-233b-70f2-a3ed-02320d64487c",
+            "status": "completed"
+          },
+          {
+            "id": "01a16069-bc4e-7513-b31a-9185b443c262",
+            "status": "completed"
+          },
+          {
+            "id": "01a1652f-1b70-75a1-9ba9-ca0467f52a42",
+            "status": "completed"
+          },
+          {
+            "id": "01a16536-9d76-7201-94bc-58576370e3d7",
+            "status": "completed"
+          },
+          {
+            "id": "01a17fde-73fb-7c50-a0e2-ff9df9b09de9",
+            "status": "completed"
+          }
+        ],
+        "sqlite_backups_restored": {
+          "state_5.sqlite": "26c085d9e8edee8a64f4c694c2e98de44e03ea04e1453ac19edac3eb3aca95a9"
+        },
+        "new_model_calls": 0
+      },
+      "new_inference_executed": true,
+      "replayed_prefix_model_calls": 0,
+      "recovery_of": "phase6f_serena_r01_s06",
+      "stopped_turn_preserved": "01a184ab-5cbb-7e12-ab00-4a02a2086560",
+      "history_reimported": false,
+      "partial_work_preserved": {
+        "head": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+        "unstaged_sha256": "02f1135849a839e4df5517a87c0c68aebb68527db217ed850f002dfa783f63f1",
+        "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "untracked_files": []
+      },
+      "recovery_adapter_sha256": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d",
+      "retained_memory_at_recovery": {
+        "files": {
+          "conventions.md": {
+            "sha256": "6b9190588fe292f81af593339a03b47c7bea915ad7dc939be49c1d3c2acbf5b6",
+            "bytes": 414
+          },
+          "core.md": {
+            "sha256": "a8c56a12ba89071161a8e43edcc79f6b06f4d3d7182b77c7202c76f28dd394fc",
+            "bytes": 1127
+          },
+          "globset/alternations.md": {
+            "sha256": "062962f3bfef3b715567c4223387a3c58e744d37d74f649e422f1c3ba8267390",
+            "bytes": 922
+          },
+          "globset/unclosed_classes.md": {
+            "sha256": "7ee52357651a0959ac1c6d8ca33cb4b25cc63e4e767615f59faf038c78b6ad4d",
+            "bytes": 1394
+          },
+          "ignore/core.md": {
+            "sha256": "9b1d6563a1ab44d809d45df8382e9f7a91b8ece71c433e502a5b9879392ad6a1",
+            "bytes": 744
+          },
+          "ignore/global_cwd.md": {
+            "sha256": "5cf1bfffc1f82b383c400e1d1e36b1fee2302652b36752af5a063ad3bce97351",
+            "bytes": 1823
+          },
+          "ignore/walk_depth.md": {
+            "sha256": "5d32db254e46792b52d01bf3d17bef8c12e10749e1bd0f82627c83e77bee62f9",
+            "bytes": 1395
+          },
+          "memory_maintenance.md": {
+            "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+            "bytes": 2043
+          },
+          "searcher/context.md": {
+            "sha256": "b0f0b59a7a20c401b273f366e1ec37e45247f8ac0cfb0bea9f8a9bf1031a2209",
+            "bytes": 1761
+          },
+          "searcher/max_matches.md": {
+            "sha256": "7515688492e77670beebd3777419065459bfc11d79c5bc8dba31d7464f28d0e6",
+            "bytes": 477
+          },
+          "suggested_commands.md": {
+            "sha256": "3b4214554cc01b39d8c75904ad0a14d934bb8a77e4a9af8449b32c73ec853611",
+            "bytes": 1192
+          },
+          "task_completion.md": {
+            "sha256": "f3713adaa7e1e52d45347d7cce49444d32dee22d43e98c78d839860b4898d2c0",
+            "bytes": 628
+          },
+          "tech_stack.md": {
+            "sha256": "352345b1f0bc81ff5693c0f1fb0162f7d15c6283d040811d2df781e2a8d0eea9",
+            "bytes": 559
+          }
+        },
+        "count": 13,
+        "bytes": 14479
+      },
+      "stop_reason": "semantic_tool_lookup_failure"
+    }
+  },
+  "duration_seconds": 486.2115364570018,
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-5595135cfd029df31921ddc44b7e403174a2624b",
+    "task_id": "72ecbed0-9fe6-47c8-8738-ce0761d1a06f",
+    "metrics": {
+      "ncloc": 32064,
+      "lines": 44991,
+      "complexity": 5199,
+      "cognitive_complexity": 2556,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6,
+      "code_smells": 285,
+      "sqale_index": 1456,
+      "software_quality_maintainability_issues": 285,
+      "software_quality_maintainability_remediation_effort": 1456
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "bb5b629919ee9f0978bf8b69006e5b7729b9b21b6f2b803aab8744b99fcbfa12",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "4977bde4-f15b-4119-ba56-baec0bb33d5c",
+    "duration_seconds": 16.739624221001577,
+    "protocol_sha256": "bfedab8803ba84933638e91c7ac3d7d0081f4133cb4e7b9bf44ea111e70daecd",
+    "source_file_count": 80,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "c3a91ab70db3513848f62ffb0fd00ee4b592bcda6860751384d6818caa0e7434",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6f_serena_r01_s06_resume01/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": 428,
+      "lines": 523,
+      "complexity": 142,
+      "cognitive_complexity": 156,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": -0.09999999999999964,
+      "code_smells": 3,
+      "sqale_index": 18,
+      "software_quality_maintainability_issues": 3,
+      "software_quality_maintainability_remediation_effort": 18
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/common_base"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-10-28T22:47:48.382375+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 76,
+            "windowDurationMins": 300,
+            "resetsAt": 1793243205
+          },
+          "secondary": {
+            "usedPercent": 42,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793774542
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-10-28T22:56:17.888229+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 93,
+            "windowDurationMins": 300,
+            "resetsAt": 1793243205
+          },
+          "secondary": {
+            "usedPercent": 45,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793774542
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6f_serena_r01_s06_resume01",
+  "snapshot_sha256": "bb5b629919ee9f0978bf8b69006e5b7729b9b21b6f2b803aab8744b99fcbfa12",
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 0,
+    "uncommitted_lost_sample": [],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "implementation_commit": "e6ed4622f91c34449c0a658135817ff0aa715cb4",
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "skill_state": {
+    "required_usage_verified": true,
+    "memory_mode": "warm",
+    "observed_mcp_tool_calls": 71,
+    "semantic_calls": 24,
+    "retained_memory_read_verified": true,
+    "memory_write_observed": true,
+    "stopped_attempt_usage": {
+      "required_usage_verified": true,
+      "memory_mode": "warm",
+      "observed_mcp_tool_calls": 30,
+      "semantic_calls": 12,
+      "retained_memory_read_verified": true,
+      "memory_write_observed": true
+    },
+    "memory_files_before": 12,
+    "memory_files_after": 13,
+    "memory_bytes_before": 14002,
+    "memory_bytes_after": 16467,
+    "measured_mcp_tool_calls": 71,
+    "usage_policy": "required cold onboarding; required retained-memory reuse on warm turns",
+    "before": {
+      "files": {
+        "conventions.md": {
+          "sha256": "6b9190588fe292f81af593339a03b47c7bea915ad7dc939be49c1d3c2acbf5b6",
+          "bytes": 414
+        },
+        "core.md": {
+          "sha256": "a8c56a12ba89071161a8e43edcc79f6b06f4d3d7182b77c7202c76f28dd394fc",
+          "bytes": 1127
+        },
+        "globset/alternations.md": {
+          "sha256": "062962f3bfef3b715567c4223387a3c58e744d37d74f649e422f1c3ba8267390",
+          "bytes": 922
+        },
+        "globset/unclosed_classes.md": {
+          "sha256": "7ee52357651a0959ac1c6d8ca33cb4b25cc63e4e767615f59faf038c78b6ad4d",
+          "bytes": 1394
+        },
+        "ignore/core.md": {
+          "sha256": "9b1d6563a1ab44d809d45df8382e9f7a91b8ece71c433e502a5b9879392ad6a1",
+          "bytes": 744
+        },
+        "ignore/global_cwd.md": {
+          "sha256": "5cf1bfffc1f82b383c400e1d1e36b1fee2302652b36752af5a063ad3bce97351",
+          "bytes": 1823
+        },
+        "ignore/walk_depth.md": {
+          "sha256": "5d32db254e46792b52d01bf3d17bef8c12e10749e1bd0f82627c83e77bee62f9",
+          "bytes": 1395
+        },
+        "memory_maintenance.md": {
+          "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+          "bytes": 2043
+        },
+        "searcher/context.md": {
+          "sha256": "b0f0b59a7a20c401b273f366e1ec37e45247f8ac0cfb0bea9f8a9bf1031a2209",
+          "bytes": 1761
+        },
+        "suggested_commands.md": {
+          "sha256": "3b4214554cc01b39d8c75904ad0a14d934bb8a77e4a9af8449b32c73ec853611",
+          "bytes": 1192
+        },
+        "task_completion.md": {
+          "sha256": "f3713adaa7e1e52d45347d7cce49444d32dee22d43e98c78d839860b4898d2c0",
+          "bytes": 628
+        },
+        "tech_stack.md": {
+          "sha256": "352345b1f0bc81ff5693c0f1fb0162f7d15c6283d040811d2df781e2a8d0eea9",
+          "bytes": 559
+        }
+      },
+      "count": 12,
+      "bytes": 14002
+    },
+    "after": {
+      "files": {
+        "conventions.md": {
+          "sha256": "6b9190588fe292f81af593339a03b47c7bea915ad7dc939be49c1d3c2acbf5b6",
+          "bytes": 414
+        },
+        "core.md": {
+          "sha256": "2a895019ef939cbce16911433e5bcfdab9248551aa6ef2b3ef4654bfb66289d3",
+          "bytes": 1273
+        },
+        "globset/alternations.md": {
+          "sha256": "062962f3bfef3b715567c4223387a3c58e744d37d74f649e422f1c3ba8267390",
+          "bytes": 922
+        },
+        "globset/unclosed_classes.md": {
+          "sha256": "7ee52357651a0959ac1c6d8ca33cb4b25cc63e4e767615f59faf038c78b6ad4d",
+          "bytes": 1394
+        },
+        "ignore/core.md": {
+          "sha256": "9b1d6563a1ab44d809d45df8382e9f7a91b8ece71c433e502a5b9879392ad6a1",
+          "bytes": 744
+        },
+        "ignore/global_cwd.md": {
+          "sha256": "5cf1bfffc1f82b383c400e1d1e36b1fee2302652b36752af5a063ad3bce97351",
+          "bytes": 1823
+        },
+        "ignore/walk_depth.md": {
+          "sha256": "5d32db254e46792b52d01bf3d17bef8c12e10749e1bd0f82627c83e77bee62f9",
+          "bytes": 1395
+        },
+        "memory_maintenance.md": {
+          "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+          "bytes": 2043
+        },
+        "searcher/context.md": {
+          "sha256": "b0f0b59a7a20c401b273f366e1ec37e45247f8ac0cfb0bea9f8a9bf1031a2209",
+          "bytes": 1761
+        },
+        "searcher/max_matches.md": {
+          "sha256": "66545936652e42187c85893fa7afe828bcf57779aa252869257f28d9f1b88573",
+          "bytes": 2319
+        },
+        "suggested_commands.md": {
+          "sha256": "3b4214554cc01b39d8c75904ad0a14d934bb8a77e4a9af8449b32c73ec853611",
+          "bytes": 1192
+        },
+        "task_completion.md": {
+          "sha256": "f3713adaa7e1e52d45347d7cce49444d32dee22d43e98c78d839860b4898d2c0",
+          "bytes": 628
+        },
+        "tech_stack.md": {
+          "sha256": "352345b1f0bc81ff5693c0f1fb0162f7d15c6283d040811d2df781e2a8d0eea9",
+          "bytes": 559
+        }
+      },
+      "count": 13,
+      "bytes": 16467
+    }
+  },
+  "hook_activation_audit": null,
+  "resume": {
+    "attempt_of": "phase6f_serena_r01_s06",
+    "same_session_required": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6f_serena_r01_s06",
+    "adapter_sha256": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d"
+  },
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": false,
+  "grader_metrics": {
+    "milestone_id": "milestone_seed_a6e0be3_1_sub-01",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": true,
+    "resolved": false,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [
+          "standard::tests::max_matches_context",
+          "standard::tests::max_matches_multi_line1",
+          "standard::tests::max_matches_context_invert",
+          "standard::tests::max_matches_multi_line4",
+          "standard::tests::max_matches_multi_line2",
+          "standard::tests::max_matches",
+          "standard::tests::max_matches_multi_line3"
+        ],
+        "failure": [
+          "standard::tests::regression_after_context_with_match"
+        ],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 1086,
+        "failure": [
+          "glob::tests::re35",
+          "searcher::glue::tests::binary4",
+          "searcher::glue::tests::binary3"
+        ],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 1115,
+      "passed": 1098,
+      "failed": 16,
+      "error": 0,
+      "skipped": 1,
+      "fail_to_pass_required": 0,
+      "fail_to_pass_achieved": 0,
+      "none_to_pass_required": 8,
+      "none_to_pass_achieved": 7,
+      "pass_to_pass_required": 1089,
+      "pass_to_pass_achieved": 1086,
+      "pass_to_pass_failed": 3,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "milestone-milestone_seed_a6e0be3_1_sub-01-end",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": true,
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cjs",
+        ".cpp",
+        ".cxx",
+        ".go",
+        ".groovy",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx",
+        ".java",
+        ".js",
+        ".jsx",
+        ".kt",
+        ".mjs",
+        ".pxd",
+        ".py",
+        ".pyi",
+        ".pyx",
+        ".rs",
+        ".scala",
+        ".ts",
+        ".tsx"
+      ],
+      "keep_list": [],
+      "policy_source": "metadata-legacy",
+      "policy_sha256": "",
+      "enablement_source": "environment-override",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": true,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "",
+      "evaluator_head": "",
+      "base_reason": "",
+      "merged_count": 0,
+      "agent_exact_count": 0,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "f4e1a18a1bc1",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "sha256:ad9dad37c100c9bc553c81319256df0ab01ece0e4dc1e344b5a4a06982ffcef8",
+      "offline_cache_milestone_image_id": "ac02d022791459325ecff4c2b188d89c8e968ca1ff51cef05be2604d7014463d",
+      "offline_cache_closure_image_id": "06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+      "offline_cache_effective_image_id": "ad9dad37c100c9bc553c81319256df0ab01ece0e4dc1e344b5a4a06982ffcef8",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": true,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "identity-v2",
+      "framework": "cargo",
+      "payload_path": "artifacts/701561/eval_summary.json",
+      "payload_sha256": "5f1290bcd57cc9ea1cd300ab24b916739fedc6e2cd249b47638d644a556ef9ca",
+      "classification_file": "milestone_seed_a6e0be3_1_sub-01_classification.json",
+      "classification_sha256": "36b67b6d13a08e419cf235d635af5e35072315c28f255a4d9ed00937a7436fd4",
+      "collision_count": 0,
+      "collisions": [],
+      "untrusted": false,
+      "match_trace": {
+        "fail_to_pass": {},
+        "pass_to_pass": {
+          "exact": 1089
+        },
+        "none_to_pass": {
+          "exact": 8
+        }
+      }
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 1086,
+    "failure": [
+      "glob::tests::re35",
+      "searcher::glue::tests::binary4",
+      "searcher::glue::tests::binary3"
+    ],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [
+      "standard::tests::max_matches_context",
+      "standard::tests::max_matches_multi_line1",
+      "standard::tests::max_matches_context_invert",
+      "standard::tests::max_matches_multi_line4",
+      "standard::tests::max_matches_multi_line2",
+      "standard::tests::max_matches",
+      "standard::tests::max_matches_multi_line3"
+    ],
+    "failure": [
+      "standard::tests::regression_after_context_with_match"
+    ],
+    "missing": 0
+  },
+  "failure_category": null,
+  "added_prod_loc": 599,
+  "deleted_prod_loc": 102,
+  "net_prod_loc": 497,
+  "churn_prod_loc": 701,
+  "changed_prod_files": 12,
+  "cumulative_prod_loc": 34186,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 6667394,
+      "output_tokens": 21877,
+      "cached_input_tokens": 6386816,
+      "reasoning_output_tokens": 9557,
+      "session_ids": [
+        "01a16061-becc-7e21-ba6e-8601cd1c4329"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 19,
+        "serena": 41
+      },
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "total": {
+      "input_tokens": 6667394,
+      "output_tokens": 21877,
+      "cached_input_tokens": 6386816,
+      "reasoning_output_tokens": null
+    },
+    "executor_cumulative": {
+      "input_tokens": 19606128,
+      "output_tokens": 84165,
+      "cached_input_tokens": 18799872,
+      "reasoning_output_tokens": 35956,
+      "session_ids": [
+        "01a16061-becc-7e21-ba6e-8601cd1c4329"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 19,
+        "serena": 41
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 398.29243461999795,
+    "evaluation": 63.61558919699746,
+    "sonar": 16.739624221001577
+  },
+  "setup_fingerprint": "f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805",
+  "new_prod_files": 1,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "formatting_only_files": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "crates/core/flags/hiargs.rs",
+      "new_path": "crates/core/flags/hiargs.rs",
+      "raw_added": 3,
+      "raw_deleted": 0,
+      "added_prod_loc": 3,
+      "deleted_prod_loc": 0
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/glob.rs",
+      "new_path": "crates/globset/src/glob.rs",
+      "raw_added": 53,
+      "raw_deleted": 610,
+      "added_prod_loc": 53,
+      "deleted_prod_loc": 10
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/lib.rs",
+      "new_path": "crates/globset/src/lib.rs",
+      "raw_added": 3,
+      "raw_deleted": 2,
+      "added_prod_loc": 3,
+      "deleted_prod_loc": 2
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/nested_alternates.rs",
+      "raw_added": 128,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/unclosed_classes.rs",
+      "raw_added": 126,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/dir.rs",
+      "new_path": "crates/ignore/src/dir.rs",
+      "raw_added": 37,
+      "raw_deleted": 12,
+      "added_prod_loc": 37,
+      "deleted_prod_loc": 12
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/gitignore.rs",
+      "new_path": "crates/ignore/src/gitignore.rs",
+      "raw_added": 28,
+      "raw_deleted": 3,
+      "added_prod_loc": 28,
+      "deleted_prod_loc": 3
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/overrides.rs",
+      "new_path": "crates/ignore/src/overrides.rs",
+      "raw_added": 14,
+      "raw_deleted": 1,
+      "added_prod_loc": 14,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/walk.rs",
+      "new_path": "crates/ignore/src/walk.rs",
+      "raw_added": 279,
+      "raw_deleted": 9,
+      "added_prod_loc": 76,
+      "deleted_prod_loc": 9
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/ignore/tests/unclosed_classes.rs",
+      "raw_added": 41,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/line_buffer.rs",
+      "new_path": "crates/searcher/src/line_buffer.rs",
+      "raw_added": 107,
+      "raw_deleted": 39,
+      "added_prod_loc": 44,
+      "deleted_prod_loc": 39
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/searcher/core.rs",
+      "new_path": "crates/searcher/src/searcher/core.rs",
+      "raw_added": 107,
+      "raw_deleted": 21,
+      "added_prod_loc": 74,
+      "deleted_prod_loc": 21
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/searcher/glue.rs",
+      "new_path": "crates/searcher/src/searcher/glue.rs",
+      "raw_added": 156,
+      "raw_deleted": 7,
+      "added_prod_loc": 94,
+      "deleted_prod_loc": 5
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/searcher/src/searcher/max_matches.rs",
+      "raw_added": 392,
+      "raw_deleted": 0,
+      "added_prod_loc": 128,
+      "deleted_prod_loc": 0
+    },
+    {
+      "status": "M",
+      "old_path": "crates/searcher/src/searcher/mod.rs",
+      "new_path": "crates/searcher/src/searcher/mod.rs",
+      "raw_added": 47,
+      "raw_deleted": 0,
+      "added_prod_loc": 45,
+      "deleted_prod_loc": 0
+    },
+    {
+      "status": "M",
+      "old_path": "tests/regression.rs",
+      "new_path": "tests/regression.rs",
+      "raw_added": 67,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extension": ".rs",
+    "inline_tests": "removed by pinned upstream Rust AST filter",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor directory",
+      "generated directory"
+    ],
+    "loc": "physical lines including comments and blank lines",
+    "rename_detection": "-M50%"
+  },
+  "verified_snapshot_rust_files": 80,
+  "continuous": {
+    "trajectory_id": "phase6f_serena_r01",
+    "step": 6,
+    "repetition": 1,
+    "executor_session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+    "input_commit": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+    "dispatch": {
+      "session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+      "read_item_id": "item_1",
+      "task_sha256": "0d87876fd52959485036251ca061845095b8fba6c2a8a261597b57554e8edb49",
+      "read_verified": true,
+      "input_commit": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+      "milestone_id": "milestone_seed_a6e0be3_1_sub-01"
+    },
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "incremental_footprint": {
+      "starting_commit": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+      "ending_commit": "5eb75c58c5f6d4379f408ac34a1089aac46a0334",
+      "added_prod_loc": 328,
+      "deleted_prod_loc": 13,
+      "changed_prod_files": 4,
+      "new_prod_files": 1,
+      "deleted_prod_files": 0,
+      "renamed_prod_files": 0,
+      "binary_changes": [],
+      "formatting_only_files": [],
+      "files": [
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/searcher/core.rs",
+          "new_path": "crates/searcher/src/searcher/core.rs",
+          "raw_added": 61,
+          "raw_deleted": 8,
+          "added_prod_loc": 61,
+          "deleted_prod_loc": 8
+        },
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/searcher/glue.rs",
+          "new_path": "crates/searcher/src/searcher/glue.rs",
+          "raw_added": 94,
+          "raw_deleted": 5,
+          "added_prod_loc": 94,
+          "deleted_prod_loc": 5
+        },
+        {
+          "status": "A",
+          "old_path": null,
+          "new_path": "crates/searcher/src/searcher/max_matches.rs",
+          "raw_added": 392,
+          "raw_deleted": 0,
+          "added_prod_loc": 128,
+          "deleted_prod_loc": 0
+        },
+        {
+          "status": "M",
+          "old_path": "crates/searcher/src/searcher/mod.rs",
+          "new_path": "crates/searcher/src/searcher/mod.rs",
+          "raw_added": 47,
+          "raw_deleted": 0,
+          "added_prod_loc": 45,
+          "deleted_prod_loc": 0
+        }
+      ],
+      "rules": {
+        "extension": ".rs",
+        "inline_tests": "removed by pinned upstream Rust AST filter",
+        "excluded": [
+          "metadata tests/exclusions/generated",
+          "vendor directory",
+          "generated directory"
+        ],
+        "loc": "physical lines including comments and blank lines",
+        "rename_detection": "-M20%"
+      },
+      "net_prod_loc": 315,
+      "churn_prod_loc": 341,
+      "cumulative_prod_loc": 34186
+    }
+  },
+  "extension": {
+    "parent_trial": "phase6e_serena_r01_s05",
+    "prefix_trials": [
+      "phase6_serena_r01_s01",
+      "phase6_serena_r01_s02",
+      "phase6_serena_r01_s03_retry01",
+      "phase6d_serena_r01_s04",
+      "phase6e_serena_r01_s05"
+    ],
+    "parent_setup_fingerprint": "d976252cc3bb65fe4e277de238c235bfb6b99dc3139c739f3676436af5b44d7e",
+    "history_restore": {
+      "source_sha256": "515b554491bbb9400ff5ef78664c775bc6b0662f2311027ab72eba7318e7dabe",
+      "restored_sha256": "515b554491bbb9400ff5ef78664c775bc6b0662f2311027ab72eba7318e7dabe",
+      "turn_ids": [
+        "01a16061-cc07-7400-8ccd-2f9565eea0e0",
+        "01a16063-233b-70f2-a3ed-02320d64487c",
+        "01a16069-bc4e-7513-b31a-9185b443c262",
+        "01a1652f-1b70-75a1-9ba9-ca0467f52a42",
+        "01a16536-9d76-7201-94bc-58576370e3d7",
+        "01a17fde-73fb-7c50-a0e2-ff9df9b09de9"
+      ],
+      "messages_changed": false,
+      "transport": "native legacy header; original response/event bytes retained",
+      "session_id": "01a16061-becc-7e21-ba6e-8601cd1c4329",
+      "parent_trial": "phase6e_serena_r01_s05",
+      "native_turns": [
+        {
+          "id": "01a16061-cc07-7400-8ccd-2f9565eea0e0",
+          "status": "completed"
+        },
+        {
+          "id": "01a16063-233b-70f2-a3ed-02320d64487c",
+          "status": "completed"
+        },
+        {
+          "id": "01a16069-bc4e-7513-b31a-9185b443c262",
+          "status": "completed"
+        },
+        {
+          "id": "01a1652f-1b70-75a1-9ba9-ca0467f52a42",
+          "status": "completed"
+        },
+        {
+          "id": "01a16536-9d76-7201-94bc-58576370e3d7",
+          "status": "completed"
+        },
+        {
+          "id": "01a17fde-73fb-7c50-a0e2-ff9df9b09de9",
+          "status": "completed"
+        }
+      ],
+      "sqlite_backups_restored": {
+        "state_5.sqlite": "26c085d9e8edee8a64f4c694c2e98de44e03ea04e1453ac19edac3eb3aca95a9"
+      },
+      "new_model_calls": 0
+    },
+    "new_inference_executed": true,
+    "replayed_prefix_model_calls": 0,
+    "recovery_of": "phase6f_serena_r01_s06",
+    "stopped_turn_preserved": "01a184ab-5cbb-7e12-ab00-4a02a2086560",
+    "history_reimported": false,
+    "partial_work_preserved": {
+      "head": "ef2108162d41ffa69f808a8208d7afcdef8f2b96",
+      "unstaged_sha256": "02f1135849a839e4df5517a87c0c68aebb68527db217ed850f002dfa783f63f1",
+      "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "untracked_files": []
+    },
+    "recovery_adapter_sha256": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d",
+    "retained_memory_at_recovery": {
+      "files": {
+        "conventions.md": {
+          "sha256": "6b9190588fe292f81af593339a03b47c7bea915ad7dc939be49c1d3c2acbf5b6",
+          "bytes": 414
+        },
+        "core.md": {
+          "sha256": "a8c56a12ba89071161a8e43edcc79f6b06f4d3d7182b77c7202c76f28dd394fc",
+          "bytes": 1127
+        },
+        "globset/alternations.md": {
+          "sha256": "062962f3bfef3b715567c4223387a3c58e744d37d74f649e422f1c3ba8267390",
+          "bytes": 922
+        },
+        "globset/unclosed_classes.md": {
+          "sha256": "7ee52357651a0959ac1c6d8ca33cb4b25cc63e4e767615f59faf038c78b6ad4d",
+          "bytes": 1394
+        },
+        "ignore/core.md": {
+          "sha256": "9b1d6563a1ab44d809d45df8382e9f7a91b8ece71c433e502a5b9879392ad6a1",
+          "bytes": 744
+        },
+        "ignore/global_cwd.md": {
+          "sha256": "5cf1bfffc1f82b383c400e1d1e36b1fee2302652b36752af5a063ad3bce97351",
+          "bytes": 1823
+        },
+        "ignore/walk_depth.md": {
+          "sha256": "5d32db254e46792b52d01bf3d17bef8c12e10749e1bd0f82627c83e77bee62f9",
+          "bytes": 1395
+        },
+        "memory_maintenance.md": {
+          "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+          "bytes": 2043
+        },
+        "searcher/context.md": {
+          "sha256": "b0f0b59a7a20c401b273f366e1ec37e45247f8ac0cfb0bea9f8a9bf1031a2209",
+          "bytes": 1761
+        },
+        "searcher/max_matches.md": {
+          "sha256": "7515688492e77670beebd3777419065459bfc11d79c5bc8dba31d7464f28d0e6",
+          "bytes": 477
+        },
+        "suggested_commands.md": {
+          "sha256": "3b4214554cc01b39d8c75904ad0a14d934bb8a77e4a9af8449b32c73ec853611",
+          "bytes": 1192
+        },
+        "task_completion.md": {
+          "sha256": "f3713adaa7e1e52d45347d7cce49444d32dee22d43e98c78d839860b4898d2c0",
+          "bytes": 628
+        },
+        "tech_stack.md": {
+          "sha256": "352345b1f0bc81ff5693c0f1fb0162f7d15c6283d040811d2df781e2a8d0eea9",
+          "bytes": 559
+        }
+      },
+      "count": 13,
+      "bytes": 14479
+    },
+    "stop_reason": "semantic_tool_lookup_failure"
+  },
+  "grading_state": {
+    "valid": true,
+    "raw_score_preserved": true
+  }
+}
