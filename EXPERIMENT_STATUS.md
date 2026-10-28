@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-28 22:24:37**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-28 22:38:07**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -21,7 +21,7 @@
 | Phase 6c: baseline / Caveman / Ponytail, 2×3 | Завершён: два круга по три правки | Завершены 6/6 независимых траекторий и 18/18 правок; Sonar готов для всех 18. Средние baseline/Caveman/Ponytail имеют n=2 в каждой точке. [Итоги и ограничения](reports/phase6c_progress.md). Ошибка Node до модели и retry сохранены отдельно. [Протокол](reports/phase6c_protocol.md) |
 | Phase 6d: четвёртая правка как продолжение, включая Serena | Завершён: четвёртый шаг всех семи траекторий | Собраны 7/7 четвёртых шагов и 7/7 Sonar assessments: baseline/Caveman/Ponytail по два повтора, Serena один сохранённый. Первые три шага не повторялись. Quota failure Ponytail и ошибка SQLite collection сохранены с recovery proofs. [Протокол](reports/phase6d_protocol.md) |
 | Phase 6e: исходная пятая правка SWE, after-context | Сбор завершён; grader недействителен | Собраны 7/7 source/usage/Sonar records; baseline/Caveman/Ponytail 2×5, Serena 1×5. Grader всех 7 пятых задач падает на undeclared max_matches; test score отсутствует. Ранняя остановка Serena по квоте сохранена отдельно. [Протокол](reports/phase6e_protocol.md) |
-| Phase 6f: шестая правка SWE, max_matches searcher migration | Готов к запуску; 0/7 | Frozen runtime, семь пятых checkpoints, approved grader, offline closure, OAuth, квота и Sonar проверены. Следующий шаг — первая шестая правка baseline. [Протокол](reports/phase6f_protocol.md) |
+| Phase 6f: шестая правка SWE, max_matches searcher migration | Trials выполняются | Траекторий завершено 1/7; ошибок 0. Метрики по шагам и протокол ниже. [Протокол](reports/phase6f_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -77,8 +77,8 @@
 | phase6e_baseline_r02 | baseline | 2 | 1/1 | Завершён |
 | phase6e_caveman_r02 | caveman | 2 | 1/1 | Завершён |
 | phase6e_ponytail_r02 | ponytail | 2 | 1/1 | Завершён |
-| phase6f_baseline_r01 | baseline | 1 | 0/1 | Запланирован |
-| phase6f_caveman_r01 | caveman | 1 | 0/1 | Запланирован |
+| phase6f_baseline_r01 | baseline | 1 | 1/1 | Завершён |
+| phase6f_caveman_r01 | caveman | 1 | 0/1 | Выполняется |
 | phase6f_ponytail_r01 | ponytail | 1 | 0/1 | Запланирован |
 | phase6f_serena_r01 | serena | 1 | 0/1 | Запланирован |
 | phase6f_baseline_r02 | baseline | 2 | 0/1 | Запланирован |
@@ -160,6 +160,7 @@
 | phase6e_baseline_r02_s05 | baseline | Ошибка; результат сохранён | 276 | 53 | 223 | 329 | 9 |
 | phase6e_caveman_r02_s05 | caveman | Ошибка; результат сохранён | 285 | 72 | 213 | 357 | 8 |
 | phase6e_ponytail_r02_s05 | ponytail | Ошибка; результат сохранён | 231 | 77 | 154 | 308 | 8 |
+| phase6f_baseline_r01_s06 | baseline | Завершён; grader не принят | 422 | 100 | 322 | 522 | 10 |
 | phase6e_serena_r01_s05_quota01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
@@ -237,6 +238,7 @@ Input уже включает cached input: эти столбцы не скла�
 | phase6e_baseline_r02_s05 | 3 925 047 | 3 728 896 | 13 927 | 0 | 326.9 | 89.6 | 29.8 | 442.2 |
 | phase6e_caveman_r02_s05 | 3 475 801 | 3 244 544 | 14 444 | 0 | 349.3 | 93.0 | 30.4 | 468.0 |
 | phase6e_ponytail_r02_s05 | 3 019 152 | 2 798 848 | 11 103 | 0 | 251.2 | 95.2 | 30.5 | 372.1 |
+| phase6f_baseline_r01_s06 | 4 964 081 | 4 725 632 | 20 327 | 0 | 461.1 | 103.6 | 41.1 | 590.9 |
 | phase6e_serena_r01_s05_quota01 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
@@ -314,6 +316,7 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | phase6e_baseline_r02_s05 | Готов | 31 542 | 2 444 | 282 | 1 438 | — | — |
 | phase6e_caveman_r02_s05 | Готов | 31 584 | 2 447 | 282 | 1 438 | — | — |
 | phase6e_ponytail_r02_s05 | Готов | 31 461 | 2 454 | 282 | 1 438 | — | — |
+| phase6f_baseline_r01_s06 | Готов | 31 783 | 2 525 | 284 | 1 450 | — | — |
 | phase6e_serena_r01_s05_quota01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
