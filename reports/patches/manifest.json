@@ -1420,6 +1420,35 @@
           "tree_replay_verified": true
         }
       }
+    },
+    {
+      "trial_id": "phase6f_caveman_r01_s06_resume01",
+      "variant": "caveman",
+      "setup_fingerprint": "b8edbc5be2bb39fb867bc59cc73f7f6188ffa5fe1b7d46d2da35f6918b2841ac",
+      "trajectory_id": "phase6f_caveman_r01",
+      "step": 6,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "006be5bdf916aae67eb8bb7c5a00e168a686f9ca",
+      "ending_tree": "e5262f91c94af10304f6bfb9f501f8c76276fa45",
+      "snapshot_sha256": "ab4caba2759138ea1acc6f04a5d0edb041c9c66c099483c033801bcbcc0a3c38",
+      "executor_session_id": "01a16594-dd09-7ac0-9e8d-2c15680bf6fd",
+      "local_bundle": "results/trials/phase6f_caveman_r01_s06_resume01/repository.bundle",
+      "bundle_sha256": "27263c42706cb4df68669a39b946e51d9106f3d98fbf42ef4a747f3bd3ad0681",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/phase6f_caveman_r01_s06_resume01.cumulative.patch",
+          "sha256": "2aa00f21005cb821832615f20b5bac9f9a253c2eab34864b5830a6426e96c94b",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/phase6f_caveman_r01_s06_resume01.incremental.patch",
+          "sha256": "0041ff98afdbf5f5a15aa8674a63681d3862fff1b10b69506f4e4dd61f1c86a2",
+          "base_commit": "d343e078259ac68381673f14d619fdf49657cb6f",
+          "tree_replay_verified": true
+        }
+      }
     }
   ],
   "limits": "Patches restore source trees, including benchmark test masking. Model continuation additionally requires the retained native session history and matching runtime; Phase 6d restoration is documented separately."
