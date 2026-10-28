@@ -3825,66 +3825,67 @@
       "variant": "baseline",
       "step": 5,
       "milestone_id": "milestone_seed_8c6595c_1",
-      "n_trajectories": 1,
+      "n_trajectories": 2,
       "trial_ids": [
-        "phase6e_baseline_r01_s05"
+        "phase6e_baseline_r01_s05",
+        "phase6e_baseline_r02_s05"
       ],
       "metrics": {
         "churn_prod_loc": {
-          "n": 1,
-          "mean": 359,
-          "min": 359,
+          "n": 2,
+          "mean": 344,
+          "min": 329,
           "max": 359,
-          "sd": null
+          "sd": 21.213203435596427
         },
         "net_prod_loc": {
-          "n": 1,
-          "mean": 189,
+          "n": 2,
+          "mean": 206,
           "min": 189,
-          "max": 189,
-          "sd": null
+          "max": 223,
+          "sd": 24.041630560342615
         },
         "added_prod_loc": {
-          "n": 1,
-          "mean": 274,
+          "n": 2,
+          "mean": 275,
           "min": 274,
-          "max": 274,
-          "sd": null
+          "max": 276,
+          "sd": 1.4142135623730951
         },
         "deleted_prod_loc": {
-          "n": 1,
-          "mean": 85,
-          "min": 85,
+          "n": 2,
+          "mean": 69,
+          "min": 53,
           "max": 85,
-          "sd": null
+          "sd": 22.627416997969522
         },
         "input_tokens": {
-          "n": 1,
-          "mean": 7698952,
+          "n": 2,
+          "mean": 8119315.5,
           "min": 7698952,
-          "max": 7698952,
-          "sd": null
+          "max": 8539679,
+          "sd": 594483.7628266226
         },
         "cached_input_tokens": {
-          "n": 1,
-          "mean": 7179392,
+          "n": 2,
+          "mean": 7633088,
           "min": 7179392,
-          "max": 7179392,
-          "sd": null
+          "max": 8086784,
+          "sd": 641623.0363944237
         },
         "output_tokens": {
-          "n": 1,
-          "mean": 45115,
+          "n": 2,
+          "mean": 47028.5,
           "min": 45115,
-          "max": 45115,
-          "sd": null
+          "max": 48942,
+          "sd": 2706.0976516009173
         },
         "uncached_input_tokens": {
-          "n": 1,
-          "mean": 519560,
-          "min": 519560,
+          "n": 2,
+          "mean": 486227.5,
+          "min": 452895,
           "max": 519560,
-          "sd": null
+          "sd": 47139.27356780119
         },
         "model_seconds": {
           "n": 0,
@@ -3894,46 +3895,46 @@
           "sd": null
         },
         "sonar_delta_ncloc": {
-          "n": 1,
-          "mean": -20,
-          "min": -20,
+          "n": 2,
+          "mean": -57,
+          "min": -94,
           "max": -20,
-          "sd": null
+          "sd": 52.32590180780452
         },
         "sonar_delta_complexity": {
-          "n": 1,
-          "mean": 52,
-          "min": 52,
+          "n": 2,
+          "mean": 49.5,
+          "min": 47,
           "max": 52,
-          "sd": null
+          "sd": 3.5355339059327378
         },
         "sonar_delta_cognitive_complexity": {
-          "n": 1,
-          "mean": 55,
-          "min": 55,
+          "n": 2,
+          "mean": 49.5,
+          "min": 44,
           "max": 55,
-          "sd": null
+          "sd": 7.7781745930520225
         },
         "sonar_delta_duplicated_lines": {
-          "n": 1,
+          "n": 2,
           "mean": 0,
           "min": 0,
           "max": 0,
-          "sd": null
+          "sd": 0.0
         },
         "sonar_delta_software_quality_maintainability_issues": {
-          "n": 1,
-          "mean": -1,
+          "n": 2,
+          "mean": -0.5,
           "min": -1,
-          "max": -1,
-          "sd": null
+          "max": 0,
+          "sd": 0.7071067811865476
         },
         "sonar_delta_software_quality_maintainability_remediation_effort": {
-          "n": 1,
-          "mean": -5,
+          "n": 2,
+          "mean": -2.5,
           "min": -5,
-          "max": -5,
-          "sd": null
+          "max": 0,
+          "sd": 3.5355339059327378
         },
         "grader_acceptance": {
           "n": 0,
@@ -4909,6 +4910,20 @@
       "trial_id": "phase6e_serena_r01_s05",
       "parent_trial": "phase6d_serena_r01_s04",
       "setup_fingerprint": "d976252cc3bb65fe4e277de238c235bfb6b99dc3139c739f3676436af5b44d7e",
+      "new_inference_executed": true,
+      "step": 5,
+      "grading_state": {
+        "valid": false,
+        "reason": "known_undeclared_max_matches_dependency",
+        "raw_score_preserved": true,
+        "code_metrics_available": true
+      },
+      "prefix_recounted_as_new_repetitions": false
+    },
+    {
+      "trial_id": "phase6e_baseline_r02_s05",
+      "parent_trial": "phase6d_baseline_r02_s04",
+      "setup_fingerprint": "6857d3342866a34307fce8a635de93a7d7f6a38cc155cb1c636c1b3cc646961a",
       "new_inference_executed": true,
       "step": 5,
       "grading_state": {
