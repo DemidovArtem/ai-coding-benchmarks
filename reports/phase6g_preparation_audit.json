@@ -1,0 +1,22 @@
+{
+  "new_model_calls": 0,
+  "image_layer_downloads": 0,
+  "task_and_download_approval_pending": true,
+  "verified_parent_checkpoints": 7,
+  "serena_retained_memories": 13,
+  "prior_curve_points_verified_unchanged": 24,
+  "unit_tests_passed": 7,
+  "sixth_cohort_frozen_pins_unchanged": true,
+  "proposed_task": "milestone_seed_292bc54_1",
+  "preparation_code_sha256": {
+    "experiment/phase6g.py": "af569d482359967771eaf7be25e8d3583e35d7e7542ac845c48d65b00254e562",
+    "experiment/phase6g_report.py": "db1bcac3a1bfba41c97f180a03f37198a4aafaaba40b72920e67640fb453f8c1",
+    "reports/plots/seventh_curves.py": "5427cf60b623df822d79b1ec0ffecba2bffcaea0b4ac4b00f552f3aaae1841fd",
+    "reports/plots/seventh_view.py": "015655bb0af8bf0e6943f6e621e92da3b8af72ab030913c9abe7f069dc2bcfaf"
+  },
+  "limits": [
+    "No new inference executed.",
+    "Grader image and its offline evaluation closure are not available until download approval.",
+    "Proposed task order awaits the user decision."
+  ]
+}

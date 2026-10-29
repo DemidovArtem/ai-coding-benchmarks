@@ -1,0 +1,26 @@
+{
+  "image": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__milestone_seed_292bc54_1@sha256:280e2ee78e35af8e024f729c2950ae4b399cc6e2f64d9eacac1a23120d5355aa",
+  "compressed_bytes": 936459491,
+  "estimated_new_unique_layer_bytes": 16883033,
+  "new_layers": [
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 376,
+      "digest": "sha256:34eab3d74bdf19675994a25f00fca7d84e01bbc8a878bcba487aed47f9e7a744"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 16728806,
+      "digest": "sha256:5fef5aa06eaad4fa73981a0b7666f4da3656626f1af838ce5022adc96418f724"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 153851,
+      "digest": "sha256:409ac5b141a925e15ec1a8c0a8872931d5f8eea9f0f6a2fdee8adf2f82d9d92b"
+    }
+  ],
+  "registry_metadata_only": true,
+  "download_authorized": false,
+  "task_choice_authorized": false,
+  "estimate_basis": "Manifest layer digests compared with retained prior experiment manifests; actual daemon cache checked before pull."
+}

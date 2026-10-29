@@ -102,3 +102,6 @@ Phase 6f recovery accounting: повтор Serena остаётся один. Out
 
 
 Ponytail r02, шаг 6: по разрешению удалён один отвергнутый reasoning-элемент; контекст изменён. [Протокол](../phase6f_ponytail_context_protocol.md).
+
+
+Phase 6g продолжает исходной седьмой задачей JSON output replacement support. План: семь model turns из шестых checkpoints; Serena один раз. Grader выполняется без изменений; при инфраструктурной ошибке очередь останавливается. [Протокол](../phase6g_protocol.md).

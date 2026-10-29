@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-10-29 01:54:37**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-10-29 02:36:19**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -22,6 +22,7 @@
 | Phase 6d: четвёртая правка как продолжение, включая Serena | Завершён: четвёртый шаг всех семи траекторий | Собраны 7/7 четвёртых шагов и 7/7 Sonar assessments: baseline/Caveman/Ponytail по два повтора, Serena один сохранённый. Первые три шага не повторялись. Quota failure Ponytail и ошибка SQLite collection сохранены с recovery proofs. [Протокол](reports/phase6d_protocol.md) |
 | Phase 6e: исходная пятая правка SWE, after-context | Сбор завершён; grader недействителен | Собраны 7/7 source/usage/Sonar records; baseline/Caveman/Ponytail 2×5, Serena 1×5. Grader всех 7 пятых задач падает на undeclared max_matches; test score отсутствует. Ранняя остановка Serena по квоте сохранена отдельно. [Протокол](reports/phase6e_protocol.md) |
 | Phase 6f: шестая правка SWE, max_matches searcher migration | Сбор завершён: семь шестых шагов | Собраны 7/7 продолжений: baseline/Caveman/Ponytail 2×6, Serena 1×6; usage и Sonar готовы. Grader действителен, но все семь имеют resolved=false и 7/8 новых тестов. Ponytail r02: по разрешению удалена одна отвергнутая reasoning-запись; изменение контекста отмечено. [Итоги](reports/phase6f_findings.md). [Протокол](reports/phase6f_protocol.md) |
+| Phase 6g: седьмая правка как продолжение | Подготовка; требуется выбор задачи и согласование образа | Авторизовано ещё семь продолжений из шестых checkpoints. Предлагается JSON replacement перед Printer Cleanup по Strong dependency. Новые model calls и загрузки слоёв не выполнялись. [Протокол](reports/phase6g_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -84,6 +85,13 @@
 | phase6f_baseline_r02 | baseline | 2 | 1/1 | Завершён |
 | phase6f_caveman_r02 | caveman | 2 | 1/1 | Завершён |
 | phase6f_ponytail_r02 | ponytail | 2 | 1/1 | Завершён |
+| phase6g_baseline_r01 | baseline | 1 | 0/1 | Запланирован |
+| phase6g_caveman_r01 | caveman | 1 | 0/1 | Запланирован |
+| phase6g_ponytail_r01 | ponytail | 1 | 0/1 | Запланирован |
+| phase6g_serena_r01 | serena | 1 | 0/1 | Запланирован |
+| phase6g_baseline_r02 | baseline | 2 | 0/1 | Запланирован |
+| phase6g_caveman_r02 | caveman | 2 | 0/1 | Запланирован |
+| phase6g_ponytail_r02 | ponytail | 2 | 0/1 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 
