@@ -1,0 +1,56 @@
+{
+  "failed_attempt": "phase6f_ponytail_r02_s06",
+  "retained_container": "milestone_seed_a6e0be3_1_sub-01-phase6f_ponytail_r02-runner",
+  "retained_work": {
+    "head": "73e5e46b57319729b1255e296531441e0e9a7103",
+    "unstaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_files": []
+  },
+  "native_turns": [
+    {
+      "id": "01a16e63-05b0-7791-92f3-58fc9c554ac6",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e69-7563-7872-aaa9-23dd90262d62",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e71-c235-7f93-aff4-85649b15d13b",
+      "status": "completed"
+    },
+    {
+      "id": "01a175d7-8297-7ae2-a247-9db2563f50e2",
+      "status": "failed"
+    },
+    {
+      "id": "01a175e0-afd9-71f1-b7ca-4d3413d79ce5",
+      "status": "completed"
+    },
+    {
+      "id": "01a17ff9-3492-7711-9b2b-5a43b38ccfc7",
+      "status": "completed"
+    },
+    {
+      "id": "01a18512-9a6c-7b71-8284-a10d2f17e457",
+      "status": "failed"
+    }
+  ],
+  "new_model_calls": 0,
+  "history_reimported": false,
+  "source_reset": false,
+  "retry_limit": 1,
+  "reason": "One exact-context retry after API invalid_encrypted_content before any model work; no history item removed or modified.",
+  "rejected_reasoning_item_present_in_parent": true,
+  "rejected_reasoning_item_fields": [
+    [
+      "encrypted_content",
+      "id",
+      "internal_chat_message_metadata_passthrough",
+      "summary",
+      "type"
+    ]
+  ],
+  "adapter_sha256": "6b629f65ce6a0715ad6294e2416a266be0d3365d19c8a1782652b83bc8103004"
+}

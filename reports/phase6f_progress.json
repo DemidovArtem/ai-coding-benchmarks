@@ -131,6 +131,17 @@
       "source_trial": "phase6e_caveman_r02_s05",
       "collection_errors": [],
       "sonar": true
+    },
+    {
+      "trial_id": "phase6f_ponytail_r02_s06",
+      "state": "failed",
+      "grading_state": {
+        "valid": false,
+        "reason": "execution_failure"
+      },
+      "source_trial": "phase6e_ponytail_r02_s05",
+      "collection_errors": [],
+      "sonar": null
     }
   ]
 }
