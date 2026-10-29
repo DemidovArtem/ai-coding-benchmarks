@@ -768,12 +768,18 @@
       "variant": "baseline",
       "repetition": 2,
       "cohort": "phase6f",
-      "state": "running",
+      "state": "failed",
       "completed_steps": 0,
       "total_steps": 1,
       "actual_edit_number": 6,
       "parent_trial": "phase6e_baseline_r02_s05",
-      "active_step": 6
+      "active_step": null,
+      "last_step": "phase6f_baseline_r02_s06",
+      "failure_category": "quota_pressure",
+      "failed_attempts": [
+        "phase6f_baseline_r02_s06"
+      ],
+      "recovery_protocol": "reports/phase6f_baseline_resume_protocol.md"
     },
     {
       "trial_id": "phase6f_caveman_r02",
@@ -958,16 +964,17 @@
     },
     "phase6f": {
       "title": "Phase 6f: \u0448\u0435\u0441\u0442\u0430\u044f \u043f\u0440\u0430\u0432\u043a\u0430 SWE, max_matches searcher migration",
-      "status": "running",
-      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 4/7; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "status": "partial",
+      "label": "\u041f\u0438\u043b\u043e\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e",
+      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 4/7; \u043e\u0448\u0438\u0431\u043e\u043a 1. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
       "protocol": "reports/phase6f_protocol.md",
       "results_report": "reports/phase6f_progress.md",
       "image_budget": "reports/phase6f_image_budget.json",
       "same_executor_session_verified": true,
       "continuous_result_claimed": true,
       "recovery_protocol": "reports/phase6f_resume_protocol.md",
-      "serena_recovery_protocol": "reports/phase6f_serena_resume_protocol.md"
+      "serena_recovery_protocol": "reports/phase6f_serena_resume_protocol.md",
+      "baseline_recovery_protocol": "reports/phase6f_baseline_resume_protocol.md"
     }
   },
   "active_variants": [

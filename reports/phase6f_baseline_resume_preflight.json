@@ -1,0 +1,41 @@
+{
+  "failed_attempt": "phase6f_baseline_r02_s06",
+  "retained_container": "milestone_seed_a6e0be3_1_sub-01-phase6f_baseline_r02-runner",
+  "retained_work": {
+    "head": "e09c213ff4c1b345c7f6833f19eb141c3bcaebff",
+    "unstaged_sha256": "473b5de8b1b1d4adab0769b3885ab1993d4928030464928a847bae2313358df9",
+    "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_files": []
+  },
+  "native_turns": [
+    {
+      "id": "01a16e2d-ed5e-7160-9d95-6eeec76b2955",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e34-f813-7532-862a-b935c4530f1c",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e3d-093b-7201-a4d6-aa815c9ec41c",
+      "status": "completed"
+    },
+    {
+      "id": "01a175a7-5393-7460-91c7-9edc8df1bd72",
+      "status": "completed"
+    },
+    {
+      "id": "01a17fe5-a0ec-7500-a9eb-883610852fbf",
+      "status": "completed"
+    },
+    {
+      "id": "01a184bd-b3df-7ea3-8715-80a55ff78d43",
+      "status": "failed"
+    }
+  ],
+  "new_model_calls": 0,
+  "history_reimported": false,
+  "source_reset": false,
+  "partial_patch": "results/phase6f_retained_baseline_r02_partial.patch",
+  "adapter_sha256": "1a1fdcd5318b6f79f991e35dcb0c335aa7dcff9e1bd8cd8b97e113ec8c5f7a86"
+}

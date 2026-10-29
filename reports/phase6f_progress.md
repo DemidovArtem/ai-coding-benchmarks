@@ -17,6 +17,7 @@
 | phase6f_ponytail_r01_s06 | finished | Raw resolved=False | True |
 | phase6f_serena_r01_s06 | failed | Недействителен / не завершён | None |
 | phase6f_serena_r01_s06_resume01 | finished | Raw resolved=False | True |
+| phase6f_baseline_r02_s06 | failed | Недействителен / не завершён | None |
 
 Шестая исходная SWE-задача добавляет `SearcherBuilder::max_matches`. Grader выполняется без изменений. Пятые test scores остаются недействительными; шестая оценка не переписывает прошлые результаты.
 
