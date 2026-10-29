@@ -1,0 +1,706 @@
+diff --git a/crates/searcher/src/searcher/core.rs b/crates/searcher/src/searcher/core.rs
+index 1700a7c1fb6b8f8cc14d44816999f132d0518dda..ea17e126a9acd806a24366001e4a27067ba443b1 100644
+--- a/crates/searcher/src/searcher/core.rs
++++ b/crates/searcher/src/searcher/core.rs
+@@ -33,6 +33,7 @@ pub(crate) struct Core<'s, M: 's, S> {
+     after_context_left: usize,
+     has_sunk: bool,
+     has_matched: bool,
++    match_count: u64,
+ }
+ 
+ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+@@ -59,6 +60,7 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             after_context_left: 0,
+             has_sunk: false,
+             has_matched: false,
++            match_count: 0,
+         };
+         if !core.searcher.multi_line_with_matcher(&core.matcher) {
+             if core.is_line_by_line_fast() {
+@@ -102,7 +104,36 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+     }
+ 
+     pub(crate) fn begin(&mut self) -> Result<bool, S::Error> {
+-        self.sink.begin(&self.searcher)
++        Ok(self.sink.begin(&self.searcher)? && !self.match_limit_reached())
++    }
++
++    pub(crate) fn match_limit_reached(&self) -> bool {
++        self.config.max_matches.map_or(false, |max| self.match_count >= max)
++    }
++
++    /// Count logical matches before multiline spans are combined for a sink.
++    pub(crate) fn count_match(&mut self) {
++        self.match_count = self.match_count.saturating_add(1);
++    }
++
++    pub(crate) fn has_after_context(&self) -> bool {
++        self.after_context_left > 0
++    }
++
++    pub(crate) fn after_context_end(&self, buf: &[u8]) -> usize {
++        let mut end = self.last_line_visited;
++        let mut stepper = LineStep::new(
++            self.config.line_term.as_byte(),
++            end,
++            buf.len(),
++        );
++        for _ in 0..self.after_context_left {
++            match stepper.next_match(buf) {
++                None => break,
++                Some(line) => end = line.end(),
++            }
++        }
++        end
+     }
+ 
+     pub(crate) fn finish(
+@@ -278,6 +309,15 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             range.end(),
+         );
+         while let Some(line) = stepper.next_match(buf) {
++            if self.match_limit_reached() {
++                if self.config.passthru {
++                    self.set_pos(buf.len());
++                    return self.other_context_by_line(buf, buf.len());
++                }
++                if !self.has_after_context() {
++                    return Ok(false);
++                }
++            }
+             let matched = {
+                 // Stripping the line terminator is necessary to prevent some
+                 // classes of regexes from matching the empty position *after*
+@@ -296,6 +336,7 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             let success = matched != self.config.invert_match;
+             if success {
+                 self.has_matched = true;
++                self.count_match();
+                 if !self.before_context_by_line(buf, line.start())? {
+                     return Ok(false);
+                 }
+@@ -314,6 +355,12 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             if self.config.stop_on_nonmatch && !success && self.has_matched {
+                 return Ok(false);
+             }
++            if self.match_limit_reached()
++                && !self.has_after_context()
++                && !self.config.passthru
++            {
++                return Ok(false);
++            }
+         }
+         Ok(true)
+     }
+@@ -326,6 +373,12 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+ 
+         debug_assert!(!self.config.passthru);
+         while !buf[self.pos()..].is_empty() {
++            if self.match_limit_reached()
++                || (self.config.invert_match
++                    && self.config.max_matches.is_some())
++            {
++                return Ok(SwitchToSlow);
++            }
+             if self.config.stop_on_nonmatch && self.has_matched {
+                 return Ok(SwitchToSlow);
+             }
+@@ -344,9 +397,13 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+                     }
+                 }
+                 self.set_pos(line.end());
++                self.count_match();
+                 if !self.sink_matched(buf, &line)? {
+                     return Ok(Stop);
+                 }
++                if self.match_limit_reached() && !self.has_after_context() {
++                    return Ok(Stop);
++                }
+             } else {
+                 break;
+             }
+@@ -393,6 +450,7 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             invert_match.end(),
+         );
+         while let Some(line) = stepper.next_match(buf) {
++            self.count_match();
+             if !self.sink_matched(buf, &line)? {
+                 return Ok(false);
+             }
+diff --git a/crates/searcher/src/searcher/glue.rs b/crates/searcher/src/searcher/glue.rs
+index ed3a3e4fb878ce5ecdcf77815c8b094b3954a924..bfb2216a04068df26841d88efd1c2b1b6e5d3872 100644
+--- a/crates/searcher/src/searcher/glue.rs
++++ b/crates/searcher/src/searcher/glue.rs
+@@ -197,12 +197,43 @@ impl<'s, M: Matcher, S: Sink> MultiLine<'s, M, S> {
+     }
+ 
+     fn sink(&mut self) -> Result<bool, S::Error> {
++        if self.core.match_limit_reached() {
++            if let Some(last_match) = self.last_match.take() {
++                if !self.sink_context(&last_match)?
++                    || !self.sink_matched(&last_match)?
++                {
++                    return Ok(false);
++                }
++                self.core.set_pos(self.core.pos().max(last_match.end()));
++            }
++            if self.config.passthru {
++                self.core.set_pos(self.slice.len());
++                return self
++                    .core
++                    .other_context_by_line(self.slice, self.slice.len());
++            }
++            if !self.core.has_after_context() {
++                return Ok(false);
++            }
++            let end = self.core.after_context_end(self.slice);
++            if self.core.pos() >= end {
++                self.core.set_pos(end);
++                self.core.after_context_by_line(self.slice, end)?;
++                return Ok(false);
++            }
++        }
+         if self.config.invert_match {
+             return self.sink_matched_inverted();
+         }
+         let mat = match self.find()? {
+             Some(range) => range,
+             None => {
++                if self.core.match_limit_reached() {
++                    let end = self.core.after_context_end(self.slice);
++                    self.core.set_pos(end);
++                    self.core.after_context_by_line(self.slice, end)?;
++                    return Ok(false);
++                }
+                 self.core.set_pos(self.slice.len());
+                 return Ok(true);
+             }
+@@ -211,6 +242,9 @@ impl<'s, M: Matcher, S: Sink> MultiLine<'s, M, S> {
+ 
+         let line =
+             lines::locate(self.slice, self.config.line_term.as_byte(), mat);
++        if !line.is_empty() {
++            self.core.count_match();
++        }
+         // We delay sinking the match to make sure we group adjacent matches
+         // together in a single sink. Adjacent matches are distinct matches
+         // that start and end on the same line, respectively. This guarantees
+@@ -253,7 +287,12 @@ impl<'s, M: Matcher, S: Sink> MultiLine<'s, M, S> {
+ 
+         let invert_match = match self.find()? {
+             None => {
+-                let range = Range::new(self.core.pos(), self.slice.len());
++                let end = if self.core.match_limit_reached() {
++                    self.core.after_context_end(self.slice)
++                } else {
++                    self.slice.len()
++                };
++                let range = Range::new(self.core.pos(), end);
+                 self.core.set_pos(range.end());
+                 range
+             }
+@@ -280,9 +319,29 @@ impl<'s, M: Matcher, S: Sink> MultiLine<'s, M, S> {
+             invert_match.end(),
+         );
+         while let Some(line) = stepper.next_match(self.slice) {
++            if self.core.match_limit_reached() {
++                if self.config.passthru {
++                    self.core.set_pos(self.slice.len());
++                    return self
++                        .core
++                        .other_context_by_line(self.slice, self.slice.len());
++                }
++                if !self.core.has_after_context() {
++                    self.core.set_pos(line.start());
++                    return Ok(false);
++                }
++            }
++            self.core.count_match();
+             if !self.sink_matched(&line)? {
+                 return Ok(false);
+             }
++            if self.core.match_limit_reached()
++                && !self.core.has_after_context()
++                && !self.config.passthru
++            {
++                self.core.set_pos(line.end());
++                return Ok(false);
++            }
+         }
+         Ok(true)
+     }
+@@ -316,10 +375,40 @@ impl<'s, M: Matcher, S: Sink> MultiLine<'s, M, S> {
+     }
+ 
+     fn find(&mut self) -> Result<Option<Range>, S::Error> {
++        let end = if self.core.match_limit_reached() {
++            if self.config.passthru || !self.core.has_after_context() {
++                return Ok(None);
++            }
++            self.core.after_context_end(self.slice)
++        } else {
++            self.slice.len()
++        };
++        if self.core.pos() >= end {
++            return Ok(None);
++        }
++        // A match starting in after-context may extend past that window.
++        // Search the full suffix so such matches retain their complete span.
+         match self.core.matcher().find(&self.slice[self.core.pos()..]) {
+             Err(err) => Err(S::Error::error_message(err)),
+             Ok(None) => Ok(None),
+-            Ok(Some(m)) => Ok(Some(m.offset(self.core.pos()))),
++            Ok(Some(m)) => {
++                let m = m.offset(self.core.pos());
++                let start = if m.is_empty() {
++                    lines::locate(
++                        self.slice,
++                        self.config.line_term.as_byte(),
++                        m,
++                    )
++                    .start()
++                } else {
++                    m.start()
++                };
++                if self.core.match_limit_reached() && start >= end {
++                    Ok(None)
++                } else {
++                    Ok(Some(m))
++                }
++            }
+         }
+     }
+ 
+diff --git a/crates/searcher/src/searcher/mod.rs b/crates/searcher/src/searcher/mod.rs
+index deda17e5bdbbd936310b3b494c4dd6741e8798eb..67336d05805febc3b2a9b5d4804c74af12e10367 100644
+--- a/crates/searcher/src/searcher/mod.rs
++++ b/crates/searcher/src/searcher/mod.rs
+@@ -153,6 +153,8 @@ pub struct Config {
+     line_term: LineTerminator,
+     /// Whether to invert matching.
+     invert_match: bool,
++    /// The maximum number of matches to discover outside after-context.
++    max_matches: Option<u64>,
+     /// The number of lines after a match to include.
+     after_context: usize,
+     /// The number of lines before a match to include.
+@@ -187,6 +189,7 @@ impl Default for Config {
+         Config {
+             line_term: LineTerminator::default(),
+             invert_match: false,
++            max_matches: None,
+             after_context: 0,
+             before_context: 0,
+             passthru: false,
+@@ -357,6 +360,24 @@ impl SearcherBuilder {
+         self
+     }
+ 
++    /// Limit the number of matches discovered by each search.
++    ///
++    /// By default, no limit is imposed. A limit of zero skips searching.
++    /// In line mode, each matching line counts once. In multiline mode, each
++    /// match counts once, even when it spans multiple lines. In inverted
++    /// searches, each non-matching line counts once.
++    ///
++    /// After-context is still searched and reported after reaching the limit.
++    /// Matches in that context extend the context window, so combining this
++    /// limit with after-context can report more matches than the limit.
++    ///
++    /// In passthru mode, reaching the limit stops discovering matches, but all
++    /// remaining lines are still reported as context.
++    pub fn max_matches(&mut self, limit: Option<u64>) -> &mut SearcherBuilder {
++        self.config.max_matches = limit;
++        self
++    }
++
+     /// Whether to count and include line numbers with matching lines.
+     ///
+     /// This is enabled by default. There is a small performance penalty
+@@ -632,6 +653,9 @@ impl Searcher {
+         S: Sink,
+     {
+         let path = path.as_ref();
++        if self.config.max_matches == Some(0) {
++            return self.search_slice(matcher, &[], write_to);
++        }
+         let file = File::open(path).map_err(S::Error::error_io)?;
+         self.search_file_maybe_path(matcher, Some(path), &file, write_to)
+     }
+@@ -666,6 +690,9 @@ impl Searcher {
+         M: Matcher,
+         S: Sink,
+     {
++        if self.config.max_matches == Some(0) {
++            return self.search_slice(matcher, &[], write_to);
++        }
+         if let Some(mmap) = self.config.mmap.open(file, path) {
+             log::trace!("{:?}: searching via memory map", path);
+             return self.search_slice(matcher, &mmap, write_to);
+@@ -715,6 +742,9 @@ impl Searcher {
+         R: io::Read,
+         S: Sink,
+     {
++        if self.config.max_matches == Some(0) {
++            return self.search_slice(matcher, &[], write_to);
++        }
+         self.check_config(&matcher).map_err(S::Error::error_config)?;
+ 
+         let mut decode_buffer = self.decode_buffer.borrow_mut();
+@@ -756,6 +786,11 @@ impl Searcher {
+         M: Matcher,
+         S: Sink,
+     {
++        if self.config.max_matches == Some(0) {
++            let mut core = core::Core::new(self, matcher, write_to, false);
++            core.begin()?;
++            return core.finish(0, None);
++        }
+         self.check_config(&matcher).map_err(S::Error::error_config)?;
+ 
+         // We can search the slice directly, unless we need to do transcoding.
+@@ -811,6 +846,12 @@ impl Searcher {
+ /// These can be useful in generic implementations of [`Sink`], where the
+ /// output may be tailored based on how the searcher is configured.
+ impl Searcher {
++    /// Returns the configured maximum number of matches per search.
++    #[inline]
++    pub fn max_matches(&self) -> Option<u64> {
++        self.config.max_matches
++    }
++
+     /// Returns the line terminator used by this searcher.
+     #[inline]
+     pub fn line_terminator(&self) -> LineTerminator {
+diff --git a/crates/searcher/tests/max_matches.rs b/crates/searcher/tests/max_matches.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..3fb81c7f5ebd31b1ccdba6f0158706740c166748
+--- /dev/null
++++ b/crates/searcher/tests/max_matches.rs
+@@ -0,0 +1,325 @@
++use std::io;
++
++use grep_matcher::{LineTerminator, Match, Matcher, NoCaptures, NoError};
++use grep_regex::RegexMatcherBuilder;
++use grep_searcher::{
++    Encoding, Searcher, SearcherBuilder, Sink, SinkContext, SinkFinish,
++    SinkMatch,
++};
++
++#[derive(Default)]
++struct Output {
++    events: Vec<(bool, Vec<u8>)>,
++    begins: usize,
++    finishes: usize,
++    bytes_searched: u64,
++}
++
++struct TestMatcher {
++    regex: grep_regex::RegexMatcher,
++    fast: bool,
++}
++
++impl Matcher for TestMatcher {
++    type Captures = NoCaptures;
++    type Error = NoError;
++
++    fn find_at(
++        &self,
++        buf: &[u8],
++        at: usize,
++    ) -> Result<Option<Match>, NoError> {
++        self.regex.find_at(buf, at)
++    }
++
++    fn new_captures(&self) -> Result<NoCaptures, NoError> {
++        Ok(NoCaptures::new())
++    }
++
++    fn line_terminator(&self) -> Option<LineTerminator> {
++        if self.fast {
++            Some(LineTerminator::byte(b'\n'))
++        } else {
++            None
++        }
++    }
++}
++
++impl Sink for Output {
++    type Error = io::Error;
++
++    fn begin(&mut self, _: &Searcher) -> io::Result<bool> {
++        self.begins += 1;
++        Ok(true)
++    }
++
++    fn matched(
++        &mut self,
++        _: &Searcher,
++        m: &SinkMatch<'_>,
++    ) -> io::Result<bool> {
++        // Split blocks so adjacent multiline matches can still be compared.
++        for line in m.lines() {
++            self.events.push((true, line.to_vec()));
++        }
++        Ok(true)
++    }
++
++    fn context(
++        &mut self,
++        _: &Searcher,
++        c: &SinkContext<'_>,
++    ) -> io::Result<bool> {
++        self.events.push((false, c.bytes().to_vec()));
++        Ok(true)
++    }
++
++    fn finish(&mut self, _: &Searcher, f: &SinkFinish) -> io::Result<()> {
++        self.finishes += 1;
++        self.bytes_searched = f.byte_count();
++        Ok(())
++    }
++}
++
++fn check(
++    builder: &SearcherBuilder,
++    pattern: &str,
++    haystack: &str,
++    expected: &[(bool, &str)],
++) {
++    let expected: Vec<_> = expected
++        .iter()
++        .map(|&(matched, line)| (matched, line.as_bytes().to_vec()))
++        .collect();
++    // Explicit terminators select fast line search. Otherwise, the wrapper
++    // hides the regex's optimizations to force the slow line search path.
++    for fast in [false, true] {
++        if fast && builder.build().multi_line() {
++            continue;
++        }
++        let regex = RegexMatcherBuilder::new()
++            .line_terminator(if fast { Some(b'\n') } else { None })
++            .build(pattern)
++            .unwrap();
++        let matcher = TestMatcher { regex, fast };
++        for reader in [false, true] {
++            let mut searcher = builder.build();
++            for _ in 0..2 {
++                let mut output = Output::default();
++                if reader {
++                    searcher
++                        .search_reader(
++                            &matcher,
++                            haystack.as_bytes(),
++                            &mut output,
++                        )
++                        .unwrap();
++                } else {
++                    searcher
++                        .search_slice(
++                            &matcher,
++                            haystack.as_bytes(),
++                            &mut output,
++                        )
++                        .unwrap();
++                }
++                assert_eq!(
++                    output.events, expected,
++                    "fast={fast} reader={reader}",
++                );
++                assert_eq!((output.begins, output.finishes), (1, 1));
++            }
++        }
++    }
++}
++
++#[test]
++fn configuration_and_line_limits() {
++    let mut builder = SearcherBuilder::new();
++    assert_eq!(builder.build().max_matches(), None);
++    assert_eq!(builder.max_matches(Some(1)).build().max_matches(), Some(1));
++    check(&builder, "Sherlock", "Sherlock Sherlock\nWatson\nSherlock\n", &[
++        (true, "Sherlock Sherlock\n"),
++    ]);
++    check(builder.max_matches(Some(2)), "x", "x\nx\nx\n", &[
++        (true, "x\n"), (true, "x\n"),
++    ]);
++    check(builder.max_matches(None), "x", "x\nx\nx\n", &[
++        (true, "x\n"), (true, "x\n"), (true, "x\n"),
++    ]);
++    check(builder.max_matches(Some(u64::MAX)), "x", "x\nx", &[
++        (true, "x\n"), (true, "x"),
++    ]);
++}
++
++#[test]
++fn context_matches_extend_the_window() {
++    let mut builder = SearcherBuilder::new();
++    builder.max_matches(Some(1)).before_context(1).after_context(1);
++    check(&builder, "x", "before\nx\nx\nz\nx\n", &[
++        (false, "before\n"), (true, "x\n"), (true, "x\n"), (false, "z\n"),
++    ]);
++    check(&builder, "x", "x\nx\nx\nz\nx\n", &[
++        (true, "x\n"), (true, "x\n"), (true, "x\n"), (false, "z\n"),
++    ]);
++    builder.heap_limit(Some(8)).before_context(0);
++    check(&builder, "x", "z\nz\nx\nz\nx\n", &[
++        (true, "x\n"), (false, "z\n"),
++    ]);
++    check(&builder, "x", "z\nx\nx\nx\nz\nx\n", &[
++        (true, "x\n"), (true, "x\n"), (true, "x\n"), (false, "z\n"),
++    ]);
++    builder.after_context(0).before_context(1);
++    check(&builder, "x", "z\nz\nz\nx\nz\nx\n", &[
++        (false, "z\n"), (true, "x\n"),
++    ]);
++}
++
++#[test]
++fn inverted_line_limits_and_context() {
++    let mut builder = SearcherBuilder::new();
++    builder.invert_match(true).max_matches(Some(1));
++    check(&builder, "x", "x\na\nb\nx\nc\n", &[(true, "a\n")]);
++    builder.max_matches(Some(2)).after_context(1);
++    check(&builder, "x", "a\nx\nb\nx\nc\n", &[
++        (true, "a\n"), (false, "x\n"), (true, "b\n"), (false, "x\n"),
++    ]);
++    builder.max_matches(Some(1));
++    check(&builder, "x", "a\nb\nx\nc\n", &[
++        (true, "a\n"), (true, "b\n"), (false, "x\n"),
++    ]);
++}
++
++#[test]
++fn multiline_spans_count_once() {
++    let mut builder = SearcherBuilder::new();
++    builder.multi_line(true).max_matches(Some(1));
++    check(&builder, "a\nb", "a\nb\na\nb\n", &[
++        (true, "a\n"), (true, "b\n"),
++    ]);
++    check(&builder, "a\nb", "a\nba\nb\n", &[
++        (true, "a\n"), (true, "ba\n"),
++    ]);
++    check(&builder, r"\z", "abc", &[(true, "abc")]);
++    builder.max_matches(Some(2));
++    check(&builder, "a\nb", "a\nb\na\nb\na\nb\n", &[
++        (true, "a\n"), (true, "b\n"), (true, "a\n"), (true, "b\n"),
++    ]);
++    check(&builder, "a\nb", "a\nb\nz\na\nb\nz\na\nb\n", &[
++        (true, "a\n"), (true, "b\n"), (true, "a\n"), (true, "b\n"),
++    ]);
++    builder.max_matches(Some(1)).after_context(1);
++    check(&builder, "a\nb", "a\nb\na\nb\nz\na\nb\n", &[
++        (true, "a\n"), (true, "b\n"), (true, "a\n"), (true, "b\n"),
++        (false, "z\n"),
++    ]);
++    check(&builder, r"q|\z", "q\nz", &[(true, "q\n"), (true, "z")]);
++}
++
++#[test]
++fn inverted_multiline_limits() {
++    let mut builder = SearcherBuilder::new();
++    builder.multi_line(true).invert_match(true).max_matches(Some(1));
++    check(&builder, "a\nb", "a\nb\nx\ny\na\nb\n", &[(true, "x\n")]);
++    builder.max_matches(Some(2)).after_context(1);
++    check(&builder, "a\nb", "x\na\nb\ny\na\nb\nz\n", &[
++        (true, "x\n"), (false, "a\n"), (true, "y\n"), (false, "a\n"),
++    ]);
++}
++
++#[test]
++fn passthru_preserves_all_lines() {
++    let mut builder = SearcherBuilder::new();
++    builder.max_matches(Some(1)).passthru(true);
++    check(&builder, "x", "z\nx\nx\nz\n", &[
++        (false, "z\n"), (true, "x\n"), (false, "x\n"), (false, "z\n"),
++    ]);
++    builder.multi_line(true);
++    check(&builder, "a\nb", "z\na\nb\na\nb\nz\n", &[
++        (false, "z\n"), (true, "a\n"), (true, "b\n"), (false, "a\n"),
++        (false, "b\n"), (false, "z\n"),
++    ]);
++    builder.invert_match(true);
++    check(&builder, "a\nb", "z\na\nb\nz\n", &[
++        (true, "z\n"), (false, "a\n"), (false, "b\n"), (false, "z\n"),
++    ]);
++}
++
++struct NoRead;
++
++impl io::Read for NoRead {
++    fn read(&mut self, _: &mut [u8]) -> io::Result<usize> {
++        panic!("a zero match limit must not read input");
++    }
++}
++
++struct OneMatch {
++    calls: std::cell::Cell<usize>,
++    multiline: bool,
++    fast: bool,
++}
++
++impl Matcher for OneMatch {
++    type Captures = NoCaptures;
++    type Error = NoError;
++
++    fn find_at(&self, _: &[u8], at: usize) -> Result<Option<Match>, NoError> {
++        assert_eq!(self.calls.get(), 0, "searched after reaching the limit");
++        self.calls.set(1);
++        Ok(Some(Match::new(at, at + if self.multiline { 3 } else { 1 })))
++    }
++
++    fn new_captures(&self) -> Result<NoCaptures, NoError> {
++        Ok(NoCaptures::new())
++    }
++
++    fn line_terminator(&self) -> Option<LineTerminator> {
++        if self.fast {
++            Some(LineTerminator::byte(b'\n'))
++        } else {
++            None
++        }
++    }
++}
++
++#[test]
++fn no_matching_after_limit() {
++    for (multiline, fast) in [(false, false), (false, true), (true, false)] {
++        let matcher = OneMatch {
++            calls: std::cell::Cell::new(0), multiline, fast,
++        };
++        let mut searcher = SearcherBuilder::new()
++            .max_matches(Some(1))
++            .multi_line(multiline)
++            .build();
++        searcher
++            .search_slice(&matcher, b"x\ny\nx\ny\n", Output::default())
++            .unwrap();
++        assert_eq!(matcher.calls.get(), 1);
++        matcher.calls.set(0);
++        searcher
++            .search_reader(&matcher, &b"x\ny\nx\ny\n"[..], Output::default())
++            .unwrap();
++        assert_eq!(matcher.calls.get(), 1);
++    }
++}
++
++#[test]
++fn zero_limit_skips_reading_and_matching() {
++    for multiline in [false, true] {
++        let matcher = OneMatch {
++            calls: std::cell::Cell::new(0), multiline, fast: false,
++        };
++        let mut searcher = SearcherBuilder::new()
++            .max_matches(Some(0))
++            .multi_line(multiline)
++            .encoding(Some(Encoding::new("utf-16le").unwrap()))
++            .build();
++        let mut output = Output::default();
++        searcher.search_reader(&matcher, NoRead, &mut output).unwrap();
++        assert!(output.events.is_empty());
++        assert_eq!(output.bytes_searched, 0);
++        assert_eq!(matcher.calls.get(), 0);
++        assert_eq!((output.begins, output.finishes), (1, 1));
++    }
++}
