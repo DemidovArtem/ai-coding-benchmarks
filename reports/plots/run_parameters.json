@@ -3854,5 +3854,89 @@
       "valid": false,
       "reason": "execution_failure"
     }
+  },
+  {
+    "trial_id": "phase6f_ponytail_r02_s06_resume02",
+    "variant": "ponytail",
+    "repetition": 2,
+    "step": 6,
+    "state": "finished",
+    "resolved": false,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setup_fingerprint": "b8edbc5be2bb39fb867bc59cc73f7f6188ffa5fe1b7d46d2da35f6918b2841ac",
+    "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+    "codex_cli": "0.163.0",
+    "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "executor_session_id": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+    "snapshot_sha256": "e8e51fd8d69a1bcd361f80a53b6c6d90b52f4dc8264c03148413b78df44b945b",
+    "resume": {
+      "attempt_of": "phase6f_ponytail_r02_s06_resume01",
+      "same_session_required": "01a16e63-039b-7653-aff4-bfd3ae7116af",
+      "original_failure_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/phase6f_ponytail_r02_s06_resume01",
+      "adapter_sha256": "b8eecee4ff2f6dab7292a080be44b7e7b5b29dfbbea1c76dc7055531ffc504bb"
+    },
+    "quota_before": {
+      "observed_at": "2026-10-29T00:42:15.023760+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 52,
+            "windowDurationMins": 300,
+            "resetsAt": 1793250565
+          },
+          "secondary": {
+            "usedPercent": 34,
+            "windowDurationMins": 10080,
+            "resetsAt": 1793774699
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "failure_category": null,
+    "profile_config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "skill_version": "5.3.2",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+    "started_at": "2026-10-29T00:42:15.020448+00:00",
+    "selected_milestones": [
+      "milestone_seed_5f5da48_1_sub-01",
+      "milestone_seed_5f5da48_1_sub-02",
+      "milestone_seed_2924d0c_1",
+      "milestone_seed_b610d1c_1",
+      "milestone_seed_8c6595c_1",
+      "milestone_seed_a6e0be3_1_sub-01"
+    ],
+    "grading_policy": {
+      "residue_prune": true,
+      "scope": "sixth-task original SWE evaluation",
+      "infrastructure_errors_stop_scheduling": true
+    },
+    "parent_trial": "phase6e_ponytail_r02_s05",
+    "new_inference_executed": true,
+    "usage_origin_trial": "phase6f_ponytail_r02_s06_resume02",
+    "history_transport": "native legacy header; original response/event bytes retained",
+    "grading_state": {
+      "valid": true,
+      "raw_score_preserved": true
+    },
+    "context_deviation": {
+      "authorization": "User explicitly allowed removing only the rejected reasoning item from a checkpoint copy.",
+      "removed_item_id": "rs_065c6469f16d8dd2016ae146d391e88191833fbd599d490df6",
+      "removed_item_sha256": "a19a88a5cd5f6b622f12e63365920da5b94951ad8c5bedb07a09a12750a873b4",
+      "before_sha256": "21c7bda09c61bf20d168f64233f1069d5538470bf09c3f8cb76ed61b6cd07a00",
+      "after_sha256": "ee8818c9116cd91420467d674def4181c969b64215d08744e85a5840ed3607aa",
+      "removed_records": 1,
+      "remaining_record_bytes_unchanged": true,
+      "original_preserved": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/runtime/phase6f/phase6f_ponytail_r02_s06_resume02/original_live_rollout.jsonl",
+      "same_session": "01a16e63-039b-7653-aff4-bfd3ae7116af"
+    },
+    "strict_history_continuation": false
   }
 ]

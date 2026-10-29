@@ -74,6 +74,7 @@
 | phase6f_caveman_r02_s06 | caveman | 2 / 6 | gpt-6.1-sol / high | b8edbc5be2bb | finished / grading valid=True |
 | phase6f_ponytail_r02_s06 | ponytail | 2 / 6 | gpt-6.1-sol / high | b8edbc5be2bb | failed / grading valid=False |
 | phase6f_ponytail_r02_s06_resume01 | ponytail | 2 / 6 | gpt-6.1-sol / high | b8edbc5be2bb | failed / grading valid=False |
+| phase6f_ponytail_r02_s06_resume02 | ponytail | 2 / 6 | gpt-6.1-sol / high | b8edbc5be2bb | finished / grading valid=True |
 
 Смена условий: исходный Phase 5 использует прежнюю registry policy. Phase 5b добавляет Fastly deny ranges и explicit runtime binding; в нём нет завершённых measured trials. Старые quota failures и recovery attempts сохранены. Plan отменён для новых запусков по запросу пользователя.
 
@@ -98,3 +99,6 @@ Phase 6f продолжает исходной шестой задачей max_m
 
 
 Phase 6f recovery accounting: повтор Serena остаётся один. Output 21 877 за её шестую правку — дельта от пятого checkpoint, включая обе попытки; исходные 5 582 токена остановленной попытки сохранены отдельно как диагностика. Эти две строки нельзя складывать как независимые затраты. Неуспешная попытка не увеличивает n.
+
+
+Ponytail r02, шаг 6: по разрешению удалён один отвергнутый reasoning-элемент; контекст изменён. [Протокол](../phase6f_ponytail_context_protocol.md).

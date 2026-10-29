@@ -801,13 +801,13 @@
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "phase6f",
-      "state": "running",
-      "completed_steps": 0,
+      "state": "finished",
+      "completed_steps": 1,
       "total_steps": 1,
       "actual_edit_number": 6,
       "parent_trial": "phase6e_ponytail_r02_s05",
-      "active_step": 6,
-      "last_step": "phase6f_ponytail_r02_s06_resume01",
+      "active_step": null,
+      "last_step": "phase6f_ponytail_r02_s06_resume02",
       "failure_category": null,
       "previous_failed_attempts": [
         "phase6f_ponytail_r02_s06",
@@ -978,9 +978,9 @@
     },
     "phase6f": {
       "title": "Phase 6f: \u0448\u0435\u0441\u0442\u0430\u044f \u043f\u0440\u0430\u0432\u043a\u0430 SWE, max_matches searcher migration",
-      "status": "running",
-      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 6/7; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "status": "completed",
+      "label": "\u0421\u0431\u043e\u0440 \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043d: \u0441\u0435\u043c\u044c \u0448\u0435\u0441\u0442\u044b\u0445 \u0448\u0430\u0433\u043e\u0432",
+      "summary": "\u0421\u043e\u0431\u0440\u0430\u043d\u044b 7/7 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0439: baseline/Caveman/Ponytail 2\u00d76, Serena 1\u00d76; usage \u0438 Sonar \u0433\u043e\u0442\u043e\u0432\u044b. Grader \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u0435\u043d, \u043d\u043e \u0432\u0441\u0435 \u0441\u0435\u043c\u044c \u0438\u043c\u0435\u044e\u0442 resolved=false \u0438 7/8 \u043d\u043e\u0432\u044b\u0445 \u0442\u0435\u0441\u0442\u043e\u0432. Ponytail r02: \u043f\u043e \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u044e \u0443\u0434\u0430\u043b\u0435\u043d\u0430 \u043e\u0434\u043d\u0430 \u043e\u0442\u0432\u0435\u0440\u0433\u043d\u0443\u0442\u0430\u044f reasoning-\u0437\u0430\u043f\u0438\u0441\u044c; \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0430 \u043e\u0442\u043c\u0435\u0447\u0435\u043d\u043e. [\u0418\u0442\u043e\u0433\u0438](reports/phase6f_findings.md).",
       "protocol": "reports/phase6f_protocol.md",
       "results_report": "reports/phase6f_progress.md",
       "image_budget": "reports/phase6f_image_budget.json",
@@ -990,7 +990,11 @@
       "serena_recovery_protocol": "reports/phase6f_serena_resume_protocol.md",
       "baseline_recovery_protocol": "reports/phase6f_baseline_resume_protocol.md",
       "ponytail_recovery_protocol": "reports/phase6f_ponytail_resume_protocol.md",
-      "ponytail_context_protocol": "reports/phase6f_ponytail_context_protocol.md"
+      "ponytail_context_protocol": "reports/phase6f_ponytail_context_protocol.md",
+      "completion_audit": "reports/phase6f_completion_audit.json",
+      "findings": "reports/phase6f_findings.md",
+      "strict_history_continuations": 6,
+      "authorized_context_amendments": 1
     }
   },
   "active_variants": [

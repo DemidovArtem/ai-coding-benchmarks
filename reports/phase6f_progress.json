@@ -1,6 +1,6 @@
 {
   "task": "milestone_seed_a6e0be3_1_sub-01",
-  "completed": 6,
+  "completed": 7,
   "planned": 7,
   "means_after_six_edits": [
     {
@@ -19,10 +19,10 @@
     },
     {
       "variant": "ponytail",
-      "n": 1,
-      "output_tokens": 66011,
-      "production_churn": 420,
-      "sonar_delta_cognitive_complexity": 152
+      "n": 2,
+      "output_tokens": 62766,
+      "production_churn": 449,
+      "sonar_delta_cognitive_complexity": 150.5
     },
     {
       "variant": "serena",
@@ -153,6 +153,17 @@
       "source_trial": "phase6e_ponytail_r02_s05",
       "collection_errors": [],
       "sonar": null
+    },
+    {
+      "trial_id": "phase6f_ponytail_r02_s06_resume02",
+      "state": "finished",
+      "grading_state": {
+        "valid": true,
+        "raw_score_preserved": true
+      },
+      "source_trial": "phase6e_ponytail_r02_s05",
+      "collection_errors": [],
+      "sonar": true
     }
   ]
 }

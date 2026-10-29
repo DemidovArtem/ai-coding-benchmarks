@@ -1,12 +1,12 @@
 # Phase 6f: исходная шестая правка SWE
 
-Собрано 6/7 шестых шагов. Задача: max_matches searcher migration (`milestone_seed_a6e0be3_1_sub-01`). Это продолжения прежних пяти правок: первый круг baseline/Caveman/Ponytail/Serena, затем второй круг трёх первых методов. Serena выполняется только один раз по уточнению пользователя. Первые пять задач не переигрываются.
+Собрано 7/7 шестых шагов. Задача: max_matches searcher migration (`milestone_seed_a6e0be3_1_sub-01`). Это продолжения прежних пяти правок: первый круг baseline/Caveman/Ponytail/Serena, затем второй круг трёх первых методов. Serena выполняется только один раз по уточнению пользователя. Первые пять задач не переигрываются.
 
 | Подход | n | Output за 6 правок | Production churn | Δ cognitive complexity |
 | --- | ---: | ---: | ---: | ---: |
 | baseline | 2 | 67311.5 | 578.5 | 142 |
 | caveman | 2 | 85989.5 | 561.5 | 150.5 |
-| ponytail | 1 | 66011 | 420 | 152 |
+| ponytail | 2 | 62766 | 449 | 150.5 |
 | serena | 1 | 84165 | 701 | 156 |
 
 | Trial | Модель и сбор | Grader | Sonar |
@@ -22,6 +22,7 @@
 | phase6f_caveman_r02_s06 | finished | Raw resolved=False | True |
 | phase6f_ponytail_r02_s06 | failed | Недействителен / не завершён | None |
 | phase6f_ponytail_r02_s06_resume01 | failed | Недействителен / не завершён | None |
+| phase6f_ponytail_r02_s06_resume02 | finished | Raw resolved=False | True |
 
 Шестая исходная SWE-задача добавляет `SearcherBuilder::max_matches`. Grader выполняется без изменений. Пятые test scores остаются недействительными; шестая оценка не переписывает прошлые результаты.
 
