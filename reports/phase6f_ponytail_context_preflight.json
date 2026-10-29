@@ -1,0 +1,63 @@
+{
+  "failed_attempt": "phase6f_ponytail_r02_s06_resume01",
+  "retained_container": "milestone_seed_a6e0be3_1_sub-01-phase6f_ponytail_r02-runner",
+  "retained_work": {
+    "head": "73e5e46b57319729b1255e296531441e0e9a7103",
+    "unstaged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_files": []
+  },
+  "native_turns": [
+    {
+      "id": "01a16e63-05b0-7791-92f3-58fc9c554ac6",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e69-7563-7872-aaa9-23dd90262d62",
+      "status": "completed"
+    },
+    {
+      "id": "01a16e71-c235-7f93-aff4-85649b15d13b",
+      "status": "completed"
+    },
+    {
+      "id": "01a175d7-8297-7ae2-a247-9db2563f50e2",
+      "status": "failed"
+    },
+    {
+      "id": "01a175e0-afd9-71f1-b7ca-4d3413d79ce5",
+      "status": "completed"
+    },
+    {
+      "id": "01a17ff9-3492-7711-9b2b-5a43b38ccfc7",
+      "status": "completed"
+    },
+    {
+      "id": "01a18512-9a6c-7b71-8284-a10d2f17e457",
+      "status": "failed"
+    },
+    {
+      "id": "01a18518-f36b-7263-878d-252270cce17b",
+      "status": "failed"
+    }
+  ],
+  "new_model_calls": 0,
+  "history_reimported": false,
+  "source_reset": false,
+  "retry_limit": 1,
+  "context_change_authorized": true,
+  "reason": "User authorized removing exactly one rejected reasoning record; all other record bytes remain unchanged.",
+  "rejected_reasoning_item_present_in_parent": true,
+  "rejected_reasoning_item_fields": [
+    [
+      "encrypted_content",
+      "id",
+      "internal_chat_message_metadata_passthrough",
+      "summary",
+      "type"
+    ]
+  ],
+  "adapter_sha256": "b8eecee4ff2f6dab7292a080be44b7e7b5b29dfbbea1c76dc7055531ffc504bb",
+  "live_history_sha256": "21c7bda09c61bf20d168f64233f1069d5538470bf09c3f8cb76ed61b6cd07a00",
+  "amended_history_sha256": "ee8818c9116cd91420467d674def4181c969b64215d08744e85a5840ed3607aa"
+}
