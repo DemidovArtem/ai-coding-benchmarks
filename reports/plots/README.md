@@ -1,3 +1,5 @@
+> Current overview (2026-11-01): six completed changes, baseline/Caveman/Ponytail n=2 and Serena n=1; seventh step 0/7, preparing. See the [English results](../../docs/RESULTS.md), [public redraw instructions](../../docs/REPRODUCIBILITY.md), and [current figure](../../docs/figures/continuous_results.png). The earlier text below is historical and contains superseded status statements. The public figure includes the Ponytail r02 step-6 context-amendment disclosure.
+
 # Графики сравнения подходов
 
 **Основной текущий отчёт:** [усреднённые кривые по количеству правок](MEAN_CURVES.md), [PDF](mean_comparison.pdf). Baseline, Caveman и Ponytail; повторы входят в среднее и min–max. Ниже сохранён прежний разбор отдельных повторов и planning variants как история.

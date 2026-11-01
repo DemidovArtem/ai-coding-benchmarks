@@ -1,3 +1,5 @@
+> Current overview (2026-11-01): six completed changes, baseline/Caveman/Ponytail n=2 and Serena n=1; seventh step 0/7, preparing. See the [English results](../../docs/RESULTS.md), [public redraw instructions](../../docs/REPRODUCIBILITY.md), and [current figure](../../docs/figures/continuous_results.png). The earlier text below is historical and contains superseded status statements. The public figure includes the Ponytail r02 step-6 context-amendment disclosure.
+
 # Основные графики: среднее по повторам
 
 **Основной график объединяет baseline, Caveman, Ponytail и Serena по одинаковой последовательности задач; готовые продолжения добавляют четвёртую точку.** Число правок по X общее. Внутри каждой линии сохраняется среднее её независимых повторов, min/max и n. Незавершённый шаг и отсутствующий подход не получают нулей. Новые повторы обновляют ту же линию.

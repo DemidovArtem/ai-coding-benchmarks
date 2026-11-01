@@ -1,0 +1,130 @@
+{
+  "date": "2026-11-01",
+  "purpose": "public release preparation; no new model calls",
+  "github": {
+    "state": "blocked_authenticated_repository_creation",
+    "intended_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
+    "live_public_repository_verified": false,
+    "application_submitted": false
+  },
+  "history": {
+    "starting_head": "18539d6f2201317ec2568334d76a862e93fd9130",
+    "original_commits": 103,
+    "history_rewritten": false,
+    "all_original_commits_reachable_from_starting_head": true
+  },
+  "secret_review": {
+    "gitleaks_version": "8.30.1",
+    "release_archive_sha256": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb",
+    "original_commits_scanned": 103,
+    "original_history_findings": 17,
+    "classified_false_positives": {
+      "file_sha256": 14,
+      "sonar_profile_uuid": 2,
+      "redaction_test_fixture": 1
+    },
+    "unresolved_findings": 0,
+    "release_worktree_findings": 17,
+    "release_worktree_unresolved_findings": 0,
+    "known_current_credentials": {
+      "reachable_objects_checked": 1918,
+      "credential_sources": 2,
+      "history_matches": 0,
+      "release_worktree_matches": 0
+    },
+    "unknown_or_revoked_credentials_exhaustively_proven_absent": false
+  },
+  "public_analysis": {
+    "private_results_present": false,
+    "vendor_required": false,
+    "render_command": "python docs/render_results.py",
+    "method_step_means": 24,
+    "methods": 4,
+    "completed_steps": 6,
+    "visual_inspection_passed": true,
+    "context_amendment_visible": true,
+    "data_sha256": "ae5a1ff7569813b279175f989147f6508792de13122b643c44274a3ce98c4531"
+  },
+  "clean_clone_tests": {
+    "python": "3.12.3",
+    "upstream_checkout": "17a8f1593e172e26b36cea15e2b30fb9536c93f5",
+    "upstream_patch_sha256": "5e5e6274027ff7e0abc78877e58517e73ede1d20dcb27e95858d23f93602fc86",
+    "patched_tree": "656bed23ae57d4ed4e2532447588399628f2ddb0",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=vendor/SWE-Milestone python -m unittest discover -s tests",
+    "passed": 127,
+    "failed": 0,
+    "temporary_loopback_sockets_required": true,
+    "private_results_present": false,
+    "dataset_present": false,
+    "docker_or_models_used": false
+  },
+  "not_validated": [
+    "fresh-machine full model trial",
+    "native-session restoration",
+    "API billing forecast",
+    "statistical superiority",
+    "GitHub publication"
+  ],
+  "validation_packages": [
+    {
+      "name": "ast-grep-cli",
+      "version": "0.51.0"
+    },
+    {
+      "name": "contourpy",
+      "version": "1.4.0"
+    },
+    {
+      "name": "cycler",
+      "version": "0.12.1"
+    },
+    {
+      "name": "fonttools",
+      "version": "4.68.0"
+    },
+    {
+      "name": "kiwisolver",
+      "version": "1.5.1"
+    },
+    {
+      "name": "matplotlib",
+      "version": "3.10.5"
+    },
+    {
+      "name": "numpy",
+      "version": "2.2.6"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pathspec",
+      "version": "0.12.1"
+    },
+    {
+      "name": "pillow",
+      "version": "13.0.0"
+    },
+    {
+      "name": "pyparsing",
+      "version": "3.3.3"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "3.0.0"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0"
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.6"
+    }
+  ]
+}

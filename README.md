@@ -1,101 +1,139 @@
-# AI-assisted coding experiment
+# AI Coding Agent Configuration Benchmarks
 
-Реализация [плана](AI_Coding_Experiment_Codex_Handoff.md): SWE-Milestone, Codex с ChatGPT OAuth, шесть изолированных вариантов, Git и SonarQube.
+Independent, open-source research into how **model × skills × tools × agent configuration / workflow** affects software engineering performance. The central question is: **How much does agent configuration matter relative to model selection itself?**
 
-**Текущий разрешённый этап:** baseline, Caveman и Ponytail, по три последовательные правки, затем второй независимый круг. [Протокол Phase 6c](reports/phase6c_protocol.md). Три собранных шага Serena, diffs и memories сохранены; новые Serena runs не запускаются. Plan исключён.
+This repository contains an implemented benchmarking harness, completed pilot experiments, source patches, normalized results, and analysis code. It is an experimental research framework, not a model leaderboard. Completed experiments hold the model fixed; they do not yet answer the question across models.
 
-**[Живой реестр экспериментов — результаты, метрики и будущие этапы](EXPERIMENT_STATUS.md).** Обновляется после запуска, завершения, ошибки или изменения плана. Регенерация из сохранённых records: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.status`.
+**Current evidence:** two separate single-task cohorts, followed by seven continuous trajectories with six sequential changes each. Baseline, Caveman, and Ponytail have two trajectories each; Serena has one. The seventh change is approved and in preparation, with **0/7 completed**. No new model runs are needed to inspect or redraw the published results.
 
-**Isolated pilot v1 завершён:** все шесть variants реально выполнены через unchanged grader в двух matched cohorts; все получили resolved=true. [Итоговый отчёт](reports/pilot_report.md), [результаты](reports/summary.md), [проверка требований](reports/implementation_status.md). На том историческом этапе continuous был отложен. Текущие continuous trials и их ограничения отражены в живом реестре ниже. Raw artifacts сохранены в ignored results/trials; /tmp содержит рабочие копии.
+> GitHub publication is pending authenticated repository creation. The clone URL below is the intended destination, not a verified live repository. See [publication checks](docs/PUBLICATION_CHECKS.md).
 
-- [Аудит среды и следующие действия](environment_report.md)
-- [Закреплённые параметры](experiment.yaml) — JSON, совместимый с YAML 1.2; неизвестные значения остаются `null`.
-- [Состояние требований](reports/implementation_status.md)
-- [Размеры образов](reports/image_budget.json), [снимок квоты](reports/quota_before_setup.json)
+[Results](docs/RESULTS.md) · [Methodology](docs/METHODOLOGY.md) · [Reproducibility](docs/REPRODUCIBILITY.md) · [Live experiment register](EXPERIMENT_STATUS.md)
 
-## Проверка без benchmark-квоты
+## Research questions
+
+- Which skills, tools, and workflows improve task success, reliability, or efficiency?
+- How sensitive are those effects to the model and reasoning configuration?
+- Do quality improvements justify additional tokens, runtime, and API expenditure?
+- How do code changes and regressions accumulate during a sequence of tasks?
+- Which observations survive independent repetitions and different repositories?
+
+The framework is intended to support new configurations. Current evidence covers baseline, planning variants, Ponytail, Caveman, and Serena. Kimi, ECC, other models, and combinations are possible research directions, **not completed comparisons**.
+
+## Methodology
+
+The harness adapts pinned [SWE-Milestone](https://github.com/DeepCommit-ai/SWE-Milestone) integration for isolated Codex profiles and ChatGPT OAuth. Initial experiments use real Rust tasks in ripgrep. Each independent trajectory starts from a fixed source tree and isolated agent state. Sequential tasks retain its source changes and session; Serena memories persist within a trajectory and never transfer between repetitions.
+
+Inputs record model, reasoning effort, CLI version, task order, runtime images, prompts, skill assets, activation evidence, and source hashes. Agent integration is separate from the benchmark evaluator and protected quarantine. Static analysis occurs after submission and is not model feedback. Historical frozen cohorts remain separate; recovery and grader adaptations are disclosed in their protocols.
+
+Main curves average independent repetitions at the same task step. Bands show **min–max, not confidence intervals**. Sequential steps are dependent observations. Missing metrics remain missing; failures remain in the experiment record.
+
+## Agent configurations
+
+Completed experiments use **`gpt-6.1-sol`, high reasoning effort, Codex CLI 0.163.0**, authenticated through ChatGPT OAuth.
+
+| Configuration | Intervention | Evidence status |
+| --- | --- | --- |
+| Baseline | Clean profile; no experimental hooks, MCP, or inherited memories | Matched reference within each cohort |
+| Plan / goal + plan | Separate preparation session and executor handoff | Historical single-task cohort; excluded from current runs |
+| Ponytail | Pinned 5.3.2/full skill and native hooks | Activation audited; two six-step trajectories |
+| Caveman | Pinned v4.0.1 skill and native hooks | Activation audited; two six-step trajectories |
+| Serena | Pinned 1.6.1 MCP tools and trajectory-local memories | One six-step trajectory; actual calls verified |
+
+Serena's historical single-task run made **zero measured MCP calls**, despite successful startup. Later continuous runs test an explicit Serena-first policy and do use its tools. These are different conditions. The combined display preserves runtime provenance: Serena uses the original runtime, while the other current methods use its offline rebuild. See [run parameters](reports/plots/run_parameters.md).
+
+## Evaluation metrics
+
+| Metric | Implementation and interpretation |
+| --- | --- |
+| Task resolution | Raw grader decisions, test counts, and grading validity; infrastructure failures distinguished from task failures |
+| Tokens | Input, cached input, uncached input, output; session deltas prevent repeated counting |
+| Execution time | Measured model invocation time; excludes setup, grading, static analysis, and pauses |
+| Source footprint | Added/deleted production lines, net growth, churn, and changed files; pinned AST filter excludes Rust inline tests |
+| Static code quality | Snapshot-bound SonarQube complexity, cognitive complexity, duplication, maintainability issues, and remediation estimates |
+| Tool and memory usage | Actual MCP/semantic calls, activation evidence, memory counts, and retention checks |
+| API cost | **Not measured in the current OAuth experiments**; no dollar savings inferred from subscription usage |
+| Readability / human review effort | Patch surface and static metrics are proxies; no direct human study performed |
+
+SonarQube includes inline tests and benchmark masking. Its deltas are not production-only quality measurements. Remediation minutes are analyzer estimates, not measured human review time.
+
+## Experiments and results
+
+The first single-task experiment has two matched cohorts. Each configuration has one observation; the baselines belong to different environments and must not be pooled.
+
+| Cohort | Configuration | Grader resolved | Output tokens | Production churn |
+| --- | --- | --- | ---: | ---: |
+| Planning | Baseline | true | 9,125 | 108 |
+| Planning | Plan | true | 14,022 | 111 |
+| Planning | Goal + plan | true | 20,023 | 117 |
+| Skills | Baseline | true | 10,294 | 102 |
+| Skills | Ponytail | true | 10,092 | 92 |
+| Skills | Caveman | true | 13,205 | 98 |
+| Skills | Serena | true | 9,732 | 102 |
+
+All seven measured trials resolved the task. Planning used more output tokens on this task. The skill cohort shows small footprint differences, but Serena's zero tool usage prevents attributing its outcome to MCP. These are pilot observations, not evidence of general superiority. [Original report](reports/pilot_report.md).
+
+The later continuous experiment measures how changes accumulate:
+
+![Six-step means and observed ranges](docs/figures/continuous_results.png)
+
+| Configuration | Independent trajectories | Cumulative output, mean | Production churn to initial source, mean | Sonar cognitive complexity Δ, mean |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline | 2 | 67,311.5 | 578.5 | 142 |
+| Caveman | 2 | 85,989.5 | 561.5 | 150.5 |
+| Ponytail | 2 | 62,766 | 449 | 150.5 |
+| Serena | 1 | 84,165 | 701 | 156 |
+
+Ponytail has 6.8% lower mean output and 22.4% lower mean production churn than baseline in this small sample. This does **not** establish better quality or statistical significance. All seven sixth-step graders are valid and return **`resolved=false`**, with 7/8 new tests passing. Fifth-step test scores remain invalid because of a documented grader compatibility failure.
+
+Ponytail repetition 2 includes one explicitly authorized removal of an API-rejected encrypted reasoning item from a checkpoint copy at step 6. Source, session identity, and earlier submissions are retained; reasoning history is not an unchanged continuation. The figure and reports disclose this deviation.
+
+[Detailed results](docs/RESULTS.md) explain grading caveats, recovery attempts, and the lack of a statistical winner. [Tracked plot data](reports/plots/current_comparison.json) contain means, counts, ranges, and provenance. Historical reports describe their original stage and may contain superseded plans.
+
+## Getting started
+
+For public analysis, use Linux, Git, and Python 3.12 or newer. Recorded benchmark Python is 3.13.14; another runtime does not recreate the frozen experiment environment.
 
 ```bash
-uv venv --python 3.13.14 .venv
-uv pip install --python .venv/bin/python -r requirements-setup.txt
-.venv/bin/python -m unittest discover -s tests -v
-.venv/bin/python -m experiment.audit --output reports/environment.json
+git clone https://github.com/DemidovArtem/ai-coding-benchmarks.git
+cd ai-coding-benchmarks
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-setup.txt -r requirements-plots.txt
+.venv/bin/python docs/render_results.py
 ```
 
-Аудит проверяет source pins и setup; текущую квоту проверяет trial runner отдельно. Успешный static audit не разрешает обход quota gate и не доказывает завершённость v1. Runtime storage проверяется отдельно от заполненного рабочего раздела. Аудит не запускает агента, не скачивает образы, не меняет глобальные настройки Codex, Docker или firewall. Он сохраняет версии, хеши и только разрешённые признаки загрязнения профиля. Содержимое `auth.json` не читается.
+The renderer reads tracked JSON only and writes PNG/SVG under `docs/figures/`. It makes no model requests and does not refresh experiment records. Docker, Codex authentication, and private artifacts are not needed to redraw the figure. The full test suite additionally requires the pinned public SWE-Milestone checkout and temporary loopback sockets; see [local checks](docs/REPRODUCIBILITY.md#local-test-suite).
 
-## Восстановление исходников
+**New benchmark trials require separate setup:** pinned upstream checkout and dataset, Docker images, recorded Codex/Node/Rust toolchain, isolated OAuth profiles, and live quota/storage/network checks. Existing runners reject paid API-key environments. They are research scripts with retained local paths, not a portable one-command service. [Reproducibility](docs/REPRODUCIBILITY.md) distinguishes clean-clone analysis from execution requiring retained artifacts. Do not invoke historical phase modules simply to inspect results.
 
-Clone и runtime-артефакты исключены из Git. Выполнять из корня проекта, если каталогов ещё нет:
+## Repository layout
 
-```bash
-git clone https://github.com/DeepCommit-ai/SWE-Milestone.git vendor/SWE-Milestone
-git -C vendor/SWE-Milestone checkout 17a8f1593e172e26b36cea15e2b30fb9536c93f5
-git -C vendor/SWE-Milestone switch -c experiment/oauth-profiles
-git -C vendor/SWE-Milestone apply ../../patches/swe-milestone-oauth.patch
-git -C vendor/SWE-Milestone add -u
-git -C vendor/SWE-Milestone commit -m "fix(codex): isolate profiles and pin milestone CLI"
-git -c filter.lfs.smudge= -c filter.lfs.required=false clone --depth 1 --branch v1.0.2 https://huggingface.co/datasets/DeepCommit-ai/SWE-Milestone-data results/setup/dataset
-git -C results/setup/dataset sparse-checkout set BurntSushi_ripgrep_14.1.1_15.0.0 config
-git -C results/setup/dataset rev-parse HEAD
-```
+- `experiment/`: orchestration, profile checks, collection, grading provenance, analysis.
+- `profiles/`, `prompts/`, `patches/`: pinned assets, instructions, upstream integration patch.
+- `sonar/`: pinned local SonarQube deployment and analysis documentation.
+- `reports/`: normalized results, frozen protocols, plots, source patches.
+- `docs/`: current English methodology, results, and reproducibility instructions.
+- `tests/`: local harness checks; no model inference.
+- `results/`, `vendor/`: ignored runtime artifacts and upstream checkouts.
 
-Upstream проверяется по исходному commit ancestry, точному patched Git tree и хешу patch. Локальный commit SHA после применения patch может отличаться из-за author/committer metadata; исходники обязаны совпадать byte-for-byte.
+## Development and acknowledgements
 
-Dataset HEAD должен быть `3500478e740d42583277c2658aa7729eb36e10f4`. Полный checkout занимает около 187 МБ; после sparse-checkout ripgrep/config — около 13 МБ. Blob-filter clone на Hugging Face завершился ошибкой `expected 'packfile'`; обычный clone с последующим локальным sparse-checkout сработал. Git LFS отсутствует; если будущая версия содержит LFS pointers, сначала установить Git LFS. Не запускать benchmark с pointers вместо данных.
+The benchmarking harness was developed entirely using **OpenAI Codex**, under the direction of **Artem Demidov**. Research design, experimental methodology, and results interpretation are independently managed by the project maintainer. Codex is a development tool, not a separate human collaborator.
 
-## Границы запуска
+The project builds on SWE-Milestone, ripgrep, SonarQube, and the evaluated skills/tools. Inclusion does not imply endorsement. [Third-party notices](THIRD_PARTY_NOTICES.md) preserve their licenses. New Codex-assisted commits use an explicit co-author trailer; existing commit authors and dates are preserved.
 
-Только ChatGPT OAuth. Наличие `OPENAI_API_KEY`, `CODEX_API_KEY` или `UNIFIED_API_KEY` блокирует запуск; платного fallback нет. Benchmark-контейнеры не должны получать глобальные AGENTS, plugins, MCP, hooks или raw config пользователя.
+## Roadmap
 
-[Single-milestone help](reports/run_milestone_help.txt) после локального patch содержит `--agent-version`; `--repo-name` не нужен. [Agent patch](patches/swe-milestone-oauth.patch) удаляет host config mount и его копирование при OAuth refresh, передаёт точный CLI pin и проверяет версию перед агентом. [Continuous help](reports/run_e2e_help.txt) содержит `--milestones`, но prefix из двух узлов не даёт сильной зависимости. Для Phase 5 закреплена пара glob milestones с сильной зависимостью; trial-local selection и planning dispatch ещё не реализованы.
+- Improve portable environment reconstruction and publish reproducibility checks.
+- Complete approved continuations while preserving checkpoints and failures.
+- Add independent repetitions and repositories before making general claims.
+- Compare models and configuration interactions under matched conditions.
+- Explore more skills, tools, and workflows without fixing the framework to today's list.
+- Add API cost accounting for a separately defined API-funded cohort.
+- Investigate direct readability, maintainability, and human review measurements.
 
-Phase 6 требует отдельного разрешения после pilot report. Тесты аудита не подтверждают работоспособность evaluator, skill activation, SonarQube или continuous flow.
+No promised deadlines or fixed task-count ladder. New scopes need a protocol and resource budget.
 
-## Smoke runner
+## License
 
-```bash
-.venv/bin/python -m experiment.quota --output reports/quota_before_baseline_smoke.json
-.venv/bin/python -m experiment.runner host-smoke --output /tmp/ai-coding-experiment/host_oauth_smoke_002
-.venv/bin/python -m experiment.runner milestone-smoke --output /tmp/ai-coding-experiment/baseline_smoke_001
-```
-
-Не повторять уже выполненный host smoke без причины. Каталог output должен быть новым; runner не перезаписывает попытки. Baseline сохраняет default protected quarantine, unchanged grader, один executor attempt и исходный prompt. Перед агентом проверяются профиль, отсутствие MCP/skill/memory contamination, read-only host auth mount, версия CLI и network lockdown. Host smoke использует read-only sandbox; bypass остаётся только в изолированном benchmark-контейнере, как в upstream.
-
-## Сбор результатов
-
-```bash
-.venv/bin/python -m experiment.collect results/trials/baseline_smoke_001 --output results/baseline_smoke_report
-```
-
-Collector не запускает grader заново. Он проверяет snapshot hash, submission tag и Rust content против bundle, затем считает test-excluded footprint. Неизвестные метрики остаются `null`; raw grader decisions сохраняются. [JSONL](results/results.jsonl), [CSV](results/results.csv), [summary](reports/summary.md) содержат smoke, три Phase 2 trials и четыре Phase 3 trials. Выводы ограничены одним заданием без повторений.
-
-## Matched planning trials
-
-[Замороженный протокол Phase 2](reports/phase2_protocol.md) описывает read-only mount, session isolation и quota gates. Запускать по одному:
-
-```bash
-.venv/bin/python -m experiment.runner trial --variant baseline --output /tmp/ai-coding-experiment/phase2_baseline_001
-.venv/bin/python -m experiment.runner trial --variant plan --output /tmp/ai-coding-experiment/phase2_plan_001
-.venv/bin/python -m experiment.runner trial --variant goal_plan --output /tmp/ai-coding-experiment/phase2_goal_plan_001
-```
-
-Каждый следующий запуск выполняется только после проверки terminal state предыдущего и текущей квоты. Planner failure не запускает executor. Output directories не перезаписываются.
-
-[Phase 2 report](reports/phase2_progress.md): baseline, plan и goal_plan завершены, у всех grader resolved=true. Goal_plan продолжен после quota pause с сохранением исходного handoff. Все результаты относятся к одному заданию, без повторений.
-
-## Sonar preparation
-
-[SonarQube](sonar/README.md) работает локально на 127.0.0.1:9000. Общая база и восемь решений проанализированы; [результаты и ограничения](reports/sonar_pilot.md). Raw Sonar snapshots включают разные inline tests, поэтому эти дельты нельзя считать production-only эффектом.
-
-## Skill cohort
-
-[Phase 3 завершена](reports/phase3_progress.md): baseline/ponytail/caveman/serena получили resolved=true на одном общем runtime. [Protocol](reports/phase3_protocol.md) и [отдельная frozen конфигурация](reports/phase3_experiment.json) фиксируют image/activation/source hashes до измерений. Baseline не активирует hooks/MCP; Phase 2 baseline не подменяет baseline нового окружения.
-
-Ponytail/Caveman имеют реальные native-hook audits. Serena прошла Codex MCP symbol smoke после фикса Rust env и required startup. В measured trial Serena не вызвала MCP и не выполнила onboarding: usage=0, memories=0, при подтверждённом server/RustAnalyzer startup. Польза MCP/памяти этим запуском не установлена.
-
-Continuous реализован: Phase 5 дала 12 принятых двухшаговых submissions в историческом cohort. В Phase 6 подтверждены реальные Serena calls и сохранение memories между правками; четвёртый grader остановился на source-overlay collision. [Результаты и диагностика](reports/phase6_progress.md). Пятишаговый план Phase 6b заменён [трёхшаговым Phase 6c](reports/phase6c_protocol.md); прежние frozen cohorts не смешиваются.
-
-## Пятишаговая матрица Phase 6b
-
-[Текущая frozen конфигурация](reports/phase6c_experiment.json): baseline, Caveman и Ponytail, два круга по три задачи. Команда: `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m experiment.phase6 --config reports/phase6c_experiment.json`. Незавершённые траектории требуют явного recovery. [Checkpoint Serena](reports/serena_checkpoint_retention.json). Актуальное число выполненных шагов — в [живом реестре](EXPERIMENT_STATUS.md).
+Original project code and documentation use the [MIT License](LICENSE). Third-party assets and upstream patch context retain their own licenses, including Apache-2.0 for pinned Caveman assets. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

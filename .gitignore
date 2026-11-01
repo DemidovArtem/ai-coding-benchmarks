@@ -9,3 +9,4 @@ vendor/
 .env.*
 **/auth.json
 **/*token*.private
+OPENAI_FUND_APPLICATION.md
