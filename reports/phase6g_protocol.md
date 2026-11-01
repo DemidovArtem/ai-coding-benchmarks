@@ -1,8 +1,8 @@
-# Phase 6g: proposed seventh sequential edit
+# Phase 6g: seventh sequential edit
 
-Status: preparation only. On 2026-10-29 the user requested one more iteration. The retained scope is seven continuations: baseline, Caveman and Ponytail twice, Serena once. Restore each completed sixth checkpoint and stop after exactly one new task. Do not replay prior model tasks, create new independent repetitions, or start an eighth step.
+Status: task and image download authorized; freeze after environment preflight. On 2026-10-29 the user requested one more iteration. The retained scope is seven continuations: baseline, Caveman and Ponytail twice, Serena once. Restore each completed sixth checkpoint and stop after exactly one new task. Do not replay prior model tasks, create new independent repetitions, or start an eighth step.
 
-The proposed task is `milestone_seed_292bc54_1`, JSON Output Replacement Support. The next task after max_matches in the selected text list, Max Matches Printer Cleanup, has an additional incoming Strong dependency on this JSON task. The dependency CSV records a source overlap in `json.rs`. Running the JSON prerequisite first preserves DAG closure. Task choice and its grader download are awaiting the user's combined decision. Only registry manifests have been read; no new image layers or model calls have been requested.
+The authorized task is `milestone_seed_292bc54_1`, JSON Output Replacement Support. The next task after max_matches in the selected text list, Max Matches Printer Cleanup, has an additional incoming Strong dependency on this JSON task. The dependency CSV records a source overlap in `json.rs`. Running the JSON prerequisite first preserves DAG closure. On 2026-10-29 the user explicitly approved this DAG-aware seventh task and its grader download (16,883,033 estimated new layer bytes). No further task-order or image approval is required for this scope.
 
 Use the exact sixth source commit, all six immutable submission tags, native session ID, complete retained rollout and verified closed SQLite backups for every trajectory. Preserve model gpt-6.1-sol, high effort, CLI 0.163.0, runtime images, reviewed profile bytes and existing quarantine. Stage the retained standalone CLI offline in the original Serena image as before; do not change the global host installation.
 

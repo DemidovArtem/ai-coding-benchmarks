@@ -19,8 +19,11 @@
       "digest": "sha256:409ac5b141a925e15ec1a8c0a8872931d5f8eea9f0f6a2fdee8adf2f82d9d92b"
     }
   ],
-  "registry_metadata_only": true,
-  "download_authorized": false,
-  "task_choice_authorized": false,
-  "estimate_basis": "Manifest layer digests compared with retained prior experiment manifests; actual daemon cache checked before pull."
+  "registry_metadata_only": false,
+  "download_authorized": true,
+  "task_choice_authorized": true,
+  "estimate_basis": "Manifest layer digests compared with retained prior experiment manifests; actual daemon cache checked before pull.",
+  "authorization": "2026-10-29: user explicitly approved JSON prerequisite as step seven and one grader image with approximately 17 MB new layers.",
+  "download_completed": true,
+  "downloaded_digest": "sha256:280e2ee78e35af8e024f729c2950ae4b399cc6e2f64d9eacac1a23120d5355aa"
 }

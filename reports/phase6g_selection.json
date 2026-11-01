@@ -8,8 +8,8 @@
     "milestone_seed_a6e0be3_1_sub-01",
     "milestone_seed_292bc54_1"
   ],
-  "task_choice_authorized": false,
-  "proposal_only": true,
+  "task_choice_authorized": true,
+  "proposal_only": false,
   "missing_strong_dependencies": [],
   "incoming_strong_edges": [
     {
