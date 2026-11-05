@@ -4,7 +4,7 @@ Updated **2026-11-05**. Original release preparation was performed on 1 November
 
 ## Publication status
 
-The user authorized public publication on 5 November 2026. GitHub CLI authentication was verified as `DemidovArtem`, and the empty **public** repository was created at [github.com/DemidovArtem/ai-coding-benchmarks](https://github.com/DemidovArtem/ai-coding-benchmarks). Release files have passed local checks; the initial `main` upload and unauthenticated content verification are being completed. The final transfer verification is recorded in `reports/publication_validation.json`.
+The user authorized public publication on 5 November 2026. GitHub CLI authentication was verified as `DemidovArtem`, and the empty **public** repository was created at [github.com/DemidovArtem/ai-coding-benchmarks](https://github.com/DemidovArtem/ai-coding-benchmarks). Release commit `612fba1` was uploaded as `main`. Unauthenticated requests verified the public repository, default branch, README, English results/brief, figure, normalized JSON, comparison data and licenses; downloaded bytes match the reviewed release. The final transfer verification is recorded in `reports/publication_validation.json`.
 
 Only the reviewed current release branch is uploaded as `main`. The existing GitLab origin remains the backup. No mirror of private refs, ignored raw trials, credentials, authenticated histories, or the local funding application is uploaded. No grant application or LinkedIn post has been submitted.
 

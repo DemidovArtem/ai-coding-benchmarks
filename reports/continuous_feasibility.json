@@ -1172,8 +1172,10 @@
   "latest_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once.",
   "publication": {
     "github_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
-    "state": "repository_created_release_validation",
+    "state": "published_public_main_verified",
     "date": "2026-11-05",
-    "public_documentation": "docs/RESEARCH_SUMMARY.md"
+    "public_documentation": "docs/RESEARCH_SUMMARY.md",
+    "release_commit": "612fba1b03452467e9ceb56324b80678dd589ff1",
+    "public_access_verified": true
   }
 }

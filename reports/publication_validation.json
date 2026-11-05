@@ -2,11 +2,62 @@
   "date": "2026-11-01",
   "purpose": "public release preparation; no new model calls",
   "github": {
-    "state": "public_repository_created_release_validated_pending_push",
+    "state": "published_public_main_verified",
     "intended_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
     "live_public_repository_verified": true,
     "application_submitted": false,
-    "content_publicly_verified": false
+    "content_publicly_verified": true,
+    "default_branch": "main",
+    "initial_release_commit": "612fba1b03452467e9ceb56324b80678dd589ff1",
+    "verified_public_access": {
+      "date": "2026-11-05",
+      "authenticated_request": false,
+      "repository_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
+      "visibility": "public",
+      "default_branch": "main",
+      "verified_files": [
+        {
+          "path": "README.md",
+          "http_status": 200,
+          "sha256": "ede86f8dcd0ff61881ac9e92ecf36a4278f064582a752520747ff27994a3492e"
+        },
+        {
+          "path": "docs/RESULTS.md",
+          "http_status": 200,
+          "sha256": "606ab3d877e4e5eac5fd83e8a658f9df3ada6a30b51d03778d8b59390474208e"
+        },
+        {
+          "path": "docs/RESEARCH_SUMMARY.md",
+          "http_status": 200,
+          "sha256": "cff48495730969f2cde9c5c0b173171d0d7c35f3e4aed67fa3396f74be8d6600"
+        },
+        {
+          "path": "docs/figures/continuous_results.png",
+          "http_status": 200,
+          "sha256": "9c7e63329dfb360af0f8058494b6642b468695fce1bfd9be3258cedd6a8d0bda"
+        },
+        {
+          "path": "docs/data/trials.json",
+          "http_status": 200,
+          "sha256": "ffb69fa1346e2475d63b08ea0258895296d76fc45ece52cdc5a268ce322b52d0"
+        },
+        {
+          "path": "reports/plots/current_comparison.json",
+          "http_status": 200,
+          "sha256": "ae5a1ff7569813b279175f989147f6508792de13122b643c44274a3ce98c4531"
+        },
+        {
+          "path": "LICENSE",
+          "http_status": 200,
+          "sha256": "723b7a2f19529769f7058b239129259b057772e8d8a551dbd359852046a2e1b0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "http_status": 200,
+          "sha256": "be29b02632b31630975d6805aef855b66763959bc8e1296d048033e6477125b1"
+        }
+      ]
+    }
   },
   "history": {
     "starting_head": "18539d6f2201317ec2568334d76a862e93fd9130",
@@ -63,8 +114,7 @@
     "fresh-machine full model trial",
     "native-session restoration",
     "API billing forecast",
-    "statistical superiority",
-    "GitHub publication"
+    "statistical superiority"
   ],
   "validation_packages": [
     {
