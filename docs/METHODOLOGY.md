@@ -1,6 +1,6 @@
 # Methodology
 
-Status: **1 November 2026**. This is an exploratory research prototype using SWE-Milestone tasks from the Rust repository ripgrep. It is not a full benchmark or a leaderboard.
+Status: **5 November 2026**. This is an exploratory research prototype using SWE-Milestone tasks from the Rust repository ripgrep. It is not a full benchmark or a leaderboard.
 
 ## Experimental units and approaches
 

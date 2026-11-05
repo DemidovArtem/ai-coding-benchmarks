@@ -1,20 +1,27 @@
 # Public release checks
 
-Prepared **2026-11-01**. This records checks performed for the open-source release; it is not a guarantee that every possible secret detector or legal issue has been exhausted.
+Updated **2026-11-05**. Original release preparation was performed on 1 November. This records checks performed for the open-source release; it is not a guarantee that every possible secret detector or legal issue has been exhausted.
 
 ## Publication status
 
-**GitHub publication is blocked by authenticated repository creation.** The intended destination is `https://github.com/DemidovArtem/ai-coding-benchmarks`, which is not yet a verified live public repository. The available browser and GitHub CLI are signed out. SSH authenticates as `DemidovArtem`, but SSH cannot create a GitHub repository. The user currently cannot complete browser sign-in. A read-only GitHub API lookup found no existing public repository for this project; SSH lookup of the intended path returned “Repository not found”. No new duplicate repository was created.
+The user authorized public publication on 5 November 2026. GitHub CLI authentication was verified as `DemidovArtem`, and the empty **public** repository was created at [github.com/DemidovArtem/ai-coding-benchmarks](https://github.com/DemidovArtem/ai-coding-benchmarks). Release files have passed local checks; the initial `main` upload and unauthenticated content verification are being completed. The final transfer verification is recorded in `reports/publication_validation.json`.
 
-The existing GitLab origin is retained. The application answers are prepared locally in ignored `OPENAI_FUND_APPLICATION.md`; no application was submitted.
+Only the reviewed current release branch is uploaded as `main`. The existing GitLab origin remains the backup. No mirror of private refs, ignored raw trials, credentials, authenticated histories, or the local funding application is uploaded. No grant application or LinkedIn post has been submitted.
 
-To complete publication later, create an **empty public** repository at the intended GitHub path (no generated README/license/initial commit), then push the reviewed release commit as its `main` branch. Verify unauthenticated public access, commit ancestry, and the README figure. Remove the pending-publication notice from README and the application only after those checks. Do not push a mirror of private refs or ignored artifacts.
+## Checks repeated on 5 November 2026
+
+- The SHA-256-verified Gitleaks 8.30.1 release scanned all **105 reachable pre-publication commits**. Its 17 findings match the individually classified hashes, UUIDs and test fixture below; no unresolved finding remains. The intended clean-clone working files also produce those same 17 findings.
+- An exact-value scan checked **1,949 reachable Git objects** and tracked files against retained OAuth/Sonar credentials, without printing them. No matches were found. Unknown or revoked credentials are not exhaustively proven absent.
+- A clean local clone with the intended release overlay rendered all **24 method/step means** using documented pinned dependencies from local package cache, with no private results, vendor, Docker, or model calls. The figure was inspected visually.
+- The current full local harness suite passed **127 tests** with temporary loopback sockets. This repeat test used the retained pinned public upstream source; the original 1 November check below additionally validated acquiring and patching that dependency in a clean clone.
+- Public CSV/JSON export contains **79 recorded attempts**, including historical failures and recoveries. Attempts are not independent repetitions; missing measurements are retained. All 24 original plotted points and frozen input hashes are unchanged.
+- New English research and replication briefs describe pilot limits and the separate scikit-learn plan. Its registry-only image budget is preflight, not new experimental evidence.
 
 ## History preservation
 
 The starting release-preparation HEAD is `18539d6f2201317ec2568334d76a862e93fd9130`. All **103 existing commits** are ancestors of that HEAD; no other reachable commit was outside its ancestry. Preparation adds commits on top without rebasing, filtering, squashing, or replacing existing objects. Author names, emails, dates, and original commit IDs remain unchanged. This includes the maintainer's two historical author email addresses; preserving history also preserves that identity metadata.
 
-No claim is made yet about a successful GitHub transfer: it has not happened. GitLab remains the existing backup remote. A subsequent GitHub push can preserve all 103 original commits without a history rewrite.
+The GitHub transfer retains the original ancestry without rewriting author records or historical commits. GitLab remains the existing backup remote. The release verification records the uploaded commit and default branch.
 
 ## Secret and privacy review
 

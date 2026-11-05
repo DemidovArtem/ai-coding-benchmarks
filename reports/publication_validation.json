@@ -2,10 +2,11 @@
   "date": "2026-11-01",
   "purpose": "public release preparation; no new model calls",
   "github": {
-    "state": "blocked_authenticated_repository_creation",
+    "state": "public_repository_created_release_validated_pending_push",
     "intended_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
-    "live_public_repository_verified": false,
-    "application_submitted": false
+    "live_public_repository_verified": true,
+    "application_submitted": false,
+    "content_publicly_verified": false
   },
   "history": {
     "starting_head": "18539d6f2201317ec2568334d76a862e93fd9130",
@@ -126,5 +127,47 @@
       "name": "tzdata",
       "version": "2026.6"
     }
-  ]
+  ],
+  "release_2026_11_05": {
+    "date": "2026-11-05",
+    "security": {
+      "date": "2026-11-05",
+      "gitleaks_version": "8.30.1",
+      "history_commits_scanned": 105,
+      "gitleaks_findings": 17,
+      "classified_false_positives": {
+        "file_sha256": 14,
+        "sonar_profile_uuid": 2,
+        "redaction_test_fixture": 1
+      },
+      "unresolved_findings": 0,
+      "known_credential_sources": 2,
+      "reachable_objects_checked": 1949,
+      "known_credential_history_matches": 0,
+      "known_credential_worktree_matches": 0,
+      "history_rewritten": false,
+      "limits": [
+        "Unknown or revoked credentials are not exhaustively proven absent.",
+        "Local usernames, paths, session IDs and Git author metadata remain intentionally public."
+      ]
+    },
+    "public_analysis": {
+      "clean_clone": true,
+      "private_results_present": false,
+      "vendor_present": false,
+      "model_calls": 0,
+      "rendered_points": 24,
+      "visual_inspection_passed": true
+    },
+    "tests": {
+      "passed": 127,
+      "failed": 0,
+      "scope": "local harness tests with retained pinned upstream source and temporary loopback sockets; no models or Docker"
+    },
+    "public_attempt_rows": 79,
+    "publication_source_parent": "e97d1d368691de80e8c5519f84d4f921035277cb",
+    "original_plot_data_sha256": "ae5a1ff7569813b279175f989147f6508792de13122b643c44274a3ce98c4531",
+    "fresh_model_trial_performed": false,
+    "native_session_continuation_performed": false
+  }
 }

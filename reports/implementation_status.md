@@ -1,5 +1,7 @@
 # Состояние реализации
 
+2026-11-05: GitHub repository created at https://github.com/DemidovArtem/ai-coding-benchmarks; English release validation is in progress. The next authorized experiment is a separate scikit-learn six-step cohort with baseline/Caveman/Ponytail/Serena and two repetitions each, scheduled by step across methods. Strong dependency closure is verified from pinned metadata. No new-repository inference or image-layer downloads have run. The full image set requires 14.46 GB compressed, before expansion; storage and language-specific environment/measurement checks remain blockers. [Public research brief](../docs/RESEARCH_SUMMARY.md), [second repository plan](../docs/SECOND_REPOSITORY.md).
+
 2026-11-01: подготовлен публичный English README, docs/ с методологией/результатами/reproducibility, MIT для собственного кода и third-party notices. Новых model calls нет. Все 103 исходных коммита сохраняются без переписывания; secret audit и проверки чистой копии описаны в [проверке публикации](../docs/PUBLICATION_CHECKS.md). Создание GitHub-репозитория пока блокирует отсутствие авторизованной CLI/browser-сессии; SSH работает. Заявка подготовлена отдельным ignored локальным файлом, не отправлена.
 
 2026-11-01: согласование седьмой JSON-задачи и grader уже получено; образ загружен по digest, offline closure и Serena CLI bootstrap проверены без model calls. Заморозка перед измерением и свежие runtime/quota проверки ещё нужны; **0/7** седьмых продолжений. Предыдущая запись 2026-10-29 ниже описывает состояние до согласования.

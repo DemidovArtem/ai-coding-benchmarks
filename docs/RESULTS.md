@@ -1,6 +1,6 @@
 # Results
 
-Status: **1 November 2026**. Exploratory measurements from one ripgrep task chain. These results do not establish a statistically significant winner. Definitions and comparison boundaries are in [methodology](METHODOLOGY.md).
+Status: **5 November 2026**. Exploratory measurements from one ripgrep task chain. These results do not establish a statistically significant winner. Definitions and comparison boundaries are in [methodology](METHODOLOGY.md).
 
 ## Continuous experiment: six completed edits
 
@@ -55,4 +55,4 @@ Source: [original pilot report](../reports/pilot_report.md), including exact ver
 - Sonar includes inline tests and benchmark masking. Its static metrics and remediation estimates do not directly measure production-only quality or human review effort.
 - Step 3 includes a regex serialization mismatch; step 4 changes the residue-pruning protocol and retains other unexplained failures; step 5 has invalid grading. These caveats prevent treating every raw rejection as accumulated agent error.
 
-Next authorized work is to finish preparation and continue each retained trajectory through the seventh task once. Broader conclusions need more independent trajectories, a predefined primary metric and effect size, and additional repositories or task chains. The [live experiment register](../EXPERIMENT_STATUS.md) is the authoritative status entry point.
+The current priority is publication and a separate [scikit-learn cohort](SECOND_REPOSITORY.md), authorized on 5 November 2026. The seventh ripgrep continuation remains prepared and unexecuted; its earlier authorization is retained. Broader conclusions need more independent trajectories, a predefined primary metric and effect size, and additional repositories or task chains. The [live experiment register](../EXPERIMENT_STATUS.md) is the authoritative status entry point.

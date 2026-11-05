@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-01 03:28:11**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-05 20:03:02**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -23,6 +23,7 @@
 | Phase 6e: исходная пятая правка SWE, after-context | Сбор завершён; grader недействителен | Собраны 7/7 source/usage/Sonar records; baseline/Caveman/Ponytail 2×5, Serena 1×5. Grader всех 7 пятых задач падает на undeclared max_matches; test score отсутствует. Ранняя остановка Serena по квоте сохранена отдельно. [Протокол](reports/phase6e_protocol.md) |
 | Phase 6f: шестая правка SWE, max_matches searcher migration | Сбор завершён: семь шестых шагов | Собраны 7/7 продолжений: baseline/Caveman/Ponytail 2×6, Serena 1×6; usage и Sonar готовы. Grader действителен, но все семь имеют resolved=false и 7/8 новых тестов. Ponytail r02: по разрешению удалена одна отвергнутая reasoning-запись; изменение контекста отмечено. [Итоги](reports/phase6f_findings.md). [Протокол](reports/phase6f_protocol.md) |
 | Phase 6g: седьмая правка как продолжение | Среда подготовлена; 0/7 продолжений, измерения не начаты | JSON replacement и grader согласованы; образ загружен по digest, offline closure и Serena CLI bootstrap проверены без model calls. Нужны заморозка входов и fresh runtime/quota preflight; первые шесть шагов не переигрываются. [Протокол](reports/phase6g_protocol.md) |
+| Second repository: scikit-learn, four methods, 2×6 | Preflight only; no model calls | Authorized: baseline/Caveman/Ponytail/Serena, six steps across methods, then repeat from clean state. Prefix M06/M11/M12.1/M12.2/M01/M03 satisfies Strong dependencies. Image manifests total 14.46 GB compressed; expanded disk budget, download approval, Python metrics/runtime and grader smoke remain pending. [Протокол](docs/SECOND_REPOSITORY.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -92,6 +93,14 @@
 | phase6g_baseline_r02 | baseline | 2 | 0/1 | Запланирован |
 | phase6g_caveman_r02 | caveman | 2 | 0/1 | Запланирован |
 | phase6g_ponytail_r02 | ponytail | 2 | 0/1 | Запланирован |
+| scikit_baseline_r01 | baseline | 1 | 0/6 | Запланирован |
+| scikit_caveman_r01 | caveman | 1 | 0/6 | Запланирован |
+| scikit_ponytail_r01 | ponytail | 1 | 0/6 | Запланирован |
+| scikit_serena_r01 | serena | 1 | 0/6 | Запланирован |
+| scikit_baseline_r02 | baseline | 2 | 0/6 | Запланирован |
+| scikit_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
+| scikit_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
+| scikit_serena_r02 | serena | 2 | 0/6 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 

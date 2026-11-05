@@ -4,11 +4,11 @@ Independent, open-source research into how **model × skills × tools × agent c
 
 This repository contains an implemented benchmarking harness, completed pilot experiments, source patches, normalized results, and analysis code. It is an experimental research framework, not a model leaderboard. Completed experiments hold the model fixed; they do not yet answer the question across models.
 
-**Current evidence:** two separate single-task cohorts, followed by seven continuous trajectories with six sequential changes each. Baseline, Caveman, and Ponytail have two trajectories each; Serena has one. The seventh change is approved and in preparation, with **0/7 completed**. No new model runs are needed to inspect or redraw the published results.
+**Current evidence:** two separate single-task cohorts, followed by seven continuous trajectories with six sequential changes each. Baseline, Caveman, and Ponytail have two trajectories each; Serena has one. The seventh ripgrep change remains prepared with **0/7 completed**. The next priority is a separate scikit-learn cohort, with six steps and two independent repetitions per method; no scikit-learn inference has run. No new model runs are needed to inspect or redraw the published results.
 
-> GitHub publication is pending authenticated repository creation. The clone URL below is the intended destination, not a verified live repository. See [publication checks](docs/PUBLICATION_CHECKS.md).
+Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github.com/DemidovArtem/ai-coding-benchmarks). See [publication checks](docs/PUBLICATION_CHECKS.md) for the exact validation scope.
 
-[Results](docs/RESULTS.md) · [Methodology](docs/METHODOLOGY.md) · [Reproducibility](docs/REPRODUCIBILITY.md) · [Live experiment register](EXPERIMENT_STATUS.md)
+[Results](docs/RESULTS.md) · [Methodology](docs/METHODOLOGY.md) · [Reproducibility](docs/REPRODUCIBILITY.md) · [Research brief](docs/RESEARCH_SUMMARY.md) · [Next repository](docs/SECOND_REPOSITORY.md) · [Live experiment register](EXPERIMENT_STATUS.md)
 
 ## Research questions
 
@@ -88,7 +88,7 @@ Ponytail has 6.8% lower mean output and 22.4% lower mean production churn than b
 
 Ponytail repetition 2 includes one explicitly authorized removal of an API-rejected encrypted reasoning item from a checkpoint copy at step 6. Source, session identity, and earlier submissions are retained; reasoning history is not an unchanged continuation. The figure and reports disclose this deviation.
 
-[Detailed results](docs/RESULTS.md) explain grading caveats, recovery attempts, and the lack of a statistical winner. [Tracked plot data](reports/plots/current_comparison.json) contain means, counts, ranges, and provenance. Historical reports describe their original stage and may contain superseded plans.
+[Detailed results](docs/RESULTS.md) explain grading caveats, recovery attempts, and the lack of a statistical winner. [Tracked plot data](reports/plots/current_comparison.json) contain means, counts, ranges, and provenance. Historical reports describe their original stage and may contain superseded plans. Current public entry points are in English; frozen historical records retain their original language and hashes. [Normalized trial data](docs/data/trials.csv) include failed attempts and missing measurements.
 
 ## Getting started
 
@@ -125,7 +125,7 @@ The project builds on SWE-Milestone, ripgrep, SonarQube, and the evaluated skill
 ## Roadmap
 
 - Improve portable environment reconstruction and publish reproducibility checks.
-- Complete approved continuations while preserving checkpoints and failures.
+- Validate the separate [scikit-learn six-step, two-repetition cohort](docs/SECOND_REPOSITORY.md); retain the unexecuted ripgrep continuation without replaying it.
 - Add independent repetitions and repositories before making general claims.
 - Compare models and configuration interactions under matched conditions.
 - Explore more skills, tools, and workflows without fixing the framework to today's list.
