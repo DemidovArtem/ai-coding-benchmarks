@@ -1042,5 +1042,55 @@
     "Original offline grader smoke",
     "Python Sonar common-base profile and analysis",
     "Frozen step-first execution protocol"
-  ]
+  ],
+  "storage_alternative": {
+    "evaluated_on": "2026-11-05",
+    "strategy": "Keep shared base and only the current task grader; preserve source/session checkpoints before retiring task-specific containers/images.",
+    "incremental_downloads": [
+      {
+        "image": "base-offline",
+        "compressed_bytes": 2223420852,
+        "new_bytes_after_preceding_images": 2223420852
+      },
+      {
+        "image": "M06",
+        "compressed_bytes": 3756016821,
+        "new_bytes_after_preceding_images": 1782342773
+      },
+      {
+        "image": "M11",
+        "compressed_bytes": 3395185876,
+        "new_bytes_after_preceding_images": 1421510719
+      },
+      {
+        "image": "M12.1",
+        "compressed_bytes": 4928502920,
+        "new_bytes_after_preceding_images": 2954828872
+      },
+      {
+        "image": "M12.2",
+        "compressed_bytes": 6047233099,
+        "new_bytes_after_preceding_images": 2685145385
+      },
+      {
+        "image": "M01",
+        "compressed_bytes": 3581390092,
+        "new_bytes_after_preceding_images": 1607714935
+      },
+      {
+        "image": "M03",
+        "compressed_bytes": 3763070707,
+        "new_bytes_after_preceding_images": 1789395421
+      }
+    ],
+    "initial_base_plus_first_grader_compressed_bytes": 4005763625,
+    "expanded_peak_known": false,
+    "cleanup_performed": false,
+    "image_layers_downloaded": false,
+    "limits": [
+      "14.46 GB is a full unique compressed-layer acquisition estimate, not a minimum simultaneous disk allocation.",
+      "Sequential grader eviction can reduce peak occupancy but may require repeated downloads in repetition two.",
+      "Existing stopped containers may retain unique session state; global pruning is forbidden."
+    ]
+  }
 }

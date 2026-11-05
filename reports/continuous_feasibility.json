@@ -1152,7 +1152,7 @@
       "title": "Second repository: scikit-learn, four methods, 2\u00d76",
       "status": "preflight_storage_blocked",
       "label": "Preflight only; no model calls",
-      "summary": "Authorized: baseline/Caveman/Ponytail/Serena, six steps across methods, then repeat from clean state. Prefix M06/M11/M12.1/M12.2/M01/M03 satisfies Strong dependencies. Image manifests total 14.46 GB compressed; expanded disk budget, download approval, Python metrics/runtime and grader smoke remain pending.",
+      "summary": "Authorized: four methods \u00d7 six steps \u00d7 two repetitions; zero model calls. Full image set is 14.46 GB compressed, not minimum concurrent occupancy. Sequential grader acquisition starts with 4.01 GB compressed; expanded peak and checkpoint-safe storage/cleanup need validation before download approval.",
       "protocol": "docs/SECOND_REPOSITORY.md",
       "results_report": "reports/second_repository_preflight.json"
     }
