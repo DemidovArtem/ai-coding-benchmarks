@@ -1,6 +1,6 @@
 # Second repository: scikit-learn replication plan
 
-**Authorized scope: 5 November 2026. Status: preflight only; zero model calls.**
+**Authorized scope: 5 November 2026; continuation authorized 8 November. Status: preflight only; zero model calls.**
 
 Publication of the ripgrep pilot is the first priority. The second experiment uses `scikit-learn_scikit-learn_1.5.2_1.6.0` from the same pinned SWE-Milestone dataset (`3500478e740d42583277c2658aa7729eb36e10f4`). It is a new cohort, never a continuation of ripgrep source or model sessions. The previously approved seventh ripgrep task remains prepared and unexecuted while this work takes priority.
 
@@ -42,3 +42,9 @@ Observed free space during preflight: approximately **18.53 GB on the Docker fil
 A lower-peak alternative is to keep the shared base and only the grader for the active task, because each task runs across all four methods before the next task starts. The base plus first grader has 4,005,763,625 unique compressed bytes. Expanded peak occupancy remains unmeasured. Evicting old graders may require downloading their task-specific layers again in repetition two. This changes storage scheduling, not the task order or evaluation; it does not authorize deleting checkpoint/session state or unrelated Docker assets.
 
 Before inference, complete: expanded disk budget or alternate approved storage; exact image acquisition approval; isolated runtime and semantic-server validation; unchanged offline grader smoke; Python footprint checks; common-base Sonar analysis; current model access/quota; and a frozen execution protocol with the step-first scheduler. An actual service refusal stops inference without paid fallback. No seventh scikit-learn task or additional repetition is authorized by this plan.
+
+## Storage follow-up — 8 November 2026
+
+Six old benchmark containers were removed after verified private source/session/memory backups and separate verification of all seven latest ripgrep checkpoints. This recovered approximately 13.99 GB; Docker free space reached 29.76 GB. No images, volumes, or unrelated projects were removed. The workspace partition still has only approximately 2.4 GiB available. See the [preservation audit](../reports/storage_cleanup_20261108.md).
+
+The maintainer authorized proceeding after this cleanup. Start with the shared base and current-task grader, subject to free-space checks; do not acquire the full image collection at once. Runtime, grader, Python metrics, Sonar and semantic-tool preflight remain mandatory before measured inference. No new-repository result is claimed.

@@ -1033,7 +1033,7 @@
     "expanded_requirement_known": false,
     "full_download_ready": false
   },
-  "readiness": "blocked_before_download_and_inference",
+  "readiness": "initial_image_acquisition_pending_runtime_preflight",
   "pending": [
     "Expanded disk and build/results reserve",
     "Separate image download approval",
@@ -1044,7 +1044,7 @@
     "Frozen step-first execution protocol"
   ],
   "storage_alternative": {
-    "evaluated_on": "2026-11-05",
+    "evaluated_on": "2026-11-08",
     "strategy": "Keep shared base and only the current task grader; preserve source/session checkpoints before retiring task-specific containers/images.",
     "incremental_downloads": [
       {
@@ -1085,12 +1085,22 @@
     ],
     "initial_base_plus_first_grader_compressed_bytes": 4005763625,
     "expanded_peak_known": false,
-    "cleanup_performed": false,
+    "cleanup_performed": true,
     "image_layers_downloaded": false,
     "limits": [
       "14.46 GB is a full unique compressed-layer acquisition estimate, not a minimum simultaneous disk allocation.",
       "Sequential grader eviction can reduce peak occupancy but may require repeated downloads in repetition two.",
       "Existing stopped containers may retain unique session state; global pruning is forbidden."
-    ]
+    ],
+    "authorization": "User authorized verified old-container cleanup and starting new experiments, after the current-task-only storage strategy and initial approximately 4 GB download estimate were explained."
+  },
+  "storage_cleanup": {
+    "date": "2026-11-08",
+    "record": "reports/storage_cleanup_20261108.json",
+    "containers_removed": 6,
+    "observed_recovered_bytes": 13993046016,
+    "docker_free_bytes_after": 29760720896,
+    "checkpoint_inputs_verified": 7,
+    "fresh_native_continuation_tested": false
   }
 }

@@ -1,0 +1,170 @@
+{
+  "date": "2026-11-08",
+  "authorization": "User authorized verified old-container cleanup and starting the new experiment after storage checks.",
+  "backup_root": "results/storage_cleanup/20261108 (private, ignored)",
+  "latest_continuation_checkpoints": [
+    {
+      "variant": "baseline",
+      "repetition": 1,
+      "parent_trial": "phase6f_baseline_r01_s06",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    },
+    {
+      "variant": "caveman",
+      "repetition": 1,
+      "parent_trial": "phase6f_caveman_r01_s06_resume01",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    },
+    {
+      "variant": "ponytail",
+      "repetition": 1,
+      "parent_trial": "phase6f_ponytail_r01_s06",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    },
+    {
+      "variant": "serena",
+      "repetition": 1,
+      "parent_trial": "phase6f_serena_r01_s06_resume01",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 13
+    },
+    {
+      "variant": "baseline",
+      "repetition": 2,
+      "parent_trial": "phase6f_baseline_r02_s06_resume01",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    },
+    {
+      "variant": "caveman",
+      "repetition": 2,
+      "parent_trial": "phase6f_caveman_r02_s06",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    },
+    {
+      "variant": "ponytail",
+      "repetition": 2,
+      "parent_trial": "phase6f_ponytail_r02_s06_resume02",
+      "source_bundle_fsck": true,
+      "snapshot_sha256_verified": true,
+      "rollout_sha256_verified": true,
+      "memory_files_verified": 0
+    }
+  ],
+  "containers": [
+    {
+      "container_id": "003d4a44432614b79d0e439b31eae2a5c592a34d2e29e5412f155d5ec710cb4c",
+      "name": "milestone_seed_292bc54_1-phase6g_serena_r01-runner",
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "size_rw": 2477381727,
+      "archive_sha256": "42acc7b834f2e9324ca6c259ff2fbaa0243d95ccfcd3cd2443b4b8d8f225b50a",
+      "archive_bytes": 9822297,
+      "native_rollouts_verified": 0,
+      "memory_files_verified": 0,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "6da7d7a7a3179af76822457ac8b73c8265ff2509bcccf63abdc987fdef15c1f0",
+      "aux_archive_bytes": 437,
+      "closed_sqlite_backups_verified": 0
+    },
+    {
+      "container_id": "165b67f9c4d606307536c4332cefaa1f42ac9ae3e98a37573a18d8a082642ad4",
+      "name": "milestone_seed_b610d1c_1-phase6d_restore_baseline_r01-runner",
+      "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+      "size_rw": 2059921458,
+      "archive_sha256": "5f7c64e93b5767bbe2c424858a07bfa6842962031c1c030d449f79a230eff8a6",
+      "archive_bytes": 14169302,
+      "native_rollouts_verified": 1,
+      "memory_files_verified": 0,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "e8844e14f9b0a9cd7aff0fd5621780183965da5c82d72d9e255304d6cee72ea0",
+      "aux_archive_bytes": 2866785,
+      "closed_sqlite_backups_verified": 5
+    },
+    {
+      "container_id": "ef6226379a5823dec3c893060d5e1ccd68e1e0d24e7cc26190dc32fabec80bd3",
+      "name": "milestone_seed_5f5da48_1_sub-01-phase6c_caveman_r02-runner",
+      "image_id": "sha256:81d26906645667f05184d2477d0891aae18b05fb9e1bf5375b378ac2e2fa7fb2",
+      "size_rw": 2044458008,
+      "archive_sha256": "d151033cd7e0045fdf36739ba6ede91c0eab37eda5edeacba7b8a4a009277dbd",
+      "archive_bytes": 3989261,
+      "native_rollouts_verified": 0,
+      "memory_files_verified": 0,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "c49831835320eeeb636890e5847f73f07511796007cf1646c09a186b2013e9e2",
+      "aux_archive_bytes": 2825137,
+      "closed_sqlite_backups_verified": 0
+    },
+    {
+      "container_id": "48b93d46a49c62be8ab7fe51283970fcdd5354238dc8ad7f5d8fcdbe1f7ede39",
+      "name": "milestone_seed_5f5da48_1_sub-01-phase6_serena_r01-runner",
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "size_rw": 2959966504,
+      "archive_sha256": "caae50191f7b8bdc16ef33e6fa420043fbcd80037f0bd1cd400e87967aba047c",
+      "archive_bytes": 7192079,
+      "native_rollouts_verified": 1,
+      "memory_files_verified": 11,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "8901db4afb932a3902bf9154f5ea331bd9f6d8805acf5137cd4b0ecf7237e3a4",
+      "aux_archive_bytes": 3550434,
+      "closed_sqlite_backups_verified": 6
+    },
+    {
+      "container_id": "a0a9a47c4dd3872ca5bc6ba0395fdb104cc35e0c6e583258c195ffe65e85d771",
+      "name": "milestone_seed_5f5da48_1_sub-01-phase5_ponytail_r01-runner",
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "size_rw": 3094213636,
+      "archive_sha256": "ea43af5fc8c9a70f147b4e32b2ffd18cf8c86c6f2742dacf7502a27d71b06253",
+      "archive_bytes": 4892730,
+      "native_rollouts_verified": 1,
+      "memory_files_verified": 0,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "93b42a67cf6e6cc12528a1e7758d236d7d795e59b2d921f48a7fe05bbf2d0131",
+      "aux_archive_bytes": 55367349,
+      "closed_sqlite_backups_verified": 6
+    },
+    {
+      "container_id": "b1d5cdc8332d455706538ced005870fbda38c01dbc75ca417932d3f0c35e55f8",
+      "name": "maintenance_fixes_1_sub-01-phase3_serena_001-runner",
+      "image_id": "sha256:3407cf8372c295e58722ff3ce33a0797e59e768cdaec496e20a15ef876505269",
+      "size_rw": 1204501906,
+      "archive_sha256": "06fa1a79809bc7d641f7e4af866943f36ea7d4568593734d69ac828233b1330d",
+      "archive_bytes": 4757024,
+      "native_rollouts_verified": 1,
+      "memory_files_verified": 0,
+      "git_fsck_verified": true,
+      "removed": true,
+      "aux_archive_sha256": "16feb87820dd38f01de10faffa478fac9bd58d9e75e257907622931c5ffb7075",
+      "aux_archive_bytes": 3547416,
+      "closed_sqlite_backups_verified": 6
+    }
+  ],
+  "docker_free_bytes_before": 15767674880,
+  "excluded": "Rebuildable Rust target directories and OAuth auth.json; host auth is retained separately. Runtime image IDs are retained.",
+  "unrelated_projects_touched": false,
+  "volumes_deleted": false,
+  "images_deleted": false,
+  "native_resume_inference_tested": false,
+  "docker_free_bytes_after": 29760720896,
+  "observed_free_space_increase_bytes": 13993046016
+}
