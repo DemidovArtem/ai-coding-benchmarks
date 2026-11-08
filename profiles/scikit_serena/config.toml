@@ -1,0 +1,33 @@
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+forced_login_method = "chatgpt"
+web_search = "disabled"
+approval_policy = "never"
+sandbox_mode = "read-only"
+
+[features]
+apps = false
+browser_use = false
+browser_use_external = false
+browser_use_full_cdp_access = false
+computer_use = false
+image_generation = false
+in_app_browser = false
+plugins = false
+remote_plugin = false
+
+[mcp_servers.serena]
+required = true
+command = "/opt/experiment-serena/python/bin/python3"
+args = ["-c", "from serena.cli import top_level; top_level()", "start-mcp-server", "--project-from-cwd", "--context", "codex", "--transport", "stdio", "--enable-web-dashboard", "false", "--open-web-dashboard", "false", "--enable-gui-log-window", "false"]
+startup_timeout_sec = 120
+tool_timeout_sec = 120
+
+[mcp_servers.serena.env]
+PYTHONPATH = "/opt/experiment-serena/site-packages"
+PYTHONNOUSERSITE = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+SERENA_HOME = "/home/fakeroot/.serena-profile"
+PIP_NO_INDEX = "1"
+SERENA_USAGE_REPORTING = "false"
+PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

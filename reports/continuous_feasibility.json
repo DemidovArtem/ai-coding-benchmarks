@@ -1150,10 +1150,10 @@
     },
     "scikit_replication": {
       "title": "Second repository: scikit-learn, four methods, 2×6",
-      "status": "preflight_after_verified_cleanup",
-      "label": "Container cleanup complete; environment preparation",
-      "summary": "Six benchmark containers removed after verified private archives; approximately 13.99 GB recovered. All seven latest ripgrep checkpoints verified. Scikit-learn remains 0/48; acquire only base/current grader and validate Python runtime, grader, Sonar and metrics before inference.",
-      "protocol": "docs/SECOND_REPOSITORY.md",
+      "status": "frozen_ready",
+      "label": "Protocol frozen; first measured task ready",
+      "summary": "0/48 measured steps. Separate common Python runtime and snapshots verified; original grader and Python Sonar completed. Native hook commands verified without model calls. Common-base M06 has 78 missing P2P tests.",
+      "protocol": "reports/scikit_protocol.md",
       "results_report": "reports/second_repository_preflight.json"
     }
   },

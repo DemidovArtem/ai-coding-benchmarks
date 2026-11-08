@@ -1,0 +1,18 @@
+{
+  "status": "python_mcp_offline_verified",
+  "codex_version": "0.163.0",
+  "serena_version": "1.6.1",
+  "pyright_version": "1.1.403",
+  "pyright_source": "existing local uv cache; copied npm distribution",
+  "pyright_file_count": 4764,
+  "pyright_bytes": 16655619,
+  "pyright_inventory_sha256": "b177924173cf8b92cf76164a0ccb224cd30cd6e32705b4382543e3898c856648",
+  "new_pyright_download_bytes": 0,
+  "dockerfile_sha256": "9e8915cf726d171af8222a3a3dff53e9d762487f2c69a2cf4292e254f957026c",
+  "user_configuration_copied": false,
+  "model_calls": 0,
+  "image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1",
+  "expanded_image_bytes": 4309767982,
+  "python_lsp_verified": true,
+  "offline_probe": "reports/scikit_python_mcp_preflight.json"
+}

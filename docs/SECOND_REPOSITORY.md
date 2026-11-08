@@ -1,6 +1,6 @@
 # Second repository: scikit-learn replication plan
 
-**Authorized scope: 5 November 2026; continuation authorized 8 November. Status: preflight only; zero model calls.**
+**Authorized scope: 5 November 2026; continuation authorized 8 November. Status: initial-task preflight complete; protocol frozen before measured inference.**
 
 Publication of the ripgrep pilot is the first priority. The second experiment uses `scikit-learn_scikit-learn_1.5.2_1.6.0` from the same pinned SWE-Milestone dataset (`3500478e740d42583277c2658aa7729eb36e10f4`). It is a new cohort, never a continuation of ripgrep source or model sessions. The previously approved seventh ripgrep task remains prepared and unexecuted while this work takes priority.
 
@@ -48,3 +48,7 @@ Before inference, complete: expanded disk budget or alternate approved storage; 
 Six old benchmark containers were removed after verified private source/session/memory backups and separate verification of all seven latest ripgrep checkpoints. This recovered approximately 13.99 GB; Docker free space reached 29.76 GB. No images, volumes, or unrelated projects were removed. The workspace partition still has only approximately 2.4 GiB available. See the [preservation audit](../reports/storage_cleanup_20261108.md).
 
 The maintainer authorized proceeding after this cleanup. Start with the shared base and current-task grader, subject to free-space checks; do not acquire the full image collection at once. Runtime, grader, Python metrics, Sonar and semantic-tool preflight remain mandatory before measured inference. No new-repository result is claimed.
+
+## Initial-task readiness — 8 November 2026
+
+The base and M06 grader are acquired and digest-verified. A separate common runtime reuses pinned local Codex, Serena, Node and Pyright assets. Real offline Python MCP navigation, both unprivileged hook commands, the original unchanged-source grader and a snapshot-bound Python Sonar baseline have passed preflight. The harness suite passes 131 tests. These are setup checks, not measured method results. The unchanged M06 base already has 78 missing P2P tests; this limitation is retained. The [frozen execution protocol](../reports/scikit_protocol.md) defines Python/Cython scope, storage limits and per-trajectory source/session/memory continuation. Later-task images remain unacquired.

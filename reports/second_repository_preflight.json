@@ -24,7 +24,7 @@
     "dependencies.csv": "70a41492a6b5bca00af1c07e8f7f8522210cec3efd4b84224d2912de7a6f21fe"
   },
   "registry_metadata_only": true,
-  "download_authorized": false,
+  "download_authorized": true,
   "estimated_new_unique_layer_bytes": 14464358957,
   "unique_compressed_bytes": 14464358957,
   "new_unique_layers": 99,
@@ -1033,15 +1033,11 @@
     "expanded_requirement_known": false,
     "full_download_ready": false
   },
-  "readiness": "initial_image_acquisition_pending_runtime_preflight",
+  "readiness": "first_task_ready_for_inference",
   "pending": [
-    "Expanded disk and build/results reserve",
-    "Separate image download approval",
-    "Python/Cython production filtering validation",
-    "Common runtime and Serena Python server validation",
-    "Original offline grader smoke",
-    "Python Sonar common-base profile and analysis",
-    "Frozen step-first execution protocol"
+    "Measured native skill/tool use on task",
+    "Measured native-session continuation after first task",
+    "Later-task image acquisition with storage checks"
   ],
   "storage_alternative": {
     "evaluated_on": "2026-11-08",
@@ -1086,7 +1082,7 @@
     "initial_base_plus_first_grader_compressed_bytes": 4005763625,
     "expanded_peak_known": false,
     "cleanup_performed": true,
-    "image_layers_downloaded": false,
+    "image_layers_downloaded": true,
     "limits": [
       "14.46 GB is a full unique compressed-layer acquisition estimate, not a minimum simultaneous disk allocation.",
       "Sequential grader eviction can reduce peak occupancy but may require repeated downloads in repetition two.",
@@ -1102,5 +1098,14 @@
     "docker_free_bytes_after": 29760720896,
     "checkpoint_inputs_verified": 7,
     "fresh_native_continuation_tested": false
+  },
+  "download_authorized_scope": "Sequential current-task-only acquisition after user-authorized verified cleanup; full simultaneous collection is not authorized.",
+  "runtime_preflight": {
+    "common_image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1",
+    "python_mcp": "reports/scikit_python_mcp_preflight.json",
+    "grader": "reports/scikit_grader_preflight.json",
+    "sonar": "reports/scikit_sonar_preflight.json",
+    "hooks": "reports/scikit_hook_preflight.json",
+    "tests": "131 tests passed; includes real isolated incremental-bundle reconstruction"
   }
 }

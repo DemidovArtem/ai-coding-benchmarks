@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-08",
+  "scope": "common base and first-task grader only",
+  "full_collection_acquired": false,
+  "compressed_unique_budget_bytes": 4005763625,
+  "free_reserve_bytes": 12000000000,
+  "authorization": "User requested starting new experiments after verified container cleanup; initial approximately 4 GB acquisition and current-task-only strategy were disclosed.",
+  "images": [
+    {
+      "milestone": "base-offline",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline@sha256:2b77ce7d7030461e3e7ca67e47d910d7fa0e6784c7520c62f183ebcde837bd0a",
+      "local": "swe-milestone/scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline:v1.0.2",
+      "state": "verified",
+      "image_id": "sha256:c949d192eedeb8ad49ba7e944b244382188535765d4438bf5f14e43dbc80a4c7",
+      "expanded_image_bytes": 3552688972
+    },
+    {
+      "milestone": "M06",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m06@sha256:5c3349cede1dee4f18f916958c6da21648a34ed0e400ad583f0b5b6e6097186a",
+      "local": "swe-milestone/scikit-learn_scikit-learn_1.5.2_1.6.0__m06:v1.0.2",
+      "state": "verified",
+      "image_id": "sha256:fd3683ec1e5bc8886a7aa483ab1a3d87e11ed28caebf5b5d9422637d59af0a8f",
+      "expanded_image_bytes": 5262872689
+    }
+  ],
+  "state": "finished",
+  "model_calls": 0,
+  "docker_free_bytes": 23939936256
+}

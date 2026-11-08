@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "python_lsp_verified": true,
+  "mcp_tool": "get_symbols_overview",
+  "symbol": "activation_fixture",
+  "server": {
+    "name": "Serena",
+    "title": null,
+    "version": "1.28.1",
+    "websiteUrl": "https://oraios.github.io/serena",
+    "icons": null
+  },
+  "result": {
+    "meta": null,
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"Function\": [\"activation_fixture\"]}",
+        "annotations": null,
+        "meta": null
+      }
+    ],
+    "structuredContent": {
+      "result": "{\"Function\": [\"activation_fixture\"]}"
+    },
+    "isError": false
+  },
+  "network": "none",
+  "credentials_mounted": false,
+  "unprivileged_uid": 1000,
+  "model_calls": 0,
+  "image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1"
+}

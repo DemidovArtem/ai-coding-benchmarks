@@ -1,0 +1,24 @@
+{
+  "valid": true,
+  "model_calls": 0,
+  "kind": "unchanged_common_base_infrastructure_probe",
+  "raw_resolved": false,
+  "test_summary": {
+    "total": 36921,
+    "passed": 34591,
+    "failed": 65,
+    "error": 0,
+    "skipped": 2121,
+    "fail_to_pass_required": 5,
+    "fail_to_pass_achieved": 0,
+    "none_to_pass_required": 0,
+    "none_to_pass_achieved": 0,
+    "pass_to_pass_required": 34669,
+    "pass_to_pass_achieved": 34591,
+    "pass_to_pass_failed": 0,
+    "pass_to_pass_missing": 78,
+    "none_to_pass_missing": 0
+  },
+  "error_message": null,
+  "raw_artifacts": "results/scikit_preflight/base_grader"
+}

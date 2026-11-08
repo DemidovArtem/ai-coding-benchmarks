@@ -1,0 +1,10 @@
+projects: []
+gui_log_window: false
+web_dashboard: false
+web_dashboard_open_on_launch: false
+record_tool_usage: true
+token_count_estimator: CHAR_COUNT
+
+ls_specific_settings:
+  python:
+    ls_path: /usr/local/bin/pyright-langserver
