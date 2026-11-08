@@ -1,0 +1,8 @@
+{
+  "state": "monitoring_first_step_queue",
+  "workspace_reserve_bytes": 1000000000,
+  "docker_reserve_bytes": 12000000000,
+  "interval_seconds": 10,
+  "scope": "Only four user-authorized M06 repetition-one agent containers and evaluators mounted to those trial directories; no pruning or other project changes.",
+  "pid": 235826
+}

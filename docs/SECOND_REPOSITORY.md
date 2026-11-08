@@ -52,3 +52,9 @@ The maintainer authorized proceeding after this cleanup. Start with the shared b
 ## Initial-task readiness — 8 November 2026
 
 The base and M06 grader are acquired and digest-verified. A separate common runtime reuses pinned local Codex, Serena, Node and Pyright assets. Real offline Python MCP navigation, both unprivileged hook commands, the original unchanged-source grader and a snapshot-bound Python Sonar baseline have passed preflight. The harness suite passes 131 tests. These are setup checks, not measured method results. The unchanged M06 base already has 78 missing P2P tests; this limitation is retained. The [frozen execution protocol](../reports/scikit_protocol.md) defines Python/Cython scope, storage limits and per-trajectory source/session/memory continuation. Later-task images remain unacquired.
+
+## Measured launch — 8 November 2026
+
+The first baseline M06 turn has started in an isolated native session; real task tool calls have been observed. A bounded local queue waits for its verified collection, then runs Caveman, Ponytail and Serena on M06 in repetition one. The queue stops on any failure and does not launch later milestones or silently replay an attempt. The full authorized matrix remains 48 steps; this initial queue covers four. Live state is in the [experiment register](../EXPERIMENT_STATUS.md) and [queue record](../reports/scikit_batch_progress.json).
+
+A finite [disk guard](../reports/scikit_storage_guard.json) checks free space every ten seconds while this queue is active. If workspace free space falls below 1 GB or Docker free space below 12 GB, it stops only this batch's own agent/evaluator containers and preserves their files for recovery. It performs no pruning. Filesystem checks have a polling interval and are not filesystem quotas.
