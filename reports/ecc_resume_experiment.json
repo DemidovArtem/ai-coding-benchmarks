@@ -101,7 +101,7 @@
       "experiment/audit.py": "3cdf72e791fe0534bfa91f16bea186b069b8e7318cff9664e00a0763eb41c7ec",
       "experiment/checkpoint_restore.py": "2696b01797536906149ba07992edb4f0d5446fd704908257dc43623cde3cb500",
       "experiment/collect.py": "5a7e9190c53317fc67f0d37b331550d96585b2c334a7080659a6b38e73dd6862",
-      "experiment/continuous.py": "ba4a90726365f2ec7b4e89c39943f5d3feab98758ab09b21d1cb30866868f695",
+      "experiment/continuous.py": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c",
       "experiment/continuous_resume.py": "5c634c5c6e87e11ff6fcee2e0f356e03ad4da977d8226b3caf95faca549a7565",
       "experiment/curves.py": "5dde312d6ab216f6690a9d1a4567e70f4ec840cb6c5e26e312a7a74913aa359c",
       "experiment/ecc.py": "e61939911e2edbf74a47ff94edef2f12bf596ce2d7522f78c7eb209624565c8c",
@@ -208,7 +208,7 @@
     "host_files_changed": {
       "experiment/continuous.py": {
         "before": "fafc9f7c6276cf7904720725c3f9b71e8a6f6a67f8402bcbc15a124427668552",
-        "after": "ba4a90726365f2ec7b4e89c39943f5d3feab98758ab09b21d1cb30866868f695"
+        "after": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c"
       },
       "experiment/ecc.py": {
         "before": "d0e6f400eb7dacf1999975d8676de6d075751a2af6994fff8b10615dbe4cdd86",

@@ -7,7 +7,7 @@
   "host_files_changed": {
     "experiment/continuous.py": {
       "before": "fafc9f7c6276cf7904720725c3f9b71e8a6f6a67f8402bcbc15a124427668552",
-      "after": "ba4a90726365f2ec7b4e89c39943f5d3feab98758ab09b21d1cb30866868f695"
+      "after": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c"
     },
     "experiment/ecc.py": {
       "before": "d0e6f400eb7dacf1999975d8676de6d075751a2af6994fff8b10615dbe4cdd86",
@@ -27,5 +27,12 @@
     "subtests": 46
   },
   "analysis_rebuilt": true,
-  "first_step_replayed": false
+  "first_step_replayed": false,
+  "pre_inference_checks": [
+    {
+      "attempt": 1,
+      "result": "refused_before_model",
+      "reason": "Per-step smoke_milestone field differs by construction; compare the dispatched task against the parent record"
+    }
+  ]
 }

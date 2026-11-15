@@ -250,7 +250,8 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
         parent_config = load(Path(resume_from['artifacts_path']) / 'experiment.json')
         if (variant != 'ecc' or resume_from['continuous']['trajectory_id'] != chain
                 or resume_from['trial_state'] != 'finished' or resume_from['collection_errors']
-                or parent_config['benchmark'] != benchmark or parent_config['codex'] != config['codex']):
+                or parent_config['benchmark'] != {**benchmark, 'smoke_milestone': resume_from['milestone_id']}
+                or parent_config['codex'] != config['codex']):
             raise ValueError('Live continuation must preserve the verified ECC measurement conditions')
     for index in range(completed + 1, len(milestones) + 1):
         name = chain + '_s' + str(index).zfill(2)

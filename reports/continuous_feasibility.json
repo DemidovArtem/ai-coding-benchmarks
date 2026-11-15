@@ -977,9 +977,9 @@
       "repetition": 1,
       "completed_steps": 1,
       "total_steps": 6,
-      "state": "ready_to_resume",
+      "state": "running",
       "cohort": "ecc",
-      "active_step": null,
+      "active_step": 2,
       "last_step": "ecc_ecc_r01_s01",
       "failure_category": null,
       "last_interruption": "host_plot_aggregation_after_s01"
@@ -1183,10 +1183,10 @@
     },
     "ecc": {
       "title": "ECC: ripgrep, six sequential edits",
-      "label": "1/6 measured; host analysis recovered",
-      "summary": "First ECC step passed grader and Sonar. Historical-extension plot bug fixed without model replay. Explicit same-container continuation checks native history, memory, source tags and runtime before step two.",
+      "label": "Trials \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f",
+      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 0/1; \u043e\u0448\u0438\u0431\u043e\u043a 0. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
       "protocol": "reports/ecc_protocol.md",
-      "status": "partial",
+      "status": "running",
       "same_executor_session_verified": false,
       "continuous_result_claimed": false
     }
