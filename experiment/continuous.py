@@ -185,6 +185,8 @@ def preserve_and_collect(runner, output, config, metadata, previous_usage, input
     durable = ROOT / 'results/trials' / output.name
     shutil.copytree(output, durable)
     record = collect(durable, config)
+    if metadata.get('execution_amendment'):
+        record['execution_amendment'] = metadata['execution_amendment']
     grading = load(durable / 'grading_state.json')
     if metadata['variant'] == 'ecc' and grading:
         record['grading_state'] = grading
@@ -229,7 +231,7 @@ def preserve_and_collect(runner, output, config, metadata, previous_usage, input
     return record, cumulative
 
 
-def run(config, variant, repetition, chain, on_step=None):
+def run(config, variant, repetition, chain, on_step=None, resume_from=None):
     from harness.e2e.agent_runner import AgentRunner
     from harness.e2e.agents.codex import CodexFramework
     from harness.e2e.run_milestone import MilestoneRunner
@@ -243,11 +245,18 @@ def run(config, variant, repetition, chain, on_step=None):
     workspace = ROOT / benchmark['dataset_root'] / benchmark['repo']
     milestones = benchmark['continuous_pilot']['milestones']
     runtime = Path(config['resources']['runtime_root'])
-    for index in range(1, len(milestones) + 1):
+    completed = resume_from['continuous']['step'] if resume_from else 0
+    if resume_from:
+        parent_config = load(Path(resume_from['artifacts_path']) / 'experiment.json')
+        if (variant != 'ecc' or resume_from['continuous']['trajectory_id'] != chain
+                or resume_from['trial_state'] != 'finished' or resume_from['collection_errors']
+                or parent_config['benchmark'] != benchmark or parent_config['codex'] != config['codex']):
+            raise ValueError('Live continuation must preserve the verified ECC measurement conditions')
+    for index in range(completed + 1, len(milestones) + 1):
         name = chain + '_s' + str(index).zfill(2)
         if (runtime / name).exists() or (ROOT / 'results/trials' / name).exists():
             raise ValueError('Continuous trial outputs must be fresh')
-    fingerprint = setup_fingerprint(config)[0]
+    fingerprint = resume_from['setup_fingerprint'] if resume_from else setup_fingerprint(config)[0]
     initialized = False
     proof = None
     task = dispatch_path = input_commit = None
@@ -418,9 +427,32 @@ def run(config, variant, repetition, chain, on_step=None):
     session = previous_commit = None
     previous_usage = {}
     submissions = {}
-    finished = 0
+    finished = completed
+    if resume_from:
+        from experiment.ecc import framework, verify_live_checkpoint
+        directory = Path(resume_from['artifacts_path'])
+        proof = load(directory / 'effective_profile.json')
+        runner._snapshot_baseline_commit = resume_from['starting_commit']
+        runner.agent_runner._framework = framework(config['codex']['reasoning_effort'])
+        session = runner.agent_runner.session_id = resume_from['continuous']['executor_session_id']
+        previous_commit = resume_from['ending_commit']
+        previous_usage = resume_from['usage']['executor_cumulative']
+        verify_live_checkpoint(runner, directory, resume_from)
+        rows = [json.loads(line) for line in (ROOT / 'results/results.jsonl').read_text().splitlines() if line.strip()]
+        prefix = sorted((r for r in rows if r.get('continuous', {}).get('trajectory_id') == chain), key=lambda r:r['continuous']['step'])
+        if [r['continuous']['step'] for r in prefix] != list(range(1, completed + 1)):
+            raise ValueError('Continuation prefix is incomplete or contains another attempt')
+        for row in prefix:
+            if row['trial_state'] != 'finished' or row['collection_errors'] or row['setup_fingerprint'] != fingerprint:
+                raise ValueError('Continuation prefix contains an unverified step')
+            submissions[row['milestone_id']] = row['ending_commit']
+            if runner._get_tag_hash('agent-impl-' + row['milestone_id']) != row['ending_commit']:
+                raise ValueError('A retained submission tag moved')
+        initialized = True
     try:
         for index, milestone in enumerate(milestones, 1):
+            if index <= completed:
+                continue
             output = runtime / (chain + '_s' + str(index).zfill(2))
             if index == 1:
                 # Constructor freezes bindings in this directory, before any model request.
@@ -441,6 +473,8 @@ def run(config, variant, repetition, chain, on_step=None):
                 'repetition': repetition, 'model': config['codex']['model'], 'reasoning_effort': config['codex']['reasoning_effort'],
                 'started_at': datetime.now(timezone.utc).isoformat(), 'executor_session_id': session,
                 'setup_fingerprint': fingerprint, 'implementation_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()}
+            if config.get('execution_amendment'):
+                metadata['execution_amendment'] = config['execution_amendment']
             save(output / 'run_metadata.json', metadata)
             update_progress(chain, state='running', completed_steps=finished, active_step=index)
             started = time.monotonic()
@@ -534,6 +568,7 @@ def main():
     parser.add_argument('--variant', choices=VARIANTS)
     parser.add_argument('--repetition', type=int, default=1)
     parser.add_argument('--repetitions', type=int, default=2)
+    parser.add_argument('--resume-from', type=Path, help='Verified terminal ECC record; reuse its live container without replay')
     args = parser.parse_args()
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
     if args.action == 'freeze':
@@ -561,7 +596,8 @@ def main():
             on_step = analyze
             config['measurement_started'] = True
             save(args.config, config)
-        run(config, args.variant, args.repetition, cohort + '_' + args.variant + '_r' + str(args.repetition).zfill(2), on_step=on_step)
+        run(config, args.variant, args.repetition, cohort + '_' + args.variant + '_r' + str(args.repetition).zfill(2),
+            on_step=on_step, resume_from=load(args.resume_from) if args.resume_from else None)
     finally:
         lock.close()
 

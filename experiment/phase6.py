@@ -42,7 +42,7 @@ def analyze(record):
     row['durations_seconds']['sonar'] = row['sonar'].get('duration_seconds')
     export(rows, ROOT / 'results')
     save(ROOT / 'reports' / (record['trial_id'] + '.json'), row)
-    save(ROOT / 'reports/plots/mean_data.json', aggregate(rows))
+    save(ROOT / 'reports/plots/mean_data.json', aggregate([r for r in rows if not r.get('extension')]))
     refresh_status()
     subprocess.run([sys.executable, str(ROOT / 'reports/plots/export_patches.py')], cwd=ROOT, check=True)
     # Plotting uses an existing host-only environment, never the measured container runtime.

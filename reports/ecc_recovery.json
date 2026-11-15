@@ -1,0 +1,31 @@
+{
+  "kind": "host_postprocessing_recovery",
+  "parent_trial": "ecc_ecc_r01_s01",
+  "reason": "Historical extension rows reached the prefix aggregator after successful first-step grading and Sonar",
+  "original_config": "reports/ecc_experiment.json",
+  "original_config_sha256": "279aec2df23fa30141e60aa631eb498a532ec265a5a161cf3a8656f38c79ec26",
+  "host_files_changed": {
+    "experiment/continuous.py": {
+      "before": "fafc9f7c6276cf7904720725c3f9b71e8a6f6a67f8402bcbc15a124427668552",
+      "after": "ba4a90726365f2ec7b4e89c39943f5d3feab98758ab09b21d1cb30866868f695"
+    },
+    "experiment/ecc.py": {
+      "before": "d0e6f400eb7dacf1999975d8676de6d075751a2af6994fff8b10615dbe4cdd86",
+      "after": "e61939911e2edbf74a47ff94edef2f12bf596ce2d7522f78c7eb209624565c8c"
+    },
+    "experiment/phase6.py": {
+      "before": "4370c9e5a39f95fbdec6b2a11f972280450bedccc4948600895a1031927e2982",
+      "after": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659"
+    }
+  },
+  "source_prefix_replayed": false,
+  "model_context_modified": false,
+  "measurement_conditions_changed": false,
+  "native_container_reused": true,
+  "host_tests": {
+    "passed": 141,
+    "subtests": 46
+  },
+  "analysis_rebuilt": true,
+  "first_step_replayed": false
+}

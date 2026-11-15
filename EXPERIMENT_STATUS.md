@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-16 00:23:25**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-16 00:37:45**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -24,7 +24,7 @@
 | Phase 6f: шестая правка SWE, max_matches searcher migration | Сбор завершён: семь шестых шагов | Собраны 7/7 продолжений: baseline/Caveman/Ponytail 2×6, Serena 1×6; usage и Sonar готовы. Grader действителен, но все семь имеют resolved=false и 7/8 новых тестов. Ponytail r02: по разрешению удалена одна отвергнутая reasoning-запись; изменение контекста отмечено. [Итоги](reports/phase6f_findings.md). [Протокол](reports/phase6f_protocol.md) |
 | Phase 6g: седьмая правка как продолжение | Среда подготовлена; 0/7 продолжений, измерения не начаты | JSON replacement и grader согласованы; образ загружен по digest, offline closure и Serena CLI bootstrap проверены без model calls. Нужны заморозка входов и fresh runtime/quota preflight; первые шесть шагов не переигрываются. [Протокол](reports/phase6g_protocol.md) |
 | Second repository: scikit-learn, four methods, 2×6 | Stopped; 3/48 measured steps collected | 3/48 steps; serial step-first order, four configurations, two cold repetitions. Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_protocol.md) |
-| ECC: ripgrep, six sequential edits | Frozen and ready; 0/6 measured steps | Native activation and memory continuation verified; 140 tests pass. Six digest-pinned graders and Sonar restored; fresh 79-file common base verified. One six-edit trajectory; wait at 2% or less remaining. [Протокол](reports/ecc_protocol.md) |
+| ECC: ripgrep, six sequential edits | 1/6 measured; host analysis recovered | First ECC step passed grader and Sonar. Historical-extension plot bug fixed without model replay. Explicit same-container continuation checks native history, memory, source tags and runtime before step two. [Протокол](reports/ecc_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -102,7 +102,7 @@
 | scikit_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
 | scikit_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
 | scikit_serena_r02 | serena | 2 | 0/6 | Запланирован |
-| ecc_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
+| ecc_ecc_r01 | ecc | 1 | 1/6 | ready_to_resume |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 
@@ -195,6 +195,7 @@
 | scikit_caveman_r01_s01 | caveman | Завершён; grader принят | 177 | 70 | 107 | 247 | 5 |
 | scikit_ponytail_r01_s01 | ponytail | Завершён; grader принят | 198 | 79 | 119 | 277 | 5 |
 | scikit_serena_r01_s01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
+| ecc_ecc_r01_s01 | ecc | Завершён; grader принят | 19 | 18 | 1 | 37 | 2 |
 | phase6e_serena_r01_s05_quota01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
@@ -288,6 +289,7 @@ Input уже включает cached input: эти столбцы не скла�
 | scikit_caveman_r01_s01 | 1 477 686 | 1 400 576 | 13 931 | — | 395.5 | 233.2 | 11.4 | 857.7 |
 | scikit_ponytail_r01_s01 | 2 289 960 | 2 208 768 | 21 966 | — | 575.9 | 237.6 | 10.4 | 1070.4 |
 | scikit_serena_r01_s01 | — | — | — | — | — | — | — | 0.8 |
+| ecc_ecc_r01_s01 | 2 751 421 | 2 596 608 | 13 752 | 0 | 288.8 | 107.0 | 17.4 | 513.9 |
 | phase6e_serena_r01_s05_quota01 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
@@ -381,6 +383,7 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | scikit_caveman_r01_s01 | Готов | 75 292 | 14 771 | 1 898 | 10 858 | — | — |
 | scikit_ponytail_r01_s01 | Готов | 75 302 | 14 771 | 1 896 | 10 848 | — | — |
 | scikit_serena_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| ecc_ecc_r01_s01 | Готов | 31 081 | 2 391 | 282 | 1 438 | — | — |
 | phase6e_serena_r01_s05_quota01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.

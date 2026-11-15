@@ -12,6 +12,29 @@ from types import SimpleNamespace
 
 
 class ECCTests(unittest.TestCase):
+    def test_live_continuation_rejects_running_agents_and_changed_memory(self):
+        from experiment.ecc import verify_live_checkpoint, digest
+        root = Path(__file__).resolve().parents[1]
+        runner = Mock()
+        runner.agent_runner.session_id = 'root'
+        record = {'ending_commit':'commit', 'effective_profile':{'image_id':'image'}}
+        with TemporaryDirectory() as tmp, patch('experiment.continuous.assert_boundary'):
+            directory = Path(tmp)
+            runner.container_setup.docker_exec.return_value = SimpleNamespace(returncode=0)
+            with self.assertRaisesRegex(ValueError, 'idle'):
+                verify_live_checkpoint(runner, directory, record)
+            (directory/'ecc_state').mkdir();(directory/'ecc_state/memory').write_text('retained')
+            (directory/'ecc_checkpoint.json').write_text(json.dumps({'root_session_id':'root',
+                'files_sha256':{'ecc_state/memory':digest(directory/'ecc_state/memory')}}))
+            config_hash = digest(root/'profiles/ecc/config.toml')
+            def responses(*args, **kwargs):
+                if args[0][0] == 'pgrep':return SimpleNamespace(returncode=1)
+                return SimpleNamespace(stdout=config_hash if args[0][1].endswith('config.toml') else 'changed')
+            runner.container_setup.docker_exec.side_effect = responses
+            with patch('experiment.ecc.subprocess.check_output', return_value='image'):
+                with self.assertRaisesRegex(ValueError, 'memory'):
+                    verify_live_checkpoint(runner, directory, record)
+
     def test_quota_recovery_keeps_root_waits_for_children_and_never_retries_other_errors(self):
         from experiment.ecc import resume_after_quota
         agent = SimpleNamespace(_last_rate_limit=True, _last_fatal_error=None, session_id='parent', quota_wait_seconds=0)

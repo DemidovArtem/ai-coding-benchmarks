@@ -1,7 +1,7 @@
 {
   "experiment_id": "ripgrep-ecc-offline-six-edit-v1",
   "stage": "ecc_frozen",
-  "measurement_started": false,
+  "measurement_started": true,
   "codex": {
     "version": "0.163.0",
     "model": "gpt-6.1-sol",

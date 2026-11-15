@@ -244,6 +244,30 @@ def checkpoint(runner, output, metadata):
     return usage
 
 
+def verify_live_checkpoint(runner, directory, record):
+    """Resume only an idle, byte-identical native checkpoint in the retained container."""
+    from experiment.continuous import assert_boundary
+    setup = runner.container_setup
+    assert_boundary(runner, record['ending_commit'])
+    if setup.docker_exec(['pgrep', '-x', 'codex'], check=False).returncode != 1:
+        raise ValueError('The retained ECC agent tree is not verified idle')
+    image = subprocess.check_output(['docker', 'inspect', '--format', '{{.Image}}', setup.container_name], text=True).strip()
+    config_hash = setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/config.toml']).stdout.split()[0]
+    if image != record['effective_profile']['image_id'] or config_hash != digest(ROOT / 'profiles/ecc/config.toml'):
+        raise ValueError('The retained ECC runtime or profile changed')
+    proof = json.loads((directory / 'ecc_checkpoint.json').read_text())
+    if proof['root_session_id'] != runner.agent_runner.session_id:
+        raise ValueError('The retained ECC root differs from the checkpoint')
+    for name, expected in proof['files_sha256'].items():
+        if digest(directory / name) != expected:
+            raise ValueError('Retained ECC checkpoint bytes changed: ' + name)
+        if name.startswith(('native_sessions/', 'ecc_state/')):
+            group, suffix = name.split('/', 1)
+            remote = ('/home/fakeroot/.codex/sessions/' if group == 'native_sessions' else '/home/fakeroot/.ecc/') + suffix
+            if setup.docker_exec(['sha256sum', remote]).stdout.split()[0] != expected:
+                raise ValueError('Live ECC history or memory differs from the checkpoint')
+
+
 def install(setup, output, config, repository_mount=None):
     source, profile = ROOT / 'vendor/ECC', ROOT / 'profiles/ecc'
     manifest = json.loads((profile / 'manifest.json').read_text())
