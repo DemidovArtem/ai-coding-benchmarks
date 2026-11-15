@@ -1,0 +1,909 @@
+{
+  "experiment_id": "ripgrep-ecc-offline-six-edit-v1",
+  "trial_id": "ecc_ecc_r01_s02",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "ecc",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": "d19594f3b6e70ff9d532809ce10b0190a033923c",
+  "starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+  "effective_profile": {
+    "config_sha256": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "web_search": "disabled",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": true,
+        "remote_plugin": false,
+        "multi_agent": true
+      },
+      "marketplaces": {
+        "ecc": {
+          "source_type": "local",
+          "source": "/opt/ecc"
+        }
+      },
+      "plugins": {
+        "ecc@ecc": {
+          "enabled": true
+        }
+      },
+      "mcp_servers": {
+        "chrome-devtools": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "chrome-devtools-mcp@1.10.1"
+          ],
+          "enabled": false
+        }
+      },
+      "agents": {
+        "max_threads": 6,
+        "max_depth": 1,
+        "explorer": {
+          "description": "Read-only codebase explorer for gathering evidence before changes are proposed.",
+          "config_file": "/home/fakeroot/.codex/agents/explorer.toml"
+        },
+        "reviewer": {
+          "description": "PR reviewer focused on correctness, security, and missing tests.",
+          "config_file": "/home/fakeroot/.codex/agents/reviewer.toml"
+        },
+        "docs_researcher": {
+          "description": "Documentation specialist that verifies APIs, framework behavior, and release notes.",
+          "config_file": "/home/fakeroot/.codex/agents/docs-researcher.toml"
+        }
+      },
+      "projects": {
+        "/testbed": {
+          "trust_level": "trusted"
+        }
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "web_search": "disabled",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": true,
+        "remote_plugin": false,
+        "multi_agent": true
+      },
+      "marketplaces": {
+        "ecc": {
+          "source_type": "local",
+          "source": "/opt/ecc"
+        }
+      },
+      "plugins": {
+        "ecc@ecc": {
+          "enabled": true
+        }
+      },
+      "mcp_servers": {
+        "chrome-devtools": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "chrome-devtools-mcp@1.10.1"
+          ],
+          "enabled": false
+        }
+      },
+      "agents": {
+        "max_threads": 6,
+        "max_depth": 1,
+        "explorer": {
+          "description": "Read-only codebase explorer for gathering evidence before changes are proposed.",
+          "config_file": "/home/fakeroot/.codex/agents/explorer.toml"
+        },
+        "reviewer": {
+          "description": "PR reviewer focused on correctness, security, and missing tests.",
+          "config_file": "/home/fakeroot/.codex/agents/reviewer.toml"
+        },
+        "docs_researcher": {
+          "description": "Documentation specialist that verifies APIs, framework behavior, and release notes.",
+          "config_file": "/home/fakeroot/.codex/agents/docs-researcher.toml"
+        }
+      },
+      "projects": {
+        "/testbed": {
+          "trust_level": "trusted"
+        }
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "ecc",
+    "skill": "ecc",
+    "skill_version": "2.2.3",
+    "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+    "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+    "label": "ECC for Codex, offline",
+    "plugin_registration": [
+      {
+        "pluginId": "ecc@ecc",
+        "name": "ecc",
+        "marketplaceName": "ecc",
+        "version": "2.2.3",
+        "installed": true,
+        "enabled": true,
+        "source": {
+          "source": "local",
+          "path": "/opt/ecc"
+        },
+        "marketplaceSource": {
+          "sourceType": "local",
+          "source": "/opt/ecc"
+        },
+        "installPolicy": "AVAILABLE",
+        "authPolicy": "ON_INSTALL"
+      }
+    ],
+    "native_hook_activation_verified": false,
+    "subagent_activation_verified": false,
+    "remote_plugins_enabled": false,
+    "memory_policy": "cold trajectory; retained across sequential tasks"
+  },
+  "duration_seconds": 610.3919979439997,
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-dc61348cfd0b484f464ab92d854408d2c6c5cdee",
+    "task_id": "6e1cfc1f-7fe9-446d-9f91-6fc10c158799",
+    "metrics": {
+      "ncloc": 31234,
+      "lines": 44054,
+      "complexity": 5063,
+      "cognitive_complexity": 2412,
+      "duplicated_lines": 2697,
+      "duplicated_lines_density": 6.1,
+      "code_smells": 282,
+      "sqale_index": 1438,
+      "software_quality_maintainability_issues": 282,
+      "software_quality_maintainability_remediation_effort": 1438
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "f5c5cf4785fb38d506ff7e3fff6a1eb3ca68b74a7cd34567961b398ae78e49aa",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [
+      "**/tests/**",
+      "**/benches/**",
+      "**/examples/**",
+      "**/vendor/**",
+      "**/generated/**"
+    ],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": true,
+    "new_code_comparison_valid": false,
+    "analysis_id": "5f0fae11-3a4f-42ef-b721-46891f1e3c97",
+    "duration_seconds": 17.069257401999494,
+    "protocol_sha256": "fe421666831ff84260176c911e91908b6c314fbf474047af73f53830382380d7",
+    "source_file_count": 79,
+    "clippy_returncode": 0,
+    "clippy_report_sha256": "01c2d5d4c1f4605d82300b4de1436fa9b912989e19d1ecff4f78c5082966c8dd",
+    "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ecc_ecc_r01_s02/sonar",
+    "comparison_limitations": [
+      "Raw snapshots include different inline test code; aggregate deltas are not production-only quality effects."
+    ],
+    "common_base_comparison_verified": true,
+    "delta_vs_common_base": {
+      "ncloc": -402,
+      "lines": -414,
+      "complexity": 6,
+      "cognitive_complexity": 12,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": 0.0,
+      "code_smells": 0,
+      "sqale_index": 0,
+      "software_quality_maintainability_issues": 0,
+      "software_quality_maintainability_remediation_effort": 0
+    },
+    "common_base_artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/sonar/ecc_common_base"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-11-15T23:38:45.780690+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 79,
+            "windowDurationMins": 300,
+            "resetsAt": 1794799004
+          },
+          "secondary": {
+            "usedPercent": 25,
+            "windowDurationMins": 10080,
+            "resetsAt": 1794994777
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-11-15T23:48:56.172695+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 96,
+            "windowDurationMins": 300,
+            "resetsAt": 1794799004
+          },
+          "secondary": {
+            "usedPercent": 28,
+            "windowDurationMins": 10080,
+            "resetsAt": 1794994777
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ecc_ecc_r01_s02",
+  "snapshot_sha256": "f5c5cf4785fb38d506ff7e3fff6a1eb3ca68b74a7cd34567961b398ae78e49aa",
+  "capture_diagnostics": {
+    "uncommitted_lost_count": 0,
+    "uncommitted_lost_sample": [],
+    "uncommitted_outside_count": 0,
+    "committed_outside_count": 0
+  },
+  "implementation_commit": "eb41be2cb2c63279baa7c0b091c3574fd14ef068",
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": true,
+  "grader_metrics": {
+    "milestone_id": "milestone_seed_5f5da48_1_sub-02",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": true,
+    "resolved": true,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [
+          "regression::r3127_gitignore_allow_unclosed_class"
+        ],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [
+          "glob::tests::allow_unclosed_class_empty1",
+          "glob::tests::allow_unclosed_class_negated_empty",
+          "glob::tests::allow_unclosed_class_brace3",
+          "glob::tests::allow_unclosed_class_empty2",
+          "glob::tests::allow_unclosed_class_brace2",
+          "glob::tests::allow_unclosed_class_single",
+          "glob::tests::allow_unclosed_class_negated_unclosed",
+          "glob::tests::allow_unclosed_class_many",
+          "glob::tests::allow_unclosed_class_brace1"
+        ],
+        "failure": [],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 1102,
+        "failure": [],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 1129,
+      "passed": 1116,
+      "failed": 12,
+      "error": 0,
+      "skipped": 1,
+      "fail_to_pass_required": 1,
+      "fail_to_pass_achieved": 1,
+      "none_to_pass_required": 9,
+      "none_to_pass_achieved": 9,
+      "pass_to_pass_required": 1102,
+      "pass_to_pass_achieved": 1102,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "milestone-milestone_seed_5f5da48_1_sub-02-end",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": false,
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cjs",
+        ".cpp",
+        ".cxx",
+        ".go",
+        ".groovy",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx",
+        ".java",
+        ".js",
+        ".jsx",
+        ".kt",
+        ".mjs",
+        ".pxd",
+        ".py",
+        ".pyi",
+        ".pyx",
+        ".rs",
+        ".scala",
+        ".ts",
+        ".tsx"
+      ],
+      "keep_list": [],
+      "policy_source": "metadata-legacy",
+      "policy_sha256": "",
+      "enablement_source": "environment-override",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": null,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "",
+      "evaluator_head": "",
+      "base_reason": "",
+      "merged_count": 0,
+      "agent_exact_count": 0,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "f4e1a18a1bc1",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "sha256:307d6fe62ea7566f56aa8bcd1dd2badc17ea9f4b748a5c0d504f2215f5e3d800",
+      "offline_cache_milestone_image_id": "70753e45063570c7b571299d6fa6ca9478fdf0fd05d68602972204e99f8f0e90",
+      "offline_cache_closure_image_id": "06a7cafa192cb7eee4a252528b43ddbe9948cc22c79eb668810ecf9b7e65b1be",
+      "offline_cache_effective_image_id": "307d6fe62ea7566f56aa8bcd1dd2badc17ea9f4b748a5c0d504f2215f5e3d800",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "e617af81b1dd455a1155877da8636a55cadbf1f0dc954b8524b474004f0a2ce3",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": true,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "identity-v2",
+      "framework": "cargo",
+      "payload_path": "artifacts/264683/eval_summary.json",
+      "payload_sha256": "6470c5b05d9bd490beb6957e8cd1268578746302ea893d2f784b990b7adfc009",
+      "classification_file": "milestone_seed_5f5da48_1_sub-02_classification.json",
+      "classification_sha256": "5ef7a82e1a4c7c7ac9c0435d9c35c934a5313016c3250bdbe4c5be2676d07041",
+      "collision_count": 0,
+      "collisions": [],
+      "untrusted": false,
+      "match_trace": {
+        "fail_to_pass": {
+          "exact": 1
+        },
+        "pass_to_pass": {
+          "exact": 1102
+        },
+        "none_to_pass": {
+          "exact": 9
+        }
+      }
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [
+      "regression::r3127_gitignore_allow_unclosed_class"
+    ],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 1102,
+    "failure": [],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [
+      "glob::tests::allow_unclosed_class_empty1",
+      "glob::tests::allow_unclosed_class_negated_empty",
+      "glob::tests::allow_unclosed_class_brace3",
+      "glob::tests::allow_unclosed_class_empty2",
+      "glob::tests::allow_unclosed_class_brace2",
+      "glob::tests::allow_unclosed_class_single",
+      "glob::tests::allow_unclosed_class_negated_unclosed",
+      "glob::tests::allow_unclosed_class_many",
+      "glob::tests::allow_unclosed_class_brace1"
+    ],
+    "failure": [],
+    "missing": 0
+  },
+  "failure_category": null,
+  "added_prod_loc": 113,
+  "deleted_prod_loc": 21,
+  "net_prod_loc": 92,
+  "churn_prod_loc": 134,
+  "changed_prod_files": 4,
+  "cumulative_prod_loc": 33781,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 3606335,
+      "output_tokens": 22812,
+      "cached_input_tokens": 3504384,
+      "reasoning_output_tokens": 7946,
+      "session_ids": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 16
+      },
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "total": {
+      "input_tokens": 3606335,
+      "output_tokens": 22812,
+      "cached_input_tokens": 3504384,
+      "reasoning_output_tokens": null
+    },
+    "native_cumulative": {
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "sessions": {
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2": {
+          "id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "parent_thread_id": null,
+          "agent_role": null,
+          "cli_version": "0.163.0"
+        },
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c": {
+          "id": "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "explorer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3": {
+          "id": "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "reviewer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e194-6ba5-72d0-a43b-e612983e2310": {
+          "id": "01a1e194-6ba5-72d0-a43b-e612983e2310",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "explorer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748": {
+          "id": "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "worker",
+          "cli_version": "0.163.0"
+        },
+        "01a1e197-6062-7a93-b2e9-5c42df536ded": {
+          "id": "01a1e197-6062-7a93-b2e9-5c42df536ded",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "reviewer",
+          "cli_version": "0.163.0"
+        }
+      },
+      "per_thread": {
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2": {
+          "input_tokens": 3719000,
+          "cached_input_tokens": 3620224,
+          "output_tokens": 22125,
+          "reasoning_output_tokens": 5758
+        },
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c": {
+          "input_tokens": 336839,
+          "cached_input_tokens": 288256,
+          "output_tokens": 1839,
+          "reasoning_output_tokens": 182
+        },
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3": {
+          "input_tokens": 866127,
+          "cached_input_tokens": 829312,
+          "output_tokens": 2160,
+          "reasoning_output_tokens": 317
+        },
+        "01a1e194-6ba5-72d0-a43b-e612983e2310": {
+          "input_tokens": 257828,
+          "cached_input_tokens": 247808,
+          "output_tokens": 2260,
+          "reasoning_output_tokens": 840
+        },
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748": {
+          "input_tokens": 593102,
+          "cached_input_tokens": 573952,
+          "output_tokens": 3358,
+          "reasoning_output_tokens": 488
+        },
+        "01a1e197-6062-7a93-b2e9-5c42df536ded": {
+          "input_tokens": 584860,
+          "cached_input_tokens": 541440,
+          "output_tokens": 4822,
+          "reasoning_output_tokens": 2700
+        }
+      },
+      "total": {
+        "input_tokens": 6357756,
+        "cached_input_tokens": 6100992,
+        "output_tokens": 36564,
+        "reasoning_output_tokens": 10285
+      },
+      "response_count": 117,
+      "counter_semantics": "sum unique native response usage per thread; parent excludes children"
+    },
+    "parent_cumulative": {
+      "input_tokens": 3719000,
+      "output_tokens": 22125,
+      "cached_input_tokens": 3620224,
+      "reasoning_output_tokens": 5758,
+      "session_ids": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 16
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "executor_cumulative": {
+      "input_tokens": 6357756,
+      "output_tokens": 36564,
+      "cached_input_tokens": 6100992,
+      "reasoning_output_tokens": 10285,
+      "session_ids": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 16
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 520.243435700002,
+    "evaluation": 64.94454958899951,
+    "sonar": 17.069257401999494
+  },
+  "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+  "new_prod_files": 0,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "formatting_only_files": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "crates/globset/README.md",
+      "new_path": "crates/globset/README.md",
+      "raw_added": 2,
+      "raw_deleted": 1,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/glob.rs",
+      "new_path": "crates/globset/src/glob.rs",
+      "raw_added": 57,
+      "raw_deleted": 625,
+      "added_prod_loc": 57,
+      "deleted_prod_loc": 13
+    },
+    {
+      "status": "M",
+      "old_path": "crates/globset/src/lib.rs",
+      "new_path": "crates/globset/src/lib.rs",
+      "raw_added": 13,
+      "raw_deleted": 6,
+      "added_prod_loc": 13,
+      "deleted_prod_loc": 6
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/alternates.rs",
+      "raw_added": 164,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "A",
+      "old_path": null,
+      "new_path": "crates/globset/tests/unclosed_class.rs",
+      "raw_added": 142,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/gitignore.rs",
+      "new_path": "crates/ignore/src/gitignore.rs",
+      "raw_added": 95,
+      "raw_deleted": 1,
+      "added_prod_loc": 27,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "crates/ignore/src/overrides.rs",
+      "new_path": "crates/ignore/src/overrides.rs",
+      "raw_added": 54,
+      "raw_deleted": 1,
+      "added_prod_loc": 16,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "tests/regression.rs",
+      "new_path": "tests/regression.rs",
+      "raw_added": 23,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extension": ".rs",
+    "inline_tests": "removed by pinned upstream Rust AST filter",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor directory",
+      "generated directory"
+    ],
+    "loc": "physical lines including comments and blank lines",
+    "rename_detection": "-M50%"
+  },
+  "verified_snapshot_rust_files": 79,
+  "execution_amendment": {
+    "kind": "host_postprocessing_recovery",
+    "parent_trial": "ecc_ecc_r01_s01",
+    "reason": "Historical extension rows reached the prefix aggregator after successful first-step grading and Sonar",
+    "original_config": "reports/ecc_experiment.json",
+    "original_config_sha256": "279aec2df23fa30141e60aa631eb498a532ec265a5a161cf3a8656f38c79ec26",
+    "host_files_changed": {
+      "experiment/continuous.py": {
+        "before": "fafc9f7c6276cf7904720725c3f9b71e8a6f6a67f8402bcbc15a124427668552",
+        "after": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c"
+      },
+      "experiment/ecc.py": {
+        "before": "d0e6f400eb7dacf1999975d8676de6d075751a2af6994fff8b10615dbe4cdd86",
+        "after": "e61939911e2edbf74a47ff94edef2f12bf596ce2d7522f78c7eb209624565c8c"
+      },
+      "experiment/phase6.py": {
+        "before": "4370c9e5a39f95fbdec6b2a11f972280450bedccc4948600895a1031927e2982",
+        "after": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659"
+      }
+    },
+    "source_prefix_replayed": false,
+    "model_context_modified": false,
+    "measurement_conditions_changed": false,
+    "native_container_reused": true
+  },
+  "continuous": {
+    "trajectory_id": "ecc_ecc_r01",
+    "step": 2,
+    "repetition": 1,
+    "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+    "input_commit": "04d6c289ec5a015a1e3192a2141bb52547736f19",
+    "dispatch": {
+      "session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "read_item_id": "item_3",
+      "task_sha256": "ca118bfeb519c155173aaa3fae59790a2cdcab98771398473c27a3d3f0477e15",
+      "read_verified": true,
+      "input_commit": "04d6c289ec5a015a1e3192a2141bb52547736f19",
+      "milestone_id": "milestone_seed_5f5da48_1_sub-02"
+    },
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "incremental_footprint": {
+      "starting_commit": "04d6c289ec5a015a1e3192a2141bb52547736f19",
+      "ending_commit": "d19594f3b6e70ff9d532809ce10b0190a033923c",
+      "added_prod_loc": 94,
+      "deleted_prod_loc": 3,
+      "changed_prod_files": 4,
+      "new_prod_files": 0,
+      "deleted_prod_files": 0,
+      "renamed_prod_files": 0,
+      "binary_changes": [],
+      "formatting_only_files": [],
+      "files": [
+        {
+          "status": "M",
+          "old_path": "crates/globset/src/glob.rs",
+          "new_path": "crates/globset/src/glob.rs",
+          "raw_added": 48,
+          "raw_deleted": 0,
+          "added_prod_loc": 48,
+          "deleted_prod_loc": 0
+        },
+        {
+          "status": "M",
+          "old_path": "crates/globset/src/lib.rs",
+          "new_path": "crates/globset/src/lib.rs",
+          "raw_added": 3,
+          "raw_deleted": 1,
+          "added_prod_loc": 3,
+          "deleted_prod_loc": 1
+        },
+        {
+          "status": "A",
+          "old_path": null,
+          "new_path": "crates/globset/tests/unclosed_class.rs",
+          "raw_added": 142,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        },
+        {
+          "status": "M",
+          "old_path": "crates/ignore/src/gitignore.rs",
+          "new_path": "crates/ignore/src/gitignore.rs",
+          "raw_added": 95,
+          "raw_deleted": 1,
+          "added_prod_loc": 27,
+          "deleted_prod_loc": 1
+        },
+        {
+          "status": "M",
+          "old_path": "crates/ignore/src/overrides.rs",
+          "new_path": "crates/ignore/src/overrides.rs",
+          "raw_added": 54,
+          "raw_deleted": 1,
+          "added_prod_loc": 16,
+          "deleted_prod_loc": 1
+        },
+        {
+          "status": "M",
+          "old_path": "tests/regression.rs",
+          "new_path": "tests/regression.rs",
+          "raw_added": 23,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        }
+      ],
+      "rules": {
+        "extension": ".rs",
+        "inline_tests": "removed by pinned upstream Rust AST filter",
+        "excluded": [
+          "metadata tests/exclusions/generated",
+          "vendor directory",
+          "generated directory"
+        ],
+        "loc": "physical lines including comments and blank lines",
+        "rename_detection": "-M20%"
+      },
+      "net_prod_loc": 91,
+      "churn_prod_loc": 97,
+      "cumulative_prod_loc": 33781
+    }
+  }
+}

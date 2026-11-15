@@ -975,12 +975,12 @@
       "trial_id": "ecc_ecc_r01",
       "variant": "ecc",
       "repetition": 1,
-      "completed_steps": 1,
+      "completed_steps": 2,
       "total_steps": 6,
       "state": "running",
       "cohort": "ecc",
-      "active_step": 2,
-      "last_step": "ecc_ecc_r01_s01",
+      "active_step": 3,
+      "last_step": "ecc_ecc_r01_s02",
       "failure_category": null,
       "last_interruption": "host_plot_aggregation_after_s01"
     }

@@ -1623,6 +1623,35 @@
           "tree_replay_verified": true
         }
       }
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s02",
+      "variant": "ecc",
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "trajectory_id": "ecc_ecc_r01",
+      "step": 2,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "d19594f3b6e70ff9d532809ce10b0190a033923c",
+      "ending_tree": "ec38df1544f43f73ad0b9cd6bf99637e0d3a80e0",
+      "snapshot_sha256": "f5c5cf4785fb38d506ff7e3fff6a1eb3ca68b74a7cd34567961b398ae78e49aa",
+      "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "local_bundle": "results/trials/ecc_ecc_r01_s02/repository.bundle",
+      "bundle_sha256": "5331c509a60b757f7c6223d8b4f9b70c531072abbaaa14707f5570d24e85af52",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/ecc_ecc_r01_s02.cumulative.patch",
+          "sha256": "c0287cb2af34ba234b3490cd9f9be2bc791a1051a26c84ef1e500118c2a4b76c",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/ecc_ecc_r01_s02.incremental.patch",
+          "sha256": "b2d6ca81656c7de2b1aab6cf90c0b50c5612984967d646a6d3b285343311a2a9",
+          "base_commit": "04d6c289ec5a015a1e3192a2141bb52547736f19",
+          "tree_replay_verified": true
+        }
+      }
     }
   ],
   "limits": "Patches restore source trees, including benchmark test masking. Model continuation additionally requires the retained native session history and matching runtime; Phase 6d restoration is documented separately."
