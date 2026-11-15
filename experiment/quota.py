@@ -18,6 +18,36 @@ def read_quota(timeout=20):
     return report
 
 
+def wait_for_quota(output, read=None, sleep=None, on_wait=None):
+    """Keep the calling process alive at 2% or less remaining in the 300-minute window."""
+    read, sleep = read or read_quota, sleep or time.sleep
+    path = Path(output) / 'quota_wait.json'
+    observations = []
+    while True:
+        snapshot = read()
+        quotas = list((snapshot.get('rate_limits') or {}).values())
+        windows = [q.get(key) for q in quotas for key in ('primary', 'secondary')]
+        short = [w for w in windows if w and w.get('windowDurationMins') == 300]
+        if snapshot.get('status') != 'observed' or not short:
+            state = 'waiting_observation'
+        elif any(q.get('spendControlReached') for q in quotas):
+            raise RuntimeError('Account spend control prevents inference')
+        elif any(w['usedPercent'] >= 100 for w in windows if w and w.get('windowDurationMins') != 300):
+            raise RuntimeError('Long-window quota exhausted; preserve the session')
+        elif any(w['usedPercent'] >= 98 for w in short):
+            state = 'waiting_quota'
+        elif any(q.get('rateLimitReachedType') for q in quotas):
+            state = 'waiting_quota'
+        else:
+            path.write_text(json.dumps({'state': 'ready', 'observations': observations, 'current': snapshot}, indent=2) + '\n')
+            return snapshot
+        observations.append({'state': state, 'snapshot': snapshot})
+        path.write_text(json.dumps({'state': state, 'observations': observations}, indent=2) + '\n')
+        if on_wait:
+            on_wait(state)
+        sleep(60)
+
+
 def _read_quota_once(timeout):
     report = {"observed_at": datetime.now(timezone.utc).isoformat(),
               "source": "codex app-server account/rateLimits/read", "approximate": True,

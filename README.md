@@ -4,7 +4,7 @@ Independent, open-source research into how **model × skills × tools × agent c
 
 This repository contains an implemented benchmarking harness, completed pilot experiments, source patches, normalized results, and analysis code. It is an experimental research framework, not a model leaderboard. Completed experiments hold the model fixed; they do not yet answer the question across models.
 
-**Current evidence:** two separate single-task cohorts, followed by seven continuous trajectories with six sequential changes each. Baseline, Caveman, and Ponytail have two trajectories each; Serena has one. The seventh ripgrep change remains prepared with **0/7 completed**. The next priority is a separate scikit-learn cohort, with six steps and two independent repetitions per method; no scikit-learn inference has run. No new model runs are needed to inspect or redraw the published results.
+**Current evidence:** two separate single-task cohorts, followed by seven continuous trajectories with six sequential changes each. Baseline, Caveman, and Ponytail have two trajectories each; Serena has one. The seventh ripgrep change remains prepared with **0/7 completed**. The next priority is a separate scikit-learn cohort, with six steps and two independent repetitions per method; three scikit-learn first-step submissions were collected; the cohort remains incomplete. No new model runs are needed to inspect or redraw the published results.
 
 Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github.com/DemidovArtem/ai-coding-benchmarks). See [publication checks](docs/PUBLICATION_CHECKS.md) for the exact validation scope.
 
@@ -18,7 +18,7 @@ Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github
 - How do code changes and regressions accumulate during a sequence of tasks?
 - Which observations survive independent repetitions and different repositories?
 
-The framework is intended to support new configurations. Current evidence covers baseline, planning variants, Ponytail, Caveman, and Serena. Kimi, ECC, other models, and combinations are possible research directions, **not completed comparisons**.
+The framework is intended to support new configurations. Current evidence covers baseline, planning variants, Ponytail, Caveman, and Serena. The separate [ECC for Codex, offline pilot](profiles/ecc/README.md) has passed native activation and continuation checks; six sequential edits are authorized. Kimi, other models, and combinations remain research directions, **not completed comparisons**.
 
 ## Methodology
 

@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "root_session_id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+  "root_selection_fix_verified": true,
+  "native_resume_verified": true,
+  "warm_memory_verified": true,
+  "native_checkpoint_verified": true,
+  "configuration_adjustment": "Explicitly pin the same /testbed trusted-project setting Codex added before the first model turn. Current bytes match exactly.",
+  "usage": {
+    "root_session_id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+    "sessions": {
+      "01a1e16c-77c1-7f91-8411-af66d89c2371": {
+        "id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+        "parent_thread_id": null,
+        "agent_role": null,
+        "cli_version": "0.163.0"
+      },
+      "01a1e16c-a180-73f3-8714-80d7caad2dc6": {
+        "id": "01a1e16c-a180-73f3-8714-80d7caad2dc6",
+        "parent_thread_id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+        "agent_role": "explorer",
+        "cli_version": "0.163.0"
+      }
+    },
+    "per_thread": {
+      "01a1e16c-77c1-7f91-8411-af66d89c2371": {
+        "input_tokens": 136508,
+        "cached_input_tokens": 112896,
+        "output_tokens": 428,
+        "reasoning_output_tokens": 37
+      },
+      "01a1e16c-a180-73f3-8714-80d7caad2dc6": {
+        "input_tokens": 65098,
+        "cached_input_tokens": 46592,
+        "output_tokens": 145,
+        "reasoning_output_tokens": 0
+      }
+    },
+    "total": {
+      "input_tokens": 201606,
+      "cached_input_tokens": 159488,
+      "output_tokens": 573,
+      "reasoning_output_tokens": 37
+    },
+    "response_count": 9,
+    "counter_semantics": "sum unique native response usage per thread; parent excludes children"
+  }
+}

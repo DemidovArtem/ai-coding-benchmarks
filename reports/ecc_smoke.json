@@ -1,0 +1,93 @@
+{
+  "kind": "activation_smoke_not_measured",
+  "variant": "ecc",
+  "success": true,
+  "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+  "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+  "codex": "0.163.0",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "runtime_verified": true,
+  "effective_config_sha256": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518",
+  "native_hook_activation_verified": true,
+  "skill_activation_verified": true,
+  "subagent_activation_verified": true,
+  "parent_excludes_child_usage_verified": true,
+  "usage": {
+    "root_session_id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+    "sessions": {
+      "01a1e16c-77c1-7f91-8411-af66d89c2371": {
+        "id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+        "parent_thread_id": null,
+        "agent_role": null,
+        "cli_version": "0.163.0"
+      },
+      "01a1e16c-a180-73f3-8714-80d7caad2dc6": {
+        "id": "01a1e16c-a180-73f3-8714-80d7caad2dc6",
+        "parent_thread_id": "01a1e16c-77c1-7f91-8411-af66d89c2371",
+        "agent_role": "explorer",
+        "cli_version": "0.163.0"
+      }
+    },
+    "per_thread": {
+      "01a1e16c-77c1-7f91-8411-af66d89c2371": {
+        "input_tokens": 90120,
+        "cached_input_tokens": 66944,
+        "output_tokens": 359,
+        "reasoning_output_tokens": 37
+      },
+      "01a1e16c-a180-73f3-8714-80d7caad2dc6": {
+        "input_tokens": 65098,
+        "cached_input_tokens": 46592,
+        "output_tokens": 145,
+        "reasoning_output_tokens": 0
+      }
+    },
+    "total": {
+      "input_tokens": 155218,
+      "cached_input_tokens": 113536,
+      "output_tokens": 504,
+      "reasoning_output_tokens": 37
+    },
+    "response_count": 7,
+    "counter_semantics": "sum unique native response usage per thread; parent excludes children"
+  },
+  "limitations": [
+    "Native subagent sandbox inherits the isolated invocation bypass; role instructions remain read-only.",
+    "Model self-report did not identify SessionStart; native developer context proves execution.",
+    "Upstream newest-rollout session selection returned the child; ECC overrides it using root metadata."
+  ],
+  "attempts": [
+    {
+      "attempt": "native_smoke_001",
+      "kind": "activation_smoke_not_measured",
+      "success": false,
+      "variant": "ecc",
+      "error": "Runtime policy environment not applied before ContainerSetup; failed before container start or inference."
+    },
+    {
+      "attempt": "native_smoke_002",
+      "kind": "activation_smoke_not_measured",
+      "success": false,
+      "variant": "ecc",
+      "error": "Tracked ECC source has changed"
+    },
+    {
+      "attempt": "native_smoke_003",
+      "kind": "activation_smoke_not_measured",
+      "success": false,
+      "variant": "ecc",
+      "error": "Command '['docker', 'exec', '--user', 'fakeroot', '-e', 'HOME=/home/fakeroot', '-w', '/testbed', 'ecc-native_smoke_003', 'codex', 'plugin', 'add', 'ecc@ecc', '--json']' returned non-zero exit status 1."
+    },
+    {
+      "attempt": "native_smoke_004",
+      "kind": "activation_smoke_not_measured",
+      "success": false,
+      "variant": "ecc",
+      "session_id": "01a1e16c-a180-73f3-8714-80d7caad2dc6",
+      "model_turn_completed": true,
+      "state": "execution_completed_then_native_audit_verified"
+    }
+  ],
+  "configuration_adjustment": "Pin the /testbed trust entry added by Codex before the first model turn; the observed effective configuration now matches the profile byte for byte."
+}

@@ -41,3 +41,15 @@ class CurvesTests(unittest.TestCase):
     def test_duplicate_or_nonconsecutive_steps_are_rejected(self):
         for rows in ([row('baseline',1,2,10,5)], [row('baseline',1,1,10,5)]*2):
             with self.assertRaises(ValueError):aggregate(rows)
+
+    def test_ecc_has_one_separate_trajectory_and_unknown_grading_is_not_zero(self):
+        first = row('ecc', 1, 1, 8, 4, 'ecc-cohort')
+        second = row('ecc', 1, 2, 9, 6, 'ecc-cohort')
+        second['resolved'] = None
+        data = aggregate([row('baseline', 1, 1, 10, 5), first, second])
+        point = next(p for p in data['points'] if p['variant'] == 'ecc' and p['step'] == 2)
+        self.assertEqual(point['metrics']['output_tokens']['mean'], 17)
+        self.assertEqual(point['metrics']['output_tokens']['n'], 1)
+        self.assertIsNone(point['metrics']['output_tokens']['sd'])
+        self.assertIsNone(point['metrics']['grader_acceptance']['mean'])
+        self.assertEqual(point['paired_delta']['output_tokens']['n'], 0)

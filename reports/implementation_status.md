@@ -47,3 +47,13 @@ Phase 6d завершена: baseline/Caveman/Ponytail имеют по два н
 | Larger repo/repetitions/full chain | Phase 6 вне автоматического разрешения. pilot_report.md содержит текущие quota/storage observations и ограничения forecast; дополнительные образы/модельные runs не запускаются. |
 
 Полная [сводка](pilot_report.md), [машинная проверка](completion_audit.json), [planning](phase2_progress.md), [skills](phase3_progress.md), [Sonar](sonar_pilot.md), [continuous deferral](continuous_feasibility.md). Root experiment.yaml остаётся frozen Phase 2 authority; Phase 3 имеет отдельный immutable config. Исторические setup reports не заменяют текущие runtime proofs.
+
+## ECC pilot — 2026-11-16
+
+ECC 2.2.3 now has a separate native Codex profile. Activation, configured explorer,
+SessionStart and same-session memory continuation are verified on a neutral fixture.
+One six-edit ripgrep trajectory is authorized, without repeat runs. The existing
+continuous runner, grader, collector and Sonar scanner are reused. Quota waits
+retain the process and session at 2% or less remaining. Fresh benchmark results
+are pending; activation usage is excluded. Historical cohorts remain frozen.
+See [protocol](ecc_protocol.md) and [live register](../EXPERIMENT_STATUS.md).

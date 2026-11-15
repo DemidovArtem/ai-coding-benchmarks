@@ -29,12 +29,16 @@ def schedule(config=None):
 
 def analyze(record):
     directory = ROOT / 'results/trials' / record['trial_id']
+    analysis = json.loads((directory / 'experiment.json').read_text()).get('sonar', {})
+    base = ROOT / analysis.get('common_base', 'results/sonar/common_base')
+    if not base.exists():
+        scan(directory, base, ROOT / 'results/sonar/private/credentials.json', 'base')
     output = directory / 'sonar'
     if not output.exists():
         scan(directory, output, ROOT / 'results/sonar/private/credentials.json', 'solution')
     rows = [json.loads(line) for line in (ROOT / 'results/results.jsonl').read_text().splitlines() if line.strip()]
     row = next(row for row in rows if row['trial_id'] == record['trial_id'])
-    row['sonar'] = sonar_result(directory, row, ROOT / 'results/sonar/common_base')
+    row['sonar'] = sonar_result(directory, row, base)
     row['durations_seconds']['sonar'] = row['sonar'].get('duration_seconds')
     export(rows, ROOT / 'results')
     save(ROOT / 'reports' / (record['trial_id'] + '.json'), row)
@@ -42,7 +46,7 @@ def analyze(record):
     refresh_status()
     subprocess.run([sys.executable, str(ROOT / 'reports/plots/export_patches.py')], cwd=ROOT, check=True)
     # Plotting uses an existing host-only environment, never the measured container runtime.
-    plotting = Path('/tmp/ai-coding-charts/bin/python')
+    plotting = Path(sys.executable) if record['variant'] == 'ecc' else Path('/tmp/ai-coding-charts/bin/python')
     if plotting.exists():
         subprocess.run([str(plotting), str(ROOT / 'reports/plots/mean_curves.py')], cwd=ROOT, check=True,
                        env={**os.environ, 'MPLCONFIGDIR': '/tmp/ai-coding-charts/mpl'})

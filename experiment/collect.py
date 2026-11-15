@@ -164,7 +164,7 @@ def collect(run, config):
         except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
             record["collection_errors"].append(str(error))
             record["failure_category"] = record["failure_category"] or "collection_failure"
-    record["sonar"] = sonar_result(run, record, ROOT / "results/sonar/common_base")
+    record["sonar"] = sonar_result(run, record, ROOT / config.get('sonar', {}).get('common_base', 'results/sonar/common_base'))
     record["durations_seconds"]["sonar"] = record["sonar"].get("duration_seconds")
     return record
 

@@ -1,0 +1,54 @@
+{
+  "version": "2.2.3",
+  "source_url": "https://github.com/affaan-m/ECC",
+  "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+  "tag_object": "93f9f6154d164ccb9f4dc38858a2bc2d5dcab222",
+  "codex_version": "0.163.0",
+  "label": "ECC for Codex, offline",
+  "source_paths": [
+    ".codex-plugin",
+    ".claude-plugin",
+    "hooks",
+    "scripts",
+    "skills",
+    "agents",
+    "rules",
+    "manifests",
+    "schemas",
+    "package.json",
+    "package-lock.json",
+    "LICENSE",
+    ".mcp.json",
+    "assets"
+  ],
+  "node": {
+    "sha256": "61ab14cd750fc24d5db53490ec5fc40f756e4b6e136b78cf7004265471d9bd1d",
+    "version": "v24.22.1"
+  },
+  "dependency_lock_sha256": "c5a1610655ada847c7aa7e3e1eff287146babed59a67462b72a02b93ad8a8fe8",
+  "overrides": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "external_mcp": "disabled",
+    "web_search": "disabled",
+    "role_model_overrides": true,
+    "memory_root": "/home/fakeroot/.ecc"
+  },
+  "compatibility_smoke_verified": true,
+  "runtime_image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+  "continuation_smoke_verified": true,
+  "evidence": [
+    "reports/ecc_smoke.json",
+    "reports/ecc_continuation_smoke.json"
+  ],
+  "profile_files_sha256": {
+    "AGENTS.md": "f3412991e61950b34b3d54579ca0e1a0bfda3e4410893469136da308d067ec15",
+    "Dockerfile": "08b9883ce47049b9d9dbb33389d803664f7543d866fc61033bf9b3cda093b379",
+    "LICENSE": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+    "README.md": "684c9e180f9d9447710b467cfd0481a2ea99c12437684a4e8fe1265e98168528",
+    "agents/docs-researcher.toml": "daaf1e25a9b97752d49621fafc8dc87007c47950addbfebbe782576a60e791b2",
+    "agents/explorer.toml": "933968e4934df548a66a50a0d113a2831e9353b82f5b7b93fffff29e468424d7",
+    "agents/reviewer.toml": "b61288fd309169da3e63f1ef3b7299f10a224539c91cb4b83e526dbfea6f4fdc",
+    "config.toml": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518"
+  }
+}

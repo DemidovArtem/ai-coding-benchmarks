@@ -51,7 +51,7 @@ def freeze_config(base, runtime, activations):
 def assert_no_profile_artifacts(snapshot):
     with tarfile.open(snapshot) as archive:
         for member in archive.getmembers():
-            if any(part in ('.serena','.codex','.agents') for part in Path(member.name).parts):
+            if any(part in ('.serena','.codex','.agents','.ecc') for part in Path(member.name).parts):
                 raise ValueError('Profile instructions or memory entered the grader snapshot')
 
 

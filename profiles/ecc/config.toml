@@ -1,0 +1,49 @@
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+forced_login_method = "chatgpt"
+approval_policy = "never"
+sandbox_mode = "read-only"
+web_search = "disabled"
+
+[features]
+apps = false
+browser_use = false
+browser_use_external = false
+browser_use_full_cdp_access = false
+computer_use = false
+image_generation = false
+in_app_browser = false
+plugins = true
+remote_plugin = false
+multi_agent = true
+
+[marketplaces.ecc]
+source_type = "local"
+source = "/opt/ecc"
+
+[plugins."ecc@ecc"]
+enabled = true
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@1.10.1"]
+enabled = false
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[agents.explorer]
+description = "Read-only codebase explorer for gathering evidence before changes are proposed."
+config_file = "/home/fakeroot/.codex/agents/explorer.toml"
+
+[agents.reviewer]
+description = "PR reviewer focused on correctness, security, and missing tests."
+config_file = "/home/fakeroot/.codex/agents/reviewer.toml"
+
+[agents.docs_researcher]
+description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
+config_file = "/home/fakeroot/.codex/agents/docs-researcher.toml"
+
+[projects."/testbed"]
+trust_level = "trusted"

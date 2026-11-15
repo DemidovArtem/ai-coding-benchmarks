@@ -1,0 +1,147 @@
+{
+  "experiment_id": "scikit-configuration-v1-pilot",
+  "cohort": "scikit-configuration-v1-pilot",
+  "trial_id": "scikit_serena_r01_s01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "repo": "scikit-learn_scikit-learn_1.5.2_1.6.0",
+  "milestone_id": "M06",
+  "variant": "serena",
+  "repetition": 1,
+  "trial_state": "failed",
+  "trial_failure_category": "scikit_step_failure",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+  "starting_tree": "cde0ed02139a37b0100420927921aab8a4bb9d0c",
+  "ending_commit": null,
+  "snapshot_sha256": null,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/scikit_serena_r01_s01",
+  "effective_profile": {},
+  "setup_fingerprint": "7856bc34afefe86d3836ae3b31e9fcda4b451766909a9c3abdd76e18c8dac9f2",
+  "implementation_commit": "a07f0ab6dca6d7ae54d27bb8906e903dc90c7658",
+  "duration_seconds": 0.7938890039949911,
+  "durations_seconds": {
+    "executor": null,
+    "evaluation": null,
+    "sonar": null
+  },
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0
+    },
+    "executor": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "no completed step counters"
+    },
+    "executor_cumulative": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null,
+      "reasoning_output_tokens": null
+    }
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-11-08T19:59:41.035400+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 92,
+            "windowDurationMins": 300,
+            "resetsAt": 1794171822
+          },
+          "secondary": {
+            "usedPercent": 16,
+            "windowDurationMins": 10080,
+            "resetsAt": 1794589448
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-11-08T19:59:41.829585+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 92,
+            "windowDurationMins": 300,
+            "resetsAt": 1794171822
+          },
+          "secondary": {
+            "usedPercent": 16,
+            "windowDurationMins": 10080,
+            "resetsAt": 1794589448
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "continuous": {
+    "trajectory_id": "scikit_serena_r01",
+    "step": 1,
+    "repetition": 1,
+    "executor_session_id": null,
+    "input_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4"
+  },
+  "collection_errors": [
+    "Source checkpoint or snapshot missing"
+  ],
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "grading_validity": {
+    "valid": false,
+    "raw_score_preserved": true,
+    "common_base_limitation": "M06 unchanged-base preflight has 78 missing P2P tests; inspect raw counts."
+  },
+  "sonar": {
+    "analysis_ok": null,
+    "metrics": null,
+    "status": "not_run"
+  },
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "scikit_step_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null
+}

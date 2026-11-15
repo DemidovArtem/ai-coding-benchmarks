@@ -18,11 +18,14 @@ from experiment.curves import aggregate
 from reports.plots.current_view import comparison_view
 from reports.plots.extension_view import append_fourth
 
-COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87','serena':'#c9802a'}
-STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D','serena':':^'}
-NAMES={'baseline':'Baseline','caveman':'Caveman','ponytail':'Ponytail','serena':'Serena'}
+COLORS={'baseline':'#526474','caveman':'#8462b5','ponytail':'#148a87','serena':'#c9802a','ecc':'#ce4862'}
+STYLES={'baseline':'-o','caveman':'--s','ponytail':'-D','serena':':^','ecc':'-P'}
+NAMES={'baseline':'Baseline','caveman':'Caveman','ponytail':'Ponytail','serena':'Serena','ecc':'ECC offline'}
 MEASURES=[('output_tokens','Накопленный output','токены'),
           ('input_tokens','Накопленный input, включая cache','токены'),
+          ('model_seconds','Накопленное время модели','секунды без quota wait'),
+          ('uncached_input_tokens','Накопленный input без cache','токены'),
+          ('grader_acceptance','Grader acceptance','0 или 1; неизвестное пропущено'),
           ('churn_prod_loc','Размер production-дифа','строки: добавлено + удалено'),
           ('net_prod_loc','Чистый прирост production-кода','строки: добавлено − удалено'),
           ('sonar_delta_cognitive_complexity','Когнитивная сложность','Δ к исходному Sonar'),
@@ -53,16 +56,16 @@ def main():
         (HERE/'current_comparison.json').write_text(json.dumps(combined,indent=2)+'\n')
     else:
         combined=json.loads((HERE/'current_comparison.json').read_text())
-    views=([(None,combined['points'],list(NAMES))] if combined['points'] else [])
+    views=([(None,combined['points'],[v for v in NAMES if v != 'ecc'])] if combined['points'] else [])
     for cohort in cohorts:
         points=[p for p in data['points'] if p['setup_fingerprint']==cohort]
-        variants=list(NAMES) if any(p['variant']=='serena' for p in points) else ['baseline','caveman','ponytail']
+        variants=[v for v in NAMES if any(p['variant']==v for p in points)]
         views.append((cohort,points,variants))
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':10,'pdf.fonttype':42,'svg.fonttype':'none'})
     with PdfPages(HERE/'mean_comparison.pdf') as pdf:
         for cohort,points,variants in views:
-            for paired in ((False,) if cohort is None else (False,True)):
-                fig,axes=plt.subplots(3,3,figsize=(15,11))
+            for paired in ((False,) if cohort is None or variants == ['ecc'] else (False,True)):
+                fig,axes=plt.subplots(4,3,figsize=(15,14))
                 for ax,(metric,title,unit) in zip(axes.flat,MEASURES):
                     ax.axhline(0,color='#9ba9b5',linewidth=.8)
                     observed=False
@@ -78,7 +81,8 @@ def main():
                         stats=[{'mean':0,'min':0,'max':0,'n':0}]+[p[field][metric] for p in values]
                         label=f"{NAMES[variant]} · n={values[-1][field][metric]['n']}"
                         ax.plot(x,[s['mean'] for s in stats],STYLES[variant],color=COLORS[variant],linewidth=2,label=label)
-                        ax.fill_between(x,[s['min'] for s in stats],[s['max'] for s in stats],color=COLORS[variant],alpha=.12)
+                        if any(s['n'] > 1 for s in stats):
+                            ax.fill_between(x,[s['min'] for s in stats],[s['max'] for s in stats],color=COLORS[variant],alpha=.12)
                     ax.set_title(title,loc='left',fontsize=11)
                     ax.set_xlabel('Количество правок')
                     axis_unit=unit
@@ -97,6 +101,8 @@ def main():
                 title='Средние изменения по правкам' if not paired else 'Средние парные дельты к baseline по правкам'
                 fig.suptitle(title,x=.035,ha='left',fontsize=19,fontweight='medium')
                 subtitle='Линия — среднее повторов; полоса — min–max. n — число наблюдений в последней точке.'
+                if variants == ['ecc']:
+                    subtitle='ECC offline: одна траектория, n=1; без полос и выводов о статистической значимости.'
                 fig.text(.035,.936,subtitle+(' Один cohort.' if cohort else ' Продолжения связаны с исходными траекториями.'),fontsize=10,color='#526474')
                 provenance=('Serena: исходный runtime; остальные: offline-сборка с тем же Codex 0.163.0. Средние каждой линии сохранены.'
                             if cohort is None else 'Правка 0 — исходная точка отсчёта. Мало повторов; полосы не являются доверительным интервалом. Cohort: '+cohort[:12])

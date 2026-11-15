@@ -113,10 +113,11 @@ def scan(run, output, credentials, kind):
     report = {"analysis_ok":False,"failure_category":"sonar_analysis_failure","snapshot_binding_verified":False,
               "rust_coverage_verified":False,"metrics":None}
     private = load(credentials)
-    pins = load(ROOT / "sonar/setup_candidates.json")
+    analysis = load(run / 'experiment.json', {}).get('sonar', {})
+    pins = load(ROOT / analysis.get('setup_candidates', 'sonar/setup_candidates.json'))
     token_name = token = None
     try:
-        protocol_path = ROOT / "sonar/analysis_protocol.json"
+        protocol_path = ROOT / analysis.get('analysis_protocol', 'sonar/analysis_protocol.json')
         protocol = load(protocol_path)
         client = SonarClient("http://127.0.0.1:9000",private["token"])
         if client.get("/api/server/version") != protocol["server_version"]:

@@ -5,6 +5,7 @@ import csv
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -19,7 +20,7 @@ from experiment.runner import ROOT, check_quota, save, setup_fingerprint, trial_
 from experiment.quota import read_quota
 from experiment.security import credential_values, redact, redact_artifacts
 
-VARIANTS = ('baseline', 'caveman', 'ponytail', 'serena', 'plan')
+VARIANTS = ('baseline', 'caveman', 'ponytail', 'serena', 'plan', 'ecc')
 TOKEN_FIELDS = ('input_tokens', 'output_tokens', 'cached_input_tokens', 'reasoning_output_tokens')
 
 
@@ -108,7 +109,7 @@ def freeze(output, repetitions):
         if 'dependencies' in name:
             edges.extend(csv.DictReader(path.open()))
     verify_selection(plan['selected_milestones'], edges)
-    base.update(experiment_id='ripgrep-continuous-v1-pilot', stage='phase5_frozen', variants=list(VARIANTS))
+    base.update(experiment_id='ripgrep-continuous-v1-pilot', stage='phase5_frozen', variants=[v for v in VARIANTS if v != 'ecc'])
     base['benchmark']['continuous_pilot'] = {
         'label': 'pilot/non-official subset', 'milestones': plan['selected_milestones'],
         'repetitions': repetitions, 'same_executor_session_required': True,
@@ -163,6 +164,7 @@ def runtime_binding(config, output):
 
 def preserve_and_collect(runner, output, config, metadata, previous_usage, input_commit):
     """Preserve every terminal step and merge it into the existing result register."""
+    ecc_usage = None
     try:
         runner.agent_runner.extract_trace(output / 'log')
         bundle = '/tmp/continuous-submission.bundle'
@@ -171,7 +173,11 @@ def preserve_and_collect(runner, output, config, metadata, previous_usage, input
             raise RuntimeError('Git bundle capture failed')
         subprocess.run(['docker', 'cp', runner.container_name + ':' + bundle, str(output / 'repository.bundle')],
                        check=True, capture_output=True)
-    except (OSError, subprocess.SubprocessError, RuntimeError) as error:
+        if metadata['variant'] == 'ecc':
+            from experiment.ecc import checkpoint
+            metadata['input_commit'] = input_commit
+            ecc_usage = checkpoint(runner, output, metadata)
+    except (OSError, subprocess.SubprocessError, RuntimeError, ValueError) as error:
         metadata.setdefault('artifact_error', str(error))
     save(output / 'run_metadata.json', metadata)
     secrets = credential_values(Path.home() / '.codex/auth.json')
@@ -179,8 +185,23 @@ def preserve_and_collect(runner, output, config, metadata, previous_usage, input
     durable = ROOT / 'results/trials' / output.name
     shutil.copytree(output, durable)
     record = collect(durable, config)
+    grading = load(durable / 'grading_state.json')
+    if metadata['variant'] == 'ecc' and grading:
+        record['grading_state'] = grading
+        if grading.get('valid') is False and grading.get('reason') == 'known_undeclared_max_matches_dependency':
+            record.update(resolved=None, f2p=None, p2p=None, n2p=None)
+            if record['failure_category'] == 'evaluation_failure':
+                record['failure_category'] = None
     record['repetition'] = metadata['repetition']
     cumulative = codex_usage(events_from(durable / 'log/agent_stdout.txt'))
+    if metadata['variant'] == 'ecc':
+        if ecc_usage:
+            record['usage']['native_cumulative'] = ecc_usage
+            record['usage']['parent_cumulative'] = cumulative
+            cumulative = {**cumulative, **ecc_usage['total'], 'session_ids': [ecc_usage['root_session_id']]}
+        else:
+            record['collection_errors'].append('ECC native checkpoint or usage evidence is missing')
+            cumulative = {**cumulative, **{key: None for key in TOKEN_FIELDS}}
     try:
         executor = usage_delta(cumulative, previous_usage)
     except ValueError as error:
@@ -233,6 +254,20 @@ def run(config, variant, repetition, chain, on_step=None):
     output = None
     memory_before = previous_memory = None
 
+    def quota_snapshot():
+        if variant == 'ecc':
+            from experiment.quota import wait_for_quota
+            waited = []
+            def waiting(_):
+                if not waited:
+                    update_progress(chain, state='waiting_quota')
+                    waited.append(True)
+            snapshot = wait_for_quota(output, on_wait=waiting)
+            if waited:
+                update_progress(chain, state='running')
+            return snapshot
+        return read_quota()
+
     class Hooks(CodexFramework):
         def build_run_command(self, *args, **kwargs):
             return super().build_run_command(*args, **kwargs) + ' --dangerously-bypass-hook-trust'
@@ -241,27 +276,49 @@ def run(config, variant, repetition, chain, on_step=None):
             return super().build_resume_command(*args, **kwargs) + ' --dangerously-bypass-hook-trust'
 
     class TimedAgent(AgentRunner):
+        quota_wait_seconds = 0
+
+        def _ecc_quota_resume(self):
+            from experiment.ecc import resume_after_quota
+            return resume_after_quota(self, runner.container_setup, output,
+                lambda session, message: AgentRunner.resume_session(self, session, message),
+                lambda state: update_progress(chain, state=state))
+
         def run(self, *args, **kwargs):
             started = time.monotonic()
+            waited = self.quota_wait_seconds
             try:
-                return super().run(*args, **kwargs)
+                result = super().run(*args, **kwargs)
+                if variant == 'ecc' and not result[0] and self._last_rate_limit:
+                    return self._ecc_quota_resume(), self.session_id
+                return result
             finally:
-                save(output / 'execution.json', {'duration_seconds': time.monotonic() - started})
+                save(output / 'execution.json', {'duration_seconds': time.monotonic() - started - (self.quota_wait_seconds - waited),
+                                                'quota_wait_seconds': self.quota_wait_seconds - waited})
 
         def resume_session(self, *args, **kwargs):
             started = time.monotonic()
+            waited = self.quota_wait_seconds
             try:
-                return super().resume_session(*args, **kwargs)
+                result = super().resume_session(*args, **kwargs)
+                if variant == 'ecc' and not result and self._last_rate_limit:
+                    return self._ecc_quota_resume()
+                return result
             finally:
                 elapsed = load(output / 'execution.json', {}).get('duration_seconds', 0)
-                save(output / 'execution.json', {'duration_seconds': elapsed + time.monotonic() - started})
+                save(output / 'execution.json', {'duration_seconds': elapsed + time.monotonic() - started - (self.quota_wait_seconds - waited),
+                                                'quota_wait_seconds': self.quota_wait_seconds - waited})
 
     class ContinuousRunner(MilestoneRunner):
         def _load_prompt(self):
             nonlocal initialized, proof, task, dispatch_path, input_commit, memory_before
             original = super()._load_prompt()
             if not initialized:
-                if variant in ('caveman', 'ponytail'):
+                if variant == 'ecc':
+                    from experiment.ecc import install, framework
+                    proof = install(self.container_setup, output, config)
+                    self.agent_runner._framework = framework(config['codex']['reasoning_effort'])
+                elif variant in ('caveman', 'ponytail'):
                     proof = install_native_skill(self.container_setup, output, config, variant)
                     self.agent_runner._framework = Hooks(reasoning_effort=config['codex']['reasoning_effort'])
                 elif variant == 'serena':
@@ -308,7 +365,7 @@ def run(config, variant, repetition, chain, on_step=None):
             subprocess.run(['docker', 'cp', str(path), self.container_name + ':' + dispatch_path], check=True, capture_output=True)
             self.container_setup.docker_exec(['chown', 'root:root', dispatch_path], user='root')
             self.container_setup.docker_exec(['chmod', '0444', dispatch_path], user='root')
-            quota = read_quota()
+            quota = quota_snapshot()
             save(output / 'quota_before_executor.json', quota)
             check_quota(quota, config['resources']['quota_stop_percent'])
             return ('Continue in this repository and session. Your first shell command must be `cat ' + dispatch_path
@@ -334,9 +391,17 @@ def run(config, variant, repetition, chain, on_step=None):
                 previous_memory = preserve_memory(self.container_setup, output, memory_before, usage)
             assert_no_profile_artifacts(snapshot)
             started = time.monotonic()
+            previous_prune = os.environ.get('SWE_MILESTONE_RESIDUE_PRUNE')
+            pruning = benchmark.get('evaluation_policy', {}).get('residue_prune_from_step')
+            if pruning is not None:
+                os.environ['SWE_MILESTONE_RESIDUE_PRUNE'] = '1' if index >= pruning else '0'
             try:
                 return super()._run_evaluation(snapshot)
             finally:
+                if previous_prune is None:
+                    os.environ.pop('SWE_MILESTONE_RESIDUE_PRUNE', None)
+                else:
+                    os.environ['SWE_MILESTONE_RESIDUE_PRUNE'] = previous_prune
                 save(output / 'durations.json', {'evaluation': time.monotonic() - started})
 
     first_output = runtime / (chain + '_s01')
@@ -381,7 +446,7 @@ def run(config, variant, repetition, chain, on_step=None):
             started = time.monotonic()
             error = None
             try:
-                quota = read_quota()
+                quota = quota_snapshot()
                 save(output / 'quota_before.json', quota)
                 check_quota(quota, config['resources']['quota_stop_percent'])
                 if index == 1:
@@ -405,7 +470,11 @@ def run(config, variant, repetition, chain, on_step=None):
                     save(output / 'skill_activation.json', {'variant': variant, 'native_hook_activation_verified': active, 'audit': audit})
                     if not active:
                         raise RuntimeError('Native skill activation was not observed')
-                if load(output / 'evaluation/evaluation_result.json').get('error_message'):
+                raw = load(output / 'evaluation/evaluation_result.json')
+                if milestone == benchmark.get('evaluation_policy', {}).get('known_dependency_task'):
+                    from experiment.phase6e import grading_state
+                    save(output / 'grading_state.json', grading_state(raw))
+                elif raw.get('error_message') or raw.get('infra_invalid'):
                     raise RuntimeError('Grader infrastructure failed; next step is withheld')
                 previous_commit = commit
                 finished += 1
@@ -468,17 +537,31 @@ def main():
     args = parser.parse_args()
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
     if args.action == 'freeze':
-        freeze(args.config, args.repetitions)
+        if args.config.exists() and load(args.config).get('variants') == ['ecc']:
+            from experiment.ecc import freeze as freeze_ecc
+            freeze_ecc(args.config)
+        else:
+            freeze(args.config, args.repetitions)
         return
     config = load(args.config)
-    if config.get('stage') != 'phase5_frozen' or not args.variant or not 1 <= args.repetition <= config['benchmark']['continuous_pilot']['repetitions']:
+    if config.get('stage') not in ('phase5_frozen', 'ecc_frozen') or args.variant not in config['variants'] or not 1 <= args.repetition <= config['benchmark']['continuous_pilot']['repetitions']:
         parser.error('A frozen continuous cohort, variant and valid repetition are required')
+    if args.variant == 'ecc':
+        from experiment.ecc import require_activation
+        require_activation(config)
     validate(config)
     verify_images(config)
     check_resources(config)
     lock = trial_lock(Path(config['resources']['runtime_root']))
     try:
-        run(config, args.variant, args.repetition, 'phase5_' + args.variant + '_r' + str(args.repetition).zfill(2))
+        cohort = config['benchmark']['continuous_pilot'].get('cohort', 'phase5')
+        on_step = None
+        if args.variant == 'ecc':
+            from experiment.phase6 import analyze
+            on_step = analyze
+            config['measurement_started'] = True
+            save(args.config, config)
+        run(config, args.variant, args.repetition, cohort + '_' + args.variant + '_r' + str(args.repetition).zfill(2), on_step=on_step)
     finally:
         lock.close()
 

@@ -1,0 +1,24 @@
+{
+  "kind": "zero_model_evaluation_preflight",
+  "activation_smoke": "reports/ecc_smoke.json",
+  "continuation_smoke": "reports/ecc_continuation_smoke.json",
+  "grader_images": "reports/ecc_grader_images.json",
+  "sonar_common_base": {
+    "analysis_ok": true,
+    "rust_coverage_verified": true,
+    "source_file_count": 79,
+    "artifacts_path": "results/sonar/ecc_common_base"
+  },
+  "clippy_versions": [
+    "cargo 1.88.0 (873a06493 2025-05-10)",
+    "rustc 1.88.0 (6b00bc388 2025-06-23)",
+    "clippy 0.1.88 (6b00bc3880 2025-06-23)"
+  ],
+  "host_tests": {
+    "passed": 140,
+    "subtests": 46
+  },
+  "measured_tasks_completed": 0,
+  "harness_commit": "f4e1a18a1bc15281f06e62cf6b616be36235fae5",
+  "harness_note": "Documented OAuth/profile patch applied to upstream 17a8f1593e172e26b36cea15e2b30fb9536c93f5; historical configs retained"
+}

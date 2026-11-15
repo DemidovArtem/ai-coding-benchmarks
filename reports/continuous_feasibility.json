@@ -892,37 +892,48 @@
       "variant": "baseline",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "running",
+      "state": "ready_next_step",
       "total_steps": 6,
-      "completed_steps": 0,
-      "active_step": 1
+      "completed_steps": 1,
+      "active_step": null,
+      "last_step": "scikit_baseline_r01_s01",
+      "failure_category": null
     },
     {
       "trial_id": "scikit_caveman_r01",
       "variant": "caveman",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "ready_next_step",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 1,
+      "active_step": null,
+      "last_step": "scikit_caveman_r01_s01",
+      "failure_category": null
     },
     {
       "trial_id": "scikit_ponytail_r01",
       "variant": "ponytail",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "ready_next_step",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 1,
+      "active_step": null,
+      "last_step": "scikit_ponytail_r01_s01",
+      "failure_category": null
     },
     {
       "trial_id": "scikit_serena_r01",
       "variant": "serena",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "failed",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "active_step": null,
+      "last_step": "scikit_serena_r01_s01",
+      "failure_category": "scikit_step_failure"
     },
     {
       "trial_id": "scikit_baseline_r02",
@@ -959,6 +970,15 @@
       "state": "planned",
       "total_steps": 6,
       "completed_steps": 0
+    },
+    {
+      "trial_id": "ecc_ecc_r01",
+      "variant": "ecc",
+      "repetition": 1,
+      "completed_steps": 0,
+      "total_steps": 6,
+      "state": "planned",
+      "cohort": "ecc"
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -1151,11 +1171,18 @@
     },
     "scikit_replication": {
       "title": "Second repository: scikit-learn, four methods, 2\u00d76",
-      "status": "running",
-      "label": "0/48 measured steps collected",
-      "summary": "0/48 steps; serial step-first order, four configurations, two cold repetitions. Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. Source, native session and Serena memories checkpointed per trajectory.",
+      "status": "stopped",
+      "label": "Stopped; 3/48 measured steps collected",
+      "summary": "3/48 steps; serial step-first order, four configurations, two cold repetitions. Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. Source, native session and Serena memories checkpointed per trajectory.",
       "protocol": "reports/scikit_protocol.md",
       "results_report": "reports/second_repository_preflight.json"
+    },
+    "ecc": {
+      "title": "ECC: ripgrep, six sequential edits",
+      "label": "Frozen and ready; 0/6 measured steps",
+      "summary": "Native activation and memory continuation verified; 140 tests pass. Six digest-pinned graders and Sonar restored; fresh 79-file common base verified. One six-edit trajectory; wait at 2% or less remaining.",
+      "protocol": "reports/ecc_protocol.md",
+      "status": "ready"
     }
   },
   "active_variants": [

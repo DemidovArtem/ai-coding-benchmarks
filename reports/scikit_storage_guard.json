@@ -1,5 +1,5 @@
 {
-  "state": "monitoring_first_step_queue",
+  "state": "finished_with_queue",
   "workspace_reserve_bytes": 1000000000,
   "docker_reserve_bytes": 12000000000,
   "interval_seconds": 10,
