@@ -5486,6 +5486,244 @@
           "sd": null
         }
       }
+    },
+    {
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "variant": "ecc",
+      "step": 3,
+      "milestone_id": "milestone_seed_2924d0c_1",
+      "n_trajectories": 1,
+      "trial_ids": [
+        "ecc_ecc_r01_s03"
+      ],
+      "metrics": {
+        "churn_prod_loc": {
+          "n": 1,
+          "mean": 187,
+          "min": 187,
+          "max": 187,
+          "sd": null
+        },
+        "net_prod_loc": {
+          "n": 1,
+          "mean": 131,
+          "min": 131,
+          "max": 131,
+          "sd": null
+        },
+        "added_prod_loc": {
+          "n": 1,
+          "mean": 159,
+          "min": 159,
+          "max": 159,
+          "sd": null
+        },
+        "deleted_prod_loc": {
+          "n": 1,
+          "mean": 28,
+          "min": 28,
+          "max": 28,
+          "sd": null
+        },
+        "input_tokens": {
+          "n": 1,
+          "mean": 11102576,
+          "min": 11102576,
+          "max": 11102576,
+          "sd": null
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "mean": 10679680,
+          "min": 10679680,
+          "max": 10679680,
+          "sd": null
+        },
+        "output_tokens": {
+          "n": 1,
+          "mean": 51990,
+          "min": 51990,
+          "max": 51990,
+          "sd": null
+        },
+        "uncached_input_tokens": {
+          "n": 1,
+          "mean": 422896,
+          "min": 422896,
+          "max": 422896,
+          "sd": null
+        },
+        "model_seconds": {
+          "n": 1,
+          "mean": 1124.2167643130015,
+          "min": 1124.2167643130015,
+          "max": 1124.2167643130015,
+          "sd": null
+        },
+        "sonar_delta_ncloc": {
+          "n": 1,
+          "mean": -376,
+          "min": -376,
+          "max": -376,
+          "sd": null
+        },
+        "sonar_delta_complexity": {
+          "n": 1,
+          "mean": 14,
+          "min": 14,
+          "max": 14,
+          "sd": null
+        },
+        "sonar_delta_cognitive_complexity": {
+          "n": 1,
+          "mean": 24,
+          "min": 24,
+          "max": 24,
+          "sd": null
+        },
+        "sonar_delta_duplicated_lines": {
+          "n": 1,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_issues": {
+          "n": 1,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_remediation_effort": {
+          "n": 1,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sd": null
+        },
+        "grader_acceptance": {
+          "n": 1,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sd": null
+        }
+      },
+      "paired_delta": {
+        "churn_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "net_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "added_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "deleted_prod_loc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "cached_input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "uncached_input_tokens": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "model_seconds": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_ncloc": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_complexity": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_cognitive_complexity": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_duplicated_lines": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_issues": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "sonar_delta_software_quality_maintainability_remediation_effort": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        },
+        "grader_acceptance": {
+          "n": 0,
+          "mean": null,
+          "min": null,
+          "max": null,
+          "sd": null
+        }
+      }
     }
   ],
   "observations": [
@@ -6459,6 +6697,33 @@
         "sonar_delta_software_quality_maintainability_issues": 0,
         "sonar_delta_software_quality_maintainability_remediation_effort": 0,
         "grader_acceptance": 1
+      }
+    },
+    {
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "variant": "ecc",
+      "trajectory": "ecc_ecc_r01",
+      "repetition": 1,
+      "step": 3,
+      "trial_id": "ecc_ecc_r01_s03",
+      "milestone_id": "milestone_seed_2924d0c_1",
+      "values": {
+        "churn_prod_loc": 187,
+        "net_prod_loc": 131,
+        "added_prod_loc": 159,
+        "deleted_prod_loc": 28,
+        "input_tokens": 11102576,
+        "cached_input_tokens": 10679680,
+        "output_tokens": 51990,
+        "uncached_input_tokens": 422896,
+        "model_seconds": 1124.2167643130015,
+        "sonar_delta_ncloc": -376,
+        "sonar_delta_complexity": 14,
+        "sonar_delta_cognitive_complexity": 24,
+        "sonar_delta_duplicated_lines": 0,
+        "sonar_delta_software_quality_maintainability_issues": 0,
+        "sonar_delta_software_quality_maintainability_remediation_effort": 0,
+        "grader_acceptance": 0
       }
     }
   ],

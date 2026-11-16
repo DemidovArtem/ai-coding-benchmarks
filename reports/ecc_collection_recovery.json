@@ -1,0 +1,30 @@
+{
+  "trial_id": "ecc_ecc_r01_s03",
+  "original_collection_error": [
+    {
+      "error": [
+        "ECC native checkpoint or usage evidence is missing"
+      ],
+      "artifact_error": "An ECC agent is unfinished; preserve the container before continuing",
+      "original_record_sha256": "d2c56e516e8f1b9ca901002ac971ddb85c5df161dbde56ed170963dd80edf21e",
+      "recovery": "Recollect unchanged native history; turn_aborted is terminal only with idle process tree",
+      "model_calls": 0
+    }
+  ],
+  "analysis_history": [
+    {
+      "attempt": 1,
+      "failure": "Local Sonar API is unavailable",
+      "artifacts_path": "results/trials/ecc_ecc_r01_s03/analysis_attempts/sonar_001_relay_unavailable",
+      "model_calls": 0
+    }
+  ],
+  "native_checkpoint_verified": true,
+  "native_history_unchanged": true,
+  "quota_wait_seconds": 12347.681277749001,
+  "host_tests": {
+    "passed": 142,
+    "subtests": 46
+  },
+  "source_or_model_replayed": false
+}

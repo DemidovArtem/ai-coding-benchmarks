@@ -205,6 +205,16 @@ def audit_smoke(output, config):
     return result
 
 
+def require_idle_sessions(setup, events):
+    if setup.docker_exec(['pgrep', '-x', 'codex'], check=False).returncode != 1:
+        raise ValueError('An ECC process is still active; preserve the container')
+    for rows in events.values():
+        turns = [row['payload'].get('type') for row in rows if row['type'] == 'event_msg'
+                 and row['payload'].get('type') in ('task_started', 'task_complete', 'turn_aborted')]
+        if not turns or turns[-1] not in ('task_complete', 'turn_aborted'):
+            raise ValueError('An ECC agent is unfinished; preserve the container before continuing')
+
+
 def checkpoint(runner, output, metadata):
     """Retain the entire native agent tree and memory, excluding authentication."""
     from experiment.session_store import backup_stores
@@ -215,13 +225,11 @@ def checkpoint(runner, output, metadata):
     usage, events = native_evidence(output / 'native_sessions')
     if usage['root_session_id'] != metadata['executor_session_id']:
         raise ValueError('ECC executor identity changed to a child or unrelated thread')
+    require_idle_sessions(setup, events)
     for rows in events.values():
         contexts = [r['payload'] for r in rows if r['type'] == 'turn_context']
         if not contexts or any(c.get('model') != metadata['model'] or c.get('effort') != metadata['reasoning_effort'] for c in contexts):
             raise ValueError('ECC native model or effort differs from the frozen profile')
-        turns = [row['payload'].get('type') for row in rows if row['type'] == 'event_msg' and row['payload'].get('type') in ('task_started', 'task_complete')]
-        if not turns or turns[-1] != 'task_complete':
-            raise ValueError('An ECC agent is unfinished; preserve the container before continuing')
     if setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/config.toml']).stdout.split()[0] != digest(ROOT / 'profiles/ecc/config.toml'):
         raise ValueError('ECC configuration changed during the trajectory')
     raw = output / 'native_store_raw'; raw.mkdir()

@@ -12,6 +12,21 @@ from types import SimpleNamespace
 
 
 class ECCTests(unittest.TestCase):
+    def test_quota_aborted_child_is_terminal_only_when_process_tree_is_idle(self):
+        from experiment.ecc import require_idle_sessions
+        setup = Mock();setup.docker_exec.return_value.returncode = 1
+        def event(kind):return {'type':'event_msg','payload':{'type':kind}}
+        sessions = {'root':[event('task_started'),event('task_complete')],
+                    'child':[event('task_started'),event('turn_aborted')]}
+        require_idle_sessions(setup, sessions)
+        setup.docker_exec.return_value.returncode = 0
+        with self.assertRaisesRegex(ValueError, 'process'):
+            require_idle_sessions(setup, sessions)
+        setup.docker_exec.return_value.returncode = 1
+        sessions['child'].append(event('task_started'))
+        with self.assertRaisesRegex(ValueError, 'unfinished'):
+            require_idle_sessions(setup, sessions)
+
     def test_live_continuation_rejects_running_agents_and_changed_memory(self):
         from experiment.ecc import verify_live_checkpoint, digest
         root = Path(__file__).resolve().parents[1]
