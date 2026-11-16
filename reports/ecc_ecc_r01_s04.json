@@ -1,0 +1,501 @@
+{
+  "experiment_id": "ripgrep-ecc-offline-six-edit-v1",
+  "trial_id": "ecc_ecc_r01_s04",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "variant": "ecc",
+  "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+  "milestone_id": "milestone_seed_b610d1c_1",
+  "repetition": 1,
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+  "ending_commit": null,
+  "starting_tree": null,
+  "effective_profile": {
+    "config_sha256": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "web_search": "disabled",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": true,
+        "remote_plugin": false,
+        "multi_agent": true
+      },
+      "marketplaces": {
+        "ecc": {
+          "source_type": "local",
+          "source": "/opt/ecc"
+        }
+      },
+      "plugins": {
+        "ecc@ecc": {
+          "enabled": true
+        }
+      },
+      "mcp_servers": {
+        "chrome-devtools": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "chrome-devtools-mcp@1.10.1"
+          ],
+          "enabled": false
+        }
+      },
+      "agents": {
+        "max_threads": 6,
+        "max_depth": 1,
+        "explorer": {
+          "description": "Read-only codebase explorer for gathering evidence before changes are proposed.",
+          "config_file": "/home/fakeroot/.codex/agents/explorer.toml"
+        },
+        "reviewer": {
+          "description": "PR reviewer focused on correctness, security, and missing tests.",
+          "config_file": "/home/fakeroot/.codex/agents/reviewer.toml"
+        },
+        "docs_researcher": {
+          "description": "Documentation specialist that verifies APIs, framework behavior, and release notes.",
+          "config_file": "/home/fakeroot/.codex/agents/docs-researcher.toml"
+        }
+      },
+      "projects": {
+        "/testbed": {
+          "trust_level": "trusted"
+        }
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "web_search": "disabled",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": true,
+        "remote_plugin": false,
+        "multi_agent": true
+      },
+      "marketplaces": {
+        "ecc": {
+          "source_type": "local",
+          "source": "/opt/ecc"
+        }
+      },
+      "plugins": {
+        "ecc@ecc": {
+          "enabled": true
+        }
+      },
+      "mcp_servers": {
+        "chrome-devtools": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "chrome-devtools-mcp@1.10.1"
+          ],
+          "enabled": false
+        }
+      },
+      "agents": {
+        "max_threads": 6,
+        "max_depth": 1,
+        "explorer": {
+          "description": "Read-only codebase explorer for gathering evidence before changes are proposed.",
+          "config_file": "/home/fakeroot/.codex/agents/explorer.toml"
+        },
+        "reviewer": {
+          "description": "PR reviewer focused on correctness, security, and missing tests.",
+          "config_file": "/home/fakeroot/.codex/agents/reviewer.toml"
+        },
+        "docs_researcher": {
+          "description": "Documentation specialist that verifies APIs, framework behavior, and release notes.",
+          "config_file": "/home/fakeroot/.codex/agents/docs-researcher.toml"
+        }
+      },
+      "projects": {
+        "/testbed": {
+          "trust_level": "trusted"
+        }
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "ecc",
+    "skill": "ecc",
+    "skill_version": "2.2.3",
+    "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+    "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+    "label": "ECC for Codex, offline",
+    "plugin_registration": [
+      {
+        "pluginId": "ecc@ecc",
+        "name": "ecc",
+        "marketplaceName": "ecc",
+        "version": "2.2.3",
+        "installed": true,
+        "enabled": true,
+        "source": {
+          "source": "local",
+          "path": "/opt/ecc"
+        },
+        "marketplaceSource": {
+          "sourceType": "local",
+          "source": "/opt/ecc"
+        },
+        "installPolicy": "AVAILABLE",
+        "authPolicy": "ON_INSTALL"
+      }
+    ],
+    "native_hook_activation_verified": false,
+    "subagent_activation_verified": false,
+    "remote_plugins_enabled": false,
+    "memory_policy": "cold trajectory; retained across sequential tasks"
+  },
+  "duration_seconds": 238.54881427800137,
+  "sonar": {
+    "analysis_ok": null,
+    "new_maintainability_issues": null,
+    "status": "not_run"
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-11-16T18:00:14.851571+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 13,
+            "windowDurationMins": 300,
+            "resetsAt": 1794869534
+          },
+          "secondary": {
+            "usedPercent": 23,
+            "windowDurationMins": 10080,
+            "resetsAt": 1795263912
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-11-16T18:04:13.400368+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 17,
+            "windowDurationMins": 300,
+            "resetsAt": 1794869534
+          },
+          "secondary": {
+            "usedPercent": 24,
+            "windowDurationMins": 10080,
+            "resetsAt": 1795263912
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/ecc_ecc_r01_s04",
+  "snapshot_sha256": null,
+  "capture_diagnostics": {
+    "uncommitted_lost_count": null,
+    "uncommitted_lost_sample": null,
+    "uncommitted_outside_count": null,
+    "committed_outside_count": null
+  },
+  "implementation_commit": "06906f9cebdbaa52ebd870bdc683c8c05414fcd7",
+  "trial_state": "failed",
+  "trial_failure_category": "continuous_step_failure",
+  "skill_state": null,
+  "hook_activation_audit": null,
+  "resume": null,
+  "wall_duration_seconds": null,
+  "interruptions": [],
+  "collection_errors": [],
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "continuous_step_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0,
+      "reasoning_output_tokens": 0,
+      "session_ids": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2"
+      ],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "total": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cached_input_tokens": 0,
+      "reasoning_output_tokens": null
+    },
+    "native_cumulative": {
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "sessions": {
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2": {
+          "id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "parent_thread_id": null,
+          "agent_role": null,
+          "cli_version": "0.163.0"
+        },
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c": {
+          "id": "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "explorer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3": {
+          "id": "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "reviewer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e194-6ba5-72d0-a43b-e612983e2310": {
+          "id": "01a1e194-6ba5-72d0-a43b-e612983e2310",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "explorer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748": {
+          "id": "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "worker",
+          "cli_version": "0.163.0"
+        },
+        "01a1e197-6062-7a93-b2e9-5c42df536ded": {
+          "id": "01a1e197-6062-7a93-b2e9-5c42df536ded",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "reviewer",
+          "cli_version": "0.163.0"
+        },
+        "01a1e19e-f451-7833-bd45-25dff547ed78": {
+          "id": "01a1e19e-f451-7833-bd45-25dff547ed78",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "worker",
+          "cli_version": "0.163.0"
+        },
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7": {
+          "id": "01a1e25c-1ba1-74b1-81b8-1565a3a217f7",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "worker",
+          "cli_version": "0.163.0"
+        },
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78": {
+          "id": "01a1e25c-e3a5-78c0-afa9-43f8808f4c78",
+          "parent_thread_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+          "agent_role": "reviewer",
+          "cli_version": "0.163.0"
+        }
+      },
+      "per_thread": {
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2": {
+          "input_tokens": 7306504,
+          "cached_input_tokens": 7173632,
+          "output_tokens": 29078,
+          "reasoning_output_tokens": 8127
+        },
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c": {
+          "input_tokens": 336839,
+          "cached_input_tokens": 288256,
+          "output_tokens": 1839,
+          "reasoning_output_tokens": 182
+        },
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3": {
+          "input_tokens": 866127,
+          "cached_input_tokens": 829312,
+          "output_tokens": 2160,
+          "reasoning_output_tokens": 317
+        },
+        "01a1e194-6ba5-72d0-a43b-e612983e2310": {
+          "input_tokens": 257828,
+          "cached_input_tokens": 247808,
+          "output_tokens": 2260,
+          "reasoning_output_tokens": 840
+        },
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748": {
+          "input_tokens": 593102,
+          "cached_input_tokens": 573952,
+          "output_tokens": 3358,
+          "reasoning_output_tokens": 488
+        },
+        "01a1e197-6062-7a93-b2e9-5c42df536ded": {
+          "input_tokens": 584860,
+          "cached_input_tokens": 541440,
+          "output_tokens": 4822,
+          "reasoning_output_tokens": 2700
+        },
+        "01a1e19e-f451-7833-bd45-25dff547ed78": {
+          "input_tokens": 109211,
+          "cached_input_tokens": 65408,
+          "output_tokens": 442,
+          "reasoning_output_tokens": 55
+        },
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7": {
+          "input_tokens": 483458,
+          "cached_input_tokens": 441344,
+          "output_tokens": 6070,
+          "reasoning_output_tokens": 1083
+        },
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78": {
+          "input_tokens": 564647,
+          "cached_input_tokens": 518528,
+          "output_tokens": 1961,
+          "reasoning_output_tokens": 645
+        }
+      },
+      "total": {
+        "input_tokens": 11102576,
+        "cached_input_tokens": 10679680,
+        "output_tokens": 51990,
+        "reasoning_output_tokens": 14437
+      },
+      "response_count": 173,
+      "counter_semantics": "sum unique native response usage per thread; parent excludes children"
+    },
+    "parent_cumulative": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_output_tokens": null,
+      "session_ids": [],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "executor_cumulative": {
+      "input_tokens": 11102576,
+      "output_tokens": 51990,
+      "cached_input_tokens": 10679680,
+      "reasoning_output_tokens": 14437,
+      "session_ids": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2"
+      ],
+      "turns": 0,
+      "tool_calls": {},
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    }
+  },
+  "native_usage_observations": {
+    "total_turns": null,
+    "total_tool_calls": null,
+    "wall_clock_ms": null
+  },
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 214.27956562500185,
+    "evaluation": null,
+    "sonar": null
+  },
+  "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+  "execution_amendment": {
+    "kind": "host_postprocessing_recovery",
+    "parent_trial": "ecc_ecc_r01_s03",
+    "reason": "Recover collection after quota-aborted child; idle process tree and unchanged native histories verified",
+    "original_config": "reports/ecc_experiment.json",
+    "original_config_sha256": "279aec2df23fa30141e60aa631eb498a532ec265a5a161cf3a8656f38c79ec26",
+    "host_files_changed": {
+      "experiment/continuous.py": {
+        "before": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c",
+        "after": "450de05a1cb8b3c84d30c17f7540002d189e6d9366eb6b65c03e9e01c4bf4874"
+      },
+      "experiment/ecc.py": {
+        "before": "e61939911e2edbf74a47ff94edef2f12bf596ce2d7522f78c7eb209624565c8c",
+        "after": "41a2164e68a9941483d0de58e5f1647d2574ca47bf86cfa3783a493b57262712"
+      },
+      "experiment/phase6.py": {
+        "before": "4370c9e5a39f95fbdec6b2a11f972280450bedccc4948600895a1031927e2982",
+        "after": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659"
+      }
+    },
+    "source_prefix_replayed": false,
+    "model_context_modified": false,
+    "measurement_conditions_changed": false,
+    "native_container_reused": true,
+    "previous_amendment": "reports/ecc_recovery.json",
+    "quota_wait_verified_seconds": 12347.681277749001,
+    "pre_inference_failures": [
+      {
+        "step": 4,
+        "reason": "stale DNS after host network change",
+        "model_calls": 0,
+        "artifacts_path": "results/ecc_preflight/s04_pre_inference_network_failure"
+      }
+    ]
+  },
+  "continuous": {
+    "trajectory_id": "ecc_ecc_r01",
+    "step": 4,
+    "repetition": 1,
+    "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+    "input_commit": "adc36d1baea318a9be5d017d5228feb934436a2b",
+    "dispatch": null,
+    "initial_starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948"
+  }
+}

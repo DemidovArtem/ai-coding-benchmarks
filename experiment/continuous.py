@@ -246,6 +246,8 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
     workspace = ROOT / benchmark['dataset_root'] / benchmark['repo']
     milestones = benchmark['continuous_pilot']['milestones']
     runtime = Path(config['resources']['runtime_root'])
+    def step_name(index):
+        return config.get('recovery_outputs', {}).get(str(index), chain + '_s' + str(index).zfill(2))
     completed = resume_from['continuous']['step'] if resume_from else 0
     if resume_from:
         parent_config = load(Path(resume_from['artifacts_path']) / 'experiment.json')
@@ -255,7 +257,7 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
                 or parent_config['codex'] != config['codex']):
             raise ValueError('Live continuation must preserve the verified ECC measurement conditions')
     for index in range(completed + 1, len(milestones) + 1):
-        name = chain + '_s' + str(index).zfill(2)
+        name = step_name(index)
         if (runtime / name).exists() or (ROOT / 'results/trials' / name).exists():
             raise ValueError('Continuous trial outputs must be fresh')
     fingerprint = resume_from['setup_fingerprint'] if resume_from else setup_fingerprint(config)[0]
@@ -433,15 +435,17 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
     if resume_from:
         from experiment.ecc import framework, verify_live_checkpoint
         directory = Path(resume_from['artifacts_path'])
+        native_directory = ROOT / config.get('resume_checkpoint', str(directory))
         proof = load(directory / 'effective_profile.json')
         runner._snapshot_baseline_commit = resume_from['starting_commit']
         runner.agent_runner._framework = framework(config['codex']['reasoning_effort'])
         session = runner.agent_runner.session_id = resume_from['continuous']['executor_session_id']
         previous_commit = resume_from['ending_commit']
         previous_usage = resume_from['usage']['executor_cumulative']
-        verify_live_checkpoint(runner, directory, resume_from)
+        verify_live_checkpoint(runner, native_directory, resume_from)
         rows = [json.loads(line) for line in (ROOT / 'results/results.jsonl').read_text().splitlines() if line.strip()]
-        prefix = sorted((r for r in rows if r.get('continuous', {}).get('trajectory_id') == chain), key=lambda r:r['continuous']['step'])
+        prefix = sorted((r for r in rows if r.get('continuous', {}).get('trajectory_id') == chain
+                         and r['trial_state'] == 'finished' and r['continuous']['step'] <= completed), key=lambda r:r['continuous']['step'])
         if [r['continuous']['step'] for r in prefix] != list(range(1, completed + 1)):
             raise ValueError('Continuation prefix is incomplete or contains another attempt')
         for row in prefix:
@@ -455,7 +459,7 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
         for index, milestone in enumerate(milestones, 1):
             if index <= completed:
                 continue
-            output = runtime / (chain + '_s' + str(index).zfill(2))
+            output = runtime / step_name(index)
             if index == 1:
                 # Constructor freezes bindings in this directory, before any model request.
                 if (output / 'run_metadata.json').exists():
