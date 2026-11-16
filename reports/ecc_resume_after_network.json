@@ -1,0 +1,237 @@
+{
+  "experiment_id": "ripgrep-ecc-offline-six-edit-v1",
+  "stage": "ecc_frozen",
+  "measurement_started": true,
+  "codex": {
+    "version": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "auth": "chatgpt_oauth_only",
+    "model_access_verified_by_inference": true
+  },
+  "benchmark": {
+    "repo": "BurntSushi_ripgrep_14.1.1_15.0.0",
+    "version": "v1.0.2",
+    "upstream_url": "https://github.com/DeepCommit-ai/SWE-Milestone",
+    "dataset_url": "https://huggingface.co/datasets/DeepCommit-ai/SWE-Milestone-data",
+    "dataset_root": "results/setup/dataset",
+    "smoke_milestone": "maintenance_fixes_1_sub-01",
+    "main_branch": "master",
+    "timeout_seconds": 1800,
+    "repetition": 1,
+    "continuous_pilot": {
+      "label": "pilot/non-official subset",
+      "milestones": [
+        "milestone_seed_5f5da48_1_sub-01",
+        "milestone_seed_5f5da48_1_sub-02",
+        "milestone_seed_2924d0c_1",
+        "milestone_seed_b610d1c_1",
+        "milestone_seed_8c6595c_1",
+        "milestone_seed_a6e0be3_1_sub-01"
+      ],
+      "repetitions": 1,
+      "same_executor_session_required": true,
+      "dispatch": "host-gated turns using codex exec resume; no background watcher",
+      "stop_after": 6,
+      "grader_feedback_to_agent": false,
+      "cohort": "ecc"
+    },
+    "common_starting_tree": "ae9e34953dc822672095250a5f9a6045968f1358",
+    "skill_runtime_image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+    "runtime_policy_root": "profiles/runtime/registry_isolation_v2",
+    "grader_image_budget": "reports/ecc_grader_images.json",
+    "evaluation_policy": {
+      "residue_prune_from_step": 4,
+      "known_dependency_task": "milestone_seed_8c6595c_1"
+    }
+  },
+  "variants": [
+    "ecc"
+  ],
+  "profiles": {
+    "ecc": {
+      "status": "native_activation_and_continuation_verified"
+    }
+  },
+  "sonar": {
+    "image_digest": "sonarqube@sha256:c0f1160bccfa435db4168c2d7df69af3c3ea7bfeb87395613014048fb33a68c1",
+    "scanner_version": "8.1.0.6389",
+    "rust_support_verified": true,
+    "bind_address": "127.0.0.1",
+    "analysis_feedback_to_agent": false,
+    "setup_candidates": "reports/ecc_sonar_setup.json",
+    "analysis_protocol": "reports/ecc_sonar_protocol.json",
+    "common_base": "results/sonar/ecc_common_base"
+  },
+  "resources": {
+    "parallel_trials": 1,
+    "min_workspace_free_bytes": 1000000000,
+    "docker_free_reserve_bytes": 12000000000,
+    "image_download_approved": true,
+    "proposed_runtime_root": "/tmp/ai-coding-experiment",
+    "runtime_root_approved": true,
+    "runtime_root": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/runtime/ecc",
+    "runtime_root_selection": "User-authorized six-step ECC trajectory with durable per-step checkpoints",
+    "quota_stop_percent": 101,
+    "quota_wait_remaining_percent": 2
+  },
+  "images": [
+    {
+      "local": "swe-milestone/burntsushi_ripgrep_14.1.1_15.0.0__base-offline:v1.0.2",
+      "digest_ref": "hyd2apse/swe-milestone__burntsushi_ripgrep_14.1.1_15.0.0__base-offline@sha256:a22b225816bfc9fa243456a710bfc6e25ba6342c1162053a7876a73bfdec7e58",
+      "compressed_bytes": 954017008,
+      "layer_count": 18
+    }
+  ],
+  "paths": {
+    "results_jsonl": "results/results.jsonl",
+    "results_csv": "results/results.csv",
+    "summary": "reports/summary.md",
+    "audit": "reports/environment.json"
+  },
+  "phase1_blockers": [],
+  "pins": {
+    "git_commits": {
+      "vendor/SWE-Milestone": "f4e1a18a1bc15281f06e62cf6b616be36235fae5",
+      "results/setup/dataset": "3500478e740d42583277c2658aa7729eb36e10f4",
+      "vendor/ECC": "c05b2d6614f62f6db0047669aa4eefb223d478f9"
+    },
+    "file_sha256": {
+      "experiment/__init__.py": "38ed6eb64a2fe1ab9fd95b89282e8628dfd73e59ff0511a588933489cb9bd3bd",
+      "experiment/audit.py": "3cdf72e791fe0534bfa91f16bea186b069b8e7318cff9664e00a0763eb41c7ec",
+      "experiment/checkpoint_restore.py": "2696b01797536906149ba07992edb4f0d5446fd704908257dc43623cde3cb500",
+      "experiment/collect.py": "5a7e9190c53317fc67f0d37b331550d96585b2c334a7080659a6b38e73dd6862",
+      "experiment/continuous.py": "450de05a1cb8b3c84d30c17f7540002d189e6d9366eb6b65c03e9e01c4bf4874",
+      "experiment/continuous_resume.py": "5c634c5c6e87e11ff6fcee2e0f356e03ad4da977d8226b3caf95faca549a7565",
+      "experiment/curves.py": "5dde312d6ab216f6690a9d1a4567e70f4ec840cb6c5e26e312a7a74913aa359c",
+      "experiment/ecc.py": "41a2164e68a9941483d0de58e5f1647d2574ca47bf86cfa3783a493b57262712",
+      "experiment/metrics.py": "da19e2ef5952f185192a924d4728779af257425c76279eb532c4a95811f1fa11",
+      "experiment/phase6.py": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659",
+      "experiment/phase6b.py": "914ff289580505569d349daf555c65b684fddb9274ffdb2e3eb16e3d4c61205e",
+      "experiment/phase6d.py": "3be3dc6d64dd47c1827f31b2ca27c28b462b73dfdf6a26cef329877c3b1d0347",
+      "experiment/phase6d_collect_resume.py": "3ee2a505f1d26fbe9c1b240f77ed6cd9e2a32da1a286920d870e559966cc5e1f",
+      "experiment/phase6d_resume.py": "4e9c49694cf3ca5da4dc670ebf3c28ba951656928805d7e6385eafb1f6900d35",
+      "experiment/phase6e.py": "1408fe776a1ec4ed750e3cefa72f6c9dd10041981d876708d6074d5afbb4fe66",
+      "experiment/phase6e_report.py": "f033ee7703c66aa193770c7bcad84d5d8afd117b7950ca01ffd852528c1c62b9",
+      "experiment/phase6f.py": "083e1cbe39e25ed50c8fb83ac86c1e47b2fbd9632781d758287f25ce9b2a00fe",
+      "experiment/phase6f_baseline_resume.py": "1a1fdcd5318b6f79f991e35dcb0c335aa7dcff9e1bd8cd8b97e113ec8c5f7a86",
+      "experiment/phase6f_ponytail_context_resume.py": "b8eecee4ff2f6dab7292a080be44b7e7b5b29dfbbea1c76dc7055531ffc504bb",
+      "experiment/phase6f_ponytail_resume.py": "6b629f65ce6a0715ad6294e2416a266be0d3365d19c8a1782652b83bc8103004",
+      "experiment/phase6f_report.py": "e88e4b6dd39863585a8572de596da844847d2d4517409c434b9e7c33255d1f5a",
+      "experiment/phase6f_resume.py": "ad21125eac31e2226e8fadbbe3bf0870c91cec10762172ac0e068c0550d926bf",
+      "experiment/phase6f_serena_resume.py": "08ab096ea4bd09074ba9efcb14f1d8818388d0af312dac58afcda8d1e148b96d",
+      "experiment/phase6g.py": "af569d482359967771eaf7be25e8d3583e35d7e7542ac845c48d65b00254e562",
+      "experiment/phase6g_report.py": "db1bcac3a1bfba41c97f180a03f37198a4aafaaba40b72920e67640fb453f8c1",
+      "experiment/planning.py": "a2edebfe2900523e9435ca78fcb57cd28eacd42b097d35a35e6ba92864e94f19",
+      "experiment/profiles.py": "a03c4db04b65fd28d248f24168a596a4941b0dc1af68ca85ba63be09f5050e58",
+      "experiment/python_metrics.py": "0a9efe8f5f8fe6b603c0f8a735aa100140805e5e196b293b81de1b3699d69d4f",
+      "experiment/python_sonar.py": "fda91b28d3f6e4174e3ae146858a724e30326cedc6d8f68a396b204c96aefeba",
+      "experiment/quota.py": "59dc05e2283ced4e03b6aa4f5fc6d3bf989fa42c55be54b0d7471253b616d337",
+      "experiment/report.py": "f2f3340c6e148bd5eeb1a69c7d65c9637f0ae5099e74d99fbc73efaff94d395e",
+      "experiment/resume_prepared.py": "9f5c79f47730f3627d929db9f1e0073ed2ca469d507ae144ae3d370cceaba7f0",
+      "experiment/runner.py": "d73de2508abc30b8573cb8c48c4e62eee083b1c124e8db4cf35895b38a1baa42",
+      "experiment/scikit.py": "366df7bd5555dcaafd7cd35441398a798d70f5c0b5718826515bcfdc1a972d4a",
+      "experiment/scikit_collect.py": "ed05bfc60d87a729bba021d77dbc6e0041f791ba8079345dfa9857ba50dd9f6d",
+      "experiment/scikit_probe.py": "46bc9b094dddb57ea927bac07c9e4a971e93260b99ec8f30c9b0b096812208cb",
+      "experiment/scikit_profiles.py": "4373c093326be6763406144e99c769b4f8951885aa039609093a09714dcef134",
+      "experiment/scikit_run.py": "b1794f54e6dd0df015e570f43d9fd16963dbfdccbbb72443cc86b51317bc5a40",
+      "experiment/security.py": "81b4aca0310089d03d44b03296b0ad0cd1b3aa65236fd80f5d824f0a098cda26",
+      "experiment/serena_continuous.py": "ace3372dc40ce61d99472389f9536eb5ddd458f05f0040c7b985711dbb210c17",
+      "experiment/serena_probe.py": "8eaacffdf50a9a9404302fd53e52666d14b76507220c804c2e29a207e1cbd063",
+      "experiment/serena_required.py": "199e5e14398dc295f7e8d92491cfa6012cf4a5526d82d04816ccde0d351b8a6e",
+      "experiment/session_store.py": "b9c1e8f4ecc7379c8bbfaa72fc5c6b5b84fef764796c68ff3828e95c9774d26d",
+      "experiment/skill_profiles.py": "f84103dbb0688cff405671cee7297608a119af0b4a7c943d03062cd9224e432c",
+      "experiment/skill_smoke.py": "73fdb40497b0c74f2f1aa9a3bef8410e86701f243babb45d809858a22212dca0",
+      "experiment/skill_trial.py": "49a6706ae558f56c43a18be1f50010a98867e14fcf2b68c978f3bcb0c26ff209",
+      "experiment/sonar.py": "1694be18a2c4460690a33900667397f38e96fa3775795fa77fdd24b788cb638e",
+      "experiment/sonar_bootstrap.py": "a041b68a62bd904026512c0ec1c1213d74f5d1cda0e8debeb86ae91374cf7752",
+      "experiment/sonar_proxy.py": "2fb160c90fc60d9e38c6bd2e8de25d9cff98747c59a12a14d8eece36cfb45204",
+      "experiment/sonar_scan.py": "9779cfc1a284ccebcc8e24514818357e83e1cda547b5ef56775fb058ac3ea137",
+      "experiment/status.py": "04ed223d2b370495a6b99c104ad38248f9e496aab64df7d491ac4558f76510ff",
+      "profiles/ecc/AGENTS.md": "f3412991e61950b34b3d54579ca0e1a0bfda3e4410893469136da308d067ec15",
+      "profiles/ecc/Dockerfile": "08b9883ce47049b9d9dbb33389d803664f7543d866fc61033bf9b3cda093b379",
+      "profiles/ecc/LICENSE": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+      "profiles/ecc/README.md": "684c9e180f9d9447710b467cfd0481a2ea99c12437684a4e8fe1265e98168528",
+      "profiles/ecc/agents/docs-researcher.toml": "daaf1e25a9b97752d49621fafc8dc87007c47950addbfebbe782576a60e791b2",
+      "profiles/ecc/agents/explorer.toml": "933968e4934df548a66a50a0d113a2831e9353b82f5b7b93fffff29e468424d7",
+      "profiles/ecc/agents/reviewer.toml": "b61288fd309169da3e63f1ef3b7299f10a224539c91cb4b83e526dbfea6f4fdc",
+      "profiles/ecc/config.toml": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518",
+      "profiles/ecc/manifest.json": "9d440e810baf89dec649d2f69c37e1a6150eaddb96d5dd0f3f6ca7526772a76a",
+      "profiles/runtime/registry_isolation_v2/fastly_ipv4.json": "75967d7a61f8b2a46615b8ea861b4298cbbdc0f0ba6f5fe57613aa61fa59b4e6",
+      "profiles/runtime/registry_isolation_v2/quarantine_configs/BurntSushi_ripgrep_14.1.1_15.0.0.yaml": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+      "reports/ecc_protocol.md": "5aef3fe650f6ba1472c569a077434a5b0f57cfedf8363938978b26563c672d32",
+      "reports/ecc_smoke.json": "5fe4a2038c1e40063b1c1903a439786f6ad30b1d06061d8612a29b00ef690977",
+      "reports/ecc_continuation_smoke.json": "1abb3540af0f9b81fdf5c36979a94592a848d5fdaa8d3f0f81b247e4df04fce2",
+      "reports/ecc_grader_images.json": "6a962b3bb31b6fc80e263ecb15d854f0e311e93fc9efe7ff422000b44e352674",
+      "reports/ecc_sonar_setup.json": "91df8a6e18d0973f40374e4e8ef20a6096455bb596fd871f141e91e546d4e241",
+      "reports/ecc_sonar_protocol.json": "fe421666831ff84260176c911e91908b6c314fbf474047af73f53830382380d7",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/metadata.json": "7b159cee9a19d4dea1a39115da73d73da87fa011928afdd19f95a248f27f7441",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/dependencies.csv": "3b71e3e2b46939a83a698aaec8c1cbedb9c4a91a0947bd45e48ca675186cd707",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/milestones.csv": "2a8975321e7412fbc87c19007ba97a916f63ecefe13f55b29dd097296bcdd5bf",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-01/SRS.md": "b0168116b388f8e0377118e9a95ce86dc6c6546d1ee35fe9b6090e8710afb861",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-01/milestone_seed_5f5da48_1_sub-01_filter_list.json": "5296d38b32538fc65f1947f3129b118aa476c593def9535b5f05c7fa546a8e73",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-01/milestone_seed_5f5da48_1_sub-01_classification.json": "67bd73a4c753b748b2e1a392ecd1b17df82d78d31af8a1f70b15ba0886d5de97",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_5f5da48_1_sub-02/SRS.md": "6fdf6128b4d7d00901d35c426bf371d30d199e174877e35d9606096fb6c50786",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-02/milestone_seed_5f5da48_1_sub-02_filter_list.json": "5296d38b32538fc65f1947f3129b118aa476c593def9535b5f05c7fa546a8e73",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_5f5da48_1_sub-02/milestone_seed_5f5da48_1_sub-02_classification.json": "5ef7a82e1a4c7c7ac9c0435d9c35c934a5313016c3250bdbe4c5be2676d07041",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_2924d0c_1/SRS.md": "60bc8097c80ec2e1c411ede64adf6b37341b341c20b95fff2159ee610240a118",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_2924d0c_1/milestone_seed_2924d0c_1_filter_list.json": "2fbaca79231bc2b0e7768793e5db74a0bd0cadae91b727d9dfc94643e88332ba",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_2924d0c_1/milestone_seed_2924d0c_1_classification.json": "89c1960f6ce8f8d113c55067c9c06953fcb25843bf1be9fd796a69bea05db040",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_b610d1c_1/SRS.md": "c1be6103fc9c796f8ae4418900f4b53d124aaa80e7d391f38f5686082e271f7f",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_b610d1c_1/milestone_seed_b610d1c_1_classification.json": "f6742879783fa86c36f86fe91fded90388c7b6a2237a581af2535e37fa86915d",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_b610d1c_1/milestone_seed_b610d1c_1_filter_list.json": "2fbaca79231bc2b0e7768793e5db74a0bd0cadae91b727d9dfc94643e88332ba",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_8c6595c_1/SRS.md": "ef9fe8ff5f184baa5a07a9064bbfd7a35189b786b387c2973a0e9bbe2db1534a",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_8c6595c_1/milestone_seed_8c6595c_1_classification.json": "72812d21bf9f2a05af057174082be8b0e7790bf19b4bc9faa23c5fe8e9b35588",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_8c6595c_1/milestone_seed_8c6595c_1_filter_list.json": "b5e223e684f2b036e5dc84bc225374e5ef80f642bacb546de389ae98149c23e7",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/srs/milestone_seed_a6e0be3_1_sub-01/SRS.md": "4f26d1b7f75f2fbae72bda5b53dd66779c5343f35ce885d3d47ad9594d2439fc",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_a6e0be3_1_sub-01/milestone_seed_a6e0be3_1_sub-01_filter_list.json": "502d5ca9deec0e0df0594fd8d14a2b3aab6fd731df3fb8da972fd3a92a669cb5",
+      "results/setup/dataset/BurntSushi_ripgrep_14.1.1_15.0.0/test_results/milestone_seed_a6e0be3_1_sub-01/milestone_seed_a6e0be3_1_sub-01_classification.json": "36b67b6d13a08e419cf235d635af5e35072315c28f255a4d9ed00937a7436fd4"
+    }
+  },
+  "execution_override": {
+    "authorization": "2026-11-16: user requests six sequential ECC edits; wait at 2% or less remaining and resume after quota recovery",
+    "scope": "One ECC trajectory, six edits, one repetition",
+    "percentage_gate_disabled": false,
+    "hard_rate_limit_recovery": "same native root session, no context replacement"
+  },
+  "ecc": {
+    "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+    "label": "ECC for Codex, offline",
+    "smoke_result": "reports/ecc_smoke.json"
+  },
+  "execution_amendment": {
+    "kind": "host_postprocessing_recovery",
+    "parent_trial": "ecc_ecc_r01_s03",
+    "reason": "Recover collection after quota-aborted child; idle process tree and unchanged native histories verified",
+    "original_config": "reports/ecc_experiment.json",
+    "original_config_sha256": "279aec2df23fa30141e60aa631eb498a532ec265a5a161cf3a8656f38c79ec26",
+    "host_files_changed": {
+      "experiment/continuous.py": {
+        "before": "e8029f0f1664617008373daf11b3c5027fef0c2ee3f774406c4bbb013daa3c5c",
+        "after": "450de05a1cb8b3c84d30c17f7540002d189e6d9366eb6b65c03e9e01c4bf4874"
+      },
+      "experiment/ecc.py": {
+        "before": "e61939911e2edbf74a47ff94edef2f12bf596ce2d7522f78c7eb209624565c8c",
+        "after": "41a2164e68a9941483d0de58e5f1647d2574ca47bf86cfa3783a493b57262712"
+      },
+      "experiment/phase6.py": {
+        "before": "4370c9e5a39f95fbdec6b2a11f972280450bedccc4948600895a1031927e2982",
+        "after": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659"
+      }
+    },
+    "source_prefix_replayed": false,
+    "model_context_modified": false,
+    "measurement_conditions_changed": false,
+    "native_container_reused": true,
+    "previous_amendment": "reports/ecc_recovery.json",
+    "quota_wait_verified_seconds": 12347.681277749001,
+    "pre_inference_failures": [
+      {
+        "step": 4,
+        "reason": "stale DNS after host network change",
+        "model_calls": 0,
+        "artifacts_path": "results/ecc_preflight/s04_pre_inference_network_failure"
+      }
+    ]
+  }
+}

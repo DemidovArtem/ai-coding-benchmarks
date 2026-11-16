@@ -977,12 +977,12 @@
       "repetition": 1,
       "completed_steps": 3,
       "total_steps": 6,
-      "state": "failed",
+      "state": "ready_to_resume",
       "cohort": "ecc",
-      "active_step": 4,
+      "active_step": null,
       "last_step": "ecc_ecc_r01_s03",
       "failure_category": null,
-      "last_interruption": "host_plot_aggregation_after_s01"
+      "last_interruption": "pre_inference_stale_dns_recovered"
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -1183,8 +1183,8 @@
     },
     "ecc": {
       "title": "ECC: ripgrep, six sequential edits",
-      "label": "\u041f\u0438\u043b\u043e\u0442 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e",
-      "summary": "\u0422\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0439 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e 0/1; \u043e\u0448\u0438\u0431\u043e\u043a 1. \u041c\u0435\u0442\u0440\u0438\u043a\u0438 \u043f\u043e \u0448\u0430\u0433\u0430\u043c \u0438 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b \u043d\u0438\u0436\u0435.",
+      "label": "3/6 measured; ready to continue",
+      "summary": "Two accepted submissions; third has one P2P regression. All three Sonar scans complete. Quota wait/resume observed. Host-network DNS repaired and unchanged quarantine reverified before step four.",
       "protocol": "reports/ecc_protocol.md",
       "status": "partial",
       "same_executor_session_verified": false,

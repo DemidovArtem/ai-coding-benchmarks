@@ -164,6 +164,7 @@ def runtime_binding(config, output):
 
 def preserve_and_collect(runner, output, config, metadata, previous_usage, input_commit):
     """Preserve every terminal step and merge it into the existing result register."""
+    save(output / 'run_metadata.json', metadata)
     ecc_usage = None
     try:
         runner.agent_runner.extract_trace(output / 'log')
@@ -479,6 +480,8 @@ def run(config, variant, repetition, chain, on_step=None, resume_from=None):
             save(output / 'run_metadata.json', metadata)
             update_progress(chain, state='running', completed_steps=finished, active_step=index)
             started = time.monotonic()
+            if previous_commit:
+                input_commit = previous_commit
             error = None
             try:
                 quota = quota_snapshot()

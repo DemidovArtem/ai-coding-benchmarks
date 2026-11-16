@@ -1,0 +1,14 @@
+{
+  "same_policy_reapplied": true,
+  "policy_sha256": "3bebbc1e1ac7f3a2cb425b2bc0e7e861f2a0defe77fd02e05e0dae7b3851ef38",
+  "resolver_before": "192.168.1.1",
+  "resolver_after": "172.20.10.1",
+  "reason": "Host moved from 192.168.1.1 DNS to 172.20.10.1; old in-container resolver is unreachable",
+  "source_and_native_history_unchanged": true,
+  "model_calls": 0,
+  "pre_inference_failure_artifacts": "results/ecc_preflight/s04_pre_inference_network_failure",
+  "host_tests": {
+    "passed": 142,
+    "subtests": 46
+  }
+}
