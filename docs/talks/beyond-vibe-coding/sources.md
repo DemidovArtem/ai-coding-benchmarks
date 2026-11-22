@@ -15,7 +15,7 @@
 
 ## Visual revision and slide map
 
-Revised after Artem's review: a coherent house on the cover; two-sided story and feature-diff metaphors; explicit agenda; publisher/own results side by side; independent JetBrains evidence; a simple-setup recommendation; clickable official documentation; real Planning Mode controls; editable Codex-style teaching conversations; qualitative context fullness; a dedicated goal example; model delegation and cost comparison in the main sequence. There are **24 main frames plus 2 appendices**, scheduled for 23 minutes and 7 minutes Q&A. Rehearsal and venue arrangements are not delivery gates.
+Revised after Artem's review: a coherent house on the cover; two-sided story and feature-diff metaphors; explicit agenda; publisher/own results side by side; independent JetBrains evidence; a simple-setup recommendation; clickable official documentation; real Planning Mode controls; editable Codex-style teaching conversations; qualitative context fullness; a dedicated goal example; model delegation and cost comparison in the main sequence. There are **24 main frames plus 2 appendices**, scheduled for 23 minutes and 7 minutes Q&A. PDF contains 26 pages, including both appendices; direct appendix links work in HTML and the PDF export. Rehearsal and venue arrangements are not delivery gates.
 
 | Frames | Content | Evidence |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ Revised after Artem's review: a coherent house on the cover; two-sided story and
 | 4 | Three-chapter agenda | Editorial structure |
 | 5 | Add Ponytail and verify activation | P1; activation label is illustrative |
 | 6 | Publisher, JetBrains and own Ponytail results | P2/J1/B1–B3; three columns, different metrics/workloads; no pooled estimate |
-| 7 | Simple setup; token and startup pitfalls | B1–B3/E1; exploratory observations, not a causal quality ranking |
+| 7 | Definitions of add-ons; token overhead and ECC regression | B1–B3/E1; configured activation is part of treatment; ECC six-edit outcomes; no causal quality ranking |
 | 8 | Explicit Planning Mode recommendation | O1/A6; official heading captures and clickable source names |
 | 9 | Where to enable Planning Mode | O3/A6/A7; real screenshots I1/I2, client/version scope stated |
 | 10 | Questions in Planning Mode | A1/O1; reconstructed chat, single Codex label and continuing-answer ellipsis |
@@ -33,8 +33,8 @@ Revised after Artem's review: a coherent house on the cover; two-sided story and
 | 18–19 | Save state; /goal with criteria | A3/O2/A4; reconstructed chat and example command |
 | 20 | Example prompts for rules and skills | A5/O1; editable file diagram |
 | 21 | Strong plan, cheaper implementation, optional strong review | Artem's practice; S1 supports only narrower delegation |
-| 22 | Cost–index tradeoff, simplified | X1/X2; rounded ratios, cost depends on tokens, prices and caching |
-| 23–24 | Workflow, five actions and reading | Ponytail installation link; Planning Mode/requirements; goal/handover; model allocation; try Codex when hitting quota, as personal advice |
+| 22 | Cost–index tradeoff, simplified | X1/X2; shared Codex subject above both ratios, explicit Claude Code reference; cost depends on tokens, prices and caching |
+| 23–24 | Workflow, five actions and reading | Ponytail link; Planning Mode/requirements; goal/handover; recurring rules in AGENTS.md/CLAUDE.md and procedures as skills; cheaper implementation then Codex as quota options |
 | Appendix A | Exact values, ranges, other methods and limits | B1–B3; Serena separate cohort |
 | Appendix B | Specific model/agent/settings comparison | X1/X2; checked 22 November 2026 |
 
@@ -170,7 +170,7 @@ These are primary reports by an organization independent of the skill publishers
 
 [Frozen results](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_results.md), [protocol](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_protocol.md), and [activation record](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_smoke.json).
 
-ECC for Codex, offline, version 2.2.3 at `c05b2d6614f62f6db0047669aa4eefb223d478f9`: one recovered trajectory, six edits and Sonar scans; 2 accepted, 3 rejected, 1 correctness score unavailable. Native plugin, SessionStart and configured roles were verified separately before measurement. Runtime changes, disabled external integrations and interruption recovery prevent a matched historical A/B efficiency claim. No general quality ranking follows. Configuration and activation must be tested; registration alone is insufficient. The main frame says setup failed initially, not that ECC remained broken: the frozen activation record includes a failed native plugin installation and later successful activation. Other initial failures involve our runtime policy and profile integrity; they cannot all be attributed to ECC itself. Six measured edits subsequently completed.
+ECC for Codex, offline, version 2.2.3 at `c05b2d6614f62f6db0047669aa4eefb223d478f9`: one recovered trajectory, six edits and Sonar scans; 2 accepted, 3 rejected, 1 correctness score unavailable. Native plugin, SessionStart and configured roles were verified separately before measurement. Runtime changes, disabled external integrations and interruption recovery prevent a matched historical A/B efficiency claim. No general quality ranking follows. Configuration and activation must be tested; registration alone is insufficient. The main frame now shows a measured regression introduced at edit three and approximately 124k output tokens over six edits, rather than making setup failure its headline. The exact output total is 123,655; the reported regression is `glob::tests::re35`. These do not establish a matched quality or efficiency ranking. The frozen activation record also preserves a failed native plugin installation and later successful activation. Other initial failures involve our runtime policy and profile integrity; they cannot all be attributed to ECC itself. Six measured edits subsequently completed.
 
 [ECC upstream](https://github.com/affaan-m/ECC) describes agents, hooks, skills and other integrations. Its author states in the Background section that he won the Anthropic × Forum Ventures hackathon in September 2025. Attribute this to the author; it is not Anthropic endorsement of ECC. This background is optional speech context, not evidence of benchmark performance.
 
@@ -207,3 +207,13 @@ The diagram now uses “Nearly full” and “Room to continue” instead of per
 ## Images, screenshots and annotations
 
 See `assets/README.md` for every local asset, original URL, provenance and image-generation prompts. I1/I2 illustrate where a control appears; primary vendor docs establish the behaviour. Screenshots are older client versions and are labelled accordingly. Official documentation headings are actual browser captures. Red boxes/underlines are editable slide annotations, not changes to the source text. Chats are editable Codex-style reconstructions; dashboards are generated illustrations. Neither is evidence of a real session or successful test.
+
+## PDF export and appendix navigation
+
+Both appendices are printed after the 24 main frames, giving 26 PDF pages. Main-frame appendix references are direct local links; HTML also retains its Appendix button and A/B shortcuts. The cover wash now starts with opaque paper color and a more neutral middle stop. Chrome export explicitly uses `--force-color-profile=srgb`. The prior strong pink shift was not reproduced locally: sampled browser/PDF background values differed by 1–2 RGB levels. The revised background is compared again after export; display/reader color management is outside this check.
+
+## Activation and enforcement scope
+
+The always-on Caveman arm and required Serena workflow are configurations, not tests of merely installing a skill. [Caveman profile](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/profiles/caveman/README.md) fixes the mode through the upstream SessionStart hook. The pinned [configuration implementation](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/profiles/caveman/assets/src/hooks/caveman-config.js) itself defaults to `caveman`, so this is not evidence that always-on use departs from that plugin's default. The [Serena continuous instructions](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/profiles/serena_continuous/AGENTS.md) require initialization, retained-memory reads, semantic navigation and a memory write before general source/shell work. No on-demand control arm isolates the effect of that enforcement.
+
+Consequently, the talk describes token overhead in these configured workflows, not inherent harm from Caveman/Serena or proof that enforcement caused the overhead. Ponytail's pinned [configuration](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/profiles/ponytail/assets/hooks/ponytail-config.js) defaults to `full`; its benchmark profile continuously injects the rules through native hooks. The main installation frame and speech now make that contrast explicit without extrapolating a universal benefit.

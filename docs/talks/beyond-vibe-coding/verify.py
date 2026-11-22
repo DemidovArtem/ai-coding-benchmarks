@@ -28,6 +28,8 @@ def main():
     assert "fetch(" not in html, "Opening a local file must not need fetch or a server"
     for href in re.findall(r'href="#([^"]+)"', html):
         assert f'id="{href}"' in html
+    assert '.slide.appendix{display:none!important}' not in html
+    assert 'href="#appendix-a"' in html and 'href="#appendix-b"' in html
     for image in re.findall(r'<img[^>]*\bsrc="([^"]+)"', html):
         assert image.startswith("assets/") and (HERE / image).is_file(), image
     main_html = html.split('<section class="slide appendix"', 1)[0]
@@ -80,7 +82,10 @@ def main():
     serena, = [t for t in evidence["otherTrajectories"] if t["variant"] == "serena"]
     input_increase = 100 * (serena["input_tokens"] / baseline["input_tokens"]["mean"] - 1)
     assert f"≈{input_increase:.0f}%" == "≈48%" and "≈48%" in main_html
-    assert "Serena: different setup; input includes cache reads" in main_html
+    assert "Serena/ECC have different setups" in main_html and "Input includes cache reads" in main_html
+    assert "Always-on skill · shorter replies" in main_html
+    assert "Required code navigation" in main_html and "Activation rules are part of these results" in main_html
+    assert "Always on by default" in main_html
     claude, codex = evidence["models"]
     assert round(claude["meanApiCostUsd"] / codex["meanApiCostUsd"]) == 13
     assert round(100 * (1 - codex["index"] / claude["index"])) == 12
@@ -98,6 +103,11 @@ def main():
     assert "123,655 output tokens" in ecc_results
     assert "net production growth is 468 lines" in ecc_results
     assert evidence["ecc"]["outputTokens"] == 123655 and evidence["ecc"]["netProdLoc"] == 468
+    assert round(evidence["ecc"]["outputTokens"] / 1000) == 124
+    assert "≈124k output tokens over six edits" in main_html
+    assert "third step introduced a `glob::tests::re35` P2P regression" in ecc_results
+    assert "Introduced at edit 3" in main_html
+    assert "Toolkit · agents" in main_html
     ecc_smoke = json.loads(subprocess.check_output(["git", "show", f"{PIN}:reports/ecc_smoke.json"], cwd=ROOT))
     assert ecc_smoke["success"] is True
     assert any(a["success"] is False and "plugin" in a.get("error", "") for a in ecc_smoke["attempts"])
@@ -105,7 +115,13 @@ def main():
     assert result_frame.index('single-dashboard good') < result_frame.index('class="requirements"')
     closing = re.search(r'<section[^>]*id="slide-24".*?</section>', html, re.S).group(0)
     assert closing.count('<li>') == 5 and 'https://github.com/DietrichGebert/ponytail' in closing
-    assert 'Define requirements.' in closing and 'Hitting quota limits? Try Codex.' in closing
+    assert 'Define requirements.' in closing and 'Still hitting limits? Try Codex.' in closing
+    assert 'Save rules in AGENTS.md / CLAUDE.md.' in closing
+    assert 'Turn repeated procedures into skills.' in closing
+    assert 'Quota tight? Plan strong. Implement cheaper.' in closing
+    comparison = re.search(r'<section[^>]*id="slide-22".*?</section>', html, re.S).group(0)
+    assert comparison.index('cost-subject') < comparison.index('cost-reference') < comparison.index('cost-summary')
+    assert 'Compared with Claude Code + Sonnet 5.5' in comparison and 'aa-labels' not in comparison
 
     script = notes.split("## 1.", 1)[1].split("## Appendix reference", 1)[0]
     script = re.sub(r"\[[^\]]*\]|^## .*", "", script, flags=re.M)
