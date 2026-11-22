@@ -17,7 +17,15 @@ Menu images retain their source pixels. CSS crops the relevant control and overl
 
 ## Generated illustrations
 
-Generated with the **built-in image_gen tool**, not a CLI/API fallback. The selected PNGs were copied into this directory after visual inspection. They contain no employer data and are marked illustrative in the deck. They are not proof of a real agent response, browser test or measured outcome. Reuse across adjacent frames is intentional for progressive reveals.
+Generated with the **built-in image_gen tool**, not a CLI/API fallback. The selected PNGs were copied into this directory after visual inspection. They contain no employer data. Houses are conceptual metaphors; dashboard windows are synthetic examples. They are not proof of an application state, browser test or measured outcome. House reuse is intentional across the cover/story/diff sequence requested by the speaker; dashboard reuse supports progressive reveals.
+
+### `coherent-house.png`
+
+Reference: `complexity-house.png`, used only for style. A new coherent building replaces the tangled structure on the cover. The selected built-in output was `exec-bb36de1f-da2b-46c9-9790-134b6e5c2ce9.png`.
+
+Prompt:
+
+> Use case: stylized-concept. Asset type: 16:9 presentation cover and architectural metaphor. Primary request: a beautifully coherent modest house representing a maintainable AI prototype. Reference image is the existing architectural paper-model illustration; match its warm ivory background, tactile cream plaster, dark forest-green doors and window frames, charcoal roof, muted terracotta accent and soft studio lighting. Generate a NEW calm building, not the tangled additions in the reference. One compact two-storey house with two orderly connected volumes, clean rooflines, a small tidy terrace and a short simple path, two small shrubs. No exposed cables, scaffolding, pipes, improvised extensions or chaotic towers. Composition: wide landscape, house fully visible in the RIGHT 55 percent, left 45 percent almost empty warm off-white for slide title. Elegant architectural miniature, warm and inviting, readable silhouette. No words, numbers, logos, borders or watermark.
 
 ### `complexity-house.png`
 
@@ -31,18 +39,8 @@ Prompt:
 
 > Use case: ui-mockup. Asset: a synthetic teaching illustration for a product-management presentation, two app screenshots side by side on a plain warm ivory background. Landscape 16:9, ultra crisp, professional attractive browser-app design with ivory white, dark charcoal and forest green accents. Two separate equally sized realistic browser windows with a modest gap. Both show the same simple fictional expenses dashboard, not a real company or existing product. LEFT window: heading Expenses, two rows Research 100 and Software 200, total 300. Very sparse unfinished interface, NO month selector and NO export button. RIGHT window: heading Expenses, visible dropdown January at upper left of table, a prominent forest-green Export CSV button at upper right, two rows Research 100 and Software 200, Total 300, a subtle green status text Checks passed below. Both interfaces have exactly the same visual style, spacing and column alignment. No captions above or below, no claims about timing or accuracy, no external brands, no real user data, no watermarks, no decorative illustrations. All UI text must be legible and spelled exactly as requested. Maximize the two windows within the landscape canvas. These are intentionally synthetic mock screenshots comparing missing and specified requirements.
 
-### `planning-chat.png`
-
-Prompt:
-
-> Use case: ui-mockup. Generate a crisp, highly legible synthetic screenshot of a fictional AI coding assistant conversation for an educational presentation. Wide 16:9 canvas. Warm white background, dark charcoal text, forest green accent, clean refined desktop app, sparse interface, large fonts, no logos or real product names. Header at top left: Example agent session. A clear forest green mode indicator below the header reads Planning mode. Three large chat bubbles with generous spacing, all text exactly: USER: I want an expenses dashboard. Ask the questions needed to resolve ambiguity. Do not implement yet. AGENT: Should Export CSV use the selected month filter? USER: Yes. Export only the selected month. At the bottom a small status reads Plan ready for review. Include only this short conversation, no other sidebars, no code, no invented performance stats. Make it visually realistic like a polished app screenshot with good typography. This is a fictional teaching mockup, not a real Codex or Claude session.
-
-### `save-chat.png`
-
-Prompt:
-
-> Use case: ui-mockup. Generate a crisp, highly legible synthetic screenshot of a fictional AI coding assistant for an educational presentation. Wide 16:9. Warm white background, dark charcoal, forest green accents, clean professional desktop UI, large fonts, no brand logos. Header: Example agent session. Left two-thirds show two short chat bubbles with exact text: USER: Save the plan, decisions, checks and next step to HANDOVER.md. AGENT: Saved HANDOVER.md. Next session: read this file before continuing. Right third is a simple document preview headed HANDOVER.md containing four short lines: Plan / Decisions / Checks / Next step. Below them a small green Saved label. Spacious composition, sharp readable text, no extra messages, no technical logs, no claims about benchmark outcomes. This is a fictional teaching mockup, not a real Codex or Claude session.
-
 ## Editable visuals
 
-The personal feature-diff chart, normalized pilot charts, context/compaction diagram and workflow are native HTML/SVG. They remain editable. The personal examples concern different features; the context percentages are diagram values, not measured product thresholds. The numerical pilot inputs remain exact in `index.html` even though the main slide rounds percentages.
+The normalized pilot and model-cost/index charts, context diagram, goal command, model allocation and workflow are native HTML/SVG. They remain editable. The context meter has qualitative labels, with no numeric compaction threshold. Exact metric inputs remain in `index.html` even though main headlines are rounded.
+
+The two chat examples are native HTML reconstructions of Codex's dark interface conventions, using `codex-plan-ui.png` as a style reference. They are explicitly labelled reconstructed examples, not actual product captures or observed sessions. The earlier generic generated chat PNGs were removed after speaker feedback; their provenance remains in Git history.

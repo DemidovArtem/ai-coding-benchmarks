@@ -15,25 +15,28 @@
 
 ## Visual revision and slide map
 
-Revised after Artem's review: minimal cover; two dedicated story frames; explicit agenda; Ponytail first; visible official documentation; real Planning Mode UI with red annotations; progressive prompt/result and compaction examples; rounded pilot percentages; an action sequence instead of a single copy-paste prompt. The closing slide is retained. There are **22 main frames plus 2 appendices**. Rehearsal and venue arrangements are not delivery gates.
+Revised after Artem's review: a coherent house on the cover; two-sided story and feature-diff metaphors; explicit agenda; publisher/own results side by side; independent JetBrains evidence; a simple-setup recommendation; clickable official documentation; real Planning Mode controls; editable Codex-style teaching conversations; qualitative context fullness; a dedicated goal example; model delegation and cost comparison in the main sequence. There are **26 main frames plus 2 appendices**, scheduled for 23 minutes and 7 minutes Q&A. Rehearsal and venue arrangements are not delivery gates.
 
 | Frames | Content | Evidence |
 | --- | --- | --- |
-| 1–3 | Cover, growing difficulty, +3000 vs +300 / −200 | Artem's account; generated metaphor and native chart of different illustrative feature diffs; no causal saving claim |
+| 1–3 | Coherent cover, growing difficulty, +3000 vs +300 / −200 | Artem's account; generated house metaphors; different features, no causal saving claim |
 | 4 | Three-chapter agenda | Editorial structure |
 | 5 | Add Ponytail and verify activation | P1; activation label is illustrative |
-| 6 | Publisher-reported reductions | P2; separate method/workload, not a replication |
+| 6 | Publisher and own reductions side by side | P2/B1–B3; different methods/workloads, not a replication |
 | 7 | Own pilot with rounded percentages | B1–B3; normalized chart baseline = 100%; no quality superiority |
-| 8 | Explicit Planning Mode recommendation | O1 and A6; actual official heading captures |
-| 9 | Where to enable Planning Mode | O3 and A6/A7; real screenshots I1/I2, client/version scope stated |
-| 10 | Questions before implementation | A1/O1; synthetic chat image |
-| 11 | Give the agent checks | A1; official heading capture with red underline |
-| 12–15 | Vague prompt, corrections, explicit requirements, result comparison | Original teaching scenario; generated dashboard mockup; no measured duration or one-shot success claim |
-| 16–17 | Context fills and compacts | A8/A9; native illustrative diagram, not a product threshold or retention measurement |
-| 18 | Save plan/decisions/checks/next step; goal | A3/O2/A4; synthetic chat image |
-| 19 | Save rules and reusable procedures | A5/O1; native illustrative file diagram |
-| 20 | Model-budget suggestion and Spotify | S1 only for the narrower published delegation case |
-| 21–22 | Distinct actions, takeaways and reading | Editorial synthesis; A1/A5 reading links |
+| 8 | Independent Ponytail and Caveman results | J1/J2; separate studies/settings, no pooled estimate |
+| 9 | Keep the setup simple | B1–B3/E1; recommendation, not a universal quality ranking |
+| 10 | Explicit Planning Mode recommendation | O1/A6; official heading captures and clickable source names |
+| 11 | Where to enable Planning Mode | O3/A6/A7; real screenshots I1/I2, client/version scope stated |
+| 12 | Questions in Planning Mode | A1/O1; editable reconstructed chat |
+| 13 | Give the agent checks | A1; official heading capture, clickable source and red underline |
+| 14–17 | Vague prompt, corrections, requirements, comparison | Generated dashboard teaching example; no measured duration or first-attempt success claim |
+| 18–19 | Context fills and compacts | A8/A9; qualitative native diagram, no numerical trigger or retention claim |
+| 20–21 | Save state; set /goal with criteria | A3/O2/A4; reconstructed chat and example command |
+| 22 | Example prompts for rules and skills | A5/O1; editable native file diagram |
+| 23 | Strong plan, cheaper implementation, optional strong review | Artem's practice; S1 supports only the narrower delegation case |
+| 24 | Specific model/agent/settings cost–index tradeoff | X1/X2; subscription experience separately attributed to Artem |
+| 25–26 | Actions, takeaways and reading | Editorial synthesis; A1/A5 reading links |
 | Appendix A | Exact values, ranges, other methods and limits | B1–B3; Serena separate cohort |
 | Appendix B | Specific model/agent/settings comparison | X1/X2; checked 22 November 2026 |
 
@@ -81,7 +84,7 @@ Production churn reduction = (578.5 - 449) / 578.5 × 100 = 22.3854…%
 
 Main charts start at zero and normalize each baseline mean to 100%. Ponytail displays rounded ratios, 73% for net code growth and 93% for output; headlines round the reductions to approximately 27% and 7%. Exact inputs and 27.2% / 6.8% calculations remain here. No uncertainty bands are drawn. Appendix ranges are observed minima and maxima, not confidence intervals.
 
-Appendix A also retains descriptive context for the other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Serena's setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`; it is a separate cohort and is explicitly not presented as a paired comparison. These extra values do not enter the main charts or percentages.
+Appendix A retains descriptive context for other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Its main-slide output increase is `(85989.5 / 67311.5 - 1) × 100 = 27.7…%`, rounded to approximately 28%. Net growth is approximately 4% lower, so this study does not support saying Caveman increased code size. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Its setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`: a separate cohort, not a paired comparison. Functioning semantic tools and memories are verified; a quality benefit or harm is not established. These methods do not enter the main Ponytail charts.
 
 Interpretation limits retained in slides and notes:
 
@@ -154,7 +157,28 @@ Read the public page and its embedded variant records on **22 November 2026**. S
 | `4d278d53a18fbdcb5138d11466ea0b1b` | Claude Code + Claude Sonnet 5.5, Max, Default Fallback | 56.3314945150429 | 11.39857189877927 |
 | `2b66aa9f8afa482977259846d9b207ba` | Codex + GPT-6.2 Sol, Xhigh | 49.7854108287173 | 0.8980194131553201 |
 
-Appendix display rounds to 56.33 / $11.40 and 49.79 / $0.90. Index v2.1 equally weights FrontierCode-AA 2.0, Terminal-Bench 4.1 and SWE-Atlas-QnA-AA. Costs include applicable cache pricing; they exclude subscription pricing and full operational/human costs. Results describe configurations and do not isolate model quality from the agent. No ranking or universal Codex-efficiency claim is made.
+The public embedded records were fetched again during this revision; both selected values match the earlier same-day capture. Appendix values round to 56.33 / $11.40 and 49.79 / $0.90. Main display uses index 56 / 50 and zero-based native charts. Cost ratio is `11.39857189877927 / 0.8980194131553201 = 12.69…`, displayed as approximately 13× lower cost. Relative index reduction is approximately 11.62%, displayed as 12%; absolute gap is approximately 6.5 index points. The index is not percentage accuracy.
+
+Index v2.1 equally weights FrontierCode-AA 2.0, Terminal-Bench 4.1 and SWE-Atlas-QnA-AA. Costs include applicable cache pricing; they exclude subscription pricing and full operational/human costs. Results describe configurations and do not isolate model quality from the agent. Artem's observation that Codex lets him do more coding within subscription limits is personal experience, not an outcome measured by Artificial Analysis. No universal efficiency or model-ranking claim is made.
+
+## J1 / J2. Independent JetBrains evaluations
+
+- [J1: Ponytail evaluation](https://blog.jetbrains.com/ai/2026/07/ponytail-skill-claude-tested/): 80 paired SkillsBench tasks, Claude Sonnet 5 at medium effort, injected Ponytail v4.8.4 rules. Median code-written reduction 15.4% (p=0.088); median API cost reduction 10.3% (paired test p=0.004, bootstrap median interval touches zero). No detectable task-score difference, not proof of equivalence. Code counts cumulative emitted lines, not final net growth. Skill self-activation failed in 10/10 setup sessions; verify injected activation. This evaluates an older version than P2.
+- [J2: Caveman evaluation](https://blog.jetbrains.com/ai/2026/07/speak-to-ai-agents-like-cavemen-tosave-tokens/): full run 82 paired tasks, forced Caveman, Claude Sonnet 5 at low effort; output saving 8.5%, rounded to 9%. No detectable task-score difference (sign test p=0.82). Pricing outliers affected raw cost totals. Do not convert this output result into a guaranteed cost saving.
+
+These are primary reports by an organization independent of the skill publishers. Different settings and endpoints prevent pooling them with each other or the own pilot. Do not interpret disagreement with the small own Caveman result as evidence of universal quality degradation.
+
+## E1. ECC integration and six-edit pilot
+
+[Frozen results](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_results.md), [protocol](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_protocol.md), and [activation record](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_smoke.json).
+
+ECC for Codex, offline, version 2.2.3 at `c05b2d6614f62f6db0047669aa4eefb223d478f9`: one recovered trajectory, six edits and Sonar scans; 2 accepted, 3 rejected, 1 correctness score unavailable. Native plugin, SessionStart and configured roles were verified separately before measurement. Runtime changes, disabled external integrations and interruption recovery prevent a matched historical A/B efficiency claim. No general quality ranking follows. Configuration and activation must be tested; registration alone is insufficient.
+
+[ECC upstream](https://github.com/affaan-m/ECC) describes agents, hooks, skills and other integrations. Its author states in the Background section that he won the Anthropic × Forum Ventures hackathon in September 2025. Attribute this to the author; it is not Anthropic endorsement of ECC. This background is optional speech context, not evidence of benchmark performance.
+
+## Personal model allocation
+
+Artem reports using a stronger model for planning, a cheaper model for the longer implementation loop, and stronger review/correction when necessary. No controlled saving was measured for this three-stage workflow. The intended benefit is reduced premium-model usage or budget pressure. Total tokens can increase; rework, cache, prices, subscription limits and task difficulty matter. Pass the saved plan and checks, preserve the goal in the active session, and compare the verified result. The earlier isolated planning pilot did not show token savings; it tests a different question.
 
 ## Organizer requirements and remaining human checks
 
@@ -180,8 +204,8 @@ Event date, registration, organizer delivery, photo and equipment remain speaker
 - [A8: Effective context engineering for AI agents](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents), 29 September 2025: context is finite; compaction and structured notes support longer tasks.
 - [A9: How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): context management in the agent harness.
 
-The 95% → 20% diagram is explicitly illustrative. It is not an exact compaction trigger or measured compression/retention rate. The dropped export detail is a synthetic possible failure, not an observed benchmark event. Goals preserve the completion condition; saved files preserve explicit details. Neither guarantees recall or correctness.
+The diagram now uses “Nearly full” and “Room to continue” instead of percentages. Its cells are qualitative, not an exact compaction trigger or a compression/retention measurement. The dropped export detail is a synthetic possible failure, not an observed benchmark event. Goals preserve the completion condition; saved files preserve explicit details. Neither guarantees recall or correctness. O2 documents Codex thread-scoped durable objective state; A4 documents Claude Code's session goal and evaluator. The example `/goal` contains a saved plan, observable acceptance criteria and a data-preservation constraint; it does not promise perpetual execution or global memory.
 
 ## Images, screenshots and annotations
 
-See `assets/README.md` for every local asset, original URL, provenance and image-generation prompts. I1/I2 are used only to illustrate where a control appears; primary vendor docs establish the behaviour. Screenshots are older client versions and are labelled accordingly. Official documentation headings are actual browser captures. Red boxes/underlines are editable slide annotations, not changes to the source text. Generated chats and dashboards are illustrations, not evidence of a real session or successful test.
+See `assets/README.md` for every local asset, original URL, provenance and image-generation prompts. I1/I2 illustrate where a control appears; primary vendor docs establish the behaviour. Screenshots are older client versions and are labelled accordingly. Official documentation headings are actual browser captures. Red boxes/underlines are editable slide annotations, not changes to the source text. Chats are editable Codex-style reconstructions; dashboards are generated illustrations. Neither is evidence of a real session or successful test.
