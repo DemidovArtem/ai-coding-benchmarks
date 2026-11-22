@@ -22,7 +22,7 @@ def main():
         html, re.S,
     ).group(1))
     slides = re.findall(r'<section class="slide[^"]*" id="([^"]+)"', html)
-    assert slides == [f"slide-{i}" for i in range(1, 27)] + ["appendix-a", "appendix-b"]
+    assert slides == [f"slide-{i}" for i in range(1, 25)] + ["appendix-a", "appendix-b"]
     assert abs(sum(map(float, re.findall(r'data-minutes="([\d.]+)"', html))) - 23) < 1e-9
     assert not re.search(r'\bsrc\s*=\s*["\']https?://|@import|url\(https?://', html)
     assert "fetch(" not in html, "Opening a local file must not need fetch or a server"
@@ -44,7 +44,8 @@ def main():
     assert "saved plan + /goal" in main_html
     assert "Save plan + set /goal" in main_html
     assert "planning-chat.png" not in html and "save-chat.png" not in html
-    assert "An independent check: JetBrains" in main_html
+    assert "Ponytail: three separate checks" in main_html and ">JetBrains<" in main_html
+    assert "What my small pilot found" not in main_html
     assert "Keep your setup simple" in main_html
     for link in (
         'https://learn.chatgpt.com/guides/best-practices',
@@ -67,7 +68,7 @@ def main():
         point, = [p for p in points if p["variant"] == other["variant"] and p["step"] == 6]
         assert other["n"] == point["n_trajectories"]
         assert other["setupFingerprint"] == point["setup_fingerprint"]
-        for key in ("net_prod_loc", "output_tokens", "sonar_delta_cognitive_complexity"):
+        for key in ("net_prod_loc", "input_tokens", "output_tokens", "sonar_delta_cognitive_complexity"):
             assert other[key] == point["metrics"][key]["mean"]
     for key, label in (("net_prod_loc", "≈27%"), ("output_tokens", "≈7%")):
         reduction = (1 - ponytail[key]["mean"] / baseline[key]["mean"]) * 100
@@ -75,11 +76,18 @@ def main():
 
     caveman, = [t for t in evidence["otherTrajectories"] if t["variant"] == "caveman"]
     output_increase = 100 * (caveman["output_tokens"] / baseline["output_tokens"]["mean"] - 1)
-    assert f"≈{output_increase:.0f}% more" == "≈28% more" and "≈28% more" in main_html
+    assert f"≈{output_increase:.0f}%" == "≈28%" and "≈28%" in main_html
+    serena, = [t for t in evidence["otherTrajectories"] if t["variant"] == "serena"]
+    input_increase = 100 * (serena["input_tokens"] / baseline["input_tokens"]["mean"] - 1)
+    assert f"≈{input_increase:.0f}%" == "≈48%" and "≈48%" in main_html
+    assert "Serena: different setup; input includes cache reads" in main_html
     claude, codex = evidence["models"]
     assert round(claude["meanApiCostUsd"] / codex["meanApiCostUsd"]) == 13
     assert round(100 * (1 - codex["index"] / claude["index"])) == 12
-    assert "≈13× lower cost" in main_html and "≈12% lower index" in main_html
+    assert "≈13×</strong><p>lower API cost" in main_html
+    assert "≈12%</strong><p>lower coding index" in main_html
+    assert "API cost reflects token use, model prices and caching" in main_html
+    assert 'id="cost-chart"' not in html and 'id="index-chart"' not in html
     independent = evidence["independent"]
     assert round(independent["ponytail"]["codeReductionPercent"]) == 15
     assert round(independent["ponytail"]["costReductionPercent"]) == 10
@@ -90,6 +98,14 @@ def main():
     assert "123,655 output tokens" in ecc_results
     assert "net production growth is 468 lines" in ecc_results
     assert evidence["ecc"]["outputTokens"] == 123655 and evidence["ecc"]["netProdLoc"] == 468
+    ecc_smoke = json.loads(subprocess.check_output(["git", "show", f"{PIN}:reports/ecc_smoke.json"], cwd=ROOT))
+    assert ecc_smoke["success"] is True
+    assert any(a["success"] is False and "plugin" in a.get("error", "") for a in ecc_smoke["attempts"])
+    result_frame = re.search(r'<section[^>]*id="slide-14".*?</section>', html, re.S).group(0)
+    assert result_frame.index('single-dashboard good') < result_frame.index('class="requirements"')
+    closing = re.search(r'<section[^>]*id="slide-24".*?</section>', html, re.S).group(0)
+    assert closing.count('<li>') == 5 and 'https://github.com/DietrichGebert/ponytail' in closing
+    assert 'Define requirements.' in closing and 'Hitting quota limits? Try Codex.' in closing
 
     script = notes.split("## 1.", 1)[1].split("## Appendix reference", 1)[0]
     script = re.sub(r"\[[^\]]*\]|^## .*", "", script, flags=re.M)
@@ -97,7 +113,7 @@ def main():
     bio = re.search(r"^> (Artem Demidov.*)$", notes, re.M).group(1)
     assert 55 <= len(bio.split()) <= 60
     assert (HERE / "deck.pdf").read_bytes().startswith(b"%PDF-")
-    print(f"PASS: 26 main frames + 2 appendices; 23 scheduled minutes; {words} script words; {len(bio.split())}-word bio")
+    print(f"PASS: 24 main frames + 2 appendices; 23 scheduled minutes; {words} script words; {len(bio.split())}-word bio")
     print("PASS: benchmark values match pinned public input; rounded differences match")
     print("Scope: public analysis/assets/structure. Browser and PDF review are separate. Live rehearsal is not a delivery gate.")
 

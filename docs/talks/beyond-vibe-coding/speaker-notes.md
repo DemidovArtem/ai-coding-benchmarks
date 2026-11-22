@@ -4,19 +4,19 @@
 
 ## Presenting
 
-Open `index.html` directly in a browser, keeping `assets/` beside it. No server, installation or network is needed. External links need a connection. `deck.pdf` contains all 26 main frames. Two appendices are available in HTML.
+Open `index.html` directly in a browser, keeping `assets/` beside it. No server, installation or network is needed. External links need a connection. `deck.pdf` contains all 24 main frames. Two appendices are available in HTML.
 
 Right / Space / Page Down advances; Left / Page Up goes back. Home / End selects the first / final main frame. F toggles fullscreen. A / B opens an appendix; Escape returns. ? opens help; P prints the main frames. Direct links such as `index.html#slide-9` work.
 
-Frames 14–17 and 18–19 develop the same visual in place. They are progressive reveals, not additional chapters. The schedule remains 23 minutes plus 7 minutes Q&A; the speaker can adjust pace. Rehearsal and venue equipment are **not delivery gates**, following Artem's feedback.
+Frames 12–15 and 16–17 develop the same visual in place. They are progressive reveals, not additional chapters. The schedule remains 23 minutes plus 7 minutes Q&A; the speaker can adjust pace. Rehearsal and venue equipment are **not delivery gates**, following Artem's feedback.
 
 Employer material is never reproduced. Dashboard images are generated illustrations. Editable chat examples reconstruct the visual conventions of Codex; they are not observed sessions. Menu screenshots are real third-party images, with client/version scope. Documentation excerpts are browser captures of official pages. Red highlights are slide overlays. See `sources.md` and `assets/README.md`.
 
-## 1. Beyond Vibe Coding — 0:00–0:27
+## 1. Beyond Vibe Coding — 0:00–0:30
 
 Hello, I am Artem. This talk is about AI prototypes that remain easier to change after the exciting first version. I will share lessons from my own use, a small experiment, and guidance from the teams building coding agents.
 
-## 2. The same change gets harder — 0:27–1:21
+## 2. The same change gets harder — 0:30–1:27
 
 About a year ago, I started using AI-assisted coding. Early on, a useful result often took one attempt. Later, a similarly sized request could take three to five attempts, more quota and more checking.
 
@@ -24,17 +24,17 @@ The request on both sides is the same. The product underneath has changed. Rules
 
 How do we keep the next feature from making later changes harder?
 
-## 3. Leave less to maintain — 1:21–2:06
+## 3. Leave less to maintain — 1:27–2:15
 
 Some earlier features added about three thousand lines. A later feature might add three hundred and remove two hundred. These were different features, so this is not a controlled percentage saving.
 
 The buildings show the distinction I care about: attaching more machinery, or reusing and simplifying what is already there. A feature can leave less redundant material behind. That gives us less to keep consistent on the next change.
 
-## 4. Three habits for the next feature — 2:06–2:39
+## 4. Three habits for the next feature — 2:15–2:51
 
 Three habits organize the talk. Keep changes small, using Ponytail as one tool. Explicitly use Planning Mode and agree on checks. Preserve progress when the conversation becomes long. I will add a short model-budget example, then leave you with a workflow you can try on your next feature.
 
-## 5. Add Ponytail to your agent — 2:39–3:45
+## 5. Add Ponytail to your agent — 2:51–4:03
 
 Ponytail is a third-party skill and plugin. It asks the agent to reuse existing functionality and prefer the smallest complete change. Necessary validation, error handling, security and checks remain part of the work.
 
@@ -42,35 +42,21 @@ This is a setup step. Install it for the agent you use and check that it is acti
 
 It gives us useful defaults. We still have to define the feature and check the result. A plugin does not know what our product should do.
 
-## 6. Ponytail: publisher and my pilot — 3:45–4:30
+## 6. Ponytail: three separate checks — 4:03–5:09
 
-Ponytail's author reports around fifty-three percent less code and forty-five percent fewer output tokens. My six-edit pilot found around twenty-seven percent less net code growth and seven percent fewer output tokens.
+Here are three separate checks of Ponytail. Its author reports around fifty-three percent less code and forty-five percent fewer output tokens. JetBrains independently measured around fifteen percent less code written and ten percent lower API cost. My pilot found around twenty-seven percent less net code growth and seven percent fewer output tokens.
 
-I put them together to show the direction and the difference in scale. They use different tasks, models, code measures and statistics. These are separate findings, not a replication or a forecast for your application.
+These use different models, tasks and metrics. Read them as separate observations, not interchangeable percentages or a pooled result. JetBrains found clearer statistical evidence for cost than for code reduction; my pilot is too small for significance claims. None establishes a guarantee of higher quality.
 
-## 7. What my small pilot found — 4:30–5:15
+## 7. Keep your setup simple — 5:09–6:27
 
-Here is my pilot as a chart. Baseline is one hundred on each measure. There are two independent six-edit trajectories per displayed method, on the same model and setup. Each change continues the previous one.
+It is easy to make a setup more expensive or harder to run. In my pilot, Caveman used around twenty-eight percent more output tokens. Serena used around forty-eight percent more input tokens than the displayed baseline, including cache reads. Serena is a different setup, so that is a descriptive contrast, not an isolated causal effect.
 
-Quality measurements did not establish a winner. Less code is not proof of correctness. The appendix retains exact values, variation and grading limitations. These are output tokens, not dollars or subscription quota.
+ECC initially failed during setup and needed configuration fixes. That does not mean the whole experiment failed: it later completed six edits. The recorded setup issues include our runtime policy, trust configuration and native plugin integration; I cannot attribute all of them to ECC itself.
 
-## 8. An independent check: JetBrains — 5:15–5:57
+My starting point would be Ponytail. Add more for a specific need, then check activation and actual results.
 
-JetBrains independently tested these skills. For Ponytail, eighty paired tasks showed about fifteen percent less code written and ten percent lower API cost. The code result was less statistically certain than the cost result.
-
-Their separate Caveman evaluation found around nine percent fewer output tokens. Neither evaluation detected a task-score difference; that does not prove unchanged quality. Effects depend on the workload, model and activation.
-
-## 9. Keep your setup simple — 5:57–7:21
-
-My recommendation is to keep the initial setup simple. I would start with Ponytail, verify activation, and add tools for a specific need.
-
-Caveman shortens explanations. In my matched pilot it used around twenty-eight percent more output tokens, despite slightly lower net code growth. That differs from JetBrains; a small pilot is not a universal result.
-
-Serena provides semantic code navigation and editing, plus project memories. Tools and retained memories worked, but one separate trajectory does not establish a quality benefit or harm.
-
-ECC bundles agents, hooks and skills. Its author reports winning an Anthropic hackathon. My offline Codex pilot completed six edits after integration and recovery. It is a separate runtime and one interrupted trajectory, so I cannot rank its effectiveness against the earlier arms. Installation is only the start: verify what actually runs.
-
-## 10. Use Planning Mode — 7:21–8:27
+## 8. Use Planning Mode — 6:27–7:39
 
 The second habit is to turn on Planning Mode explicitly. Asking a question in an implementation session is not the same action.
 
@@ -78,7 +64,7 @@ These are real cropped headings from official OpenAI and Anthropic documentation
 
 Planning helps when the feature is complex or I am still deciding what I want. It gives the agent room to inspect the project, identify ambiguity and ask questions before implementation. It is not a promise of lower token use. A tiny clear edit does not need a long planning ceremony.
 
-## 11. Turn it on before prompting — 8:27–9:42
+## 9. Turn it on before prompting — 7:39–9:00
 
 [Point to the red rectangles and distinguish the clients.]
 
@@ -88,19 +74,19 @@ In Claude Code, use the mode menu and select Plan mode. This image is the VS Cod
 
 Desktop, terminal and editor controls differ. See that Planning Mode is active before sending the feature request. Once the agent has explored and you have agreed on the plan, review it. Then switch into implementation with that plan. We are deliberately separating deciding the work from changing the product.
 
-## 12. Use Planning Mode to clarify the task — 9:42–10:21
+## 10. Use Planning Mode to clarify the task — 9:00–9:42
 
 With Planning Mode active, ask the agent to resolve ambiguity: I want an expenses dashboard. Ask the questions needed before we agree on a plan.
 
-This reconstructed Codex-style example shows one decision: export only the selected month. That affects the interface, calculation and exported rows. Review the resulting plan and save it, so another model can implement the same agreement.
+This reconstructed example shows one decision: export only the selected month. That affects the interface, calculation and exported rows. Review the resulting plan and save it, so another model can implement the same agreement.
 
-## 13. Give the agent a way to check — 10:21–11:09
+## 11. Give the agent a way to check — 9:42–10:33
 
 There is another part of the agreement: how will the agent check the result? Anthropic's documentation makes this explicit.
 
 If the agent has no way to check what you wanted, that review work comes back to you. You inspect the result, spot a missing requirement, and ask again. The next frames illustrate that loop. They are teaching examples, not measurements of how often agents fail or how much time this saves.
 
-## 14. “Build me an expenses dashboard.” — 11:09–11:54
+## 12. “Build me an expenses dashboard.” — 10:33–11:21
 
 [Pause before revealing the corrections.]
 
@@ -108,7 +94,7 @@ Suppose I only ask for an expenses dashboard. The agent produces a plausible scr
 
 The model could not infer every product decision I had in mind. Now I discover the gaps while using the result. A polished appearance can delay that discovery because the screen initially looks convincing.
 
-## 15. Your review becomes the test — 11:54–12:42
+## 13. Your review becomes the test — 11:21–12:12
 
 I ask where the export button is. Then I ask for a month filter. Then I clarify that the export should contain only that month.
 
@@ -116,7 +102,7 @@ Each correction may require another change and another review. We moved the requ
 
 Clear requirements will not eliminate debugging. They give the agent information it could not otherwise know and make the remaining review more focused.
 
-## 16. Define the result and the check — 12:42–13:39
+## 14. Define the result and the check — 12:12–13:12
 
 Here we agree on a January filter, exporting the selected rows, and a known calculation: one hundred plus two hundred is three hundred.
 
@@ -124,7 +110,7 @@ Ask the agent to verify the interface in the browser and the calculation using k
 
 For a communication prototype, choose checks for the intended scenario. A recurring personal tool also needs safe reruns and data preservation.
 
-## 17. Move the checks into the task — 13:39–14:42
+## 15. Move the checks into the task — 13:12–14:18
 
 The contrast is the workflow. On the left, I build from a vague request and become the person discovering missing requirements. On the right, the task includes a concrete result and checks the agent can perform.
 
@@ -132,13 +118,13 @@ The right image is a desired illustrative result, not a promise of one-shot succ
 
 For a product manager, this is a useful change: make the intended result observable and ask for evidence that it happened.
 
-## 18. Your conversation has a limit — 14:42–15:18
+## 16. Your conversation has a limit — 14:18–14:54
 
 Long coding sessions accumulate requirements, decisions, code and tool output. Active context has a limit. The red diagram shows that working space getting crowded.
 
 Coding agents compact earlier context so work can continue. The trigger depends on the agent, model and configuration. This drawing does not claim a particular percentage.
 
-## 19. Compaction keeps a summary — 15:18–16:03
+## 17. Compaction keeps a summary — 14:54–15:42
 
 Compaction keeps a summary of earlier material. A summary can leave out a detail that later matters.
 
@@ -146,7 +132,7 @@ In this illustration, the instruction to export only the selected month is dropp
 
 Keep a short, current record of decisions that the next turn needs to recover.
 
-## 20. Save the work. Keep the goal — 16:03–16:48
+## 18. Save the work. Keep the goal — 15:42–16:30
 
 Ask the agent to save the plan, decisions, checks and next step. Keep that file current at useful milestones.
 
@@ -154,7 +140,7 @@ At the next session, ask it to read the handover, inspect the project and contin
 
 Files preserve details. A goal preserves what we are trying to finish. Use both.
 
-## 21. Set the finish line with /goal — 16:48–17:51
+## 19. Set the finish line with /goal — 16:30–17:36
 
 Use slash-goal with a completion condition. Here it points to PLAN.md, names the required checks and protects existing data.
 
@@ -162,13 +148,13 @@ Codex documents a durable objective scoped to the thread. Claude Code documents 
 
 Neither is global long-term memory. The point is to keep working toward an observable finish line instead of ending after a plausible partial answer. Save the detailed plan and results in files, and ask the agent to show verification evidence. A goal cannot guarantee completion or correctness.
 
-## 22. Turn repeated instructions into guidance — 17:51–18:33
+## 20. Turn repeated instructions into guidance — 17:36–18:21
 
 If you repeat a rule, ask the agent to save it in AGENTS.md or CLAUDE.md. For example: reuse existing UI before adding another component.
 
 If you repeat a procedure, ask for a skill. The prompt here names the steps: check an import fixture, simulate failure, and verify saved data survives. Keep guidance focused. Instructions guide behaviour; checks show whether it happened.
 
-## 23. Use cheaper models for the long middle — 18:33–19:54
+## 21. Use cheaper models for the long middle — 18:21–19:48
 
 This is a workflow I use: plan with a stronger model, give the saved plan and goal to a cheaper model for implementation, then use a stronger model for final corrections when needed.
 
@@ -176,27 +162,27 @@ Implementation can be the long middle: writing code, running checks and fixing i
 
 Spotify Portal offers a related, narrower example: around ninety percent average bulk-read token savings across four Java scenarios. It delegates large reads and predictable generation to a cheaper worker. That is not ninety percent off the total bill, and it does not validate this full three-stage workflow.
 
-## 24. Codex + Sol: a lower-cost option — 19:54–21:09
+## 22. Codex + Sol: a lower-cost option — 19:48–21:03
 
-Artificial Analysis compares specific agent, model and effort configurations. In the checked snapshot, Codex with GPT-6.2 Sol costs about ninety cents per task; Claude Code with Sonnet 5.5 costs about eleven dollars forty.
+Here is the cost-performance tradeoff without the detailed charts. In Artificial Analysis's checked configurations, Codex with GPT-6.2 Sol has roughly thirteen times lower mean API cost and a twelve percent lower Coding Agent Index than Claude Code with Sonnet 5.5.
 
-That is roughly thirteen times lower mean API cost. Index values are about fifty and fifty-six: around six and a half points, or twelve percent, lower. The index is not percentage accuracy. This is a cost-performance tradeoff, not equal quality.
+API cost reflects token consumption, but also model prices and caching. A thirteenfold cost difference does not mean thirteenfold fewer tokens or thirteenfold more subscription quota. The exact figures and settings remain in appendix B.
 
-Separately, my subscription experience is that Codex lets me get more coding done, and its quality is enough for many of my tasks. This benchmark does not measure subscription limits or establish that experience for everyone. Try the cheaper configuration on your own acceptance checks.
+Separately, my experience is that Codex lets me get more coding done within my limits, and its quality is enough for many of my tasks. Try it on your own acceptance checks.
 
-## 25. A workflow, not one magic prompt — 21:09–21:51
+## 23. A workflow, not one magic prompt — 21:03–21:48
 
 These are separate actions. Start with Ponytail if its defaults help. Use Planning Mode to describe the outcome, resolve ambiguity and agree on checks. Save the plan and set a goal. Implement, verify and preserve a handover.
 
 A communication prototype and a recurring personal tool need different checks. The common habit is to make the intended result observable and keep evidence of progress.
 
-## 26. Make the next change easier — 21:51–23:00
+## 24. Make the next change easier — 21:48–23:00
 
-Define what done looks like. Ask for a small, complete implementation. Keep checks and a handover so the next change starts from useful evidence.
+Here are five actions for your next feature. Install Ponytail; the name is a direct link. Use Planning Mode and define requirements. Use a goal and save a handover. Plan with a strong model and implement with a cheaper one; use strong review when needed. If you keep hitting quota limits, try Codex. That last recommendation reflects my experience, not a promise about every subscription.
 
-The first reading is Anthropic's practical best-practice guide. The second explains instruction files, skills, hooks and the other extension components. The linked materials include OpenAI guidance, Spotify, and my experiment's sources and limitations.
+The two readings explain practical checks and how instructions, skills, hooks and other components fit together. The linked repository contains the sources and limits of my experiments.
 
-Pick one habit for your next feature. If you discover missing details late, start with Planning Mode and checks. If changes keep introducing machinery, try Ponytail and inspect the result. If long sessions lose decisions, save a current handover. Thank you. Which part of changing your prototypes is becoming difficult?
+Choose one action that addresses your current difficulty. Thank you. What makes changing your prototypes difficult?
 
 ## Appendix reference and setup
 
@@ -265,4 +251,4 @@ Regenerate the PDF with an installed Chrome:
 google-chrome --headless --print-to-pdf="$PWD/deck.pdf" --no-pdf-header-footer "file://$PWD/index.html"
 ```
 
-Browser Print → Save as PDF also works. Container sandbox flags vary. Print CSS includes 26 main frames and excludes both appendices.
+Browser Print → Save as PDF also works. Container sandbox flags vary. Print CSS includes 24 main frames and excludes both appendices.

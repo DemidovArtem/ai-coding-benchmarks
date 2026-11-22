@@ -41,6 +41,6 @@ Prompt:
 
 ## Editable visuals
 
-The normalized pilot and model-cost/index charts, context diagram, goal command, model allocation and workflow are native HTML/SVG. They remain editable. The context meter has qualitative labels, with no numeric compaction threshold. Exact metric inputs remain in `index.html` even though main headlines are rounded.
+The context diagram, goal command, model allocation, benchmark summaries and workflow are native HTML/CSS. The separate pilot and model-cost/index charts were removed in the final simplification. They remain editable. The context meter has qualitative labels, with no numeric compaction threshold. Exact metric inputs remain in `index.html` even though main headlines are rounded.
 
 The two chat examples are native HTML reconstructions of Codex's dark interface conventions, using `codex-plan-ui.png` as a style reference. They are explicitly labelled reconstructed examples, not actual product captures or observed sessions. The earlier generic generated chat PNGs were removed after speaker feedback; their provenance remains in Git history.

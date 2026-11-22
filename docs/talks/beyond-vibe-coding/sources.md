@@ -15,28 +15,26 @@
 
 ## Visual revision and slide map
 
-Revised after Artem's review: a coherent house on the cover; two-sided story and feature-diff metaphors; explicit agenda; publisher/own results side by side; independent JetBrains evidence; a simple-setup recommendation; clickable official documentation; real Planning Mode controls; editable Codex-style teaching conversations; qualitative context fullness; a dedicated goal example; model delegation and cost comparison in the main sequence. There are **26 main frames plus 2 appendices**, scheduled for 23 minutes and 7 minutes Q&A. Rehearsal and venue arrangements are not delivery gates.
+Revised after Artem's review: a coherent house on the cover; two-sided story and feature-diff metaphors; explicit agenda; publisher/own results side by side; independent JetBrains evidence; a simple-setup recommendation; clickable official documentation; real Planning Mode controls; editable Codex-style teaching conversations; qualitative context fullness; a dedicated goal example; model delegation and cost comparison in the main sequence. There are **24 main frames plus 2 appendices**, scheduled for 23 minutes and 7 minutes Q&A. Rehearsal and venue arrangements are not delivery gates.
 
 | Frames | Content | Evidence |
 | --- | --- | --- |
 | 1–3 | Coherent cover, growing difficulty, +3000 vs +300 / −200 | Artem's account; generated house metaphors; different features, no causal saving claim |
 | 4 | Three-chapter agenda | Editorial structure |
 | 5 | Add Ponytail and verify activation | P1; activation label is illustrative |
-| 6 | Publisher and own reductions side by side | P2/B1–B3; different methods/workloads, not a replication |
-| 7 | Own pilot with rounded percentages | B1–B3; normalized chart baseline = 100%; no quality superiority |
-| 8 | Independent Ponytail and Caveman results | J1/J2; separate studies/settings, no pooled estimate |
-| 9 | Keep the setup simple | B1–B3/E1; recommendation, not a universal quality ranking |
-| 10 | Explicit Planning Mode recommendation | O1/A6; official heading captures and clickable source names |
-| 11 | Where to enable Planning Mode | O3/A6/A7; real screenshots I1/I2, client/version scope stated |
-| 12 | Questions in Planning Mode | A1/O1; editable reconstructed chat |
-| 13 | Give the agent checks | A1; official heading capture, clickable source and red underline |
-| 14–17 | Vague prompt, corrections, requirements, comparison | Generated dashboard teaching example; no measured duration or first-attempt success claim |
-| 18–19 | Context fills and compacts | A8/A9; qualitative native diagram, no numerical trigger or retention claim |
-| 20–21 | Save state; set /goal with criteria | A3/O2/A4; reconstructed chat and example command |
-| 22 | Example prompts for rules and skills | A5/O1; editable native file diagram |
-| 23 | Strong plan, cheaper implementation, optional strong review | Artem's practice; S1 supports only the narrower delegation case |
-| 24 | Specific model/agent/settings cost–index tradeoff | X1/X2; subscription experience separately attributed to Artem |
-| 25–26 | Actions, takeaways and reading | Editorial synthesis; A1/A5 reading links |
+| 6 | Publisher, JetBrains and own Ponytail results | P2/J1/B1–B3; three columns, different metrics/workloads; no pooled estimate |
+| 7 | Simple setup; token and startup pitfalls | B1–B3/E1; exploratory observations, not a causal quality ranking |
+| 8 | Explicit Planning Mode recommendation | O1/A6; official heading captures and clickable source names |
+| 9 | Where to enable Planning Mode | O3/A6/A7; real screenshots I1/I2, client/version scope stated |
+| 10 | Questions in Planning Mode | A1/O1; reconstructed chat, single Codex label and continuing-answer ellipsis |
+| 11 | Give the agent checks | A1; official heading capture, clickable source and red underline |
+| 12–15 | Vague prompt, corrections, requirements, comparison | Generated teaching example; dashboard stays in the left column on frame 14 |
+| 16–17 | Context fills and compacts | A8/A9; qualitative native diagram |
+| 18–19 | Save state; /goal with criteria | A3/O2/A4; reconstructed chat and example command |
+| 20 | Example prompts for rules and skills | A5/O1; editable file diagram |
+| 21 | Strong plan, cheaper implementation, optional strong review | Artem's practice; S1 supports only narrower delegation |
+| 22 | Cost–index tradeoff, simplified | X1/X2; rounded ratios, cost depends on tokens, prices and caching |
+| 23–24 | Workflow, five actions and reading | Ponytail installation link; Planning Mode/requirements; goal/handover; model allocation; try Codex when hitting quota, as personal advice |
 | Appendix A | Exact values, ranges, other methods and limits | B1–B3; Serena separate cohort |
 | Appendix B | Specific model/agent/settings comparison | X1/X2; checked 22 November 2026 |
 
@@ -82,9 +80,9 @@ Output reduction = (67311.5 - 62766) / 67311.5 × 100 = 6.7529…% → 6.8%
 Production churn reduction = (578.5 - 449) / 578.5 × 100 = 22.3854…%
 ```
 
-Main charts start at zero and normalize each baseline mean to 100%. Ponytail displays rounded ratios, 73% for net code growth and 93% for output; headlines round the reductions to approximately 27% and 7%. Exact inputs and 27.2% / 6.8% calculations remain here. No uncertainty bands are drawn. Appendix ranges are observed minima and maxima, not confidence intervals.
+The main comparison shows rounded reductions directly: approximately 27% less net code growth and 7% fewer output tokens. The separate normalized pilot chart and JetBrains-only frame were removed at the speaker's request. Exact inputs and 27.2% / 6.8% calculations remain here and in appendix A. Appendix ranges are observed minima and maxima, not confidence intervals.
 
-Appendix A retains descriptive context for other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Its main-slide output increase is `(85989.5 / 67311.5 - 1) × 100 = 27.7…%`, rounded to approximately 28%. Net growth is approximately 4% lower, so this study does not support saying Caveman increased code size. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Its setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`: a separate cohort, not a paired comparison. Functioning semantic tools and memories are verified; a quality benefit or harm is not established. These methods do not enter the main Ponytail charts.
+Appendix A retains descriptive context for other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Its main-slide output increase is `(85989.5 / 67311.5 - 1) × 100 = 27.7…%`, rounded to approximately 28%. Net growth is approximately 4% lower, so this study does not support saying Caveman increased code size. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Its setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`: a separate cohort, not a paired comparison. Functioning semantic tools and memories are verified; a quality benefit or harm is not established. Serena input is 19,606,128 versus the displayed baseline mean of 13,234,875.5: approximately 48% higher, including cache reads. The main footer identifies the different setup; this descriptive contrast does not isolate a Serena effect. These methods do not enter the main Ponytail comparison.
 
 Interpretation limits retained in slides and notes:
 
@@ -150,14 +148,14 @@ Explains project instructions, skills, hooks, subagents, MCP and plugins. Standi
 - [X1: Coding agents benchmark](https://artificialanalysis.ai/agents/coding-agents).
 - [X2: Coding Agent Index v2.1 methodology](https://artificialanalysis.ai/methodology/coding-agents-benchmarking).
 
-Read the public page and its embedded variant records on **22 November 2026**. Store only the selected public measurements in the HTML's `evidence-data`, not a copy of the page. Index = `indexScore × 100`; API cost = `mean.costUsd`.
+Read the public page and its embedded variant records on **22 November 2026**. Store only the selected public measurements in the HTML's `evidence-data`, not a copy of the page. Index = `indexScore × 100`; API cost = `mean.costUsd`. Cost depends on token quantities, model-specific prices and cache pricing; cost ratios are not token ratios or subscription-quota ratios.
 
 | Public variant ID | Configuration | Exact index | Exact mean API cost/task, USD |
 | --- | --- | ---: | ---: |
 | `4d278d53a18fbdcb5138d11466ea0b1b` | Claude Code + Claude Sonnet 5.5, Max, Default Fallback | 56.3314945150429 | 11.39857189877927 |
 | `2b66aa9f8afa482977259846d9b207ba` | Codex + GPT-6.2 Sol, Xhigh | 49.7854108287173 | 0.8980194131553201 |
 
-The public embedded records were fetched again during this revision; both selected values match the earlier same-day capture. Appendix values round to 56.33 / $11.40 and 49.79 / $0.90. Main display uses index 56 / 50 and zero-based native charts. Cost ratio is `11.39857189877927 / 0.8980194131553201 = 12.69…`, displayed as approximately 13× lower cost. Relative index reduction is approximately 11.62%, displayed as 12%; absolute gap is approximately 6.5 index points. The index is not percentage accuracy.
+The public embedded records were fetched again during this revision; both selected values match the earlier same-day capture. Appendix values round to 56.33 / $11.40 and 49.79 / $0.90. The main frame uses two large rounded ratios; exact index values and costs remain in appendix B. Cost ratio is `11.39857189877927 / 0.8980194131553201 = 12.69…`, displayed as approximately 13× lower API cost. Relative index reduction is approximately 11.62%, displayed as 12%; absolute gap is approximately 6.5 index points. The index is not percentage accuracy.
 
 Index v2.1 equally weights FrontierCode-AA 2.0, Terminal-Bench 4.1 and SWE-Atlas-QnA-AA. Costs include applicable cache pricing; they exclude subscription pricing and full operational/human costs. Results describe configurations and do not isolate model quality from the agent. Artem's observation that Codex lets him do more coding within subscription limits is personal experience, not an outcome measured by Artificial Analysis. No universal efficiency or model-ranking claim is made.
 
@@ -172,7 +170,7 @@ These are primary reports by an organization independent of the skill publishers
 
 [Frozen results](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_results.md), [protocol](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_protocol.md), and [activation record](https://github.com/DemidovArtem/ai-coding-benchmarks/blob/7cb5b3ee215287717edbb2cdf0ecb34f232a1c4c/reports/ecc_smoke.json).
 
-ECC for Codex, offline, version 2.2.3 at `c05b2d6614f62f6db0047669aa4eefb223d478f9`: one recovered trajectory, six edits and Sonar scans; 2 accepted, 3 rejected, 1 correctness score unavailable. Native plugin, SessionStart and configured roles were verified separately before measurement. Runtime changes, disabled external integrations and interruption recovery prevent a matched historical A/B efficiency claim. No general quality ranking follows. Configuration and activation must be tested; registration alone is insufficient.
+ECC for Codex, offline, version 2.2.3 at `c05b2d6614f62f6db0047669aa4eefb223d478f9`: one recovered trajectory, six edits and Sonar scans; 2 accepted, 3 rejected, 1 correctness score unavailable. Native plugin, SessionStart and configured roles were verified separately before measurement. Runtime changes, disabled external integrations and interruption recovery prevent a matched historical A/B efficiency claim. No general quality ranking follows. Configuration and activation must be tested; registration alone is insufficient. The main frame says setup failed initially, not that ECC remained broken: the frozen activation record includes a failed native plugin installation and later successful activation. Other initial failures involve our runtime policy and profile integrity; they cannot all be attributed to ECC itself. Six measured edits subsequently completed.
 
 [ECC upstream](https://github.com/affaan-m/ECC) describes agents, hooks, skills and other integrations. Its author states in the Background section that he won the Anthropic × Forum Ventures hackathon in September 2025. Attribute this to the author; it is not Anthropic endorsement of ECC. This background is optional speech context, not evidence of benchmark performance.
 
