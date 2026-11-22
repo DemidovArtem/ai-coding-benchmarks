@@ -72,17 +72,21 @@ def main():
                     for variant in variants:
                         values=sorted([p for p in points if p['variant']==variant],key=lambda p:p['step'])
                         field='paired_delta' if paired else 'metrics'
-                        values=[p for p in values if p[field][metric]['mean'] is not None]
+                        if metric != 'grader_acceptance':
+                            values=[p for p in values if p[field][metric]['mean'] is not None]
                         if not values:
                             ax.plot([],[],STYLES[variant],color=COLORS[variant],label=NAMES[variant]+' · нет данных')
                             continue
                         observed=True
-                        x=[0]+[p['step'] for p in values]
-                        stats=[{'mean':0,'min':0,'max':0,'n':0}]+[p[field][metric] for p in values]
+                        x=[p['step'] for p in values]
+                        stats=[p[field][metric] for p in values]
+                        if metric != 'grader_acceptance':
+                            x.insert(0,0);stats.insert(0,{'mean':0,'min':0,'max':0,'n':0})
                         label=f"{NAMES[variant]} · n={values[-1][field][metric]['n']}"
-                        ax.plot(x,[s['mean'] for s in stats],STYLES[variant],color=COLORS[variant],linewidth=2,label=label)
+                        ax.plot(x,[s['mean'] if s['mean'] is not None else float('nan') for s in stats],STYLES[variant],color=COLORS[variant],linewidth=2,label=label)
                         if any(s['n'] > 1 for s in stats):
-                            ax.fill_between(x,[s['min'] for s in stats],[s['max'] for s in stats],color=COLORS[variant],alpha=.12)
+                            ax.fill_between(x,[s['min'] if s['min'] is not None else float('nan') for s in stats],
+                                            [s['max'] if s['max'] is not None else float('nan') for s in stats],color=COLORS[variant],alpha=.12)
                     ax.set_title(title,loc='left',fontsize=11)
                     ax.set_xlabel('Количество правок')
                     axis_unit=unit

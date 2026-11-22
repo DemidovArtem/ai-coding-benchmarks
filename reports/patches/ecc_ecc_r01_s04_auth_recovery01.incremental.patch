@@ -1,0 +1,304 @@
+diff --git a/crates/ignore/src/dir.rs b/crates/ignore/src/dir.rs
+index b302943ab5a210f2ddad2a77c1611106a6f52165..fd96d1b60ce8e19c7a8f35fc175ba072e43c1b81 100644
+--- a/crates/ignore/src/dir.rs
++++ b/crates/ignore/src/dir.rs
+@@ -95,6 +95,8 @@ pub(crate) struct Ignore(Arc<IgnoreInner>);
+ 
+ #[derive(Clone, Debug)]
+ struct IgnoreInner {
++    /// The working directory used to interpret global ignore patterns.
++    cwd: Option<Arc<PathBuf>>,
+     /// A map of all existing directories that have already been
+     /// compiled into matchers.
+     ///
+@@ -311,6 +313,7 @@ impl Ignore {
+             }
+         };
+         let ig = IgnoreInner {
++            cwd: self.0.cwd.clone(),
+             compiled: self.0.compiled.clone(),
+             dir: dir.to_path_buf(),
+             overrides: self.0.overrides.clone(),
+@@ -508,16 +511,24 @@ impl Ignore {
+                 }
+             }
+         }
++        // Global rules are relative to the working directory, even when
++        // traversal uses absolute paths. Use component-aware stripping so
++        // a sibling whose name shares a prefix with the CWD stays distinct.
++        // Without a CWD, skip global rules while retaining local ignore files.
++        let global_path = self.0.cwd.as_ref().map(|cwd| {
++            path.strip_prefix(&***cwd).unwrap_or(path)
++        });
+         for gi in self.0.explicit_ignores.iter().rev() {
++            let Some(path) = global_path else { break };
+             if !m_explicit.is_none() {
+                 break;
+             }
+-            m_explicit = gi.matched(&path, is_dir).map(IgnoreMatch::gitignore);
++            m_explicit = gi.matched(path, is_dir).map(IgnoreMatch::gitignore);
+         }
+-        let m_global = if any_git {
++        let m_global = if let Some(path) = global_path.filter(|_| any_git) {
+             self.0
+                 .git_global_matcher
+-                .matched(&path, is_dir)
++                .matched(path, is_dir)
+                 .map(IgnoreMatch::gitignore)
+         } else {
+             Match::None
+@@ -565,6 +576,8 @@ impl<'a> Iterator for Parents<'a> {
+ /// A builder for creating an Ignore matcher.
+ #[derive(Clone, Debug)]
+ pub(crate) struct IgnoreBuilder {
++    /// Captured once and shared by every matcher in a traversal.
++    cwd: Option<Arc<PathBuf>>,
+     /// The root directory path for this ignore matcher.
+     dir: PathBuf,
+     /// An override matcher (default is empty).
+@@ -585,7 +598,19 @@ impl IgnoreBuilder {
+     /// All relative file paths are resolved with respect to the current
+     /// working directory.
+     pub(crate) fn new() -> IgnoreBuilder {
++        let cwd = match std::env::current_dir() {
++            Ok(cwd) => Some(Arc::new(cwd)),
++            Err(err) => {
++                log::debug!(
++                    "could not determine current directory; \
++                     skipping global ignore rules: {}",
++                    err,
++                );
++                None
++            }
++        };
+         IgnoreBuilder {
++            cwd,
+             dir: Path::new("").to_path_buf(),
+             overrides: Arc::new(Override::empty()),
+             types: Arc::new(Types::empty()),
+@@ -609,7 +634,8 @@ impl IgnoreBuilder {
+     /// The matcher returned won't match anything until ignore rules from
+     /// directories are added to it.
+     pub(crate) fn build(&self) -> Ignore {
+-        let git_global_matcher = if !self.opts.git_global {
++        let skip_global = !self.opts.git_global || self.cwd.is_none();
++        let git_global_matcher = if skip_global {
+             Gitignore::empty()
+         } else {
+             let mut builder = GitignoreBuilder::new("");
+@@ -624,6 +650,7 @@ impl IgnoreBuilder {
+         };
+ 
+         Ignore(Arc::new(IgnoreInner {
++            cwd: self.cwd.clone(),
+             compiled: Arc::new(RwLock::new(HashMap::new())),
+             dir: self.dir.clone(),
+             overrides: self.overrides.clone(),
+@@ -645,6 +672,12 @@ impl IgnoreBuilder {
+         }))
+     }
+ 
++    /// Set the working directory context for global ignore matching.
++    pub(crate) fn current_dir(&mut self, cwd: PathBuf) -> &mut IgnoreBuilder {
++        self.cwd = Some(Arc::new(cwd));
++        self
++    }
++
+     /// Add an override matcher.
+     ///
+     /// By default, no override matcher is used.
+@@ -917,6 +950,23 @@ mod tests {
+         assert!(ig.matched("baz", false).is_none());
+     }
+ 
++    #[test]
++    fn global_ignores_without_current_dir() {
++        let td = tmpdir();
++        wfile(td.path().join("global"), "global\n");
++        wfile(td.path().join(".ignore"), "local\n");
++        let (gi, err) = Gitignore::new(td.path().join("global"));
++        assert!(err.is_none());
++        let mut builder = IgnoreBuilder::new();
++        // Simulate a failed CWD lookup without changing process-wide state.
++        builder.cwd = None;
++        builder.add_ignore(gi);
++        let (ig, err) = builder.build().add_child(td.path());
++        assert!(err.is_none());
++        assert!(ig.matched("global", false).is_none());
++        assert!(ig.matched("local", false).is_ignore());
++    }
++
+     #[test]
+     fn git_exclude() {
+         let td = tmpdir();
+diff --git a/crates/ignore/src/walk.rs b/crates/ignore/src/walk.rs
+index 4ae763e4a74bfe95f27d32f7cc0a81ea90608b95..af2a2c361738726d5056e2ad3d9b0960b3d8d4ed 100644
+--- a/crates/ignore/src/walk.rs
++++ b/crates/ignore/src/walk.rs
+@@ -621,6 +621,20 @@ impl WalkBuilder {
+         self
+     }
+ 
++    /// Set the working directory context for global ignore patterns.
++    ///
++    /// Anchored patterns in global gitignore files and files added with
++    /// [`WalkBuilder::add_ignore`] are relative to this directory. The path
++    /// should be absolute. By default, the process working directory is
++    /// captured once when this builder is created. If it cannot be determined,
++    /// global ignore rules are skipped.
++    ///
++    /// This does not change the process working directory or the paths walked.
++    pub fn current_dir<P: AsRef<Path>>(&mut self, cwd: P) -> &mut WalkBuilder {
++        self.ig_builder.current_dir(cwd.as_ref().to_path_buf());
++        self
++    }
++
+     /// The minimum depth of entries to yield.
+     ///
+     /// The root has depth 0. Entries at smaller depths are not yielded, but
+@@ -2130,6 +2144,45 @@ mod tests {
+         assert_paths(td.path(), &builder, &["bar", "a", "a/bar"]);
+     }
+ 
++    #[test]
++    fn explicit_ignore_current_dir() {
++        let td = tmpdir();
++        let cwd = td.path().join("work");
++        let sibling = td.path().join("work-other");
++        mkdirp(cwd.join("nested"));
++        mkdirp(&sibling);
++        let igpath = td.path().join("patterns");
++        wfile(&igpath, "/haystack\n-other/haystack\n");
++        wfile(cwd.join("haystack"), "");
++        wfile(cwd.join("visible"), "");
++        wfile(cwd.join("nested/haystack"), "");
++        wfile(sibling.join("haystack"), "");
++
++        let mut builder = WalkBuilder::new(&cwd);
++        builder.standard_filters(false);
++        assert!(builder.add_ignore(&igpath).is_none());
++        // The context can be set after adding rules, and is shared by clones.
++        builder.current_dir(&cwd);
++        assert_paths(
++            &cwd,
++            &builder.clone(),
++            &["visible", "nested", "nested/haystack"],
++        );
++        // Anchors remain relative to the CWD, not each individual search root.
++        let mut nested = WalkBuilder::new(cwd.join("nested"));
++        nested.standard_filters(false).current_dir(&cwd);
++        assert!(nested.add_ignore(&igpath).is_none());
++        assert_paths(&cwd.join("nested"), &nested, &["haystack"]);
++
++        let mut outside = WalkBuilder::new(&sibling);
++        outside.standard_filters(false).current_dir(&cwd);
++        assert!(outside.add_ignore(&igpath).is_none());
++        assert_paths(&sibling, &outside, &["haystack"]);
++        // Updating context rebases existing rules without rebuilding them.
++        outside.current_dir(&sibling);
++        assert_paths(&sibling, &outside, &[]);
++    }
++
+     #[test]
+     fn explicit_ignore_exclusive_use() {
+         let td = tmpdir();
+diff --git a/tests/regression.rs b/tests/regression.rs
+index 3513bdbb92bbcf9ed6fc2496f4fed884edb63089..d023a179cae17c950f4ede3ab6b90af93bf20fb4 100644
+--- a/tests/regression.rs
++++ b/tests/regression.rs
+@@ -1240,3 +1240,95 @@ rgtest!(r3127_override_unclosed_class_error, |dir: Dir, _: TestCommand| {
+         assert!(stderr.contains("unclosed character class"), "{stderr}");
+     }
+ });
++
++// Anchored custom ignore rules are relative to the working directory even when
++// the search root is absolute or is below the working directory.
++rgtest!(ignore_file_absolute_paths, |dir: Dir, _: TestCommand| {
++    dir.create_dir("a/b/c/nested");
++    dir.create_dir("home");
++    dir.create_dir("xdg");
++    dir.create("a/b/c/haystack", "test\n");
++    dir.create("a/b/c/visible", "test\n");
++    dir.create("a/b/c/nested/haystack", "test\n");
++    dir.create("a/b/c/nested/visible", "test\n");
++    let cwd = dir.path().join("a/b/c");
++    let ignore = dir.path().join("custom.ignore");
++    for (pattern, root_expected, nested_expected) in [
++        (
++            "/haystack\n",
++            "nested/haystack\nnested/visible\nvisible\n",
++            "nested/haystack\nnested/visible\n",
++        ),
++        ("haystack\n", "nested/visible\nvisible\n", "nested/visible\n"),
++    ] {
++        dir.create("custom.ignore", pattern);
++        for threads in ["1", "4"] {
++            for (root, expected) in [
++                (std::path::PathBuf::from("."), root_expected),
++                (cwd.clone(), root_expected),
++                (std::path::PathBuf::from("nested"), nested_expected),
++                (cwd.join("nested"), nested_expected),
++            ] {
++                let mut cmd = dir.command();
++                cmd.current_dir(&cwd)
++                    .args(&["--files", "--threads", threads, "--ignore-file"])
++                    .arg(&ignore)
++                    .arg(root);
++                cmd.cmd()
++                    .env("HOME", dir.path().join("home"))
++                    .env("USERPROFILE", dir.path().join("home"))
++                    .env("XDG_CONFIG_HOME", dir.path().join("xdg"))
++                    .env("GIT_CONFIG_NOSYSTEM", "1");
++                let prefix = format!("{}/", cwd.display()).replace('\\', "/");
++                let got = cmd.stdout().replace(&prefix, "").replace("./", "");
++                eqnice!(expected, sort_lines(&got));
++            }
++        }
++    }
++});
++
++// The same working directory anchoring applies to core.excludesFile, including
++// searches started from a subdirectory of the repository.
++rgtest!(git_global_absolute_paths, |dir: Dir, _: TestCommand| {
++    dir.create_dir(".git");
++    dir.create_dir("a/b/c/nested");
++    dir.create_dir("home");
++    dir.create_dir("xdg");
++    dir.create("home/.gitconfig", "[core]\nexcludesFile = ~/.globalignore\n");
++    dir.create("a/b/c/haystack", "test\n");
++    dir.create("a/b/c/visible", "test\n");
++    dir.create("a/b/c/nested/haystack", "test\n");
++    dir.create("a/b/c/nested/visible", "test\n");
++    let cwd = dir.path().join("a/b/c");
++    for (pattern, root_expected, nested_expected) in [
++        (
++            "/haystack\n",
++            "nested/haystack\nnested/visible\nvisible\n",
++            "nested/haystack\nnested/visible\n",
++        ),
++        ("haystack\n", "nested/visible\nvisible\n", "nested/visible\n"),
++    ] {
++        dir.create("home/.globalignore", pattern);
++        for threads in ["1", "4"] {
++            for (root, expected) in [
++                (std::path::PathBuf::from("."), root_expected),
++                (cwd.clone(), root_expected),
++                (std::path::PathBuf::from("nested"), nested_expected),
++                (cwd.join("nested"), nested_expected),
++            ] {
++                let mut cmd = dir.command();
++                cmd.current_dir(&cwd)
++                    .args(&["--files", "--threads", threads])
++                    .arg(root);
++                cmd.cmd()
++                    .env("HOME", dir.path().join("home"))
++                    .env("USERPROFILE", dir.path().join("home"))
++                    .env("XDG_CONFIG_HOME", dir.path().join("xdg"))
++                    .env("GIT_CONFIG_NOSYSTEM", "1");
++                let prefix = format!("{}/", cwd.display()).replace('\\', "/");
++                let got = cmd.stdout().replace(&prefix, "").replace("./", "");
++                eqnice!(expected, sort_lines(&got));
++            }
++        }
++    }
++});

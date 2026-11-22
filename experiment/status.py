@@ -23,6 +23,8 @@ def trial_status(row):
         return 'Ошибка; результат сохранён'
     if row.get('trial_state') == 'running':
         return 'Выполняется'
+    if row.get('trial_state') == 'finished' and row.get('grading_state', {}).get('valid') is False:
+        return 'Завершён; score недоступен: дефект grader'
     if row.get('resolved') is True:
         return 'Завершён; grader принят'
     if row.get('resolved') is False:

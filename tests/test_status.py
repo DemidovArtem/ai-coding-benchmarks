@@ -4,6 +4,10 @@ from experiment.status import render, trial_status, phase_status
 
 
 class StatusTests(unittest.TestCase):
+    def test_finished_task_with_invalid_grader_is_not_pending_or_rejected(self):
+        row = {'trial_state':'finished', 'resolved':None, 'grading_state':{'valid':False}}
+        self.assertEqual(trial_status(row), 'Завершён; score недоступен: дефект grader')
+
     def test_pending_and_failed_results_are_explicit_and_missing_metrics_are_not_zero(self):
         rows=[{'trial_id':'phase3_baseline_001','variant':'baseline','resolved':True,'sonar':{'analysis_ok':True},'added_prod_loc':10}]
         pending=[{'trial_id':'phase3_serena_001','variant':'serena','trial_state':'running'}]

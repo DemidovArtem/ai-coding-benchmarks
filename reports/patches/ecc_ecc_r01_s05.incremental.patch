@@ -1,0 +1,468 @@
+diff --git a/crates/searcher/src/line_buffer.rs b/crates/searcher/src/line_buffer.rs
+index e73c650468d965a3cc42f016072c479ab259e4fa..210c3e7b1b45f1474c71f2269225afaa5f4f6164 100644
+--- a/crates/searcher/src/line_buffer.rs
++++ b/crates/searcher/src/line_buffer.rs
+@@ -413,6 +413,7 @@ impl LineBuffer {
+ 
+         self.roll();
+         assert_eq!(self.pos, 0);
++        let mut found_lineterm = false;
+         loop {
+             self.ensure_capacity()?;
+             let readlen = rdr.read(self.free_buffer().as_bytes_mut())?;
+@@ -464,10 +465,16 @@ impl LineBuffer {
+             // Update our `last_lineterm` positions if we read one.
+             if let Some(i) = newbytes.rfind_byte(self.config.lineterm) {
+                 self.last_lineterm = oldend + i + 1;
++                found_lineterm = true;
++            }
++            // Short reads are common for pipes. Fill the available space
++            // before returning so rolling context doesn't repeatedly copy
++            // the buffer after each small read.
++            if found_lineterm && self.free_buffer().is_empty() {
+                 return Ok(true);
+             }
+-            // At this point, if we couldn't find a line terminator, then we
+-            // don't have a complete line. Therefore, we try to read more!
++            // If the buffer fills without a complete new line, grow it and
++            // keep reading until a whole line (or EOF) is available.
+         }
+     }
+ 
+@@ -593,16 +600,13 @@ and exhibited clearly, with a label attached.\
+         assert!(rdr.buffer().is_empty());
+ 
+         assert!(rdr.fill().unwrap());
+-        assert_eq!(rdr.bstr(), "homer\nlisa\n");
++        // Filling reaches EOF even when the last line is unterminated.
++        assert_eq!(rdr.bstr(), "homer\nlisa\nmaggie");
+         assert_eq!(rdr.absolute_byte_offset(), 0);
+         rdr.consume(5);
+         assert_eq!(rdr.absolute_byte_offset(), 5);
+         rdr.consume_all();
+-        assert_eq!(rdr.absolute_byte_offset(), 11);
+-
+-        assert!(rdr.fill().unwrap());
+-        assert_eq!(rdr.bstr(), "maggie");
+-        rdr.consume_all();
++        assert_eq!(rdr.absolute_byte_offset(), bytes.len() as u64);
+ 
+         assert!(!rdr.fill().unwrap());
+         assert_eq!(rdr.absolute_byte_offset(), bytes.len() as u64);
+@@ -665,6 +669,85 @@ and exhibited clearly, with a label attached.\
+         assert_eq!(rdr.binary_byte_offset(), None);
+     }
+ 
++    #[test]
++    fn buffer_fills_capacity_with_short_reads() {
++        let mut input = ShortReads { bytes: b"a\nb\nc\nd\ne", calls: 0 };
++        let mut linebuf = LineBufferBuilder::new().capacity(8).build();
++        let mut rdr = LineBufferReader::new(&mut input, &mut linebuf);
++        assert!(rdr.fill().unwrap());
++        assert_eq!(rdr.bstr(), "a\nb\nc\nd\n");
++        assert_eq!(rdr.rdr.calls, 4);
++        rdr.consume_all();
++        assert!(rdr.fill().unwrap());
++        assert_eq!(rdr.bstr(), "e");
++        rdr.consume_all();
++        assert!(!rdr.fill().unwrap());
++        assert_eq!(rdr.absolute_byte_offset(), 9);
++    }
++
++    struct ShortReads<'a> {
++        bytes: &'a [u8],
++        calls: usize,
++    }
++
++    impl io::Read for ShortReads<'_> {
++        fn read(&mut self, dst: &mut [u8]) -> io::Result<usize> {
++            self.calls += 1;
++            let len = dst.len().min(self.bytes.len()).min(2);
++            dst[..len].copy_from_slice(&self.bytes[..len]);
++            self.bytes = &self.bytes[len..];
++            Ok(len)
++        }
++    }
++
++    #[test]
++    fn buffer_converts_binary_across_short_reads() {
++        let mut input = ShortReads { bytes: b"a\0b\0c", calls: 0 };
++        let mut linebuf = LineBufferBuilder::new()
++            .capacity(4)
++            .binary_detection(BinaryDetection::Convert(0))
++            .build();
++        let mut rdr = LineBufferReader::new(&mut input, &mut linebuf);
++        assert!(rdr.fill().unwrap());
++        assert_eq!(rdr.bstr(), "a\nb\n");
++        assert_eq!(rdr.rdr.calls, 2);
++        assert_eq!(rdr.binary_byte_offset(), Some(1));
++        rdr.consume_all();
++        assert!(rdr.fill().unwrap());
++        assert_eq!(rdr.bstr(), "c");
++        assert_eq!(rdr.binary_byte_offset(), Some(1));
++        rdr.consume_all();
++        assert!(!rdr.fill().unwrap());
++        assert_eq!(rdr.absolute_byte_offset(), 5);
++    }
++
++    #[test]
++    fn buffer_checks_binary_before_reading_next_chunk() {
++        struct BinaryChunk {
++            calls: usize,
++        }
++        impl io::Read for BinaryChunk {
++            fn read(&mut self, dst: &mut [u8]) -> io::Result<usize> {
++                self.calls += 1;
++                assert_eq!(self.calls, 1, "read again after detecting binary");
++                dst[..4].copy_from_slice(b"a\n\0b");
++                Ok(4)
++            }
++        }
++
++        let mut linebuf = LineBufferBuilder::new()
++            .capacity(16)
++            .binary_detection(BinaryDetection::Quit(0))
++            .build();
++        let mut rdr =
++            LineBufferReader::new(BinaryChunk { calls: 0 }, &mut linebuf);
++        assert!(rdr.fill().unwrap());
++        assert_eq!(rdr.bstr(), "a\n");
++        assert_eq!(rdr.binary_byte_offset(), Some(2));
++        rdr.consume_all();
++        assert!(!rdr.fill().unwrap());
++    }
++
+     #[test]
+     fn buffer_zero_capacity() {
+         let bytes = "homer\nlisa\nmaggie";
+diff --git a/crates/searcher/src/searcher/core.rs b/crates/searcher/src/searcher/core.rs
+index 7d7e5cdcf16f36e326ec5c0b33c8b713af73a4f7..b36d6104086893c10ddacdbc7cfbe8a01522ca87 100644
+--- a/crates/searcher/src/searcher/core.rs
++++ b/crates/searcher/src/searcher/core.rs
+@@ -140,11 +140,17 @@ impl<'s, M: Matcher, S: Sink> Core<'s, M, S> {
+             // separator (when before_context==0 and after_context>0), we
+             // need to know something about the position of the previous
+             // line visited, even if we're at the beginning of the buffer.
+-            let context_start = lines::preceding(
+-                buf,
+-                self.config.line_term.as_byte(),
+-                self.config.max_context(),
+-            );
++            let context_start = if self.config.before_context == 0 {
++                // One byte is enough to remember a gap before the next
++                // match. No line contents are needed for after-context.
++                buf.len().saturating_sub(1)
++            } else {
++                lines::preceding(
++                    buf,
++                    self.config.line_term.as_byte(),
++                    self.config.before_context,
++                )
++            };
+             let consumed =
+                 std::cmp::max(context_start, self.last_line_visited);
+             consumed
+diff --git a/crates/searcher/src/searcher/glue.rs b/crates/searcher/src/searcher/glue.rs
+index 006afad34c021ad665dad36251cccb947832cc70..bd3e6363d56fdb4d3c14c4fe6acbc8fc0dbce004 100644
+--- a/crates/searcher/src/searcher/glue.rs
++++ b/crates/searcher/src/searcher/glue.rs
+@@ -730,7 +730,7 @@ d
+         // Namely, it will *always* detect binary data in the current buffer
+         // before searching it. Thus, the total number of bytes searched is
+         // smaller than below.
+-        let exp = "0:a\n\nbyte count:262146\nbinary offset:262153\n";
++        let exp = "0:a\n\nbyte count:262142\nbinary offset:262153\n";
+         // In contrast, the slice readers (for multi line as well) will only
+         // look for binary data in the initial chunk of bytes. After that
+         // point, it only looks for binary data in matches. Note though that
+@@ -764,7 +764,7 @@ d
+         haystack.push_str("a\x00a\n");
+         haystack.push_str("a\n");
+ 
+-        let exp = "0:a\n\nbyte count:262146\nbinary offset:262149\n";
++        let exp = "0:a\n\nbyte count:262142\nbinary offset:262149\n";
+         // The binary offset for the Slice readers corresponds to the binary
+         // data in `a\x00a\n` since the first line with binary data
+         // (`b\x00b\n`) isn't part of a match, and is therefore undetected.
+diff --git a/crates/searcher/tests/after_context.rs b/crates/searcher/tests/after_context.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..0edfe8b1069ed773fe3667e15d7a6c87416096a2
+--- /dev/null
++++ b/crates/searcher/tests/after_context.rs
+@@ -0,0 +1,276 @@
++use std::io::{self, Read};
++
++use grep_regex::RegexMatcher;
++use grep_searcher::{
++    BinaryDetection, Searcher, SearcherBuilder, Sink, SinkContext, SinkFinish,
++    SinkMatch,
++};
++
++/// A stream that deterministically returns short reads, including reads that
++/// split lines, regardless of how much room the caller offers it.
++struct Chunked<'a> {
++    remaining: &'a [u8],
++    chunk_size: usize,
++    bytes_read: usize,
++}
++
++impl<'a> Chunked<'a> {
++    fn new(bytes: &'a [u8], chunk_size: usize) -> Chunked<'a> {
++        Chunked { remaining: bytes, chunk_size, bytes_read: 0 }
++    }
++}
++
++impl Read for Chunked<'_> {
++    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
++        let len = buf.len().min(self.chunk_size).min(self.remaining.len());
++        buf[..len].copy_from_slice(&self.remaining[..len]);
++        self.remaining = &self.remaining[len..];
++        self.bytes_read += len;
++        Ok(len)
++    }
++}
++
++#[derive(Debug, Eq, PartialEq)]
++enum Event {
++    Line { matched: bool, number: u64, offset: u64, bytes: Vec<u8> },
++    Break,
++}
++
++#[derive(Default)]
++struct RecordingSink {
++    events: Vec<Event>,
++    finish: Option<(u64, Option<u64>)>,
++}
++
++impl Sink for RecordingSink {
++    type Error = io::Error;
++
++    fn matched(
++        &mut self,
++        _: &Searcher,
++        mat: &SinkMatch<'_>,
++    ) -> io::Result<bool> {
++        self.events.push(Event::Line {
++            matched: true,
++            number: mat.line_number().unwrap(),
++            offset: mat.absolute_byte_offset(),
++            bytes: mat.bytes().to_vec(),
++        });
++        Ok(true)
++    }
++
++    fn context(
++        &mut self,
++        _: &Searcher,
++        context: &SinkContext<'_>,
++    ) -> io::Result<bool> {
++        self.events.push(Event::Line {
++            matched: false,
++            number: context.line_number().unwrap(),
++            offset: context.absolute_byte_offset(),
++            bytes: context.bytes().to_vec(),
++        });
++        Ok(true)
++    }
++
++    fn context_break(&mut self, _: &Searcher) -> io::Result<bool> {
++        self.events.push(Event::Break);
++        Ok(true)
++    }
++
++    fn finish(
++        &mut self,
++        _: &Searcher,
++        finish: &SinkFinish,
++    ) -> io::Result<()> {
++        self.finish =
++            Some((finish.byte_count(), finish.binary_byte_offset()));
++        Ok(())
++    }
++}
++
++#[test]
++fn large_after_context_on_partial_reads() {
++    let matches = [3_usize, 10_002, 10_004, 23_020];
++    let mut lines: Vec<String> = (1..=33_018)
++        .map(|number| {
++            let prefix = if matches.contains(&number) { "hit" } else { "row" };
++            format!("{} {:010}\n", prefix, number)
++        })
++        .collect();
++    // End in the middle of a context group with an unterminated final line.
++    lines.last_mut().unwrap().pop();
++    let haystack = lines.concat();
++    let matcher = RegexMatcher::new("hit").unwrap();
++    for before in [0, 5] {
++        // Determine the expected output from the union of requested line
++        // ranges, independently of the searcher's buffering strategy.
++        let mut expected = vec![];
++        let mut previous = None;
++        let mut offset = 0;
++        for (index, line) in lines.iter().enumerate() {
++            let number = index + 1;
++            let included = matches.iter().any(|&matched| {
++                matched.saturating_sub(before) <= number
++                    && number <= matched + 10_000
++            });
++            if included {
++                if previous.is_some_and(|last| last + 1 != number) {
++                    expected.push(Event::Break);
++                }
++                expected.push(Event::Line {
++                    matched: matches.contains(&number),
++                    number: number as u64,
++                    offset,
++                    bytes: line.as_bytes().to_vec(),
++                });
++                previous = Some(number);
++            }
++            offset += line.len() as u64;
++        }
++        for chunk_size in [31, 257] {
++            let mut stream = Chunked::new(haystack.as_bytes(), chunk_size);
++            let mut sink = RecordingSink::default();
++            SearcherBuilder::new()
++                .bom_sniffing(false)
++                .before_context(before)
++                .after_context(10_000)
++                .build()
++                .search_reader(&matcher, &mut stream, &mut sink)
++                .unwrap();
++            assert_eq!(sink.events, expected, "B{before}, chunk {chunk_size}");
++            assert_eq!(sink.finish, Some((haystack.len() as u64, None)));
++            assert_eq!(stream.bytes_read, haystack.len());
++        }
++    }
++}
++
++#[test]
++fn binary_in_second_partial_read_stops_before_searching_buffer() {
++    let mut haystack = b"match line here\n".repeat(32);
++    haystack[40] = 0;
++    let matcher = RegexMatcher::new("match").unwrap();
++    let mut stream = Chunked::new(&haystack, 32);
++    let mut sink = RecordingSink::default();
++    SearcherBuilder::new()
++        .bom_sniffing(false)
++        .after_context(10_000)
++        .binary_detection(BinaryDetection::quit(0))
++        .build()
++        .search_reader(&matcher, &mut stream, &mut sink)
++        .unwrap();
++    assert!(sink.events.is_empty());
++    assert_eq!(sink.finish, Some((0, Some(40))));
++    // The decoder may first request a small prefix. Regardless of that
++    // request, no further full chunk may be read after the one with the NUL.
++    assert!((41..=40 + 32).contains(&stream.bytes_read));
++}
++
++#[test]
++fn reader_detects_binary_in_unmatched_line_beyond_initial_capacity() {
++    // Each line is exactly 16 bytes, so the initial 64KiB buffer ends on a
++    // line boundary. The NUL lies outside that buffer and outside any match.
++    let mut haystack = b"plain line here\n".repeat(5_000);
++    haystack[..16].copy_from_slice(b"match line here\n");
++    haystack[4_999 * 16..].copy_from_slice(b"match line here\n");
++    let binary_offset = 64 * 1024 + 7;
++    haystack[binary_offset] = 0;
++    let matcher = RegexMatcher::new("match").unwrap();
++    let mut builder = SearcherBuilder::new();
++    builder
++        .bom_sniffing(false)
++        .binary_detection(BinaryDetection::quit(0));
++    let first = Event::Line {
++        matched: true,
++        number: 1,
++        offset: 0,
++        bytes: b"match line here\n".to_vec(),
++    };
++    let last = Event::Line {
++        matched: true,
++        number: 5_000,
++        offset: 4_999 * 16,
++        bytes: b"match line here\n".to_vec(),
++    };
++
++    let mut reader_sink = RecordingSink::default();
++    let mut stream = Chunked::new(&haystack, 31);
++    builder
++        .build()
++        .search_reader(&matcher, &mut stream, &mut reader_sink)
++        .unwrap();
++    assert_eq!(reader_sink.events, vec![first]);
++    assert_eq!(
++        reader_sink.finish,
++        Some((64 * 1024, Some(binary_offset as u64)))
++    );
++    assert_eq!(stream.bytes_read, 64 * 1024 + 31);
++
++    let mut slice_sink = RecordingSink::default();
++    builder
++        .build()
++        .search_slice(&matcher, &haystack, &mut slice_sink)
++        .unwrap();
++    assert_eq!(slice_sink.events.len(), 2);
++    assert_eq!(slice_sink.events[0], reader_sink.events[0]);
++    assert_eq!(slice_sink.events[1], last);
++    assert_eq!(slice_sink.finish, Some((haystack.len() as u64, None)));
++}
++
++#[test]
++fn context_break_at_first_match_after_buffer_boundary() {
++    const LINE_LEN: usize = 16;
++    const BOUNDARY_LINE: usize = 64 * 1024 / LINE_LEN;
++    const AFTER: usize = 1_000;
++    let matcher = RegexMatcher::new("hit").unwrap();
++    for before in [0, 5] {
++        for gap in [0, 1] {
++            let second_match = BOUNDARY_LINE + 1;
++            let first_match = BOUNDARY_LINE - before - AFTER - gap;
++            let matches = [first_match, second_match];
++            let lines: Vec<String> = (1..=5_100)
++                .map(|number| {
++                    let prefix =
++                        if matches.contains(&number) { "hit" } else { "row" };
++                    format!("{} {:011}\n", prefix, number)
++                })
++                .collect();
++            assert!(lines.iter().all(|line| line.len() == LINE_LEN));
++            let haystack = lines.concat();
++
++            // The second match is exactly the first line in the next 64KiB
++            // buffer. With B0 the first group's after-context either reaches
++            // the final old-buffer line, or skips just that line. With B5,
++            // adjust the first group so its end is adjacent to, or one line
++            // before, the second group's before-context.
++            let mut expected = vec![];
++            for (group, matched) in matches.into_iter().enumerate() {
++                if group == 1 && gap == 1 {
++                    expected.push(Event::Break);
++                }
++                for number in matched - before..=matched + AFTER {
++                    expected.push(Event::Line {
++                        matched: matches.contains(&number),
++                        number: number as u64,
++                        offset: ((number - 1) * LINE_LEN) as u64,
++                        bytes: lines[number - 1].as_bytes().to_vec(),
++                    });
++                }
++            }
++            let mut sink = RecordingSink::default();
++            SearcherBuilder::new()
++                .bom_sniffing(false)
++                .before_context(before)
++                .after_context(AFTER)
++                .build()
++                .search_reader(
++                    &matcher,
++                    Chunked::new(haystack.as_bytes(), 257),
++                    &mut sink,
++                )
++                .unwrap();
++            assert_eq!(sink.events, expected, "B{before}, gap {gap}");
++            assert_eq!(sink.finish, Some((haystack.len() as u64, None)));
++        }
++    }
++}

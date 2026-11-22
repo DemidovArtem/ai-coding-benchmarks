@@ -1681,6 +1681,93 @@
           "tree_replay_verified": true
         }
       }
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s04_auth_recovery01",
+      "variant": "ecc",
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "trajectory_id": "ecc_ecc_r01",
+      "step": 4,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "55693bbdc1957b9b9623a99a71673d5b6561d71d",
+      "ending_tree": "6a5a73ec7cc7c4980d1dbf240d851667e2193d6b",
+      "snapshot_sha256": "4766f70422104c37ab6f791cd7396790b6c3e3f336e126a5e95eb5b4917e6a7b",
+      "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "local_bundle": "results/trials/ecc_ecc_r01_s04_auth_recovery01/repository.bundle",
+      "bundle_sha256": "81f830825e4d210533bc34a1cfa483cc6849cb87ea27f495725847ffe8a07b75",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/ecc_ecc_r01_s04_auth_recovery01.cumulative.patch",
+          "sha256": "378870e7540fcb82f4f261847e0714f9bbd6114fd1fb35d334a8055e6de31e62",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/ecc_ecc_r01_s04_auth_recovery01.incremental.patch",
+          "sha256": "5591d6b598950efb274894e1815351c34144e2af33303cef12f273b92d848f94",
+          "base_commit": "adc36d1baea318a9be5d017d5228feb934436a2b",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s05",
+      "variant": "ecc",
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "trajectory_id": "ecc_ecc_r01",
+      "step": 5,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "fb42de26d459d692cb9097a7dba2adabc2a866d4",
+      "ending_tree": "6bb1dbd0250d48064243d9544018af1649ac467e",
+      "snapshot_sha256": "5220bf4781ad55e57b619b3c3d598b71005d606ec6b97554373dfee74be39e80",
+      "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "local_bundle": "results/trials/ecc_ecc_r01_s05/repository.bundle",
+      "bundle_sha256": "e4b96ed4422fcd63dbba4952e839b19c6722e226bd690469e4fbc1fe698dcde1",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/ecc_ecc_r01_s05.cumulative.patch",
+          "sha256": "a0506bbd31a2825760eef86891e19f91c1e74cce537f91c87d5d3702982672ac",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/ecc_ecc_r01_s05.incremental.patch",
+          "sha256": "0ec3024e0f8b807e399eebf71a7565fa9fa3d7b0a8d51b43a06818ca0f3180b4",
+          "base_commit": "55693bbdc1957b9b9623a99a71673d5b6561d71d",
+          "tree_replay_verified": true
+        }
+      }
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s06",
+      "variant": "ecc",
+      "setup_fingerprint": "f63349764d8ef44fbbe7d6df0d36703699811f3162b878fedccddc6c77477cd1",
+      "trajectory_id": "ecc_ecc_r01",
+      "step": 6,
+      "repetition": 1,
+      "starting_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+      "ending_commit": "b02e6e4fa878e84796edfcb6c3e42fb321ac3325",
+      "ending_tree": "66adadf928c5a28a0c20a1b6c33b0f10ce07b832",
+      "snapshot_sha256": "8981d488f24a0eecb9c579881defc3a8319abb6338359de238d5e6873716f3c7",
+      "executor_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "local_bundle": "results/trials/ecc_ecc_r01_s06/repository.bundle",
+      "bundle_sha256": "0fbdb413546fb0f09a145a6142f6fc723309286ae78b0fc0c2f1aa4500699195",
+      "patches": {
+        "cumulative": {
+          "path": "reports/patches/ecc_ecc_r01_s06.cumulative.patch",
+          "sha256": "391833b39b62fa699a0dbdb5b3551f0eb1cb979c7b7708215949589d00d4873f",
+          "base_commit": "d4b620ee55bcf3b2e85d23576878161540b67948",
+          "tree_replay_verified": true
+        },
+        "incremental": {
+          "path": "reports/patches/ecc_ecc_r01_s06.incremental.patch",
+          "sha256": "635130b9bb0646b6b1b2c231d01284d93920c87d67d64b21b13c22d466dc0b0c",
+          "base_commit": "fb42de26d459d692cb9097a7dba2adabc2a866d4",
+          "tree_replay_verified": true
+        }
+      }
     }
   ],
   "limits": "Patches restore source trees, including benchmark test masking. Model continuation additionally requires the retained native session history and matching runtime; Phase 6d restoration is documented separately."

@@ -50,3 +50,12 @@ Phase 6: у третьего Serena шага raw grader и task-local filtered g
 Phase 6c: baseline на третьем шаге воспроизвёл тот же `re35` mismatch; canonical raw score не изменён. [Наблюдения и SHA исходных grader records](../phase6c_grader_observations.json).
 
 Phase 6d завершена: на четвёртом шаге baseline/Caveman/Ponytail имеют n=2, Serena — n=1. Последний quota stop Ponytail восстановлен в той же сессии; исходная ошибка сохранена. [Итоги](../phase6d_progress.md), [проверка сохранности и средних](../phase6d_completion_audit.json). Новые повторы или пятая правка автоматически не запускаются.
+
+## ECC for Codex, offline
+
+The [ECC six-edit pilot](../ecc_protocol.md) is a separate single trajectory.
+Its [curve panel](mean_curves_f6334976.png) uses the same edit-count axis and
+includes root plus child tokens, active model time, production diff/LOC, grader
+acceptance and Sonar deltas. There are no uncertainty bands for n=1. Missing
+grader outcomes remain gaps; edit zero has no invented acceptance outcome.
+Historical curves retain their original cohorts and are descriptive references.
