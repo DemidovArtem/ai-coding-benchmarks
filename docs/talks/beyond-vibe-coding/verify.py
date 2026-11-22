@@ -39,6 +39,12 @@ def main():
             for stat, value in values.items():
                 assert value == point["metrics"][key][stat], (variant, key, stat)
     baseline, ponytail = evidence["benchmark"]["baseline"], evidence["benchmark"]["ponytail"]
+    for other in evidence["otherTrajectories"]:
+        point, = [p for p in points if p["variant"] == other["variant"] and p["step"] == 6]
+        assert other["n"] == point["n_trajectories"]
+        assert other["setupFingerprint"] == point["setup_fingerprint"]
+        for key in ("net_prod_loc", "output_tokens", "sonar_delta_cognitive_complexity"):
+            assert other[key] == point["metrics"][key]["mean"]
     for key, label in (("net_prod_loc", "27.2%"), ("output_tokens", "6.8%")):
         reduction = (1 - ponytail[key]["mean"] / baseline[key]["mean"]) * 100
         assert f"{reduction:.1f}%" == label and label in html

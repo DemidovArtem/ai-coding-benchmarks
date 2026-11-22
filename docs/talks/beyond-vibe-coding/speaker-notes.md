@@ -192,6 +192,8 @@ Thank you. I would like to hear which part of maintaining your prototypes is bec
 
 **What did Sonar show?** Baseline mean cognitive-complexity delta was 142, Ponytail 150.5. These are descriptive snapshot deltas and do not establish a quality advantage. Other methods and full charts are in the public results.
 
+**What about Caveman and Serena?** Appendix A retains their descriptive means. Caveman n=2: net production LOC +396.5, output 85,989.5, cognitive delta 150.5. Serena n=1: +497, 84,165 and 156 respectively. Serena has a separate setup cohort, so do not present it as a paired baseline comparison. Neither establishes a quality advantage.
+
 **Is Codex cheaper than Claude Code?** Appendix B compares specific agent/model/settings combinations on Artificial Analysis, not subscriptions or all tasks. Checked 22 November 2026: Claude Code + Sonnet 5.5, Max with Default Fallback: index 56.33, mean API cost $11.40/task. Codex + GPT-6.2 Sol, Xhigh: index 49.79, $0.90/task. Quality and cost differ. The index is not a percentage of code correctness.
 
 **Can I develop indefinitely without reading code?** This talk does not establish that. Requirements, tests and review provide evidence and expose failures; they do not remove every need for engineering judgement. Ask for suitable technical review when the consequences of a failure warrant it.

@@ -74,6 +74,8 @@ Production churn reduction = (578.5 - 449) / 578.5 × 100 = 22.3854…%
 
 Main charts start at zero. They display means, without uncertainty bands. Appendix ranges are observed minima and maxima, not confidence intervals.
 
+Appendix A also retains descriptive context for the other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Serena's setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`; it is a separate cohort and is explicitly not presented as a paired comparison. These extra values do not enter the main charts or percentages.
+
 Interpretation limits retained in slides and notes:
 
 - One repository/task chain, two trajectories per displayed method; six dependent steps per trajectory.
