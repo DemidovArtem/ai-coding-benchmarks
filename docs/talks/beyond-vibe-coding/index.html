@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Beyond Vibe Coding: AI Prototypes That Last. A ProductTank Lausanne talk by Artem Demidov.">
+<title>Beyond Vibe Coding · Artem Demidov</title>
+<style>
+:root{--paper:#f8f7f2;--ink:#202b28;--muted:#59645f;--accent:#176954;--line:#cbcfc7;--baseline:#747e79}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#202b28;color:var(--ink);font-family:Arial,Helvetica,sans-serif}body{overflow:hidden}a{color:inherit;text-decoration-thickness:1px;text-underline-offset:5px}button{font:inherit}button:focus-visible,a:focus-visible{outline:4px solid var(--accent);outline-offset:5px}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
+.slide{display:none;position:relative;width:1600px;height:900px;padding:52px 80px 42px;background:var(--paper);grid-template-rows:40px auto 1fr auto;gap:26px;overflow:hidden}.slide.active{display:grid}.eyebrow{font-size:23px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}.chapter{color:var(--accent)}h1,h2,h3,p,figure{margin:0}h1{font-size:104px;letter-spacing:-5px;line-height:1.01}h2{font-size:68px;line-height:1.08;letter-spacing:-2px;font-weight:700;max-width:1420px}h3{font-size:34px;line-height:1.18;letter-spacing:-.6px}.subtitle{font-size:40px;line-height:1.25;margin-top:20px}.accent{color:var(--accent)}.muted{color:var(--muted)}.body{font-size:32px;line-height:1.34}.small{font-size:25px;line-height:1.35}.footnote{font-size:21px;line-height:1.35;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}.footnote a{text-decoration:none;border-bottom:1px solid var(--line)}.columns{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}.columns>*{min-width:0}.columns.wide-right{grid-template-columns:.85fr 1.15fr}.content{min-height:0}.rule{height:1px;background:var(--line);margin:26px 0}.big-number{font-size:88px;letter-spacing:-4px;line-height:1;color:var(--accent)}.statement{font-size:45px;line-height:1.25;letter-spacing:-1px}.lead{font-size:35px;line-height:1.35}.stack>*+*{margin-top:24px}.spaced>*+*{margin-top:38px}.label{font-size:23px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}.evidence-tag{font-size:23px;color:var(--accent)}.callout{border-left:5px solid var(--accent);padding-left:26px}.quote{font-size:40px;line-height:1.3}.plain-list{list-style:none;padding:0;margin:0}.plain-list li{padding:18px 0;border-bottom:1px solid var(--line)}.plain-list li:first-child{padding-top:0}.plain-list li:last-child{border:0}.numbered{counter-reset:item}.numbered li{counter-increment:item;display:grid;grid-template-columns:48px 1fr;gap:12px}.numbered li:before{content:"0" counter(item);color:var(--accent);font-size:23px;margin-top:8px}.example{font-size:22px;color:var(--muted)}.scenario{font-size:28px;line-height:1.4;background:transparent;border-top:2px solid var(--ink);padding-top:22px}.scenario table{font-size:29px;border-collapse:collapse;width:100%}th{text-align:left;font-weight:400;color:var(--muted)}td,th{padding:16px 0;border-bottom:1px solid var(--line)}td:last-child,th:last-child{text-align:right}.scenario td,.scenario th{padding:12px 0}.total{display:flex;justify-content:space-between;margin:20px 0;font-size:39px;font-weight:700}.error-copy{font-size:25px;color:var(--muted);border-left:3px solid var(--line);padding-left:20px}.dialogue{display:grid;grid-template-columns:110px 1fr;column-gap:24px;row-gap:24px;font-size:31px;line-height:1.35}.who{font-size:22px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);padding-top:7px}.file-line{font-family:monospace;font-size:28px;line-height:1.4;border-top:1px solid var(--line);padding:18px 0}.diagram{display:grid;gap:12px}.diagram-row{display:grid;grid-template-columns:170px 1fr;gap:24px;border-bottom:1px solid var(--line);padding:12px 0;font-size:27px;line-height:1.25}.diagram-row span:last-child{color:var(--accent)}.shared-rule{font-size:34px;line-height:1.3;border-top:3px solid var(--accent);border-bottom:1px solid var(--line);padding:28px 0}.consumers{font-size:25px;line-height:1.8;color:var(--muted);margin-top:22px}.chart-title{font-size:29px;font-weight:700;margin-bottom:6px}.chart-subtitle{font-size:23px;color:var(--muted)}.charts{display:grid;grid-template-columns:1fr 1fr;gap:60px}.chart svg{display:block;width:100%;height:310px}.chart-result{font-size:34px;color:var(--accent);margin-top:4px}.benchmark-caution{font-size:25px;line-height:1.4;border-top:1px solid var(--line);padding-top:18px;margin-top:16px}.handover{font-size:29px;line-height:1.4}.handover div{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:15px 0;border-bottom:1px solid var(--line)}.handover strong{color:var(--accent);font-weight:400}.route{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;border-top:2px solid var(--ink);padding-top:24px}.route p{font-size:27px;line-height:1.35;margin-top:16px}.route h3{font-size:32px}.spotify{display:flex;align-items:baseline;gap:28px;margin-top:34px}.spotify .big-number{font-size:74px}.prompt{font-family:Arial,Helvetica,sans-serif;font-size:34px;line-height:1.55;white-space:pre-wrap;margin:0;border-left:5px solid var(--accent);padding-left:32px}.takeaways{display:grid;grid-template-columns:1.05fr .95fr;gap:90px}.takeaways li{font-size:35px;line-height:1.3;padding:20px 0}.reading a{font-size:30px;line-height:1.35;display:inline-block}.reading p{font-size:24px;color:var(--muted);margin-top:10px}.data-table{border-collapse:collapse;width:100%;font-size:27px}.data-table th{font-size:23px}.data-table td{padding:18px 0}.data-table .name{width:45%}.data-table td:not(:first-child),.data-table th:not(:first-child){text-align:right}.data-table td:last-child{color:var(--accent)}.appendix-title{font-size:62px}.key{font-family:monospace;font-size:23px}#controls{position:fixed;bottom:5px;left:50%;transform:translateX(-50%);display:flex;gap:16px;align-items:center;color:#f8f7f2;z-index:5;font-size:14px}#controls{background:var(--ink);padding:0 10px}#controls button{border:0;background:none;color:inherit;cursor:pointer;padding:8px}#help{position:fixed;inset:0;background:rgba(20,30,25,.96);color:#fff;z-index:10;display:none;place-content:center;padding:40px;font-size:24px;line-height:1.8}#help.open{display:grid}#help h2{font-size:45px;margin-bottom:25px}#help button{margin-top:25px;padding:10px;background:var(--paper);color:var(--ink);border:0;cursor:pointer}#announcement{position:absolute;left:-9999px}noscript{position:fixed;background:#fff;padding:20px;z-index:30}
+@media print{@page{size:1600px 900px;margin:0}html,body{background:var(--paper);height:auto;width:auto;overflow:visible}#stage{position:static;width:auto;height:auto;transform:none}.slide{display:grid!important;break-after:page;page-break-after:always}.slide.appendix{display:none!important}#controls,#help,#announcement{display:none!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<noscript>Use a browser with JavaScript enabled for slide navigation. All ten main slides are available in deck.pdf.</noscript>
+<main id="stage" aria-label="Beyond Vibe Coding presentation">
+
+<section class="slide active" id="slide-1" data-minutes="3" aria-label="1. Beyond Vibe Coding">
+  <div class="eyebrow"><span>ProductTank Lausanne · Artem Demidov</span><span class="evidence-tag">Personal experience</span></div>
+  <div></div>
+  <div class="columns wide-right content" style="grid-template-columns:1.4fr 1fr;gap:70px;align-items:center">
+    <div><h1>Beyond<br>Vibe Coding</h1><p class="subtitle">AI prototypes that last</p><p class="lead muted" style="margin-top:42px">The next change started taking<br>three to five attempts.</p></div>
+    <figure class="diagram" aria-label="Illustrative diagram: five copies of the same month-filtering rule">
+      <figcaption class="label">One rule. Five places to update.</figcaption>
+      <div class="diagram-row"><span>Table</span><span>Use selected month</span></div>
+      <div class="diagram-row"><span>Total</span><span>Use selected month</span></div>
+      <div class="diagram-row"><span>Export</span><span>Use selected month</span></div>
+      <div class="diagram-row"><span>Report</span><span>Use selected month</span></div>
+      <div class="diagram-row"><span>Alert</span><span>Use selected month</span></div>
+      <p class="example" style="margin-top:14px">Illustrative example · no employer material</p>
+    </figure>
+  </div>
+  <footer class="footnote">Today: define the outcome · keep changes small · make the workflow repeatable</footer>
+</section>
+
+<section class="slide" id="slide-2" data-minutes="3" aria-label="2. Acceptance criteria">
+  <div class="eyebrow"><span class="chapter">01 · Define the outcome</span><span>Illustrative example</span></div>
+  <h2>Make “done” observable.</h2>
+  <div class="columns wide-right content">
+    <div><p class="label">“Build me an expenses dashboard”</p><ol class="plain-list numbered body"><li>Month filter changes the table and total.</li><li>100 + 200 produces a total of 300.</li><li>A failed source shows a clear message.</li></ol></div>
+    <figure class="scenario" aria-label="Synthetic January expenses: research 100 and software 200, total 300">
+      <figcaption style="display:flex;justify-content:space-between;margin-bottom:20px"><strong>Expenses</strong><span>January · synthetic data</span></figcaption>
+      <table><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody><tr><td>Research</td><td>100</td></tr><tr><td>Software</td><td>200</td></tr></tbody></table>
+      <div class="total"><span>Total</span><span>300</span></div>
+      <p class="error-copy">Error-state copy: “Source unavailable.<br>Your saved data has not changed.”</p>
+      <p class="small accent" style="margin-top:25px">Screenshot: appearance<br>Known inputs: calculation</p>
+    </figure>
+  </div>
+  <footer class="footnote">A demo needs the intended scenario. A recurring tool also needs safe reruns, error handling and data preservation.<br>Guidance: <a href="https://code.claude.com/docs/en/best-practices">Anthropic best practices</a> · <a href="https://learn.chatgpt.com/guides/best-practices">OpenAI best practices</a></footer>
+</section>
+
+<section class="slide" id="slide-3" data-minutes="3" aria-label="3. Planning mode">
+  <div class="eyebrow"><span class="chapter">01 · Define the outcome</span><span>Illustrative dialogue</span></div>
+  <h2>Let the agent interview you.</h2>
+  <div class="columns content" style="grid-template-columns:1.3fr .7fr">
+    <div class="dialogue"><span class="who">Agent</span><p>Which month should an undated expense belong to?</p><span class="who">You</span><p>None. Flag it for review; don’t guess.</p><span class="who">Agent</span><p>What should happen if the import fails?</p><span class="who">You</span><p>Keep saved data. Show what failed.</p></div>
+    <div class="stack"><p class="statement accent">Decide before<br>implementation.</p><div class="rule"></div><p class="file-line">SPEC.md<br><span class="small muted">Outcome + acceptance criteria</span></p><p class="file-line">PLAN.md<br><span class="small muted">Steps + checks + boundaries</span></p></div>
+  </div>
+  <footer class="footnote">Use planning when the work is ambiguous or complex. It is not a promise of lower token use.<br>Guidance: <a href="https://code.claude.com/docs/en/best-practices">Anthropic</a> · <a href="https://learn.chatgpt.com/guides/best-practices">OpenAI: Plan first for difficult tasks</a></footer>
+</section>
+
+<section class="slide" id="slide-4" data-minutes="3" aria-label="4. Ponytail and small changes">
+  <div class="eyebrow"><span class="chapter">02 · Keep changes small</span><span>Illustrative diagram</span></div>
+  <h2>Ask for the smallest complete change.</h2>
+  <div class="columns content">
+    <div class="stack"><p class="label">Ponytail · a third-party skill</p><p class="quote">Reuse what exists.<br>Meet the acceptance criteria.<br>Skip hypothetical features.</p><p class="body muted">Keep necessary validation,<br>error handling and tests.</p></div>
+    <figure><figcaption class="label">One place to change the month rule</figcaption><div class="shared-rule accent">Shared month-selection logic</div><p class="consumers">Table · Total · Export · Report · Alert</p><p class="body" style="margin-top:32px">Ask the agent to look for an existing solution before adding another.</p></figure>
+  </div>
+  <footer class="footnote"><a href="https://github.com/DietrichGebert/ponytail">Ponytail</a> is independent. Anthropic’s <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#overeagerness">anti-overengineering guidance</a> supports the principle, not an endorsement of the skill.</footer>
+</section>
+
+<section class="slide" id="slide-5" data-minutes="3" aria-label="5. Exploratory benchmark results">
+  <div class="eyebrow"><span class="chapter">02 · Keep changes small</span><span>Own measurement · ripgrep pilot</span></div>
+  <h2>Less growth in this small pilot.</h2>
+  <div class="content"><div class="charts"><figure class="chart"><figcaption><p class="chart-title">Net production-code growth</p><p class="chart-subtitle">Lines added minus lines deleted · after six changes</p></figcaption><svg id="loc-chart" viewBox="0 0 680 310" role="img" aria-label="Baseline 413.5 lines; Ponytail 301 lines"></svg><p class="chart-result">27.2% lower mean growth</p></figure><figure class="chart"><figcaption><p class="chart-title">Cumulative output tokens</p><p class="chart-subtitle">Output only · after six changes</p></figcaption><svg id="token-chart" viewBox="0 0 680 310" role="img" aria-label="Baseline 67,311.5 output tokens; Ponytail 62,766 output tokens"></svg><p class="chart-result">6.8% fewer output tokens</p></figure></div><p class="benchmark-caution">Exploratory pilot: one repository, two trajectories per method, six sequential changes.<br><strong>Quality advantage not established.</strong> Both methods: 7/8 new tests at step 6; unresolved.</p></div>
+  <footer class="footnote">Means, not guarantees. No statistical significance or dollar saving established. Frozen six-step comparison.<br><a href="https://github.com/DemidovArtem/ai-coding-benchmarks/blob/main/docs/RESULTS.md">Public results and limitations</a> · details in appendix A</footer>
+</section>
+
+<section class="slide" id="slide-6" data-minutes="2.5" aria-label="6. Handover and goals">
+  <div class="eyebrow"><span class="chapter">03 · Make the workflow repeatable</span><span>Illustrative handover</span></div>
+  <h2>Save the state of the work.</h2>
+  <div class="columns content" style="grid-template-columns:1.15fr .85fr">
+    <div class="handover"><div><strong>Required</strong><span>Month filter; correct totals; safe failure</span></div><div><strong>Decided</strong><span>Flag undated rows; keep saved data</span></div><div><strong>Checked</strong><span>100 + 200 = 300; filter test passed</span></div><div><strong>Remaining</strong><span>Error-state browser check</span></div><div><strong>Next</strong><span>Simulate source failure; verify data</span></div></div>
+    <div class="stack"><p class="statement">Plan:<br><span class="accent">what to do</span></p><p class="statement">Goal:<br><span class="accent">what counts as done</span></p><p class="small muted">Files preserve details.<br>A goal keeps the objective in view.<br>Neither guarantees correctness.</p></div>
+  </div>
+  <footer class="footnote">Guidance: <a href="https://www.anthropic.com/research/effective-harnesses-for-long-running-agents">Anthropic: long-running agents</a> · <a href="https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex">Codex goals</a> · <a href="https://code.claude.com/docs/en/goal">Claude Code goals</a></footer>
+</section>
+
+<section class="slide" id="slide-7" data-minutes="2" aria-label="7. Model choice and Spotify case">
+  <div class="eyebrow"><span class="chapter">03 · Make the workflow repeatable</span><span>Suggested workflow + industry case</span></div>
+  <h2>Spend intelligence where it matters.</h2>
+  <div class="content"><div class="route"><div><p class="label">01 · Clarify</p><h3>Stronger model</h3><p>Resolve ambiguity.<br>Save a concrete plan.</p></div><div><p class="label">02 · Implement</p><h3>Try a cheaper model</h3><p>Use the saved plan.<br>Run acceptance checks.</p></div><div><p class="label">03 · Review</p><h3>Escalate when needed</h3><p>Inspect failures and risky changes.<br>Verify the final result.</p></div></div><div class="spotify"><p class="big-number">~90%</p><p class="body">mean bulk-read token savings<br><span class="small muted">Reported in a Spotify Portal case; not total development cost.</span></p></div><p class="small muted" style="margin-top:20px">Their method delegates large reads and predictable generation.<br>It does not validate the full three-stage workflow above.</p></div>
+  <footer class="footnote"><a href="https://portal.spotify.com/blog/portal-by-spotify-cut-my-claude-code-token-usage-by-90">Spotify Portal · September 2026</a>. Choose models using your own task checks. Benchmark cost comparison in appendix B.</footer>
+</section>
+
+<section class="slide" id="slide-8" data-minutes="1.5" aria-label="8. Reusable instructions">
+  <div class="eyebrow"><span class="chapter">03 · Make the workflow repeatable</span><span>Illustrative instructions</span></div>
+  <h2>Stop repeating the same instructions.</h2>
+  <div class="columns content"><div class="stack"><p class="label">Standing project guidance</p><h3>AGENTS.md / CLAUDE.md</h3><p class="quote">“Keep existing import data<br>when a source fails.”</p><p class="body muted">Project conventions and checks,<br>loaded into context automatically.</p></div><div class="stack"><p class="label">A reusable procedure</p><h3>Skill</h3><p class="quote">“Validate an import:<br>use a fixture, simulate failure,<br>check preserved data.”</p><p class="body muted">Load or invoke for the relevant work.</p></div></div>
+  <footer class="footnote">Keep guidance short and specific. Instructions are not enforcement.<br><a href="https://code.claude.com/docs/en/features-overview">Anthropic: Extend Claude Code</a> · <a href="https://learn.chatgpt.com/guides/best-practices">OpenAI: reusable guidance and skills</a></footer>
+</section>
+
+<section class="slide" id="slide-9" data-minutes="1" aria-label="9. A reusable prompt">
+  <div class="eyebrow"><span>Your next feature</span><span>A prompt to adapt</span></div>
+  <h2>Give the agent a finish line.</h2>
+  <div class="content"><pre class="prompt">Before coding, interview me about the intended outcome.
+Save the agreed requirements and implementation plan.
+
+Reuse existing functionality. Make the smallest complete change.
+
+Define and run checks for the acceptance criteria.
+Show what passed, what failed, and what remains.
+Save a handover before stopping.</pre></div>
+  <footer class="footnote">Adapt the checks to the product. Useful for a communication prototype and a recurring personal tool.</footer>
+</section>
+
+<section class="slide" id="slide-10" data-minutes="1" aria-label="10. Key takeaways and reading">
+  <div class="eyebrow"><span>Beyond Vibe Coding</span><span>Questions welcome</span></div>
+  <h2>Make the next change easier.</h2>
+  <div class="takeaways content"><ol class="plain-list numbered takeaways-list"><li>Define what “done” looks like.</li><li>Ask for a small, complete change.</li><li>Keep checks and a handover.</li></ol><div class="reading stack"><div><p class="label">Start here</p><a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a><p>Requirements, checks and practical habits</p></div><div><p class="label">Go deeper</p><a href="https://code.claude.com/docs/en/features-overview">Extend Claude Code</a><p>Instructions, skills, hooks, MCP and plugins</p></div><div><p class="label">Evidence and materials</p><a style="font-size:25px" href="https://github.com/DemidovArtem/ai-coding-benchmarks/tree/main/docs/talks/beyond-vibe-coding">github.com/DemidovArtem/<br>ai-coding-benchmarks</a></div></div></div>
+  <footer class="footnote">Artem Demidov · Independent experiment: <a href="https://github.com/DemidovArtem/ai-coding-benchmarks">AI Coding Agent Configuration Benchmarks</a><br>23-minute talk · 7-minute Q&A · A: benchmark details · B: model cost</footer>
+</section>
+
+<section class="slide appendix" id="appendix-a" aria-label="Appendix A. Benchmark details">
+  <div class="eyebrow"><span>Appendix A · own measurement</span><span>Frozen six-step ripgrep pilot</span></div>
+  <h2 class="appendix-title">Small sample. Important limitations.</h2>
+  <div class="content"><table class="data-table"><thead><tr><th class="name">Mean [observed min–max]</th><th>Baseline · n = 2</th><th>Ponytail · n = 2</th></tr></thead><tbody><tr><td>Net production LOC</td><td>413.5 [322–505]</td><td>301 [286–316]</td></tr><tr><td>Output tokens</td><td>67,311.5 [65,442–69,181]</td><td>62,766 [59,521–66,011]</td></tr><tr><td>Production churn</td><td>578.5 [522–635]</td><td>449 [420–478]</td></tr><tr><td>Sonar cognitive complexity delta</td><td>142 [125–159]</td><td>150.5 [149–152]</td></tr></tbody></table><p class="small" style="margin-top:24px">No consistent quality winner. Step 6: all seven trajectories unresolved, 7/8 new tests.<br>Step 5 grading invalid. One Ponytail continuation has a disclosed reasoning-context amendment.<br>Steps are dependent; ranges are not confidence intervals. Fixed model; no model comparison.</p></div>
+  <footer class="footnote"><a href="https://github.com/DemidovArtem/ai-coding-benchmarks/blob/main/docs/RESULTS.md">Results, protocol limitations and source links</a> · Snapshot: 5 November 2026 · Public analysis only; no fresh run</footer>
+</section>
+
+<section class="slide appendix" id="appendix-b" aria-label="Appendix B. Model performance and API cost">
+  <div class="eyebrow"><span>Appendix B · external benchmark</span><span>Artificial Analysis · checked 22 November 2026</span></div>
+  <h2 class="appendix-title">Compare configurations, not brand names.</h2>
+  <div class="content"><table class="data-table"><thead><tr><th class="name">Agent + model + setting</th><th>Index</th><th>Mean API cost / task</th></tr></thead><tbody id="model-rows"></tbody></table><p class="lead" style="margin-top:40px">A cost–performance tradeoff in this benchmark.<br>Check the tradeoff on your own tasks.</p><p class="small muted" style="margin-top:26px">Index v2.1: three equally weighted benchmarks.<br>Cost is pay-per-token API cost, including applicable cache pricing.<br>Not subscription price, quota use, human review time or total operating cost.</p></div>
+  <footer class="footnote"><a href="https://artificialanalysis.ai/agents/coding-agents">Artificial Analysis coding agents</a> · <a href="https://artificialanalysis.ai/methodology/coding-agents-benchmarking">Methodology</a><br>Scores do not isolate the model from its agent and settings. This is not a universal efficiency claim.</footer>
+</section>
+</main>
+<nav id="controls" aria-label="Presentation controls"><button id="previous" aria-label="Previous slide">←</button><span id="counter">1 / 10</span><button id="next" aria-label="Next slide">→</button><button id="fullscreen">Fullscreen</button><button id="appendix">Appendix</button><button id="help-button" aria-label="Keyboard help">?</button></nav>
+<div id="help" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts"><h2>Presentation controls</h2><p>← / → / Space: previous / next main slide<br>Home / End: first / last main slide<br>F: fullscreen · A / B: appendix slides<br>Escape: return from appendix / close help<br>P: print ten main slides · ?: help</p><p>Speaker notes: speaker-notes.md<br>All content works offline. Source links need a network.</p><button id="close-help">Close help</button></div>
+<div id="announcement" aria-live="polite"></div>
+<script id="evidence-data" type="application/json">
+{"checked":"2026-11-22","benchmark":{"snapshot":"2026-11-05","step":6,"nPerMethod":2,"baseline":{"net_prod_loc":{"mean":413.5,"min":322,"max":505},"output_tokens":{"mean":67311.5,"min":65442,"max":69181},"churn_prod_loc":{"mean":578.5,"min":522,"max":635},"sonar_delta_cognitive_complexity":{"mean":142,"min":125,"max":159}},"ponytail":{"net_prod_loc":{"mean":301,"min":286,"max":316},"output_tokens":{"mean":62766,"min":59521,"max":66011},"churn_prod_loc":{"mean":449,"min":420,"max":478},"sonar_delta_cognitive_complexity":{"mean":150.5,"min":149,"max":152}}},"models":[{"id":"4d278d53a18fbdcb5138d11466ea0b1b","agent":"Claude Code","model":"Claude Sonnet 5.5","setting":"Max, Default Fallback","index":56.3314945150429,"meanApiCostUsd":11.39857189877927},{"id":"2b66aa9f8afa482977259846d9b207ba","agent":"Codex","model":"GPT-6.2 Sol","setting":"Xhigh","index":49.7854108287173,"meanApiCostUsd":0.8980194131553201}]}
+</script>
+<script>
+'use strict';
+const evidence=JSON.parse(document.getElementById('evidence-data').textContent);
+const fmt=new Intl.NumberFormat('en-US',{maximumFractionDigits:1});
+const svgNS='http://www.w3.org/2000/svg';
+function svgNode(tag,attrs,text){const n=document.createElementNS(svgNS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;return n;}
+function drawChart(id,key,max,ticks){const svg=document.getElementById(id),left=170,width=440;for(const tick of ticks){const x=left+tick/max*width;svg.append(svgNode('line',{x1:x,y1:35,x2:x,y2:238,stroke:'#cbcfc7','stroke-width':1}));svg.append(svgNode('text',{x,y:274,'text-anchor':'middle',fill:'#59645f','font-size':21},tick>=1000?`${tick/1000}k`:tick));}['baseline','ponytail'].forEach((variant,i)=>{const y=65+i*100,value=evidence.benchmark[variant][key].mean;svg.append(svgNode('text',{x:left-20,y:y+32,'text-anchor':'end',fill:'#202b28','font-size':26},variant==='baseline'?'Baseline':'Ponytail'));svg.append(svgNode('rect',{x:left,y,width:value/max*width,height:47,fill:variant==='baseline'?'#747e79':'#176954'}));svg.append(svgNode('text',{x:left+value/max*width+10,y:y+33,fill:'#202b28','font-size':24},fmt.format(value)));});}
+drawChart('loc-chart','net_prod_loc',500,[0,100,200,300,400,500]);
+drawChart('token-chart','output_tokens',80000,[0,20000,40000,60000,80000]);
+for(const m of evidence.models){const row=document.createElement('tr');const label=document.createElement('td');const name=document.createElement('span');name.textContent=`${m.agent} + ${m.model}`;label.append(name,document.createElement('br'));const setting=document.createElement('span');setting.className='small muted';setting.textContent=m.setting;label.append(setting);const index=document.createElement('td');index.textContent=m.index.toFixed(2);const cost=document.createElement('td');cost.textContent=`$${m.meanApiCostUsd.toFixed(2)}`;row.append(label,index,cost);document.getElementById('model-rows').append(row);}
+const mainSlides=[...document.querySelectorAll('.slide:not(.appendix)')],allSlides=[...document.querySelectorAll('.slide')];let current=0,lastMain=0;
+function fit(){document.documentElement.style.setProperty('--scale',Math.min(window.innerWidth/1600,window.innerHeight/900));}
+function show(index,hash=true){current=Math.max(0,Math.min(allSlides.length-1,index));if(current<mainSlides.length)lastMain=current;allSlides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',String(i!==current));});document.getElementById('counter').textContent=current<10?`${current+1} / 10`:`Appendix ${current===10?'A':'B'}`;document.getElementById('announcement').textContent=allSlides[current].getAttribute('aria-label');if(hash)history.replaceState(null,'',`#${allSlides[current].id}`);}
+function step(delta){if(current>=10){show(lastMain);return;}show(Math.max(0,Math.min(9,current+delta)));}
+async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{document.getElementById('announcement').textContent='Fullscreen is unavailable. Use your browser fullscreen control.';}}
+function help(open){document.getElementById('help').classList.toggle('open',open);document.getElementById('stage').inert=open;document.getElementById('controls').inert=open;if(open)document.getElementById('close-help').focus();else document.getElementById('help-button').focus();}
+document.getElementById('previous').onclick=()=>step(-1);document.getElementById('next').onclick=()=>step(1);document.getElementById('fullscreen').onclick=fullscreen;document.getElementById('appendix').onclick=()=>show(current>=10?lastMain:10);document.getElementById('help-button').onclick=()=>help(true);document.getElementById('close-help').onclick=()=>help(false);
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(e.key===' '&&e.target.closest('button,a,input,textarea,select'))return;if(document.getElementById('help').classList.contains('open')){if(e.key==='Escape')help(false);return;}if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();step(1);}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1);}else if(e.key==='Home')show(0);else if(e.key==='End')show(9);else if(e.key.toLowerCase()==='a')show(10);else if(e.key.toLowerCase()==='b')show(11);else if(e.key==='Escape'&&current>=10)show(lastMain);else if(e.key.toLowerCase()==='f')fullscreen();else if(e.key.toLowerCase()==='p')window.print();else if(e.key==='?')help(true);});
+window.addEventListener('resize',fit);window.addEventListener('hashchange',()=>{const i=allSlides.findIndex(s=>`#${s.id}`===location.hash);if(i>=0)show(i,false);});fit();const initial=allSlides.findIndex(s=>`#${s.id}`===location.hash);show(initial<0?0:initial,false);
+</script>
+</body>
+</html>
