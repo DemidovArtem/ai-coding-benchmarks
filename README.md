@@ -18,7 +18,7 @@ Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github
 - How do code changes and regressions accumulate during a sequence of tasks?
 - Which observations survive independent repetitions and different repositories?
 
-The framework is intended to support new configurations. Current evidence covers baseline, planning variants, Ponytail, Caveman, and Serena. The separate [ECC for Codex, offline pilot](profiles/ecc/README.md) has passed native activation and continuation checks; six sequential edits are authorized. Kimi, other models, and combinations remain research directions, **not completed comparisons**.
+The framework is intended to support new configurations. Current evidence covers baseline, planning variants, Ponytail, Caveman, and Serena. The separate [ECC for Codex, offline pilot](profiles/ecc/README.md) has completed one six-edit trajectory: [results and interruption audit](reports/ecc_results.md). Two boundaries were accepted, three rejected, and one could not be graded; this is n=1. Kimi, other models, and combinations remain research directions, **not completed comparisons**.
 
 ## Methodology
 
