@@ -13,22 +13,29 @@
 - **Industry case:** a published report with a particular method and measurement scope.
 - **External benchmark:** measured agent/model/settings configurations; not universal product comparisons.
 
-## Slide-by-slide map
+## Visual revision and slide map
 
-| Slide | Claim or content | Evidence |
+Revised after Artem's review: minimal cover; two dedicated story frames; explicit agenda; Ponytail first; visible official documentation; real Planning Mode UI with red annotations; progressive prompt/result and compaction examples; rounded pilot percentages; an action sequence instead of a single copy-paste prompt. The closing slide is retained. There are **22 main frames plus 2 appendices**. Rehearsal and venue arrangements are not delivery gates.
+
+| Frames | Content | Evidence |
 | --- | --- | --- |
-| 1 | More duplication and three to five attempts as an application grew | Personal experience supplied by Artem; five-copy dashboard is illustrative |
-| 2 | Define observable conditions and give the agent checks | A1, O1; all dashboard data and error copy are illustrative |
-| 3 | Interview and plan before ambiguous work; save the agreement | A1, O1; dialogue is illustrative; earlier planning pilot in B1 does not show token savings |
-| 4 | Reuse, small complete changes, no speculative features | P1, A2; own recommended prompt is a paraphrase, not a quoted vendor instruction |
-| 5 | Six-step baseline/Ponytail means and descriptive differences | B1–B3; only the two methods in the same step-6 setup fingerprint |
-| 6 | Preserve progress artifacts; plan and goal have different roles | A3, O2, A4; file contents and passed checks are illustrative |
-| 7 | Selective model delegation can be worth trying | S1 for the narrower reported case; the three-stage workflow is a suggested practice, not an evaluated result |
-| 8 | Standing project guidance versus reusable skills | A5, O1; examples are illustrative; instructions are not enforcement |
-| 9 | Reusable prompt | Original synthesis for this talk; no guaranteed outcome claimed |
-| 10 | Takeaways and reading | Original synthesis; reading links A1 and A5 |
-| Appendix A | Ranges, other metrics and limitations | B1–B3 |
-| Appendix B | Configuration-specific performance and API cost | X1, X2; dated public-page data snapshot |
+| 1–3 | Cover, growing difficulty, +3000 vs +300 / −200 | Artem's account; generated metaphor and native chart of different illustrative feature diffs; no causal saving claim |
+| 4 | Three-chapter agenda | Editorial structure |
+| 5 | Add Ponytail and verify activation | P1; activation label is illustrative |
+| 6 | Publisher-reported reductions | P2; separate method/workload, not a replication |
+| 7 | Own pilot with rounded percentages | B1–B3; normalized chart baseline = 100%; no quality superiority |
+| 8 | Explicit Planning Mode recommendation | O1 and A6; actual official heading captures |
+| 9 | Where to enable Planning Mode | O3 and A6/A7; real screenshots I1/I2, client/version scope stated |
+| 10 | Questions before implementation | A1/O1; synthetic chat image |
+| 11 | Give the agent checks | A1; official heading capture with red underline |
+| 12–15 | Vague prompt, corrections, explicit requirements, result comparison | Original teaching scenario; generated dashboard mockup; no measured duration or one-shot success claim |
+| 16–17 | Context fills and compacts | A8/A9; native illustrative diagram, not a product threshold or retention measurement |
+| 18 | Save plan/decisions/checks/next step; goal | A3/O2/A4; synthetic chat image |
+| 19 | Save rules and reusable procedures | A5/O1; native illustrative file diagram |
+| 20 | Model-budget suggestion and Spotify | S1 only for the narrower published delegation case |
+| 21–22 | Distinct actions, takeaways and reading | Editorial synthesis; A1/A5 reading links |
+| Appendix A | Exact values, ranges, other methods and limits | B1–B3; Serena separate cohort |
+| Appendix B | Specific model/agent/settings comparison | X1/X2; checked 22 November 2026 |
 
 ## B1–B3. Own benchmark: frozen six-step ripgrep comparison
 
@@ -72,7 +79,7 @@ Output reduction = (67311.5 - 62766) / 67311.5 × 100 = 6.7529…% → 6.8%
 Production churn reduction = (578.5 - 449) / 578.5 × 100 = 22.3854…%
 ```
 
-Main charts start at zero. They display means, without uncertainty bands. Appendix ranges are observed minima and maxima, not confidence intervals.
+Main charts start at zero and normalize each baseline mean to 100%. Ponytail displays rounded ratios, 73% for net code growth and 93% for output; headlines round the reductions to approximately 27% and 7%. Exact inputs and 27.2% / 6.8% calculations remain here. No uncertainty bands are drawn. Appendix ranges are observed minima and maxima, not confidence intervals.
 
 Appendix A also retains descriptive context for the other methods. Caveman has n=2, mean net production LOC +396.5, cumulative output 85,989.5 and cognitive delta 150.5. Serena has n=1, net production LOC +497, output 84,165 and cognitive delta 156. Serena's setup fingerprint is `f1140b0cc89bade585633a3ad4c88603ee82faaf3a77a9b4bc8bb5b583c24805`; it is a separate cohort and is explicitly not presented as a paired comparison. These extra values do not enter the main charts or percentages.
 
@@ -90,7 +97,7 @@ Interpretation limits retained in slides and notes:
 
 [Current documentation](https://code.claude.com/docs/en/best-practices).
 
-Supports giving the agent a check, clarifying unspecified work, keeping instruction files focused, and reviewing against a specification. Its current context guidance does not make aggressive manual compaction a required ritual. These are recommendations, not a measured effect size for this talk. Used on slides 2–3 and as the first reading link.
+Supports giving the agent a check, clarifying unspecified work, keeping instruction files focused, and reviewing against a specification. Its current context guidance does not make aggressive manual compaction a required ritual. These are recommendations, not a measured effect size for this talk. Used in the planning/checks section and as the first reading link.
 
 ## O1. OpenAI: Codex best practices
 
@@ -108,13 +115,13 @@ Guidance against unnecessary code, abstractions and flexibility supports the sma
 
 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail).
 
-Third-party skill/project focused on minimal complete changes and reuse. Its publisher's benchmark claims are not used as evidence here. This talk uses Artem's independent pilot instead. Current installed version and historical measured version need not be the same; consult the frozen profile manifest when reproducing the study.
+Third-party skill/plugin focused on minimal complete changes and reuse. Frame 5 illustrates asking the agent to install it; exact current commands are in the speaker notes. No installation is executed by this talk. Current installed and historical measured versions need not match; consult the frozen profile manifest for reproduction. Publisher and independent evidence are separated on consecutive frames.
 
 ## A3. Anthropic: Effective harnesses for long-running agents
 
 [Article](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents), published **26 November 2025**.
 
-Reports incomplete undocumented work and premature completion in its agent setting. Uses progress artifacts, Git history and incremental work to bridge sessions. This is a particular historical system, not a claim that every current agent forgets in the same way. Used on slide 6.
+Reports incomplete undocumented work and premature completion in its agent setting. Uses progress artifacts, Git history and incremental work to bridge sessions. This is a particular historical system, not a claim that every current agent forgets in the same way. Used in the saved-state section.
 
 ## O2 / A4. Goals
 
@@ -127,13 +134,13 @@ Both describe persistent completion conditions within their supported thread/ses
 
 [Portal by Spotify cut my Claude Code token usage by 90%](https://portal.spotify.com/blog/portal-by-spotify-cut-my-claude-code-token-usage-by-90), Dimitri Mazmanov, **3 September 2026**, updated **8 September 2026**.
 
-Reports roughly 90% mean bulk-read token savings in testing across four Java-monorepo scenarios. Uses Gemini 2.5 Flash workers for large reads and predictable generation. The author describes a subtle bug the worker missed and additional latency. Do not represent this as 90% off total development cost, a company-wide result, or validation of the talk's strong-plan/cheaper-implementation/review suggestion. Used on slide 7.
+Reports roughly 90% mean bulk-read token savings in testing across four Java-monorepo scenarios. Uses Gemini 2.5 Flash workers for large reads and predictable generation. The author describes a subtle bug the worker missed and additional latency. Do not represent this as 90% off total development cost, a company-wide result, or validation of the talk's strong-plan/cheaper-implementation/review suggestion. Used in the model-budget section.
 
 ## A5. Anthropic: Extend Claude Code
 
 [Extension overview](https://code.claude.com/docs/en/features-overview).
 
-Explains project instructions, skills, hooks, subagents, MCP and plugins. Standing guidance loads into context; skills provide reusable knowledge/procedures loaded or invoked for relevant work. Instructions remain probabilistic; enforcement and verification require other mechanisms. Used on slide 8 and as the second reading link.
+Explains project instructions, skills, hooks, subagents, MCP and plugins. Standing guidance loads into context; skills provide reusable knowledge/procedures loaded or invoked for relevant work. Instructions remain probabilistic; enforcement and verification require other mechanisms. Used in the rules/skills section and as the second reading link.
 
 ## X1 / X2. Artificial Analysis
 
@@ -155,4 +162,26 @@ The privately supplied **ProductTank Lausanne speaker guidelines 2026** were rea
 
 For this particular talk Artem confirmed **30 minutes total**; the schedule therefore uses 23 + 7, rather than assuming the generic guideline's Q&A is additional. English slides and speech, browser presentation, and synthetic work examples were confirmed during preparation.
 
-Event date, meetup registration, organizer delivery, photo selection, actual timed human rehearsal and venue-equipment checks remain human actions. They must not be marked complete by an automated HTML or PDF check.
+Event date, registration, organizer delivery, photo and equipment remain speaker/organizer actions. Artem explicitly removed equipment and timed rehearsal as gates for this presentation revision. They are not claimed completed and do not block delivery of the verified materials.
+
+
+## P2. Current publisher benchmark
+
+[Ponytail 5 agentic report, 7 October 2026](https://github.com/DietrichGebert/ponytail/blob/main/benchmarks/results/2026-10-07-agentic.md), checked 22 November 2026. The headline reports 53% less source code, 45% fewer output tokens, 41% less agent time and 26% lower API cost. Opus 5.5, default effort, Claude Code CLI 2.1.288; 39 tasks, 5 runs per task/arm. Headline statistics use geometric means of per-task median ratios. Bash is disabled; the harness evaluates written code afterwards. Hidden correctness checks apply to 18 surgical tasks. These are publisher-reported, task-specific results, not a universal effect or a replication of Artem's study. The older single-shot 80–94% claim is not used as the current main-slide result. No safety guarantee or assertion that less code always improves quality is made.
+
+## A6 / A7 / O3. Planning Mode controls
+
+- [A6: Claude Code common workflows, Plan before editing](https://code.claude.com/docs/en/common-workflows#plan-before-editing): terminal Shift+Tab until plan mode, or the plan permission-mode flag.
+- [A7: Claude desktop permission modes](https://code.claude.com/docs/en/desktop#choose-a-permission-mode): mode selector below the prompt; desktop and terminal shortcuts differ.
+- [O3: OpenAI current desktop slash commands](https://learn.chatgpt.com/docs/reference/slash-commands): `/plan` toggles Plan mode. Fetched using official OpenAI documentation tools.
+
+## A8 / A9. Context and compaction
+
+- [A8: Effective context engineering for AI agents](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents), 29 September 2025: context is finite; compaction and structured notes support longer tasks.
+- [A9: How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works): context management in the agent harness.
+
+The 95% → 20% diagram is explicitly illustrative. It is not an exact compaction trigger or measured compression/retention rate. The dropped export detail is a synthetic possible failure, not an observed benchmark event. Goals preserve the completion condition; saved files preserve explicit details. Neither guarantees recall or correctness.
+
+## Images, screenshots and annotations
+
+See `assets/README.md` for every local asset, original URL, provenance and image-generation prompts. I1/I2 are used only to illustrate where a control appears; primary vendor docs establish the behaviour. Screenshots are older client versions and are labelled accordingly. Official documentation headings are actual browser captures. Red boxes/underlines are editable slide annotations, not changes to the source text. Generated chats and dashboards are illustrations, not evidence of a real session or successful test.
