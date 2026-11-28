@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 12:31:08**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 19:07:08**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест Telegram доставлен; новые отправки без ACK сохраняются как неопределённые и не повторяются. После квотной паузы baseline v2 продолжил ту же native session; исходники и закрытый checkpoint проверены. Recovery после reboot ещё не проверен. Три завершённых ECC smoke-контейнера удалены после проверки архивов. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | 5/60 collected; M06 complete; M11 image approval pending | M06 accepted for all five methods: 5/5 F2P and 34669/34669 P2P each. Serena used one authorized same-session recovery; original failure, partial code and memories retained, with stopped-turn costs included once. Source/native checkpoints and Sonar verified. One first-step sample per method; no significance claim. M11 grader needs separate approval. [Протокол](reports/scikit_v2_protocol.md) |
+| Scikit-learn v2: five methods, 2×6 | 5/60 collected; M11 grader and continuation preflight verified | M06 accepted for all five methods. One approved pinned M11 grader acquired with reserves preserved; five exact source/native/memory parents verified without model calls. Serena uses the approved recovery checkpoint; original failure retained. M11 r01 proceeds serially; later graders require separate approval. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков

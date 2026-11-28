@@ -7,8 +7,11 @@ The [live register](../EXPERIMENT_STATUS.md) is generated from retained records.
 Latest decision: implement the approved [fresh-cohort plan](SCIKIT_NEW_COHORT_PLAN.md).
 The new 0/60 matrix excludes the three historical submissions. Builds, activation
 and measured inference are authorized subject to readiness and quota gates.
-Only the pinned base + M06 image pair is approved for acquisition (up to
-4,005,763,625 unique compressed bytes); later graders need separate approval.
+The pinned base + M06 pair is verified (4,005,763,625 unique compressed bytes).
+After all five M06 results completed, the maintainer separately approved one
+pinned M11 grader: 1,421,510,719 new compressed bytes, as recorded in the
+[M11 budget](../reports/scikit_v2_m11_image_budget.json). Later graders still
+need separate approval.
 
 ## Deliverables and order
 

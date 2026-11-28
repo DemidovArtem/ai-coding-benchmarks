@@ -1350,9 +1350,9 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "awaiting_user_decision",
-      "label": "5/60 collected; M06 complete; M11 image approval pending",
-      "summary": "M06 accepted for all five methods: 5/5 F2P and 34669/34669 P2P each. Serena used one authorized same-session recovery; original failure, partial code and memories retained, with stopped-turn costs included once. Source/native checkpoints and Sonar verified. One first-step sample per method; no significance claim. M11 grader needs separate approval.",
+      "status": "ready",
+      "label": "5/60 collected; M11 grader and continuation preflight verified",
+      "summary": "M06 accepted for all five methods. One approved pinned M11 grader acquired with reserves preserved; five exact source/native/memory parents verified without model calls. Serena uses the approved recovery checkpoint; original failure retained. M11 r01 proceeds serially; later graders require separate approval.",
       "protocol": "reports/scikit_v2_protocol.md",
       "completed_steps": 5,
       "target_steps": 60
@@ -1383,7 +1383,7 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "awaiting_m11_image_approval",
+    "status": "m11_ready",
     "scikit_target_steps": 60,
     "scikit_collected_steps": 5,
     "scikit_remaining_steps": 55,
@@ -1393,15 +1393,15 @@
     "notification_channel": "existing OpenClaw Telegram bot",
     "runtime_substitution_authorized": false,
     "framework_refactor_after": "completed results publication",
-    "blocker": "M06 finished for all five methods, including the authorized Serena same-session recovery. M11 grader acquisition approval remains pending.",
+    "blocker": null,
     "checkpoint_audit": "reports/retained_checkpoint_audit.json",
     "coordination_preflight": "reports/coordination_preflight.json",
     "runtime_recovery_audit": "reports/scikit_recovery_audit.json",
     "storage_cleanup": "reports/storage_cleanup_20261128.json",
     "telegram_delivery_verified": true,
-    "decision_requested": true,
+    "decision_requested": false,
     "blocker_notification_delivered": true,
-    "latest_user_decision": "2026-11-28: Authorize a separate Serena M06 recovery attempt in the same retained session, keeping the failed attempt and recording the deviation.",
+    "latest_user_decision": "2026-11-28: Approve one pinned M11 grader after completion of M06.",
     "new_cohort_plan": "reports/scikit_new_cohort_plan.json",
     "new_cohort_execution_authorized": true,
     "proposed_new_target_steps": 60,
@@ -1412,12 +1412,14 @@
     "latest_notification_status": "M11 approval notification uncertain; do not resend before reconciliation. Original Serena blocker notification confirmed earlier.",
     "blocker_report": "reports/scikit_v2_serena_m06_blocker.json",
     "ecc_checkpoint_recovery": "reports/scikit_v2_ecc_checkpoint_recovery.json",
-    "pending_download_approval": {
+    "pending_download_approval": null,
+    "recovery_checkpoint_selection": "reports/scikit_v2_checkpoint_selection.json",
+    "approved_current_download": {
       "milestone": "M11",
       "budget": "reports/scikit_v2_m11_image_budget.json",
-      "new_unique_compressed_bytes": 1421510719,
-      "gate": "Only after successful M06 recovery; question pending in this Codex chat."
+      "new_unique_compressed_bytes": 1421510719
     },
-    "recovery_checkpoint_selection": "reports/scikit_v2_checkpoint_selection.json"
+    "m11_acquisition": "reports/scikit_v2_m11_image_acquisition.json",
+    "m11_continuation_preflight": "reports/scikit_v2_m11_continuation_preflight.json"
   }
 }

@@ -8,5 +8,5 @@
   "selected_report_sha256": "60084a61446af9c837ec77d56de63dd0e44dcd397dba031241a5fd4daa31033a",
   "setup_fingerprint": "a2f88bec865b22df2f839c160b63f2c2e38f704e1e36a1ed889dc67967baedb7",
   "no_independent_repetition_added": true,
-  "next_step_gate": "M11 image approval remains pending. Future continuation must select this recovered report, never the failed original; frozen default selector alone does not resolve recovery IDs."
+  "next_step_gate": "M11 image separately approved and verified. Host continuation adapter resolves this explicit recovery selection for parent loading and previous tags; original failed report is immutable."
 }

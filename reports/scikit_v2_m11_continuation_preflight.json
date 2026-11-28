@@ -1,0 +1,61 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "milestone": "M11",
+  "adapter_sha256": "4e9c3009040e909d61aa45f2332dd4e7ee88cde78c7cffc5ae299646b718e264",
+  "parent_checkpoints": [
+    {
+      "trial_id": "scikit_v2_baseline_r01_s01",
+      "session_id": "01a22011-3f5c-7f40-a49f-ac6f8571acc5",
+      "source_bundle_sha256": "0cfcb34817e19a9f0449c87250f6e62169aff030697d7b4049ae3253a45876f9",
+      "native_rollouts": {
+        "rollout-2026-11-28T02-52-11-01a22011-3f5c-7f40-a49f-ac6f8571acc5.jsonl": "5f749446e42eee8c9bd9d31761c096238359a5dd14a654062dfdacb64918f98c"
+      },
+      "closed_sqlite_verified": true
+    },
+    {
+      "trial_id": "scikit_v2_caveman_r01_s01",
+      "session_id": "01a22075-5f4c-7c43-889a-f4661644b0d3",
+      "source_bundle_sha256": "27fde17eb19f616e8307e12b7f66d1a6ce920a744fa6109b1e5ce7d75ebc5d15",
+      "native_rollouts": {
+        "rollout-2026-11-28T04-41-33-01a22075-5f4c-7c43-889a-f4661644b0d3.jsonl": "4cd048507ce49632cfff44b141f85b70915437195735d68cc0878c06e327a1b4"
+      },
+      "closed_sqlite_verified": true
+    },
+    {
+      "trial_id": "scikit_v2_ponytail_r01_s01",
+      "session_id": "01a22085-3688-7d32-8f32-d08e2d6059f3",
+      "source_bundle_sha256": "17ba544f1b57e0fbf42d86b4c523bdef0188c189abe03ce2f8e91b3d0d243bf4",
+      "native_rollouts": {
+        "rollout-2026-11-28T04-58-51-01a22085-3688-7d32-8f32-d08e2d6059f3.jsonl": "699e14afb4f7330616ab9057553f464df05ad7635219eb868a35165632a75b06"
+      },
+      "closed_sqlite_verified": true
+    },
+    {
+      "trial_id": "scikit_v2_serena_r01_s01_recovery01",
+      "session_id": "01a22093-79c6-7732-9801-fd419d5e6767",
+      "source_bundle_sha256": "a33a8f51bb89dbaa5a35835fdb37edcee9ba182746403225e69e0b2efaabfa7b",
+      "native_rollouts": {
+        "rollout-2026-11-28T05-14-26-01a22093-79c6-7732-9801-fd419d5e6767.jsonl": "ddbfa1521ae8aec202bf30fb86d28559f8df6b3a7e30a9f521641d189edc540d"
+      },
+      "closed_sqlite_verified": true
+    },
+    {
+      "trial_id": "scikit_v2_ecc_r01_s01",
+      "session_id": "01a22097-f022-7b92-9c40-bc8aa0fda1cb",
+      "source_bundle_sha256": "6c7cb76883088b5587d539eedc2c389f4c53a9504e9a5c0ab2ac7fbb552ead1d",
+      "native_rollouts": {
+        "rollout-2026-11-28T05-19-34-01a22098-2f1f-7b63-aabf-9521c5a23223.jsonl": "a28241badab56efbefb9fa9e7d972d5484b4366653c642200c703444dc5902e7",
+        "rollout-2026-11-28T05-24-28-01a2209c-acef-73f0-8693-d80e1ab1370c.jsonl": "f5f9492e597f1b06c8157b94340f9117d951f809f64fe5f1c70848049df98eec",
+        "rollout-2026-11-28T05-19-18-01a22097-f022-7b92-9c40-bc8aa0fda1cb.jsonl": "68cb0772d56b5a51acc53ae9452f44e2e4ee71440819f11718dbd3b8e88e081c"
+      },
+      "closed_sqlite_verified": true
+    }
+  ],
+  "zero_model_calls": true,
+  "frozen_setup_fingerprint": "a2f88bec865b22df2f839c160b63f2c2e38f704e1e36a1ed889dc67967baedb7",
+  "approved_parent_selection": {
+    "scikit_v2_serena_r01_s01": "scikit_v2_serena_r01_s01_recovery01"
+  },
+  "original_failure_sha256": "3c7049005cbe7727d22d67cbc6b85fa8f2f6735178864ab9f1581de405100487",
+  "scope": "M11 r01 only; stop before later graders; no changes to task, model, native messages, evaluator or quarantine."
+}

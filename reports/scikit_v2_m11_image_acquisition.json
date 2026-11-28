@@ -1,0 +1,85 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "milestone": "M11",
+  "state": "verified",
+  "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m11@sha256:656473750f77656ad9d9adaa173444e6ac698bbe16ae02704d5dc106d3e1cd46",
+  "authorized_new_unique_compressed_bytes": 1421510719,
+  "started_at": "2026-11-28T18:05:09.415303+00:00",
+  "controller_pid": 272276,
+  "disk_observations": [
+    {
+      "at": "2026-11-28T18:05:10.374523+00:00",
+      "docker_free": 30142619648,
+      "workspace_free": 67412664320
+    },
+    {
+      "at": "2026-11-28T18:05:10.376388+00:00",
+      "docker_free": 30142619648,
+      "workspace_free": 67412660224
+    },
+    {
+      "at": "2026-11-28T18:05:20.378488+00:00",
+      "docker_free": 29834031104,
+      "workspace_free": 67412328448
+    },
+    {
+      "at": "2026-11-28T18:05:30.379161+00:00",
+      "docker_free": 29537300480,
+      "workspace_free": 67412316160
+    },
+    {
+      "at": "2026-11-28T18:05:40.379844+00:00",
+      "docker_free": 29260509184,
+      "workspace_free": 67412946944
+    },
+    {
+      "at": "2026-11-28T18:05:50.380623+00:00",
+      "docker_free": 29059620864,
+      "workspace_free": 67412869120
+    },
+    {
+      "at": "2026-11-28T18:06:00.381532+00:00",
+      "docker_free": 28830265344,
+      "workspace_free": 67412873216
+    },
+    {
+      "at": "2026-11-28T18:06:10.382313+00:00",
+      "docker_free": 28556275712,
+      "workspace_free": 67412721664
+    },
+    {
+      "at": "2026-11-28T18:06:20.457229+00:00",
+      "docker_free": 28528291840,
+      "workspace_free": 67412664320
+    }
+  ],
+  "quota_before": {
+    "observed_at": "2026-11-28T18:05:09.415324+00:00",
+    "source": "codex app-server account/rateLimits/read",
+    "approximate": true,
+    "status": "observed",
+    "rate_limits": {
+      "codex": {
+        "primary": {
+          "usedPercent": 17,
+          "windowDurationMins": 300,
+          "resetsAt": 1795894996
+        },
+        "secondary": {
+          "usedPercent": 55,
+          "windowDurationMins": 10080,
+          "resetsAt": 1796281931
+        },
+        "rateLimitReachedType": null,
+        "spendControlReached": false
+      }
+    }
+  },
+  "pull_pid": 272402,
+  "image_id": "sha256:a5e3c045b78f6766482845979b72acc463f61db02d67bb848c623721b67b4877",
+  "expanded_image_bytes": 4897320380,
+  "local_alias": "swe-milestone/scikit-learn_scikit-learn_1.5.2_1.6.0__m11:v1.0.2",
+  "digest_verified": true,
+  "rootfs_verified": true,
+  "updated_at": "2026-11-28T18:06:20.457888+00:00"
+}

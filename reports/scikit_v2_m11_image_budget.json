@@ -59,6 +59,11 @@
   "planning_headroom_after_peak_and_reserve_bytes": 12057630468,
   "layers_downloaded": false,
   "registry_metadata_only": true,
-  "download_authorized": false,
-  "dispatch_gate": "Finish Serena M06 recovery and obtain separate maintainer approval before image acquisition or M11 inference."
+  "download_authorized": true,
+  "dispatch_gate": "M06 complete and M11 acquisition approved; verify image, exact parent checkpoints, quota and reserves before inference.",
+  "authorization": {
+    "date": "2026-11-28",
+    "decision": "\u0420\u0430\u0437\u0440\u0435\u0448\u0438\u0442\u044c \u043e\u0434\u0438\u043d M11 grader \u043f\u043e\u0441\u043b\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u044f M06",
+    "scope": "Only the exact pinned M11 grader and 1421510719 new unique compressed bytes; M06 complete for all five methods."
+  }
 }
