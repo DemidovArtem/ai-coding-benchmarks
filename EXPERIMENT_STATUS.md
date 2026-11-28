@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 03:09:30**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 03:29:45**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест доставлен через прежнего бота; защищённый sender сохраняет receipts и неопределённые доставки. Три завершённых ECC smoke-контейнера удалены после проверки архивов. Recovery после reboot/квоты ещё не проверен. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | Runtime и архив проверены; preflight; 0/60 | Общая среда собрана offline; архив 4,52 ГБ проверен вне Docker-кэша. Реальный Python MCP вызов Serena прошёл без сети и credentials. Идёт zero-model подготовка source/quarantine; далее grader, Sonar и activation всех пяти. [Протокол](docs/SCIKIT_NEW_COHORT_PLAN.md) |
+| Scikit-learn v2: five methods, 2×6 | Activation: caveman running; 0/60 | Zero-model runtime/archive, source/quarantine, Python MCP, hook commands, unchanged-source grader and 264-file Sonar checks passed. Native cold/disposable-resume activation is in progress; historical pilot stays separate. Measured: 0/60. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -97,17 +97,27 @@
 | phase6g_baseline_r02 | baseline | 2 | 0/1 | Запланирован |
 | phase6g_caveman_r02 | caveman | 2 | 0/1 | Запланирован |
 | phase6g_ponytail_r02 | ponytail | 2 | 0/1 | Запланирован |
-| scikit_baseline_r01 | baseline | 1 | 1/6 | ready_next_step |
-| scikit_caveman_r01 | caveman | 1 | 1/6 | ready_next_step |
-| scikit_ponytail_r01 | ponytail | 1 | 1/6 | ready_next_step |
+| scikit_baseline_r01 | baseline | 1 | 1/6 | Исключён из новых запусков |
+| scikit_caveman_r01 | caveman | 1 | 1/6 | Исключён из новых запусков |
+| scikit_ponytail_r01 | ponytail | 1 | 1/6 | Исключён из новых запусков |
 | scikit_serena_r01 | serena | 1 | 0/6 | Ошибка; данные сохранены |
-| scikit_baseline_r02 | baseline | 2 | 0/6 | Запланирован |
-| scikit_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
-| scikit_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
-| scikit_serena_r02 | serena | 2 | 0/6 | Запланирован |
+| scikit_baseline_r02 | baseline | 2 | 0/6 | Исключён из новых запусков |
+| scikit_caveman_r02 | caveman | 2 | 0/6 | Исключён из новых запусков |
+| scikit_ponytail_r02 | ponytail | 2 | 0/6 | Исключён из новых запусков |
+| scikit_serena_r02 | serena | 2 | 0/6 | Исключён из новых запусков |
 | ecc_ecc_r01 | ecc | 1 | 6/6 | Завершён |
-| scikit_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
-| scikit_ecc_r02 | ecc | 2 | 0/6 | Запланирован |
+| scikit_ecc_r01 | ecc | 1 | 0/6 | Исключён из новых запусков |
+| scikit_ecc_r02 | ecc | 2 | 0/6 | Исключён из новых запусков |
+| scikit_v2_baseline_r01 | baseline | 1 | 0/6 | Запланирован |
+| scikit_v2_caveman_r01 | caveman | 1 | 0/6 | Запланирован |
+| scikit_v2_ponytail_r01 | ponytail | 1 | 0/6 | Запланирован |
+| scikit_v2_serena_r01 | serena | 1 | 0/6 | Запланирован |
+| scikit_v2_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
+| scikit_v2_baseline_r02 | baseline | 2 | 0/6 | Запланирован |
+| scikit_v2_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
+| scikit_v2_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
+| scikit_v2_serena_r02 | serena | 2 | 0/6 | Запланирован |
+| scikit_v2_ecc_r02 | ecc | 2 | 0/6 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 

@@ -892,36 +892,42 @@
       "variant": "baseline",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "ready_next_step",
+      "state": "excluded",
       "total_steps": 6,
       "completed_steps": 1,
       "active_step": null,
       "last_step": "scikit_baseline_r01_s01",
-      "failure_category": null
+      "failure_category": null,
+      "previous_state": "ready_next_step",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_caveman_r01",
       "variant": "caveman",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "ready_next_step",
+      "state": "excluded",
       "total_steps": 6,
       "completed_steps": 1,
       "active_step": null,
       "last_step": "scikit_caveman_r01_s01",
-      "failure_category": null
+      "failure_category": null,
+      "previous_state": "ready_next_step",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_ponytail_r01",
       "variant": "ponytail",
       "repetition": 1,
       "cohort": "scikit_replication",
-      "state": "ready_next_step",
+      "state": "excluded",
       "total_steps": 6,
       "completed_steps": 1,
       "active_step": null,
       "last_step": "scikit_ponytail_r01_s01",
-      "failure_category": null
+      "failure_category": null,
+      "previous_state": "ready_next_step",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_serena_r01",
@@ -940,36 +946,44 @@
       "variant": "baseline",
       "repetition": 2,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_caveman_r02",
       "variant": "caveman",
       "repetition": 2,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_ponytail_r02",
       "variant": "ponytail",
       "repetition": 2,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_serena_r02",
       "variant": "serena",
       "repetition": 2,
       "cohort": "scikit_replication",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "ecc_ecc_r01",
@@ -989,18 +1003,112 @@
       "variant": "ecc",
       "repetition": 1,
       "cohort": "scikit_five_method_completion",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
     },
     {
       "trial_id": "scikit_ecc_r02",
       "variant": "ecc",
       "repetition": 2,
       "cohort": "scikit_five_method_completion",
-      "state": "planned",
+      "state": "excluded",
       "total_steps": 6,
-      "completed_steps": 0
+      "completed_steps": 0,
+      "previous_state": "planned",
+      "note": "Historical pilot retained; its remaining steps are superseded by the separately authorized v2 cohort."
+    },
+    {
+      "trial_id": "scikit_v2_baseline_r01",
+      "variant": "baseline",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_caveman_r01",
+      "variant": "caveman",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_ponytail_r01",
+      "variant": "ponytail",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_serena_r01",
+      "variant": "serena",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_ecc_r01",
+      "variant": "ecc",
+      "repetition": 1,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_baseline_r02",
+      "variant": "baseline",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_caveman_r02",
+      "variant": "caveman",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_ponytail_r02",
+      "variant": "ponytail",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_serena_r02",
+      "variant": "serena",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
+    },
+    {
+      "trial_id": "scikit_v2_ecc_r02",
+      "variant": "ecc",
+      "repetition": 2,
+      "state": "planned",
+      "completed_steps": 0,
+      "total_steps": 6,
+      "cohort": "scikit-five-method-v2"
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -1226,9 +1334,9 @@
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
       "status": "runtime_preparation",
-      "label": "Runtime \u0438 \u0430\u0440\u0445\u0438\u0432 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b; preflight; 0/60",
-      "summary": "\u041e\u0431\u0449\u0430\u044f \u0441\u0440\u0435\u0434\u0430 \u0441\u043e\u0431\u0440\u0430\u043d\u0430 offline; \u0430\u0440\u0445\u0438\u0432 4,52 \u0413\u0411 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d \u0432\u043d\u0435 Docker-\u043a\u044d\u0448\u0430. \u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0439 Python MCP \u0432\u044b\u0437\u043e\u0432 Serena \u043f\u0440\u043e\u0448\u0451\u043b \u0431\u0435\u0437 \u0441\u0435\u0442\u0438 \u0438 credentials. \u0418\u0434\u0451\u0442 zero-model \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 source/quarantine; \u0434\u0430\u043b\u0435\u0435 grader, Sonar \u0438 activation \u0432\u0441\u0435\u0445 \u043f\u044f\u0442\u0438.",
-      "protocol": "docs/SCIKIT_NEW_COHORT_PLAN.md"
+      "label": "Activation: caveman running; 0/60",
+      "summary": "Zero-model runtime/archive, source/quarantine, Python MCP, hook commands, unchanged-source grader and 264-file Sonar checks passed. Native cold/disposable-resume activation is in progress; historical pilot stays separate. Measured: 0/60.",
+      "protocol": "reports/scikit_v2_protocol.md"
     }
   },
   "active_variants": [
@@ -1280,6 +1388,8 @@
     "proposed_new_target_steps": 60,
     "proposed_new_collected_steps": 0,
     "proposed_historical_steps_excluded": 3,
-    "historical_scikit_steps_excluded": 3
+    "historical_scikit_steps_excluded": 3,
+    "active_cohort": "scikit-five-method-v2",
+    "latest_notification_status": "uncertain; previous setup deliveries verified, newest stage ACK absent; do not resend before reconciliation"
   }
 }

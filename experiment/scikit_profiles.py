@@ -15,8 +15,11 @@ def copy(setup, source, target):
     subprocess.run(['docker', 'cp', str(source), setup.container_name + ':' + target], check=True, capture_output=True)
 
 
-def install(setup, output, config, variant):
-    proof = activate_profile(setup, output, config, variant if variant != 'serena' else 'baseline')
+def install(setup, output, config, variant, repository_mount=None):
+    if variant == 'ecc':
+        from experiment.ecc import install as install_ecc
+        return install_ecc(setup, output, config, repository_mount)
+    proof = activate_profile(setup, output, config, variant if variant != 'serena' else 'baseline', repository_mount)
     actual = subprocess.check_output(['docker', 'inspect', '--format', '{{.Image}}', setup.container_name], text=True).strip()
     if actual != config['benchmark']['skill_runtime_image_id']:
         raise ValueError('Profile runtime differs from the common Python image')

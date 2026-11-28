@@ -1,15 +1,48 @@
 from pathlib import Path
+import json
 import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
 
-from experiment.scikit_collect import metrics_repository
-from experiment.scikit_run import schedule, trial_id
+from experiment.scikit_collect import metrics_repository, collect
+from experiment.scikit_run import schedule, trial_id, next_trial
 from experiment.scikit import artifact
 
 
 class ScikitCheckpointTests(unittest.TestCase):
+    def test_blocked_method_allows_current_task_peers_but_holds_next_task(self):
+        config = {'variants': ['baseline', 'ecc'], 'benchmark': {'milestones': ['M06', 'M11']},
+                  'trial_prefix': 'v2', 'repetitions': 2}
+        rows = {trial_id('baseline', 1, 1, config): {'trial_state': 'failed', 'collection_errors': []}}
+        self.assertEqual(next_trial(config, rows), (1, 1, 'ecc'))
+        rows[trial_id('ecc', 1, 1, config)] = {'trial_state': 'finished', 'collection_errors': []}
+        with self.assertRaisesRegex(RuntimeError, 'before advancing'):
+            next_trial(config, rows)
+
+    def test_ecc_collection_uses_deduplicated_tree_totals_instead_of_parent_only(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run = Path(temp)
+            metadata = {'state': 'failed', 'variant': 'ecc', 'step': 1, 'repetition': 1,
+                        'setup_fingerprint': 'setup', 'implementation_commit': 'implementation',
+                        'trajectory_id': 'v2_ecc_r01', 'executor_session_id': 'root', 'input_commit': 'base'}
+            (run / 'run_metadata.json').write_text(json.dumps(metadata))
+            (run / 'log').mkdir()
+            (run / 'log/agent_stdout.txt').write_text('\n'.join(map(json.dumps, [
+                {'type': 'thread.started', 'thread_id': 'root'},
+                {'type': 'turn.completed', 'usage': {'input_tokens': 100, 'cached_input_tokens': 50, 'output_tokens': 10}}])))
+            native = {'total': {'input_tokens': 130, 'cached_input_tokens': 60, 'output_tokens': 15, 'reasoning_output_tokens': None}}
+            (run / 'ecc_usage.json').write_text(json.dumps(native))
+            config = {'experiment_id': 'v2', 'benchmark': {'common_starting_commit': 'base', 'common_starting_tree': 'tree',
+                      'repo': 'repo', 'milestones': ['M06'], 'version': 'v1.0.2'},
+                      'codex': {'model': 'gpt-6.1-sol', 'reasoning_effort': 'high'},
+                      'pins': {'git_commits': {'results/setup/dataset': 'dataset'}}}
+            result = collect(run, config)
+            self.assertEqual(result['cohort'], 'v2')
+            self.assertEqual(result['usage']['executor']['input_tokens'], 130)
+            self.assertEqual(result['usage']['parent_cumulative']['input_tokens'], 100)
+            self.assertIsNone(result['usage']['executor']['reasoning_output_tokens'])
+
     def test_v2_schedule_and_ids_do_not_reuse_historical_attempts(self):
         config = {'variants': ['baseline', 'caveman', 'ponytail', 'serena', 'ecc'],
                   'repetitions': 2, 'benchmark': {'milestones': ['M06', 'M11', 'M12.1', 'M12.2', 'M01', 'M03']},

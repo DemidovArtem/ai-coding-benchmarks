@@ -179,7 +179,8 @@ def audit_smoke(output, config):
     calls = [row['payload'] for row in parent if row['type'] == 'response_item' and row['payload'].get('type') in ('custom_tool_call', 'function_call')]
     cli = [json.loads(line) for line in (output / 'log/agent_stdout.txt').read_text().splitlines() if line.startswith('{')]
     completions = [row['usage'] for row in cli if row.get('type') == 'turn.completed']
-    native_hook = any(text.startswith('Project type: ') and '"primary":"rust"' in text for text in texts)
+    language = config.get('ecc', {}).get('language', 'rust')
+    native_hook = any(text.startswith('Project type: ') and f'"primary":"{language}"' in text for text in texts)
     skill = any('plugins/cache/ecc/ecc/2.2.3/skills' in text and 'verification-loop' in text for text in texts)
     skill_read = any('verification-loop/SKILL.md' in row.get('input', '') for row in calls)
     settings = bool(contexts) and all(row.get('model') == config['codex']['model'] and row.get('effort') == config['codex']['reasoning_effort'] for row in contexts)
@@ -215,7 +216,19 @@ def require_idle_sessions(setup, events):
             raise ValueError('An ECC agent is unfinished; preserve the container before continuing')
 
 
-def checkpoint(runner, output, metadata):
+def history_boundary(setup, session):
+    from experiment.checkpoint_restore import read_turns
+    response = read_turns(setup.container_name, session)
+    result = response.get('result', {})
+    turns = result.get('data', [])
+    if response.get('error') or result.get('nextCursor') or not turns:
+        raise ValueError('Native ECC history is missing or incomplete')
+    if any(t.get('status') not in ('completed', 'failed', 'interrupted') for t in turns):
+        raise ValueError('Native ECC history contains a live turn')
+    return [{'id': t['id'], 'status': t['status']} for t in turns]
+
+
+def checkpoint(runner, output, metadata, verify_history=False):
     """Retain the entire native agent tree and memory, excluding authentication."""
     from experiment.session_store import backup_stores
     setup = runner.container_setup
@@ -240,16 +253,70 @@ def checkpoint(runner, output, metadata):
                 subprocess.run(['docker', 'cp', runner.container_name + ':' + source, str(raw / (name + suffix))], check=True, capture_output=True)
     backup_stores(raw, output / 'native_session_store'); shutil.rmtree(raw)
     proof = json.loads((output / 'effective_profile.json').read_text())
-    for filename, base in (('cumulative.patch', proof['starting_commit']), ('incremental.patch', metadata['input_commit'])):
+    for filename, base in (('cumulative.patch', metadata.get('starting_commit', proof['starting_commit'])), ('incremental.patch', metadata['input_commit'])):
         patch = subprocess.check_output(['docker', 'exec', '-w', '/testbed', runner.container_name, 'git', '-c', 'safe.directory=/testbed',
                                          'diff', '--binary', '--full-index', base, 'HEAD', '--'])
         (output / filename).write_bytes(patch)
     manifest = {str(path.relative_to(output)): digest(path) for directory in ('ecc_state', 'native_sessions', 'native_session_store')
                 for path in (output / directory).rglob('*') if path.is_file()}
-    save(output / 'ecc_checkpoint.json', {'root_session_id': usage['root_session_id'], 'files_sha256': manifest,
-                                        'memory_files': sum(name.startswith('ecc_state/') for name in manifest)})
+    proof = {'root_session_id': usage['root_session_id'], 'files_sha256': manifest,
+             'memory_files': sum(name.startswith('ecc_state/') for name in manifest)}
+    if verify_history:
+        proof['native_turns'] = {session: history_boundary(setup, session) for session in usage['sessions']}
+    save(output / 'ecc_checkpoint.json', proof)
     save(output / 'ecc_usage.json', usage)
     return usage
+
+
+def restore_checkpoint(setup, directory, session, output):
+    """Restore the entire isolated tree, then compare native API turn boundaries."""
+    from experiment.checkpoint_restore import copy_to
+    directory = Path(directory)
+    proof = json.loads((directory / 'ecc_checkpoint.json').read_text())
+    usage, events = native_evidence(directory / 'native_sessions')
+    if proof['root_session_id'] != session or usage['root_session_id'] != session:
+        raise ValueError('ECC checkpoint belongs to a different root')
+    if set(proof.get('native_turns', {})) != set(usage['sessions']):
+        raise ValueError('A verified native history boundary is required for every ECC session')
+    targets = {'native_sessions': '/home/fakeroot/.codex/sessions',
+               'ecc_state': '/home/fakeroot/.ecc', 'native_session_store': '/home/fakeroot/.codex'}
+    if any(p.is_symlink() for group in targets for p in (directory / group).rglob('*')):
+        raise ValueError('Native ECC checkpoint must not contain symlinks')
+    files = {str(p.relative_to(directory)) for group in targets for p in (directory / group).rglob('*') if p.is_file()}
+    # The SQLite manifest is bookkeeping, not a native store copied into Codex home.
+    files.discard('native_session_store/manifest.json')
+    expected = {name: sha for name, sha in proof['files_sha256'].items()
+                if name != 'native_session_store/manifest.json'}
+    if files != set(expected):
+        raise ValueError('ECC checkpoint file set differs from its manifest')
+    for name, sha in expected.items():
+        path = directory / name
+        if path.is_symlink() or not path.resolve().is_relative_to(directory.resolve()) or digest(path) != sha:
+            raise ValueError('ECC checkpoint bytes changed: ' + name)
+    require_idle_sessions(setup, events)
+    setup.docker_exec(['python3', '-c', "from pathlib import Path; assert not any(p.is_file() for d in ('/home/fakeroot/.codex/sessions','/home/fakeroot/.ecc') for p in Path(d).rglob('*')), 'Restore requires cold native state'"])
+    for group in ('native_sessions', 'ecc_state'):
+        setup.docker_exec(['mkdir', '-p', targets[group]], user='root')
+        copy_to(setup.container_name, str(directory / group) + '/.', targets[group])
+    for name in ('state_5.sqlite', 'thread_history_1.sqlite'):
+        if 'native_session_store/' + name in expected:
+            for suffix in ('-wal', '-shm'):
+                if setup.docker_exec(['test', '-e', targets['native_session_store'] + '/' + name + suffix], check=False).returncode == 0:
+                    raise ValueError('Fresh container has an open native database')
+            copy_to(setup.container_name, directory / 'native_session_store' / name, targets['native_session_store'] + '/' + name)
+    for name, sha in expected.items():
+        group, suffix = name.split('/', 1)
+        target = targets[group] + '/' + suffix
+        setup.docker_exec(['chown', '-R', 'fakeroot:fakeroot', target], user='root')
+        if setup.docker_exec(['sha256sum', target]).stdout.split()[0] != sha:
+            raise ValueError('Restored ECC file differs: ' + name)
+    actual = {key: history_boundary(setup, key) for key in usage['sessions']}
+    if actual != proof['native_turns']:
+        raise ValueError('Restored native ECC history differs from the captured boundary')
+    result = {'root_session_id': session, 'native_turns': actual, 'files_verified': len(expected),
+              'messages_changed': False, 'model_calls': 0}
+    save(output / 'ecc_restore_proof.json', result)
+    return result
 
 
 def verify_live_checkpoint(runner, directory, record):

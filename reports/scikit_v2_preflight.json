@@ -1,0 +1,110 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "kind": "zero_model_infrastructure_preflight",
+  "success": true,
+  "model_calls": 0,
+  "source": {
+    "state": "prepared",
+    "model_calls": 0,
+    "container": "m06-scikit_v2_preflight_common_base-runner",
+    "runtime_image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "source_manifest_files": 404,
+    "starting_tree": "cde0ed02139a37b0100420927921aab8a4bb9d0c",
+    "quarantine_verified": true,
+    "baseline_profile_verified": true,
+    "snapshot_sha256": "58a94df6980e6fdd986f30d197f240c46b195596b818c3e2249c6eeab6cbc057",
+    "note": "Host tagged unchanged common base for infrastructure evaluation; not an agent submission."
+  },
+  "original_source_commit_and_tree_preserved": true,
+  "frozen_policy_sha256": {
+    "repo_config.yaml": "d07206f7be4ceb5a86bffa868831035e34804c5e75545cd16d0f73e44697e65b",
+    "runtime_policy.yaml": "911f91594c30351f403293d3ccca73cd92b2c914d60a8af7f711450acd3f28a7"
+  },
+  "historical_evaluator_and_quarantine_bindings_unchanged": true,
+  "runtime_manifest_sha256": "da8ad716fa5ee9594c2e0c39fc605e948b6a515b498806202dd5e996f34ed748",
+  "grader": {
+    "valid": true,
+    "model_calls": 0,
+    "kind": "unchanged_common_base_infrastructure_probe",
+    "raw_resolved": false,
+    "test_summary": {
+      "total": 36921,
+      "passed": 34591,
+      "failed": 65,
+      "error": 0,
+      "skipped": 2121,
+      "fail_to_pass_required": 5,
+      "fail_to_pass_achieved": 0,
+      "none_to_pass_required": 0,
+      "none_to_pass_achieved": 0,
+      "pass_to_pass_required": 34669,
+      "pass_to_pass_achieved": 34591,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 78,
+      "none_to_pass_missing": 0
+    },
+    "error_message": null,
+    "raw_artifacts": "results/scikit_v2_preflight/base_grader"
+  },
+  "sonar": {
+    "analysis_ok": true,
+    "metrics": {
+      "ncloc": 75197,
+      "lines": 185562,
+      "complexity": 12269,
+      "cognitive_complexity": 14755,
+      "duplicated_lines": 1165,
+      "duplicated_lines_density": 0.6,
+      "code_smells": 1905,
+      "sqale_index": 10900,
+      "software_quality_maintainability_issues": 1898,
+      "software_quality_maintainability_remediation_effort": 10858
+    },
+    "snapshot_sha256": "58a94df6980e6fdd986f30d197f240c46b195596b818c3e2249c6eeab6cbc057",
+    "snapshot_binding_verified": true,
+    "python_coverage_verified": true,
+    "source_file_count": 264,
+    "protocol_sha256": "0fe6172e3396654c4d65f7d16cfbc8e924906be9e5cc4e99878cec8089b97054"
+  },
+  "hook_command_preflight": {
+    "caveman": {
+      "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+      "hook_command_activation_verified": true,
+      "actual_native_model_hook_verified": false,
+      "model_calls": 0,
+      "audit": [
+        {
+          "entrypoint": "codex-sessionstart.js",
+          "event": "SessionStart",
+          "exit_code": 0,
+          "mode": "caveman",
+          "configured_legacy_mode": "full",
+          "context_chars": 4467,
+          "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
+          "caveman_mode_context": true,
+          "unprivileged_uid": 1000
+        }
+      ]
+    },
+    "ponytail": {
+      "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+      "hook_command_activation_verified": true,
+      "actual_native_model_hook_verified": false,
+      "model_calls": 0,
+      "audit": [
+        {
+          "entrypoint": "ponytail-activate.js",
+          "event": "SessionStart",
+          "exit_code": 0,
+          "mode": "full",
+          "context_chars": 4979,
+          "context_sha256": "f61a9a79d7b17abd1e2da1e717a200d1417871417e4395682e48a4846b788d0c",
+          "full_mode_context": true,
+          "unprivileged_uid": 1000
+        }
+      ]
+    }
+  },
+  "sonar_transport_recovery": "First attempt failed before analysis because retained localhost relay was stopped; attempt02 scanned the identical snapshot after relay restart.",
+  "activation_inference": "Separate cold/resume checks in progress; excluded from measured results."
+}

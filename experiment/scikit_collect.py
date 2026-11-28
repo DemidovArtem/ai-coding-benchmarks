@@ -44,8 +44,15 @@ def collect(run, config, parent=None):
     sidecar = load(run / 'evaluation/source_snapshot.integrity.json', {})
     profile = load(run / 'effective_profile.json', {})
     cumulative = codex_usage(events_from(run / 'log/agent_stdout.txt'))
+    parent_cumulative = cumulative
+    native = load(run / 'ecc_usage.json', {}) if metadata['variant'] == 'ecc' else None
+    if metadata['variant'] == 'ecc':
+        fields = ('input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens')
+        cumulative = {**cumulative, **{k: native.get('total', {}).get(k) for k in fields}}
     previous = parent['usage']['executor_cumulative'] if parent else None
     errors = []
+    if metadata['variant'] == 'ecc' and not native:
+        errors.append('ECC full-tree checkpoint and usage evidence are missing')
     try:
         usage = usage_delta(cumulative, previous)
     except ValueError as error:
@@ -80,6 +87,8 @@ def collect(run, config, parent=None):
         **normalize_grader(raw)}
     record.update({k: None for k in ('added_prod_loc', 'deleted_prod_loc', 'net_prod_loc', 'churn_prod_loc',
                                     'changed_prod_files', 'cumulative_prod_loc')})
+    if native is not None:
+        record['usage'].update(native_cumulative=native, parent_cumulative=parent_cumulative)
     if not valid:
         record.update(resolved=None, failure_category=metadata.get('failure_category') or 'grader_infrastructure_failure')
     record['failure_category'] = record.get('failure_category') or metadata.get('failure_category')

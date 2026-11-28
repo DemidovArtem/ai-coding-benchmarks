@@ -12,6 +12,55 @@ from types import SimpleNamespace
 
 
 class ECCTests(unittest.TestCase):
+    def test_native_history_boundary_rejects_live_or_paginated_history(self):
+        from experiment.ecc import history_boundary
+        setup = SimpleNamespace(container_name='fixture')
+        turns = [{'id': 'turn', 'status': 'completed'}]
+        with patch('experiment.checkpoint_restore.read_turns', return_value={'result': {'data': turns}}):
+            self.assertEqual(history_boundary(setup, 'root'), turns)
+        for response in ({'error': 'missing'}, {'result': {'data': turns, 'nextCursor': 'more'}},
+                         {'result': {'data': [{'id': 'turn', 'status': 'inProgress'}]}}):
+            with patch('experiment.checkpoint_restore.read_turns', return_value=response):
+                with self.assertRaises(ValueError):
+                    history_boundary(setup, 'root')
+
+    def test_disposable_restore_keeps_entire_tree_and_rejects_changed_memory(self):
+        from experiment.ecc import restore_checkpoint, digest
+        with TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'parent'; directory.mkdir()
+            for group in ('native_sessions', 'ecc_state', 'native_session_store'):
+                (directory / group).mkdir()
+            for session, parent in (('root', None), ('child', 'root')):
+                rows = [{'type': 'session_meta', 'payload': {'id': session, 'parent_thread_id': parent}},
+                        {'type': 'event_msg', 'payload': {'type': 'task_complete'}}]
+                (directory / 'native_sessions' / (session + '.jsonl')).write_text('\n'.join(map(json.dumps, rows)))
+            memory = directory / 'ecc_state/memory'; memory.write_text('retain exactly')
+            (directory / 'native_session_store/state_5.sqlite').write_bytes(b'closed-db-fixture')
+            files = {str(p.relative_to(directory)): digest(p) for p in directory.rglob('*') if p.is_file()}
+            turns = {s: [{'id': s + '-turn', 'status': 'completed'}] for s in ('root', 'child')}
+            (directory / 'ecc_checkpoint.json').write_text(json.dumps({'root_session_id': 'root', 'files_sha256': files, 'native_turns': turns}))
+            setup = Mock()
+            def command(args, **kwargs):
+                if args[0] == 'sha256sum':
+                    suffix = args[1].removeprefix('/home/fakeroot/')
+                    name = ('native_sessions/' + suffix[len('.codex/sessions/'):] if suffix.startswith('.codex/sessions/') else
+                            'ecc_state/' + suffix[len('.ecc/'):] if suffix.startswith('.ecc/') else
+                            'native_session_store/' + suffix[len('.codex/'):])
+                    return SimpleNamespace(stdout=files[name], returncode=0)
+                return SimpleNamespace(returncode=1)
+            setup.docker_exec.side_effect = command
+            output = Path(tmp) / 'restored'; output.mkdir()
+            with patch('experiment.checkpoint_restore.copy_to') as copy, patch('experiment.ecc.history_boundary', side_effect=lambda _, s: turns[s]):
+                result = restore_checkpoint(setup, directory, 'root', output)
+                self.assertEqual(result['native_turns'], turns)
+                self.assertFalse(result['messages_changed'])
+                self.assertEqual(copy.call_count, 3)
+                memory.write_text('changed')
+                copy.reset_mock()
+                with self.assertRaisesRegex(ValueError, 'bytes changed'):
+                    restore_checkpoint(setup, directory, 'root', output)
+                copy.assert_not_called()
+
     def test_quota_aborted_child_is_terminal_only_when_process_tree_is_idle(self):
         from experiment.ecc import require_idle_sessions
         setup = Mock();setup.docker_exec.return_value.returncode = 1

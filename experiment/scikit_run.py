@@ -41,6 +41,23 @@ def trial_id(variant, repetition, step, config=None):
     return f'{(config or {}).get("trial_prefix", "scikit")}_{variant}_r{repetition:02d}_s{step:02d}'
 
 
+def next_trial(config, existing):
+    group, blocked = None, []
+    for repetition, step, variant in schedule(config):
+        if group != (repetition, step) and blocked:
+            raise RuntimeError('Resolve current-task attempts before advancing: ' + ', '.join(blocked))
+        group = repetition, step
+        name = trial_id(variant, repetition, step, config)
+        record = existing.get(name)
+        if record is None:
+            return repetition, step, variant
+        if record['trial_state'] != 'finished' or record['collection_errors']:
+            blocked.append(name)
+    if blocked:
+        raise RuntimeError('Resolve current-task attempts before advancing: ' + ', '.join(blocked))
+    return None
+
+
 def require_ready(config, milestone):
     if config.get('stage') != 'scikit_frozen' or config.get('measurement_started') is not True:
         raise ValueError('Freeze the new cohort before model execution')
@@ -64,6 +81,16 @@ def require_ready(config, milestone):
     if any(not hooks[v].get('hook_command_activation_verified') or hooks[v]['image_id'] != image
            for v in ('caveman', 'ponytail')):
         raise ValueError('Hook-command preflight is missing')
+    if config.get('artifacts', {}).get('activation_preflight'):
+        activation = load(artifact(config, 'activation_preflight', ''), {})
+        expected = {'image_id': image, 'codex': config['codex']['version'],
+                    'model': config['codex']['model'], 'reasoning_effort': config['codex']['reasoning_effort']}
+        if any(activation.get(k) != v for k, v in expected.items()) or any(
+                not activation.get('variants', {}).get(v, {}).get('success') for v in config['variants']):
+            raise ValueError('Every method needs a verified cold/resume activation on this runtime')
+    if 'ecc' in config['variants']:
+        from experiment.ecc import require_activation
+        require_activation(config)
     budget = load(ROOT / 'reports/second_repository_preflight.json')
     grader = next(r for r in budget['images'] if r['milestone'] == milestone)
     inspected = json.loads(subprocess.check_output(['docker', 'image', 'inspect', grader['local']], text=True))[0]
@@ -79,16 +106,19 @@ def progress(chain, config=None, **changes):
     row.update(changes)
     config = config or {}
     cohort = plan['cohorts'][config.get('register_cohort', 'scikit_replication')]
-    prefix = config.get('trial_prefix', 'scikit') + '_'
-    complete = sum(r['completed_steps'] for r in plan['pilot_runs'] if r['trial_id'].startswith(prefix)
-                   and (prefix != 'scikit_' or not r['trial_id'].startswith('scikit_v2_')))
+    chains = {trial_id(v, r, s, config).rsplit('_s', 1)[0] for r, s, v in schedule(config)}
+    complete = sum(r['completed_steps'] for r in plan['pilot_runs'] if r['trial_id'] in chains)
     total = len(schedule(config))
     stopped = changes.get('state') == 'failed'
-    cohort.update(status='stopped' if stopped else 'running' if changes.get('state') == 'running' else 'ready',
+    cohort.update(status='stopped' if stopped else 'finished' if complete == total else 'running' if changes.get('state') == 'running' else 'ready',
                   label=('Stopped; ' if stopped else '') + f'{complete}/{total} measured steps collected',
                   summary=f'{complete}/{total} steps; serial step-first order, isolated cold repetitions. '
                           'Python Sonar excludes Cython; inspect the cohort common-base grader preflight. '
                           'Source, native session and Serena memories checkpointed per trajectory.')
+    cohort.update(completed_steps=complete, target_steps=total)
+    goal = plan.get('long_term_goal', {})
+    if goal.get('active_cohort') == config.get('experiment_id'):
+        goal.update(scikit_collected_steps=complete, scikit_remaining_steps=total - complete)
     save(path, plan)
     refresh_status()
 
@@ -125,23 +155,28 @@ def checkpoint(runner, output, config):
     runner.container_setup.docker_exec_git('bundle', 'create', '/tmp/scikit-step.bundle', '--all', 'HEAD', '^' + base)
     copy_source = runner.container_name + ':/tmp/scikit-step.bundle'
     subprocess.run(['docker', 'cp', copy_source, str(output / 'repository.bundle')], check=True, capture_output=True)
-    raw = output / 'native_store_raw'
-    raw.mkdir()
-    for db in ('state_5.sqlite', 'thread_history_1.sqlite'):
-        for suffix in ('', '-wal', '-shm'):
-            name = db + suffix
-            source = '/home/fakeroot/.codex/' + name
-            if runner.container_setup.docker_exec(['test', '-f', source], check=False).returncode == 0:
-                subprocess.run(['docker', 'cp', runner.container_name + ':' + source, str(raw / name)],
-                               check=True, capture_output=True)
-    backup_stores(raw, output / 'native_session_store')
+    metadata = load(output / 'run_metadata.json')
+    if metadata['variant'] == 'ecc':
+        from experiment.ecc import checkpoint as ecc_checkpoint
+        ecc_checkpoint(runner, output, {**metadata, 'starting_commit': base}, verify_history=True)
+    else:
+        raw = output / 'native_store_raw'
+        raw.mkdir()
+        for db in ('state_5.sqlite', 'thread_history_1.sqlite'):
+            for suffix in ('', '-wal', '-shm'):
+                name = db + suffix
+                source = '/home/fakeroot/.codex/' + name
+                if runner.container_setup.docker_exec(['test', '-f', source], check=False).returncode == 0:
+                    subprocess.run(['docker', 'cp', runner.container_name + ':' + source, str(raw / name)],
+                                   check=True, capture_output=True)
+        backup_stores(raw, output / 'native_session_store')
+        shutil.rmtree(raw)
     repo = metrics_repository(output, config)
     subprocess.run(['git', '-C', str(repo), 'fsck', '--full'], check=True, capture_output=True)
     save(output / 'checkpoint.json', {'common_base_bundle_required': str((prepared / 'repository.bundle').relative_to(ROOT)),
          'common_base_bundle_sha256': hashlib.sha256((prepared / 'repository.bundle').read_bytes()).hexdigest(),
          'step_bundle_sha256': hashlib.sha256((output / 'repository.bundle').read_bytes()).hexdigest(),
          'native_session_store_verified': True, 'source_bundle_fsck_verified': True})
-    shutil.rmtree(raw)
 
 
 def compact(run):
@@ -223,8 +258,13 @@ def run_one(config, variant, repetition, step):
     error = None
     started = time.monotonic()
     try:
-        save(output / 'quota_before.json', read_quota())
-        check_quota(load(output / 'quota_before.json'), config['resources']['quota_stop_percent'])
+        if config['resources'].get('wait_for_quota'):
+            from experiment.quota import wait_for_quota
+            quota = wait_for_quota(output, on_wait=lambda state: progress(chain, config, state=state, active_step=step))
+            save(output / 'quota_before.json', quota)
+        else:
+            save(output / 'quota_before.json', read_quota())
+            check_quota(load(output / 'quota_before.json'), config['resources']['quota_stop_percent'])
         runner.container_setup.start_container()
         runner.container_setup.lock_network()
         metadata['input_commit'] = restore_source(runner.container_setup, config, parent)
@@ -240,6 +280,9 @@ def run_one(config, variant, repetition, step):
         assert_boundary(runner, metadata['input_commit'])
         if variant in ('caveman', 'ponytail'):
             runner.agent_runner._framework = Hooks(reasoning_effort='high', agent_version='0.163.0')
+        elif variant == 'ecc':
+            from experiment.ecc import framework
+            runner.agent_runner._framework = framework(config['codex']['reasoning_effort'])
         if variant == 'serena':
             if parent:
                 runner.container_setup.docker_exec(['mkdir', '-p', '/testbed/.serena'], user='root')
@@ -249,7 +292,11 @@ def run_one(config, variant, repetition, step):
             verify_memory_boundary(memory_before, parent['skill_state']['after'] if parent else None)
             save(output / 'serena_memory_before.json', memory_before)
         if parent:
-            restore_history(runner.container_setup, parent, output)
+            if variant == 'ecc':
+                from experiment.ecc import restore_checkpoint
+                restore_checkpoint(runner.container_setup, Path(parent['artifacts_path']), session, output)
+            else:
+                restore_history(runner.container_setup, parent, output)
         prompt = runner._load_prompt()
         check_resources(config)
         runner.container_setup.prepare_agent_invocation()
@@ -257,6 +304,11 @@ def run_one(config, variant, repetition, step):
         progress(chain, config, state='running', active_step=step, completed_steps=step - 1)
         execution_started = time.monotonic()
         ok = (runner.agent_runner.resume_session(session, prompt) if parent else runner.agent_runner.run(prompt)[0])
+        if not ok and runner.agent_runner._last_rate_limit:
+            from experiment.ecc import resume_after_quota
+            ok = resume_after_quota(runner.agent_runner, runner.container_setup, output,
+                runner.agent_runner.resume_session,
+                lambda state: progress(chain, config, state=state, active_step=step))
         save(output / 'execution.json', {'duration_seconds': time.monotonic() - execution_started})
         session = runner.agent_runner.session_id
         metadata['executor_session_id'] = session
@@ -331,15 +383,21 @@ def main():
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
     config = load(args.config)
     lock = trial_lock(ROOT / 'results/scikit_runtime')
+    containers = subprocess.check_output(['docker', 'ps', '--format', '{{.Names}}'], text=True).splitlines()
+    for container in containers:
+        if config.get('trial_prefix', 'scikit') in container:
+            idle = subprocess.run(['docker', 'exec', container, 'pgrep', '-x', 'codex'], capture_output=True)
+            if idle.returncode != 1:
+                raise RuntimeError('A retained model process may still be active: ' + container)
     existing = {r['trial_id']: r for r in (json.loads(l) for l in (ROOT / 'results/results.jsonl').read_text().splitlines() if l.strip())}
     for repetition, step, variant in schedule(config):
         name = trial_id(variant, repetition, step, config)
-        if name in existing:
-            if existing[name]['trial_state'] != 'finished' or existing[name]['collection_errors']:
-                raise RuntimeError('An earlier attempt needs explicit recovery; scheduler is stopped')
-            continue
+        if name not in existing and (ROOT / 'results/trials' / name).exists():
+            existing[name] = {'trial_state': 'uncollected', 'collection_errors': []}
+    pending = next_trial(config, existing)
+    if pending:
+        repetition, step, variant = pending
         run_one(config, variant, repetition, step)
-        break
     else:
         print(f'All {len(schedule(config))} planned steps are already collected.')
 

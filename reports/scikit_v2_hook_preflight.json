@@ -1,0 +1,39 @@
+{
+  "caveman": {
+    "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "hook_command_activation_verified": true,
+    "actual_native_model_hook_verified": false,
+    "model_calls": 0,
+    "audit": [
+      {
+        "entrypoint": "codex-sessionstart.js",
+        "event": "SessionStart",
+        "exit_code": 0,
+        "mode": "caveman",
+        "configured_legacy_mode": "full",
+        "context_chars": 4467,
+        "context_sha256": "03f910546f69879438f81bb90440e2d8a39ccf84442cab3083b9976e6b80e011",
+        "caveman_mode_context": true,
+        "unprivileged_uid": 1000
+      }
+    ]
+  },
+  "ponytail": {
+    "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "hook_command_activation_verified": true,
+    "actual_native_model_hook_verified": false,
+    "model_calls": 0,
+    "audit": [
+      {
+        "entrypoint": "ponytail-activate.js",
+        "event": "SessionStart",
+        "exit_code": 0,
+        "mode": "full",
+        "context_chars": 4979,
+        "context_sha256": "f61a9a79d7b17abd1e2da1e717a200d1417871417e4395682e48a4846b788d0c",
+        "full_mode_context": true,
+        "unprivileged_uid": 1000
+      }
+    ]
+  }
+}

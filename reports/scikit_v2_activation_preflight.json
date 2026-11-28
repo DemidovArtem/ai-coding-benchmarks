@@ -1,0 +1,52 @@
+{
+  "kind": "activation_smoke_not_measured",
+  "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+  "codex": "0.163.0",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "variants": {
+    "baseline": {
+      "state": "passed",
+      "success": true,
+      "source_unchanged": true,
+      "native_resume_verified": true,
+      "disposable_container_restore_verified": true,
+      "session_id": "01a21ff7-c45f-7342-8fdd-c55f3ab77ab1",
+      "artifacts": "results/scikit_v2_preflight/activation/baseline"
+    },
+    "caveman": {
+      "state": "running",
+      "success": false,
+      "artifacts": "results/scikit_v2_preflight/activation/caveman"
+    }
+  },
+  "controller_sha256": "f3723579eefa456c0ed4e2f3d92b2865dc917bd444d2de9f06c735d9f767eb90",
+  "attempts": [
+    {
+      "state": "failed",
+      "success": false,
+      "error": "Command '['docker', 'exec', '--user', 'root', '-e', 'HOME=/root', '-w', '/testbed', 'scikit-v2-activation-baseline-cold', 'mkdir', '-p', '/testbed']' returned non-zero exit status 127.",
+      "artifacts": "results/scikit_v2_preflight/activation/baseline_attempt01",
+      "retained_containers": [
+        "scikit-v2-activation-baseline-cold"
+      ],
+      "variant": "baseline",
+      "failure_category": "pre_model_fixture_setup",
+      "model_calls": 0,
+      "zero_native_rollouts_verified": true
+    },
+    {
+      "state": "failed",
+      "success": false,
+      "error": "Exactly one retained native rollout is required",
+      "artifacts": "results/scikit_v2_preflight/activation/baseline",
+      "retained_containers": [
+        "scikit-v2-activation-baseline-cold",
+        "scikit-v2-activation-baseline-warm"
+      ],
+      "variant": "baseline",
+      "recovery": "Restore original cold native rollout, then continue only the previously unstarted warm turn",
+      "session_id": "01a21ff7-c45f-7342-8fdd-c55f3ab77ab1"
+    }
+  ]
+}

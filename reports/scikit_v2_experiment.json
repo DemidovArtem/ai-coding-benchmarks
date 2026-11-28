@@ -1,0 +1,73 @@
+{
+  "experiment_id": "scikit-five-method-v2",
+  "stage": "preflight",
+  "measurement_started": false,
+  "codex": {
+    "version": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "auth": "chatgpt_oauth_only"
+  },
+  "variants": [
+    "baseline",
+    "caveman",
+    "ponytail",
+    "serena",
+    "ecc"
+  ],
+  "benchmark": {
+    "repo": "scikit-learn_scikit-learn_1.5.2_1.6.0",
+    "version": "v1.0.2",
+    "dataset_root": "results/setup/dataset",
+    "smoke_milestone": "M06",
+    "milestones": [
+      "M06",
+      "M11",
+      "M12.1",
+      "M12.2",
+      "M01",
+      "M03"
+    ],
+    "main_branch": "main",
+    "timeout_seconds": 1800,
+    "skill_runtime_image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "common_starting_tree": "cde0ed02139a37b0100420927921aab8a4bb9d0c",
+    "common_starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4"
+  },
+  "resources": {
+    "parallel_trials": 1,
+    "min_workspace_free_bytes": 1000000000,
+    "docker_free_reserve_bytes": 12000000000,
+    "quota_stop_percent": 98,
+    "runtime_root": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/scikit_v2_runtime",
+    "wait_for_quota": true
+  },
+  "pins": {
+    "git_commits": {
+      "results/setup/dataset": "3500478e740d42583277c2658aa7729eb36e10f4"
+    },
+    "file_sha256": {
+      "results/setup/dataset/scikit-learn_scikit-learn_1.5.2_1.6.0/metadata.json": "46c3280a5ea96999d60903e907266b39292ce1ebef68ce9f26b43a60782af49b",
+      "results/setup/dataset/scikit-learn_scikit-learn_1.5.2_1.6.0/milestones.csv": "aafa34d9ad6a32a6939e25e7ca1c384d98e20482b0ae3b74f2b4567b88a3b93f",
+      "results/setup/dataset/scikit-learn_scikit-learn_1.5.2_1.6.0/dependencies.csv": "70a41492a6b5bca00af1c07e8f7f8522210cec3efd4b84224d2912de7a6f21fe"
+    }
+  },
+  "trial_prefix": "scikit_v2",
+  "register_cohort": "scikit_five_method_v2",
+  "repetitions": 2,
+  "artifacts": {
+    "common_base": "results/scikit_v2_preflight/common_base",
+    "base_grader": "results/scikit_v2_preflight/base_grader",
+    "grader_preflight": "reports/scikit_v2_grader_preflight.json",
+    "runtime_manifest": "profiles/scikit_runtime_v2/manifest.json",
+    "sonar_base": "results/scikit_v2_preflight/python_sonar_base_attempt02",
+    "hook_preflight": "reports/scikit_v2_hook_preflight.json",
+    "activation_preflight": "reports/scikit_v2_activation_preflight.json",
+    "sonar_protocol": "profiles/scikit_runtime_v2/sonar_protocol.json"
+  },
+  "ecc": {
+    "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+    "smoke_result": "reports/scikit_v2_ecc_smoke.json",
+    "language": "python"
+  }
+}
