@@ -1024,10 +1024,11 @@
       "trial_id": "scikit_v2_baseline_r01",
       "variant": "baseline",
       "repetition": 1,
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 6,
-      "cohort": "scikit-five-method-v2"
+      "cohort": "scikit-five-method-v2",
+      "active_step": 1
     },
     {
       "trial_id": "scikit_v2_caveman_r01",
@@ -1333,10 +1334,12 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "ready",
-      "label": "Frozen; all five native continuation checks passed; 0/60",
-      "summary": "Independent v2 runtime/archive, zero-model checks and all five cold/disposable-resume checks verified. Ready for serial M06 dispatch; three historical submissions remain separate.",
-      "protocol": "reports/scikit_v2_protocol.md"
+      "status": "running",
+      "label": "0/60 measured steps collected",
+      "summary": "0/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory.",
+      "protocol": "reports/scikit_v2_protocol.md",
+      "completed_steps": 0,
+      "target_steps": 60
     }
   },
   "active_variants": [
