@@ -8,6 +8,23 @@ import subprocess
 import time
 
 
+def active_model_processes(container):
+    """Inspect procfs without assuming procps is installed in the task image."""
+    script = '''import json,pathlib
+found=[]
+for path in pathlib.Path('/proc').glob('[0-9]*/comm'):
+ try:
+  if path.read_text().strip()=='codex': found.append(int(path.parent.name))
+ except FileNotFoundError:
+  pass
+print(json.dumps(found))
+'''
+    pids = json.loads(subprocess.check_output(['docker', 'exec', container, 'python3', '-c', script], text=True))
+    if not isinstance(pids, list) or any(type(pid) is not int or pid <= 0 for pid in pids):
+        raise ValueError('Native process inspection returned an invalid result')
+    return pids
+
+
 def legacy_rollout(raw, session):
     lines = raw.splitlines(keepends=True)
     header = json.loads(lines[0])

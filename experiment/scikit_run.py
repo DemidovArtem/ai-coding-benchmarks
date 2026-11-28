@@ -13,7 +13,7 @@ import tarfile
 import time
 
 from experiment.audit import PAID_KEYS
-from experiment.checkpoint_restore import copy_to
+from experiment.checkpoint_restore import copy_to, active_model_processes
 from experiment.collect import load
 from experiment.continuous import assert_boundary, check_resources, events_from, verify_dispatch
 from experiment.phase6e import restore_history
@@ -386,8 +386,7 @@ def main():
     containers = subprocess.check_output(['docker', 'ps', '--format', '{{.Names}}'], text=True).splitlines()
     for container in containers:
         if config.get('trial_prefix', 'scikit') in container:
-            idle = subprocess.run(['docker', 'exec', container, 'pgrep', '-x', 'codex'], capture_output=True)
-            if idle.returncode != 1:
+            if active_model_processes(container):
                 raise RuntimeError('A retained model process may still be active: ' + container)
     existing = {r['trial_id']: r for r in (json.loads(l) for l in (ROOT / 'results/results.jsonl').read_text().splitlines() if l.strip())}
     for repetition, step, variant in schedule(config):

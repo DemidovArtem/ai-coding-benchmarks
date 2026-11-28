@@ -1,0 +1,18 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "scope": "Only completed setup/activation containers; all native/source artifacts retained.",
+  "containers": [
+    {
+      "name": "scikit-v2-activation-baseline-cold",
+      "writable_bytes": 23104155,
+      "native_model_processes": 0,
+      "preservation_verified": true
+    },
+    {
+      "name": "m06-scikit_v2_preflight_common_base-runner",
+      "writable_bytes": 339711600,
+      "native_model_processes": 0,
+      "preservation_verified": true
+    }
+  ]
+}

@@ -31,17 +31,15 @@ def observe_runtime(setup, output):
 def resume_after_quota(agent, setup, output, resume, on_state, sleep=time.sleep):
     """Wait in the existing host process and resume only a verified idle agent tree."""
     from experiment.quota import wait_for_quota
+    from experiment.checkpoint_restore import active_model_processes
     while agent._last_rate_limit:
         if agent._last_fatal_error or not agent.session_id:
             raise RuntimeError('Cannot safely resume the rate-limited ECC invocation')
         started = time.monotonic(); on_state('waiting_quota')
         wait_for_quota(output)
         while True:
-            status = setup.docker_exec(['pgrep', '-x', 'codex'], check=False).returncode
-            if status == 1:
+            if not active_model_processes(setup.container_name):
                 break
-            if status != 0:
-                raise RuntimeError('Cannot verify that the ECC agent tree is idle')
             sleep(60)
         agent.quota_wait_seconds += time.monotonic() - started
         on_state('running')
@@ -207,7 +205,8 @@ def audit_smoke(output, config):
 
 
 def require_idle_sessions(setup, events):
-    if setup.docker_exec(['pgrep', '-x', 'codex'], check=False).returncode != 1:
+    from experiment.checkpoint_restore import active_model_processes
+    if active_model_processes(setup.container_name):
         raise ValueError('An ECC process is still active; preserve the container')
     for rows in events.values():
         turns = [row['payload'].get('type') for row in rows if row['type'] == 'event_msg'
@@ -322,9 +321,10 @@ def restore_checkpoint(setup, directory, session, output):
 def verify_live_checkpoint(runner, directory, record):
     """Resume only an idle, byte-identical native checkpoint in the retained container."""
     from experiment.continuous import assert_boundary
+    from experiment.checkpoint_restore import active_model_processes
     setup = runner.container_setup
     assert_boundary(runner, record['ending_commit'])
-    if setup.docker_exec(['pgrep', '-x', 'codex'], check=False).returncode != 1:
+    if active_model_processes(setup.container_name):
         raise ValueError('The retained ECC agent tree is not verified idle')
     image = subprocess.check_output(['docker', 'inspect', '--format', '{{.Image}}', setup.container_name], text=True).strip()
     config_hash = setup.docker_exec(['sha256sum', '/home/fakeroot/.codex/config.toml']).stdout.split()[0]

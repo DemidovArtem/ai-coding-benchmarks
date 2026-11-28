@@ -47,10 +47,10 @@ class ECCTests(unittest.TestCase):
                             'ecc_state/' + suffix[len('.ecc/'):] if suffix.startswith('.ecc/') else
                             'native_session_store/' + suffix[len('.codex/'):])
                     return SimpleNamespace(stdout=files[name], returncode=0)
-                return SimpleNamespace(returncode=1)
+                return SimpleNamespace(returncode=1 if args[0] == 'test' else 0)
             setup.docker_exec.side_effect = command
             output = Path(tmp) / 'restored'; output.mkdir()
-            with patch('experiment.checkpoint_restore.copy_to') as copy, patch('experiment.ecc.history_boundary', side_effect=lambda _, s: turns[s]):
+            with patch('experiment.checkpoint_restore.copy_to') as copy, patch('experiment.ecc.history_boundary', side_effect=lambda _, s: turns[s]), patch('experiment.checkpoint_restore.active_model_processes', return_value=[]):
                 result = restore_checkpoint(setup, directory, 'root', output)
                 self.assertEqual(result['native_turns'], turns)
                 self.assertFalse(result['messages_changed'])
@@ -63,18 +63,19 @@ class ECCTests(unittest.TestCase):
 
     def test_quota_aborted_child_is_terminal_only_when_process_tree_is_idle(self):
         from experiment.ecc import require_idle_sessions
-        setup = Mock();setup.docker_exec.return_value.returncode = 1
+        setup = Mock()
         def event(kind):return {'type':'event_msg','payload':{'type':kind}}
         sessions = {'root':[event('task_started'),event('task_complete')],
                     'child':[event('task_started'),event('turn_aborted')]}
-        require_idle_sessions(setup, sessions)
-        setup.docker_exec.return_value.returncode = 0
-        with self.assertRaisesRegex(ValueError, 'process'):
+        with patch('experiment.checkpoint_restore.active_model_processes', return_value=[]) as active:
             require_idle_sessions(setup, sessions)
-        setup.docker_exec.return_value.returncode = 1
-        sessions['child'].append(event('task_started'))
-        with self.assertRaisesRegex(ValueError, 'unfinished'):
-            require_idle_sessions(setup, sessions)
+            active.return_value = [42]
+            with self.assertRaisesRegex(ValueError, 'process'):
+                require_idle_sessions(setup, sessions)
+            active.return_value = []
+            sessions['child'].append(event('task_started'))
+            with self.assertRaisesRegex(ValueError, 'unfinished'):
+                require_idle_sessions(setup, sessions)
 
     def test_live_continuation_rejects_running_agents_and_changed_memory(self):
         from experiment.ecc import verify_live_checkpoint, digest
@@ -82,17 +83,16 @@ class ECCTests(unittest.TestCase):
         runner = Mock()
         runner.agent_runner.session_id = 'root'
         record = {'ending_commit':'commit', 'effective_profile':{'image_id':'image'}}
-        with TemporaryDirectory() as tmp, patch('experiment.continuous.assert_boundary'):
+        with TemporaryDirectory() as tmp, patch('experiment.continuous.assert_boundary'), patch('experiment.checkpoint_restore.active_model_processes', return_value=[42]) as active:
             directory = Path(tmp)
-            runner.container_setup.docker_exec.return_value = SimpleNamespace(returncode=0)
             with self.assertRaisesRegex(ValueError, 'idle'):
                 verify_live_checkpoint(runner, directory, record)
+            active.return_value = []
             (directory/'ecc_state').mkdir();(directory/'ecc_state/memory').write_text('retained')
             (directory/'ecc_checkpoint.json').write_text(json.dumps({'root_session_id':'root',
                 'files_sha256':{'ecc_state/memory':digest(directory/'ecc_state/memory')}}))
             config_hash = digest(root/'profiles/ecc/config.toml')
             def responses(*args, **kwargs):
-                if args[0][0] == 'pgrep':return SimpleNamespace(returncode=1)
                 return SimpleNamespace(stdout=config_hash if args[0][1].endswith('config.toml') else 'changed')
             runner.container_setup.docker_exec.side_effect = responses
             with patch('experiment.ecc.subprocess.check_output', return_value='image'):
@@ -102,10 +102,10 @@ class ECCTests(unittest.TestCase):
     def test_quota_recovery_keeps_root_waits_for_children_and_never_retries_other_errors(self):
         from experiment.ecc import resume_after_quota
         agent = SimpleNamespace(_last_rate_limit=True, _last_fatal_error=None, session_id='parent', quota_wait_seconds=0)
-        setup = Mock(); setup.docker_exec.side_effect = [SimpleNamespace(returncode=0), SimpleNamespace(returncode=1)]
+        setup = Mock()
         sleeps, states = [], []
         resume = Mock(return_value=True)
-        with patch('experiment.quota.wait_for_quota') as wait:
+        with patch('experiment.quota.wait_for_quota') as wait, patch('experiment.checkpoint_restore.active_model_processes', side_effect=[[42], []]):
             self.assertTrue(resume_after_quota(agent, setup, Path('unused'), resume, states.append, sleep=sleeps.append))
         wait.assert_called_once()
         self.assertEqual(sleeps, [60]);self.assertEqual(states, ['waiting_quota', 'running'])

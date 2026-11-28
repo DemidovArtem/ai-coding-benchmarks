@@ -1,10 +1,20 @@
 import json
 import unittest
+from unittest.mock import patch
 
-from experiment.checkpoint_restore import legacy_rollout, verify_turns
+from experiment.checkpoint_restore import legacy_rollout, verify_turns, active_model_processes
 
 
 class CheckpointRestoreTests(unittest.TestCase):
+    def test_process_probe_does_not_require_procps_and_fails_closed_on_invalid_output(self):
+        with patch('experiment.checkpoint_restore.subprocess.check_output', return_value='[42]') as command:
+            self.assertEqual(active_model_processes('fixture'), [42])
+            self.assertEqual(command.call_args.args[0][:5], ['docker', 'exec', 'fixture', 'python3', '-c'])
+        for output in ('{}', '[0]', '[true]', 'invalid-json'):
+            with patch('experiment.checkpoint_restore.subprocess.check_output', return_value=output):
+                with self.assertRaises(ValueError):
+                    active_model_processes('fixture')
+
     def raw(self):
         return b'\n'.join(json.dumps(event).encode() for event in [
             {'type': 'session_meta', 'payload': {'id': 'same-thread', 'history_mode': 'paginated', 'cwd': '/testbed'}},
