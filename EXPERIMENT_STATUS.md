@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 06:27:28**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 06:48:06**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест Telegram доставлен; новые отправки без ACK сохраняются как неопределённые и не повторяются. После квотной паузы baseline v2 продолжил ту же native session; исходники и закрытый checkpoint проверены. Recovery после reboot ещё не проверен. Три завершённых ECC smoke-контейнера удалены после проверки архивов. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | 3/60 measured steps collected | 3/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_v2_protocol.md) |
+| Scikit-learn v2: five methods, 2×6 | 4/60 collected; Serena recovery decision pending | M06 accepted for baseline/Caveman/Ponytail/ECC (5/5 F2P, 34669/34669 P2P each). Serena stopped under edit-guard policy; partial source, native session and six memories retained. Queue stopped before M11; recovery decision pending in Codex. ECC full native tree verified after byte-exact technical rollout restoration. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -112,7 +112,7 @@
 | scikit_v2_caveman_r01 | caveman | 1 | 1/6 | ready_next_step |
 | scikit_v2_ponytail_r01 | ponytail | 1 | 1/6 | ready_next_step |
 | scikit_v2_serena_r01 | serena | 1 | 0/6 | Ошибка; данные сохранены |
-| scikit_v2_ecc_r01 | ecc | 1 | 0/6 | Выполняется |
+| scikit_v2_ecc_r01 | ecc | 1 | 1/6 | ready_next_step |
 | scikit_v2_baseline_r02 | baseline | 2 | 0/6 | Запланирован |
 | scikit_v2_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
 | scikit_v2_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
@@ -221,7 +221,7 @@
 | scikit_v2_caveman_r01_s01 | caveman | Завершён; grader принят | 190 | 76 | 114 | 266 | 5 |
 | scikit_v2_ponytail_r01_s01 | ponytail | Завершён; grader принят | 197 | 75 | 122 | 272 | 5 |
 | scikit_v2_serena_r01_s01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
-| scikit_v2_ecc_r01_s01 | ecc | Выполняется | — | — | — | — | — |
+| scikit_v2_ecc_r01_s01 | ecc | Завершён; grader принят | 219 | 76 | 143 | 295 | 5 |
 | phase6e_serena_r01_s05_quota01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
@@ -326,7 +326,7 @@ Input уже включает cached input: эти столбцы не скла�
 | scikit_v2_caveman_r01_s01 | 2 823 493 | 2 731 136 | 19 726 | 0 | 490.8 | 250.2 | 9.5 | 940.7 |
 | scikit_v2_ponytail_r01_s01 | 2 105 905 | 2 006 016 | 20 313 | 0 | 492.7 | 233.4 | 10.4 | 1011.3 |
 | scikit_v2_serena_r01_s01 | 486 475 | 434 432 | 6 688 | 0 | 176.3 | — | — | 278.9 |
-| scikit_v2_ecc_r01_s01 | — | — | — | — | — | — | — | — |
+| scikit_v2_ecc_r01_s01 | 5 369 504 | 5 181 440 | 34 679 | 0 | 672.8 | 251.6 | 9.3 | 1129.3 |
 | phase6e_serena_r01_s05_quota01 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
@@ -431,12 +431,12 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | scikit_v2_caveman_r01_s01 | Готов | 75 297 | 14 774 | 1 898 | 10 858 | — | — |
 | scikit_v2_ponytail_r01_s01 | Готов | 75 307 | 14 776 | 1 899 | 10 865 | — | — |
 | scikit_v2_serena_r01_s01 | Не выполнен | — | — | — | — | — | 6 |
-| scikit_v2_ecc_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| scikit_v2_ecc_r01_s01 | Готов | 75 318 | 14 785 | 1 898 | 10 863 | — | — |
 | phase6e_serena_r01_s05_quota01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
 
-Несобранных trials: **2**, из них выполняется: **1**. Для Phase 5 пользователь разрешил продолжение выше 85%; явный отказ сервиса по квоте по-прежнему останавливает запуск. [Разрешённое изменение](reports/phase5_quota_override.md). Этот документ сам ничего не запускает и не следит по расписанию.
+Несобранных trials: **1**, из них выполняется: **0**. Для Phase 5 пользователь разрешил продолжение выше 85%; явный отказ сервиса по квоте по-прежнему останавливает запуск. [Разрешённое изменение](reports/phase5_quota_override.md). Этот документ сам ничего не запускает и не следит по расписанию.
 
 ## Как обновляется реестр
 

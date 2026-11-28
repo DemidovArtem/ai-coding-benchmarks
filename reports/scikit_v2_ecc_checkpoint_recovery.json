@@ -1,0 +1,23 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "trial_id": "scikit_v2_ecc_r01_s01",
+  "observed_at": "2026-11-28T05:47:16.749552+00:00",
+  "kind": "technical_checkpoint_byte_restoration_no_inference",
+  "cause": "Generic text credential redaction matched public ECC Python-testing documentation examples inside escaped tool output; two rollout events became invalid JSON after the original checkpoint manifest was written.",
+  "affected_session_role": "explorer",
+  "original_manifest_sha256": "a28241badab56efbefb9fa9e7d972d5484b4366653c642200c703444dc5902e7",
+  "damaged_copy_sha256": {
+    "native_sessions/2026/11/28/rollout-2026-11-28T05-19-34-01a22098-2f1f-7b63-aabf-9521c5a23223.jsonl": "b2a1658db550a6ed61e8986619c5f50ff1354e659df68077f24a22e4d1ad67ee",
+    "log/codex/rollout-2026-11-28T05-19-34-01a22098-2f1f-7b63-aabf-9521c5a23223.jsonl": "b2a1658db550a6ed61e8986619c5f50ff1354e659df68077f24a22e4d1ad67ee"
+  },
+  "recovery_source": "Unmodified closed thread_history_1.sqlite commandExecution aggregatedOutput; exact escaped text replacement at two serialization levels.",
+  "recovery_acceptance": "Complete restored rollout SHA256 equals the original pre-redaction checkpoint manifest, and every JSONL row parses.",
+  "restored_sha256": "a28241badab56efbefb9fa9e7d972d5484b4366653c642200c703444dc5902e7",
+  "exact_original_bytes_verified": true,
+  "damaged_files_retained": "results/trials/scikit_v2_ecc_r01_s01/retained_redaction_failure",
+  "model_calls_during_recovery": 0,
+  "new_reasoning_or_context": false,
+  "source_or_evaluator_changes": false,
+  "execution_code_changed": false,
+  "limitation": "Frozen redaction code remains unchanged; verify native manifest hashes after later collections. No model result was rerun."
+}
