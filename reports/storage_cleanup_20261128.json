@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-28",
+  "observed_at": "2026-11-28T01:33:53.234942+00:00",
+  "authorization": "Approved roadmap: remove only verified benchmark-owned reconstructible completed containers; preserve checkpoints and unrelated projects.",
+  "scope": "Three exited ECC neutral-fixture smoke containers only; no images, volumes, bind mounts or other projects removed.",
+  "docker_free_before_bytes": 34139246592,
+  "docker_free_after_bytes": 36305985536,
+  "observed_reclaimed_bytes": 2166738944,
+  "containers": [
+    {
+      "container": "ecc-native_smoke_003",
+      "container_id": "b083fff5aa75edd284d589e0be8833ddec5cdff1e6c54a21a2e89f0fc47355a7",
+      "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+      "size_rw_bytes": 704958597,
+      "archive_relative_path": "results/storage_cleanup/20261128/ecc-native_smoke_003/native-state.tar.gz",
+      "archive_sha256": "bc19b14b7a2a41d008d20005c4de5a9f48a464cca81beee192c3ad2034392c33",
+      "archive_bytes": 923,
+      "native_sessions_verified": 0,
+      "native_files_verified": 2,
+      "sqlite_integrity_verified": null,
+      "fixture_files_retained": 27,
+      "fixture_mount_preserved": true,
+      "credentials_archived": false,
+      "removed": true
+    },
+    {
+      "container": "ecc-native_smoke_004",
+      "container_id": "338d46b4ca9a71e640556448063a30f8c0ae743ba95dde7e949e36a18518efd0",
+      "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+      "size_rw_bytes": 747084390,
+      "archive_relative_path": "results/storage_cleanup/20261128/ecc-native_smoke_004/native-state.tar.gz",
+      "archive_sha256": "765c8de7e595938ca29e3a2748273b097c86677f88595d26ad999f211c38a648",
+      "archive_bytes": 443733,
+      "native_sessions_verified": 2,
+      "native_files_verified": 20,
+      "sqlite_integrity_verified": true,
+      "fixture_files_retained": 27,
+      "fixture_mount_preserved": true,
+      "credentials_archived": false,
+      "removed": true
+    },
+    {
+      "container": "ecc-native-smoke",
+      "container_id": "0d2cf9ecdaf90500a246b202642880827d48d7b9ca83ceca4c8a48a85765908c",
+      "image_id": "sha256:dad83f7f95469394b3809ef8abf1206b5dfa168fdf203c9a1fce5711f68c87ff",
+      "size_rw_bytes": 669606069,
+      "archive_relative_path": "results/storage_cleanup/20261128/ecc-native-smoke/native-state.tar.gz",
+      "archive_sha256": "7bb59c9cd6fe294aecf11c6c73b9f8d43c3a4bc0c4d35fece8d7f41b735ae68d",
+      "archive_bytes": 638,
+      "native_sessions_verified": 0,
+      "native_files_verified": 2,
+      "sqlite_integrity_verified": null,
+      "fixture_files_retained": 27,
+      "fixture_mount_preserved": true,
+      "credentials_archived": false,
+      "removed": true
+    }
+  ],
+  "limitations": "Archives preserve selected native/configuration/memory state and closed SQLite, not rebuildable plugin/dependency caches. Bind-mounted fixtures remain on the host. Observed free-space change can include concurrent host activity."
+}

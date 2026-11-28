@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-22 17:56:02**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 02:37:15**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -12,7 +12,7 @@
 | Phase 2: baseline / plan / goal_plan | Завершён | [Метрики и quota-resume history](reports/phase2_progress.md) |
 | Phase 3: baseline / Ponytail / Caveman / Serena | Завершён | [Профили, активация и результаты](reports/phase3_progress.md) |
 | Дополнение: serena_required | Работает: 13 MCP calls, 2 symbol calls, 6 memories | [Обязательный Serena-first workflow](reports/serena_required_progress.md); отдельный measured trial ещё не выполнен |
-| Текущий состав экспериментов | baseline, caveman, ponytail, serena | Plan исключён из новых запусков; прежние результаты сохранены. |
+| Текущий состав экспериментов | baseline, caveman, ponytail, serena, ecc | Plan исключён из новых запусков; прежние результаты сохранены. |
 | Phase 4: Sonar before/after | Завершён для собранных snapshots | [Общая база и solution snapshots](reports/sonar_pilot.md); raw inline tests ограничивают сравнение |
 | Phase 5: continuous, 2 связанных milestone | Пилот остановлен: quarantine preflight | Завершено 6/8 траекторий, 12/16 правок; все 12 приняты grader и проверены Sonar. Ponytail и plan repetition 2 заблокированы проверкой сети до model invocation. [План и состояние](reports/continuous_feasibility.md) |
 | Phase 5b: baseline / Caveman / Ponytail | Заменён авторизованной Phase 6 | Новые двухшаговые trials не запускаются: пользователь расширил план до четырёх setups, двух кругов по пять правок. Прежний quota failure сохранён. [Протокол](reports/phase5b_protocol.md) |
@@ -24,7 +24,9 @@
 | Phase 6f: шестая правка SWE, max_matches searcher migration | Сбор завершён: семь шестых шагов | Собраны 7/7 продолжений: baseline/Caveman/Ponytail 2×6, Serena 1×6; usage и Sonar готовы. Grader действителен, но все семь имеют resolved=false и 7/8 новых тестов. Ponytail r02: по разрешению удалена одна отвергнутая reasoning-запись; изменение контекста отмечено. [Итоги](reports/phase6f_findings.md). [Протокол](reports/phase6f_protocol.md) |
 | Phase 6g: седьмая правка как продолжение | Среда подготовлена; 0/7 продолжений, измерения не начаты | JSON replacement и grader согласованы; образ загружен по digest, offline closure и Serena CLI bootstrap проверены без model calls. Нужны заморозка входов и fresh runtime/quota preflight; первые шесть шагов не переигрываются. [Протокол](reports/phase6g_protocol.md) |
 | Second repository: scikit-learn, four methods, 2×6 | Stopped; 3/48 measured steps collected | 3/48 steps; serial step-first order, four configurations, two cold repetitions. Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_protocol.md) |
-| ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. [Протокол](reports/ecc_protocol.md) |
+| ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
+| Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Ожидает решения: 3/60; прежний runtime отсутствует | ECC и три scikit checkpoints проверены; Telegram доставляет уведомления. Точный runtime и исходные образы не найдены в локальном кэше; нужен архив или отдельное решение о новой когорте. Новых inference/downloads нет. [Протокол](docs/ROADMAP.md) |
+| Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест доставлен через прежнего бота; защищённый sender сохраняет receipts и неопределённые доставки. Три завершённых ECC smoke-контейнера удалены после проверки архивов. Recovery после reboot/квоты ещё не проверен. [Протокол](reports/storage_cleanup_20261128.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -103,6 +105,8 @@
 | scikit_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
 | scikit_serena_r02 | serena | 2 | 0/6 | Запланирован |
 | ecc_ecc_r01 | ecc | 1 | 6/6 | Завершён |
+| scikit_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
+| scikit_ecc_r02 | ecc | 2 | 0/6 | Запланирован |
 
 [Протокол последовательного пилота](reports/phase5_protocol.md) · [Промежуточные результаты](reports/phase5_progress.md)
 

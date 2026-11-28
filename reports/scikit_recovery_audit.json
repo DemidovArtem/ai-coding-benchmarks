@@ -1,0 +1,75 @@
+{
+  "observed_at": "2026-11-28T01:34:57.084857+00:00",
+  "state": "waiting_user",
+  "kind": "runtime_recovery_preflight_no_inference",
+  "expected_image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1",
+  "exact_runtime_present": false,
+  "required_original_parent_images_present": false,
+  "build_cache_entries_inspected": 161,
+  "scikit_or_original_build_entries_found": 0,
+  "local_image_export_found": false,
+  "search_scope": [
+    "current Docker default context images and build cache",
+    "project results and retained runtime build contexts",
+    "existing /tmp/ai-coding runtime contexts"
+  ],
+  "retained_scikit_checkpoints_verified": [
+    "scikit_baseline_r01_s01",
+    "scikit_caveman_r01_s01",
+    "scikit_ponytail_r01_s01"
+  ],
+  "frozen_input_mismatches": [
+    {
+      "path": "experiment/collect.py",
+      "expected_sha256": "6f4323bbfcab512c9c5e4edc33b0eb7a24fa34479ff0b6b4d81c9f769a158d0f",
+      "current_sha256": "5a7e9190c53317fc67f0d37b331550d96585b2c334a7080659a6b38e73dd6862"
+    },
+    {
+      "path": "experiment/phase6.py",
+      "expected_sha256": "8a88fc6df7301796d4e06fedc5b623b126f268db49608b3cc59662106fd8311c",
+      "current_sha256": "488a125b76ea22e28c6cc0613f5017e90b7d55e325b72c779f381f13c3460659"
+    },
+    {
+      "path": "experiment/curves.py",
+      "expected_sha256": "1657c1bda81f7ab9a569ca0cd3b54bb0c4128ed0e2f226284f5c22143fb66fc7",
+      "current_sha256": "5dde312d6ab216f6690a9d1a4567e70f4ec840cb6c5e26e312a7a74913aa359c"
+    },
+    {
+      "path": "experiment/quota.py",
+      "expected_sha256": "d289cb9d7b25d41c6e5c60d341a01dd3f7dfe449719b0fe70e3f37a3ec07627a",
+      "current_sha256": "59dc05e2283ced4e03b6aa4f5fc6d3bf989fa42c55be54b0d7471253b616d337"
+    },
+    {
+      "path": "experiment/continuous.py",
+      "expected_sha256": "32e17a33a032bc31db41a6b07809aca0963e1cfe68d53866c9e3fe0ca98a7e12",
+      "current_sha256": "e6770809290bc93a26b6c49fb508e814ab96d4011997fcfa4ac4b1221bd8891b"
+    },
+    {
+      "path": "experiment/sonar_scan.py",
+      "expected_sha256": "2c682932e8e5618df8c2f155239d6d718c37ed08165f1cd324d661be6ef2d290",
+      "current_sha256": "9779cfc1a284ccebcc8e24514818357e83e1cda547b5ef56775fb058ac3ea137"
+    },
+    {
+      "path": "experiment/status.py",
+      "expected_sha256": "04ed223d2b370495a6b99c104ad38248f9e496aab64df7d491ac4558f76510ff",
+      "current_sha256": "75027d6b6344c8dc5ba11eda82cecd2f4f0988391331c0536568f3ac4fa7b994"
+    },
+    {
+      "path": "experiment/skill_trial.py",
+      "expected_sha256": "a4f6d1d7bbfd8a0955fae531b60484a54aecf44a0cce4f8db66b1353905a4750",
+      "current_sha256": "49a6706ae558f56c43a18be1f50010a98867e14fcf2b68c978f3bcb0c26ff209"
+    }
+  ],
+  "mismatch_interpretation": "Current harness sources differ from historical frozen inputs; original records/hashes retained. Restore the recorded implementation or validate a separately documented amendment before continuation.",
+  "missing_recovery_material": "Exact runtime image/export (including original image metadata/layers), or an explicit maintainer decision on a different cohort. Rebuilding current recipes without those inputs is not an exact image restore.",
+  "new_model_calls": 0,
+  "new_image_download_bytes": 0,
+  "new_runtime_built": false,
+  "runtime_substitution_authorized": false,
+  "decision_options": [
+    "Locate an archive/export of the original runtime and verify its exact image identity.",
+    "Separately authorize a new matched runtime/cohort; do not pool the three historical first steps.",
+    "Keep new experiments stopped."
+  ],
+  "framework_status": "Deferred until experiment completion/publication, as requested."
+}

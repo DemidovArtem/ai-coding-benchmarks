@@ -1,0 +1,764 @@
+{
+  "observed_at": "2026-11-28T01:29:19.363200+00:00",
+  "kind": "retained_artifact_audit_no_model_calls",
+  "fresh_model_calls": 0,
+  "ecc": [
+    {
+      "trial_id": "ecc_ecc_r01_s01",
+      "record_sha256": "ec2712213bf3238c4af7074e0b4a731e2b3696eeeb6377a51eb198284477502e",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "cdecc6aa9a58a7bb934651cf1bb24980c4983ad30ec54bed903176849f0185f0",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 7,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "explorer",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_7ccf81de6cf2431a8a27d460e3bf3ac2",
+          "skills": [
+            "rust-patterns",
+            "verification-loop"
+          ],
+          "output_retained": true,
+          "output_sha256": "96d1f0b9306946274e78be771048d52a09d0cbc1a3f9ad9b3583df2cea063def"
+        },
+        {
+          "call_id": "call_847b77c4348f4e3d9fc12eb3ad99d15f",
+          "skills": [
+            "agent-self-evaluation"
+          ],
+          "output_retained": true,
+          "output_sha256": "b0c4c0304abf87196bb17da9c49bbd1988d9619785004f53ddd6d47aeb61908c"
+        },
+        {
+          "call_id": "call_003560fec4314ab68a61eabd043876a8",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "5490e51c69cb9d0f582e43f2c8f75a90fcdc20ecb57352c43f07153ccfcbdf15"
+        },
+        {
+          "call_id": "call_7d3b36e2d1e446c5b19d07268a23c571",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "093227688ac0344d8bd358c1841ebd84c9f75ece7b50cbeed82c66f2403b2071"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_7ccf81de6cf2431a8a27d460e3bf3ac2",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_a81d267d41474397b422ec31629d34de",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_9034167f51c14c768a0bd5833e07cb98",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_847b77c4348f4e3d9fc12eb3ad99d15f",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_865d4d68fa344e79a620153403e13c94",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_003560fec4314ab68a61eabd043876a8",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_1f21426383a54e2aa96c4ae12802b5d4",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 54,
+      "total_cumulative_usage": {
+        "input_tokens": 2751421,
+        "cached_input_tokens": 2596608,
+        "output_tokens": 13752,
+        "reasoning_output_tokens": 2339
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 1,
+      "source_and_native_prefix_preserved": true
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s02",
+      "record_sha256": "274878ade7c782c3f6b5179e56dd4966b421b0fc5f2223dd778ba67075708e1a",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "f5c5cf4785fb38d506ff7e3fff6a1eb3ca68b74a7cd34567961b398ae78e49aa",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 11,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "explorer",
+        "worker",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+        "01a1e194-6ba5-72d0-a43b-e612983e2310",
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+        "01a1e197-6062-7a93-b2e9-5c42df536ded"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_9f3411fb26974b00bf1987355d5ddb56",
+          "skills": [
+            "terminal-ops"
+          ],
+          "output_retained": true,
+          "output_sha256": "63190d0985a3632cec12ef6e4b9b0f073bc6cff87d86ea8f9ee84a87022427a2"
+        },
+        {
+          "call_id": "call_6c067313d0b14b79addc95ab8e084634",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "9575f12967b2853afabc1b4d91c2e6bba60009548135f53bc367d8f39cad3efb"
+        },
+        {
+          "call_id": "call_865d18f4ff4b4023adc1f5e7de252e96",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "25a6f66dcd52fc66dfaceba2b03f9709adbe4556c637e127dfe4afb564789fa9"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_ec64de22b92040339eb191a6034d4fa9",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_57d600dc5428435a881999093eb6315b",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_a5bdab9141f64a6192189cee3fec720a",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_9f3411fb26974b00bf1987355d5ddb56",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_6c067313d0b14b79addc95ab8e084634",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_99b69511f0b74cdca165355ca098e610",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_57949f2fc2b640b4a400ca6c1298d9a7",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 117,
+      "total_cumulative_usage": {
+        "input_tokens": 6357756,
+        "cached_input_tokens": 6100992,
+        "output_tokens": 36564,
+        "reasoning_output_tokens": 10285
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 2,
+      "source_and_native_prefix_preserved": true
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s03",
+      "record_sha256": "8fd88fbb1f52ed6cbe562721f56508287e88627d3ff192ed36428d01d7df7c03",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "c548c10db35d235795cd82d5f8b1d7d458d6732bba691d03780f5bced115ef07",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 15,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "worker",
+        "worker",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+        "01a1e194-6ba5-72d0-a43b-e612983e2310",
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+        "01a1e197-6062-7a93-b2e9-5c42df536ded",
+        "01a1e19e-f451-7833-bd45-25dff547ed78",
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7",
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_188c970a53cf4da18f75e45006149fc5",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "45f46aab8ac184dfba5c69178cef728722e77d8fa3f793ede9df70327c34f11d"
+        },
+        {
+          "call_id": "call_52c922ecbb784e74b94bbcf9dd2b2ee2",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "eb38133245c68d2ccd942a75093decfe486b4d4ed713608ab07ad6846ecad08d"
+        },
+        {
+          "call_id": "call_7fdda243f7234efc9bbf5491a66a45e5",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "6dbd281d424ee30f6eb658f1f7cac0a5f823d7f815e97c73692c98d478b55fd3"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_d468884effce441a990f75e6d52092db",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_abc46852f2af470ebbcb4a064d391f9e",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_188c970a53cf4da18f75e45006149fc5",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_1b730a5ee43d43b0832f18d046956ba5",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_52c922ecbb784e74b94bbcf9dd2b2ee2",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_3352fb491c8c4627b574744e8b6feafd",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_0b732a69616c41f8b218b49431991b30",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_9812e95a650041d8aaedc7842941d743",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 173,
+      "total_cumulative_usage": {
+        "input_tokens": 11102576,
+        "cached_input_tokens": 10679680,
+        "output_tokens": 51990,
+        "reasoning_output_tokens": 14437
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 3,
+      "source_and_native_prefix_preserved": true
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s04_auth_recovery01",
+      "record_sha256": "fb45d2a7f97027b6d72818956af03a7e0a0a0ce07ebe5e334c43123b3deed04a",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "4766f70422104c37ab6f791cd7396790b6c3e3f336e126a5e95eb5b4917e6a7b",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 19,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "worker",
+        "explorer",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+        "01a1e194-6ba5-72d0-a43b-e612983e2310",
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+        "01a1e197-6062-7a93-b2e9-5c42df536ded",
+        "01a1e19e-f451-7833-bd45-25dff547ed78",
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7",
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78",
+        "01a1e58b-cb62-78d0-ac0a-895368583bdb",
+        "01a1e58c-2108-7f60-82ac-f3a3e100b3d1",
+        "01a1e58d-e706-72c3-8b4b-8513ab386a29"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_674e3dfa4cf448acb90e90897926230b",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "f9739b8690d51fa027aee11bb5b8901195445d3a4d3cfacb8eeb3a1594d3c1d9"
+        },
+        {
+          "call_id": "call_c97e9bd3d8e449e6b44fe10617df6031",
+          "skills": [
+            "rust-patterns"
+          ],
+          "output_retained": true,
+          "output_sha256": "bb8cbf70c4c2e8f4a29bb9a38554bad7196b32db85b9839131be496df8335f08"
+        },
+        {
+          "call_id": "call_c82633072d524a84abfd4562ad5b2fde",
+          "skills": [
+            "verification-loop"
+          ],
+          "output_retained": true,
+          "output_sha256": "f8197f7e676ef1e284073bfdc472d98e7be99c2341482799023ff7b0d0303b60"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_b3b1946f74de4c03b8343504b6d9d770",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_e3b31b91967941d4ae20e5c1d2eded51",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_674e3dfa4cf448acb90e90897926230b",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_be8d69d1bbdb42c3bcc1fe924ad9143d",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_d02e46c42b39414bb66dc505632d583b",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_c97e9bd3d8e449e6b44fe10617df6031",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_f9f93b6400b1409e8c5752b2c22f52e1",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_57693545f87d45d796634a9103593f63",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 225,
+      "total_cumulative_usage": {
+        "input_tokens": 16189570,
+        "cached_input_tokens": 15473024,
+        "output_tokens": 66297,
+        "reasoning_output_tokens": 18541
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 4,
+      "source_and_native_prefix_preserved": true
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s05",
+      "record_sha256": "221a7c277ddb0f0631460f4c133ef13371f1ff09ff98e69e05b3bd3451aabd53",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "5220bf4781ad55e57b619b3c3d598b71005d606ec6b97554373dfee74be39e80",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 27,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "worker",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+        "01a1e194-6ba5-72d0-a43b-e612983e2310",
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+        "01a1e197-6062-7a93-b2e9-5c42df536ded",
+        "01a1e19e-f451-7833-bd45-25dff547ed78",
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7",
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78",
+        "01a1e58b-cb62-78d0-ac0a-895368583bdb",
+        "01a1e58c-2108-7f60-82ac-f3a3e100b3d1",
+        "01a1e58d-e706-72c3-8b4b-8513ab386a29",
+        "01a1e593-d2e7-79e2-b702-db4e67ca5c75",
+        "01a1e595-de2f-7b70-a4f5-3d3c5a209e49"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_db6154ebdc2d4382913466a4635384ba",
+          "skills": [
+            "benchmark-optimization-loop",
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "38cfcf92bdb195a2b81da5e7393cb35597c509e845530c01af4d4213c6ae5943"
+        },
+        {
+          "call_id": "call_2afa2076b5704e1cad42013162fdb42c",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "a7138686b9990502162cb12f9b8583af96f070d250935c53716ee5164b4cdcc7"
+        },
+        {
+          "call_id": "call_488a659763774d65b7c2da835ae60040",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "7da3bc12074f1a1b09d9d894066d15d63309579e0288dac5a28c368a62fb7170"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_376923251e8d45ca808346c0393fdb72",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_36520afaa6544966966e56fd302e6f4d",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_3639bdfdcc1b413f99b44a7ebf364435",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_d217869631914e3d95e9097426c280ae",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_5bc61a4fd2e546308b5a663aefa4283f",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_2afa2076b5704e1cad42013162fdb42c",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_15c794098bb94d358672f16b0d61c15e",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_15f785b2549d45129b9e9065a2fd0ee6",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_d8284ccbca2446368f12ff63a099f249",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 281,
+      "total_cumulative_usage": {
+        "input_tokens": 23535665,
+        "cached_input_tokens": 22712320,
+        "output_tokens": 84797,
+        "reasoning_output_tokens": 24158
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 10,
+      "source_and_native_prefix_preserved": true
+    },
+    {
+      "trial_id": "ecc_ecc_r01_s06",
+      "record_sha256": "6792cb00bd11964772bb6906a4228ab3a3dd0c0c7979c5c1eef4c518f2ced6b4",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "8981d488f24a0eecb9c579881defc3a8319abb6338359de238d5e6873716f3c7",
+        "snapshot_files_verified": 119,
+        "patches_match_git": true
+      },
+      "checkpoint_files_verified": 31,
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "root_session_id": "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+      "new_child_roles": [
+        "worker",
+        "worker",
+        "reviewer"
+      ],
+      "native_hook_context_sessions": [
+        "01a1e188-4e5d-7831-8d24-06261cdf65c2",
+        "01a1e188-a646-7e83-9efb-faf22a5afb2c",
+        "01a1e18a-53cf-71d2-a1ce-4de0430f87d3",
+        "01a1e194-6ba5-72d0-a43b-e612983e2310",
+        "01a1e194-ab23-72d3-b0e8-5f8c194a0748",
+        "01a1e197-6062-7a93-b2e9-5c42df536ded",
+        "01a1e19e-f451-7833-bd45-25dff547ed78",
+        "01a1e25c-1ba1-74b1-81b8-1565a3a217f7",
+        "01a1e25c-e3a5-78c0-afa9-43f8808f4c78",
+        "01a1e58b-cb62-78d0-ac0a-895368583bdb",
+        "01a1e58c-2108-7f60-82ac-f3a3e100b3d1",
+        "01a1e58d-e706-72c3-8b4b-8513ab386a29",
+        "01a1e593-d2e7-79e2-b702-db4e67ca5c75",
+        "01a1e595-de2f-7b70-a4f5-3d3c5a209e49",
+        "01a1e59d-45e9-7243-9fb2-10af80cc990f",
+        "01a1e59d-69d3-7df1-be33-04256fa1b242",
+        "01a1e59e-f395-73d1-b94d-55eff3bd6b64"
+      ],
+      "new_skill_read_calls": [
+        {
+          "call_id": "call_30865d66c2f24162ba4bc9623da67e18",
+          "skills": [
+            "rust-patterns",
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "64b9c4eeca996f5cdd1769af8b86248871b0dde4081e11ff225d799e1824624c"
+        },
+        {
+          "call_id": "call_b293550c38e449a99791e3664d7e69cd",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "6673d1abc85b620e60cbc7f2e5001b4e0b7bc3964c9f024d12f5ac238bee27b7"
+        },
+        {
+          "call_id": "call_fd0561a2755b47178688b853dad85128",
+          "skills": [
+            "rust-testing"
+          ],
+          "output_retained": true,
+          "output_sha256": "72c10fe076ac0b867e75312698f03d3fc5b5920f236752c7fe28013ef41f45e2"
+        }
+      ],
+      "new_state_referencing_calls": [
+        {
+          "call_id": "call_96fe9eb1ead445a9801276b215e10725",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_70ed63fc133e4a3c9bc3fbc80f9176fc",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_d2f9cc1f979044e8a123b2111fc28263",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_1c2858472293493b8951ea74064eaa54",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_b293550c38e449a99791e3664d7e69cd",
+          "output_retained": true
+        },
+        {
+          "call_id": "call_5915fe06e2d24700938f0e0738a262d7",
+          "output_retained": true
+        }
+      ],
+      "model_effort_verified": true,
+      "usage_delta_verified": true,
+      "deduplicated_responses": 384,
+      "total_cumulative_usage": {
+        "input_tokens": 37157566,
+        "cached_input_tokens": 36146304,
+        "output_tokens": 123655,
+        "reasoning_output_tokens": 34721
+      },
+      "legacy_activation_fields": {
+        "native_hook_activation_verified": false,
+        "subagent_activation_verified": false
+      },
+      "ecc_memory_files": 11,
+      "source_and_native_prefix_preserved": true
+    }
+  ],
+  "scikit": [
+    {
+      "trial_id": "scikit_baseline_r01_s01",
+      "record_sha256": "72d6273e9d2711ad8dd6654bcd92cde919a9e9c5c8dce9ae4fd9d7a641f0a556",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "def3363d5e5484e55223037459d099d217db64fbdea794b8d612eb3d6c7f24e6",
+        "snapshot_files_verified": 404,
+        "patches_match_git": true
+      },
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "native_session_id": "01a1bc91-ebcb-7fe3-83ef-168b79b184ba",
+      "native_history_sha256": "c7ab705fec0d05ed62ec05253f2aac8577d00b4ab74d8918107133efceff5ccc",
+      "bundle_hashes_verified": true,
+      "usage_counters_verified": true,
+      "image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1"
+    },
+    {
+      "trial_id": "scikit_caveman_r01_s01",
+      "record_sha256": "d5b7196c324bae931dbca4e7ab38b84c8373f6398899304af97e6b5d649a70f8",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "2ecf9aff5d95bf3bb736455cb8e4c8b0ef3abe2a37937dfa9df597925253fada",
+        "snapshot_files_verified": 404,
+        "patches_match_git": true
+      },
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "native_session_id": "01a1bca3-007c-79f0-87da-fce44e72ea6c",
+      "native_history_sha256": "e3086748ce67f1664c8ea6538814b1cf1f669677d73330ff48c5638d5832f203",
+      "bundle_hashes_verified": true,
+      "usage_counters_verified": true,
+      "image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1"
+    },
+    {
+      "trial_id": "scikit_ponytail_r01_s01",
+      "record_sha256": "55837963e289a6f25fdd5ec35d8f79a3872007ce25dc0e2df530ebc0e0bd48d0",
+      "source": {
+        "git_fsck": "ok",
+        "starting_tree_verified": true,
+        "parent_ancestry_verified": true,
+        "submission_tag_verified": true,
+        "snapshot_sha256": "3529c6dffd2213fea120761fb13671a46889594a3b497f50ac13e8e38e404850",
+        "snapshot_files_verified": 404,
+        "patches_match_git": true
+      },
+      "sqlite": {
+        "hashes_verified": 2,
+        "integrity_check": "ok",
+        "expected_threads_present": true
+      },
+      "native_session_id": "01a1bcb0-c21e-72e2-90f1-787ee7e230f7",
+      "native_history_sha256": "8ad26e9752a737f6693c8a2e30cdcf63db332b5dc5a9e96612be89cf96588627",
+      "bundle_hashes_verified": true,
+      "usage_counters_verified": true,
+      "image_id": "sha256:6f6cd1ef5bcd898a2ed51031e97307eeb09c96ed54b84e8c177f28f0453620b1"
+    }
+  ],
+  "scope": "Retained source/native integrity and observed activation; not a fresh inference, runtime restore, Telegram delivery or significance test.",
+  "ecc_profile_checks": {
+    "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+    "vendor_tracked_clean": true,
+    "profile_files_verified": 8,
+    "installed_files_verified": 1770,
+    "node_sha256_verified": true,
+    "profile_manifest_sha256": "9d440e810baf89dec649d2f69c37e1a6150eaddb96d5dd0f3f6ca7526772a76a"
+  },
+  "limits": [
+    "Legacy activation booleans remain unchanged; observations are derived separately.",
+    "Hook contexts are cumulative native evidence, not a per-resume hook invocation count.",
+    "Skill calls identify actual native read commands and retained outputs; available skills alone do not establish usage.",
+    "Historical missing reasoning_output_tokens in usage.total remain missing.",
+    "No fresh model turn, restored Docker runtime or statistical significance is established."
+  ]
+}

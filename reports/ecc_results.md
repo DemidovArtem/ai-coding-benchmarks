@@ -2,6 +2,11 @@
 
 One ripgrep trajectory completed all six tasks on 16 November 2026. This is n=1, not a statistically powered comparison. Historical cohorts remain separate.
 
+The [28 November retained-evidence audit](ecc_activation_audit.md) verifies actual
+measured skill/subagent use and source/native checkpoint integrity without new
+inference. It explains the original false activation fields without rewriting
+those records.
+
 | Edit | Grader | Production churn vs start | Net production LOC | Input tokens, root + children | Output tokens, root + children | Sonar |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | 1 | Accepted | 37 | 1 | 2751421 | 13752 | Complete |

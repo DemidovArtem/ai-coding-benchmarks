@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-28",
+  "kind": "operational_preflight_not_benchmark_inference",
+  "automation": {
+    "id": "automation-2",
+    "kind": "heartbeat",
+    "status": "ACTIVE",
+    "interval_minutes": 10,
+    "target_thread_id": "01a15103-a27b-7290-a382-333a583086de",
+    "roadmap_reference_present": true
+  },
+  "telegram": {
+    "transport": "existing OpenClaw CLI over SSH",
+    "recipient_source": "single existing private destination in server metadata",
+    "credentials_remain_remote": true,
+    "dry_run_verified": true,
+    "test_delivery_confirmed": true,
+    "test_event_id": "telegram-setup-20261128",
+    "server_message_id": "262",
+    "local_deduplication_tested": true,
+    "ambiguous_delivery_policy": "retain and reconcile; no blind resend"
+  },
+  "scope": "Schedule persistence, sender tests and one real Telegram acknowledgement; reboot/quota recovery and deep-link navigation have not been exercised.",
+  "tests": {
+    "suite_tests": 148,
+    "sandbox_passed": 146,
+    "loopback_tests_passed_outside_sandbox": 2,
+    "new_sender_tests": 5,
+    "real_receipt_deduplication_verified": true,
+    "model_inference_performed": false
+  },
+  "blocker_notification": {
+    "event_id": "scikit-original-runtime-missing-20261128",
+    "confirmed": true,
+    "server_message_id": "263",
+    "decision_location": "this Codex chat"
+  }
+}

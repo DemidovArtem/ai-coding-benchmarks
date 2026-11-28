@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Run exact original after-context fifth SRS for the seven existing trajectories; preserve all four prefix edits and isolate each source/session/memory.",
+  "next_step": "Await maintainer runtime-recovery decision; exact historical image missing. Telegram works; ECC/native checkpoints audited; no inference or substitute runtime authorized.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -983,6 +983,24 @@
       "last_step": "ecc_ecc_r01_s06",
       "failure_category": null,
       "last_interruption": "pre_inference_stale_dns_recovered"
+    },
+    {
+      "trial_id": "scikit_ecc_r01",
+      "variant": "ecc",
+      "repetition": 1,
+      "cohort": "scikit_five_method_completion",
+      "state": "planned",
+      "total_steps": 6,
+      "completed_steps": 0
+    },
+    {
+      "trial_id": "scikit_ecc_r02",
+      "variant": "ecc",
+      "repetition": 2,
+      "cohort": "scikit_five_method_completion",
+      "state": "planned",
+      "total_steps": 6,
+      "completed_steps": 0
     }
   ],
   "image_download_authorization": "User instruction: \u0437\u0430\u043f\u0443\u0441\u0442\u0438, \u043f\u0440\u043e\u0432\u0435\u0440\u044c, following the exact two-image budget request.",
@@ -1184,19 +1202,34 @@
     "ecc": {
       "title": "ECC: ripgrep, six sequential edits",
       "label": "Completed 6/6; one recovered trajectory",
-      "summary": "Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim.",
+      "summary": "Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged.",
       "protocol": "reports/ecc_protocol.md",
       "status": "completed",
       "same_executor_session_verified": true,
       "continuous_result_claimed": true,
       "results_report": "reports/ecc_results.md"
+    },
+    "scikit_five_method_completion": {
+      "title": "Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2\u00d76",
+      "status": "waiting_user",
+      "label": "\u041e\u0436\u0438\u0434\u0430\u0435\u0442 \u0440\u0435\u0448\u0435\u043d\u0438\u044f: 3/60; \u043f\u0440\u0435\u0436\u043d\u0438\u0439 runtime \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442",
+      "summary": "ECC \u0438 \u0442\u0440\u0438 scikit checkpoints \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b; Telegram \u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u044f. \u0422\u043e\u0447\u043d\u044b\u0439 runtime \u0438 \u0438\u0441\u0445\u043e\u0434\u043d\u044b\u0435 \u043e\u0431\u0440\u0430\u0437\u044b \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b \u0432 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e\u043c \u043a\u044d\u0448\u0435; \u043d\u0443\u0436\u0435\u043d \u0430\u0440\u0445\u0438\u0432 \u0438\u043b\u0438 \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u043e \u043d\u043e\u0432\u043e\u0439 \u043a\u043e\u0433\u043e\u0440\u0442\u0435. \u041d\u043e\u0432\u044b\u0445 inference/downloads \u043d\u0435\u0442.",
+      "protocol": "docs/ROADMAP.md"
+    },
+    "operational_preservation": {
+      "title": "\u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0435 \u0446\u0435\u043b\u0438, Telegram \u0438 \u043e\u0447\u0438\u0441\u0442\u043a\u0430",
+      "status": "verified_partial",
+      "label": "Telegram \u0438 \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d\u043d\u043e\u0435 \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b; \u043e\u0441\u0432\u043e\u0431\u043e\u0436\u0434\u0435\u043d\u043e \u22482,17 \u0413\u0411",
+      "summary": "\u0422\u0435\u0441\u0442 \u0434\u043e\u0441\u0442\u0430\u0432\u043b\u0435\u043d \u0447\u0435\u0440\u0435\u0437 \u043f\u0440\u0435\u0436\u043d\u0435\u0433\u043e \u0431\u043e\u0442\u0430; \u0437\u0430\u0449\u0438\u0449\u0451\u043d\u043d\u044b\u0439 sender \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u0435\u0442 receipts \u0438 \u043d\u0435\u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0451\u043d\u043d\u044b\u0435 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438. \u0422\u0440\u0438 \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043d\u043d\u044b\u0445 ECC smoke-\u043a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440\u0430 \u0443\u0434\u0430\u043b\u0435\u043d\u044b \u043f\u043e\u0441\u043b\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0430\u0440\u0445\u0438\u0432\u043e\u0432. Recovery \u043f\u043e\u0441\u043b\u0435 reboot/\u043a\u0432\u043e\u0442\u044b \u0435\u0449\u0451 \u043d\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d.",
+      "protocol": "reports/storage_cleanup_20261128.md"
     }
   },
   "active_variants": [
     "baseline",
     "caveman",
     "ponytail",
-    "serena"
+    "serena",
+    "ecc"
   ],
   "excluded_future_variants": [
     "plan",
@@ -1204,7 +1237,7 @@
   ],
   "scope_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once.",
   "new_trials_require_explicit_user_signal": false,
-  "latest_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once.",
+  "latest_authorization": "2026-11-28: Approved completion roadmap: audit existing six-step ripgrep ECC without new ripgrep runs; complete scikit-learn five methods, two cold repetitions, six steps; stop if exact runtime recovery fails; simplify framework after results publication.",
   "publication": {
     "github_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
     "state": "published_public_main_verified",
@@ -1212,5 +1245,27 @@
     "public_documentation": "docs/RESEARCH_SUMMARY.md",
     "release_commit": "612fba1b03452467e9ceb56324b80678dd589ff1",
     "public_access_verified": true
+  },
+  "long_term_goal": {
+    "authorized_on": "2026-11-28",
+    "roadmap": "docs/ROADMAP.md",
+    "status": "waiting_user",
+    "scikit_target_steps": 60,
+    "scikit_collected_steps": 3,
+    "scikit_remaining_steps": 57,
+    "ripgrep_new_trials_authorized": false,
+    "technical_recovery_only": true,
+    "decisions_in": "this Codex chat",
+    "notification_channel": "existing OpenClaw Telegram bot",
+    "runtime_substitution_authorized": false,
+    "framework_refactor_after": "completed results publication",
+    "blocker": "Exact original scikit runtime absent; no matching cache/export found locally. Await archive location or a separate cohort decision.",
+    "checkpoint_audit": "reports/retained_checkpoint_audit.json",
+    "coordination_preflight": "reports/coordination_preflight.json",
+    "runtime_recovery_audit": "reports/scikit_recovery_audit.json",
+    "storage_cleanup": "reports/storage_cleanup_20261128.json",
+    "telegram_delivery_verified": true,
+    "decision_requested": true,
+    "blocker_notification_delivered": true
   }
 }

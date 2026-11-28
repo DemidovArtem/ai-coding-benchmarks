@@ -58,3 +58,21 @@ The base and M06 grader are acquired and digest-verified. A separate common runt
 The first baseline M06 turn has started in an isolated native session; real task tool calls have been observed. A bounded local queue waits for its verified collection, then runs Caveman, Ponytail and Serena on M06 in repetition one. The queue stops on any failure and does not launch later milestones or silently replay an attempt. The full authorized matrix remains 48 steps; this initial queue covers four. Live state is in the [experiment register](../EXPERIMENT_STATUS.md) and [queue record](../reports/scikit_batch_progress.json).
 
 A finite [disk guard](../reports/scikit_storage_guard.json) checks free space every ten seconds while this queue is active. If workspace free space falls below 1 GB or Docker free space below 12 GB, it stops only this batch's own agent/evaluator containers and preserves their files for recovery. It performs no pruning. Filesystem checks have a polling interval and are not filesystem quotas.
+
+## Authorized completion scope — 28 November 2026
+
+The [current roadmap](ROADMAP.md) extends the target to five methods by adding
+the pinned offline ECC profile: two repetitions of six tasks each, 60 submissions
+in total. The original four-method frozen configuration and protocol remain
+historical inputs. Three first-step submissions were collected; Serena stopped
+before inference at the old quota threshold. There are no measured ECC results
+on scikit-learn yet.
+
+The original common runtime image is no longer present in the local Docker
+cache. Verify retained checkpoints and recover the exact environment before
+continuation. If exact recovery is impossible, stop for the maintainer's decision;
+do not silently rebuild a different environment, replay the three completed
+steps, or start a replacement cohort. ECC activation, full agent-tree restore,
+usage accounting and a separate protocol amendment must pass before its first
+measured submission. Adding ECC does not itself establish comparability with
+the original four methods.
