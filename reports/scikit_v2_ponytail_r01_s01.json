@@ -1,0 +1,714 @@
+{
+  "experiment_id": "scikit-five-method-v2",
+  "cohort": "scikit-five-method-v2",
+  "trial_id": "scikit_v2_ponytail_r01_s01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "repo": "scikit-learn_scikit-learn_1.5.2_1.6.0",
+  "milestone_id": "M06",
+  "variant": "ponytail",
+  "repetition": 1,
+  "trial_state": "finished",
+  "trial_failure_category": null,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+  "starting_tree": "cde0ed02139a37b0100420927921aab8a4bb9d0c",
+  "ending_commit": "8965a0c78a17ebbf9688908318b8e0bbbba85146",
+  "snapshot_sha256": "a8100e10f8cdea98df615fd0e7a3f50d8eaacb16405fb4c1f7304e4d68dae899",
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/scikit_v2_ponytail_r01_s01",
+  "effective_profile": {
+    "config_sha256": "e6943776190fcf91fdf6fe9bcf4a2fa9a11a6d127efaae25e6757cfa29619d80",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "ponytail",
+    "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "skill": "ponytail",
+    "skill_version": "5.3.2",
+    "mode": "full",
+    "native_hook_activation_verified": false,
+    "node_source": "verified immutable common runtime",
+    "manifest_sha256": "40cfc9215cf63cb427686f8da78d1d4d4e0327e9fdde9e9f01362dcdb3df6b6c"
+  },
+  "setup_fingerprint": "a2f88bec865b22df2f839c160b63f2c2e38f704e1e36a1ed889dc67967baedb7",
+  "implementation_commit": "9ee45b81940dadb159fac55361e59d22b35c88fa",
+  "duration_seconds": 1011.3455453789975,
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 492.70976868300204,
+    "evaluation": 233.43257003300096,
+    "sonar": 10.390434867000295
+  },
+  "quota_wait_seconds": 0,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 2105905,
+      "output_tokens": 20313,
+      "cached_input_tokens": 2006016,
+      "reasoning_output_tokens": 5910,
+      "session_ids": [
+        "01a22085-3688-7d32-8f32-d08e2d6059f3"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 45
+      },
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "executor_cumulative": {
+      "input_tokens": 2105905,
+      "output_tokens": 20313,
+      "cached_input_tokens": 2006016,
+      "reasoning_output_tokens": 5910,
+      "session_ids": [
+        "01a22085-3688-7d32-8f32-d08e2d6059f3"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 45
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": 2105905,
+      "cached_input_tokens": 2006016,
+      "output_tokens": 20313,
+      "reasoning_output_tokens": 5910
+    }
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-11-28T04:55:38.203366+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 17,
+            "windowDurationMins": 300,
+            "resetsAt": 1795858209
+          },
+          "secondary": {
+            "usedPercent": 31,
+            "windowDurationMins": 10080,
+            "resetsAt": 1796281931
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-11-28T05:12:29.549211+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 26,
+            "windowDurationMins": 300,
+            "resetsAt": 1795858209
+          },
+          "secondary": {
+            "usedPercent": 32,
+            "windowDurationMins": 10080,
+            "resetsAt": 1796281931
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "continuous": {
+    "trajectory_id": "scikit_v2_ponytail_r01",
+    "step": 1,
+    "repetition": 1,
+    "executor_session_id": "01a22085-3688-7d32-8f32-d08e2d6059f3",
+    "input_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+    "incremental_footprint": {
+      "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+      "ending_commit": "8965a0c78a17ebbf9688908318b8e0bbbba85146",
+      "added_prod_loc": 197,
+      "deleted_prod_loc": 75,
+      "changed_prod_files": 5,
+      "new_prod_files": 0,
+      "deleted_prod_files": 0,
+      "renamed_prod_files": 0,
+      "binary_changes": [],
+      "files": [
+        {
+          "status": "M",
+          "old_path": "sklearn/metrics/_regression.py",
+          "new_path": "sklearn/metrics/_regression.py",
+          "raw_added": 43,
+          "raw_deleted": 31,
+          "added_prod_loc": 43,
+          "deleted_prod_loc": 31
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/metrics/pairwise.py",
+          "new_path": "sklearn/metrics/pairwise.py",
+          "raw_added": 10,
+          "raw_deleted": 1,
+          "added_prod_loc": 10,
+          "deleted_prod_loc": 1
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/metrics/tests/test_pairwise.py",
+          "new_path": "sklearn/metrics/tests/test_pairwise.py",
+          "raw_added": 27,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/metrics/tests/test_regression.py",
+          "new_path": "sklearn/metrics/tests/test_regression.py",
+          "raw_added": 71,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/preprocessing/_label.py",
+          "new_path": "sklearn/preprocessing/_label.py",
+          "raw_added": 14,
+          "raw_deleted": 7,
+          "added_prod_loc": 14,
+          "deleted_prod_loc": 7
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/preprocessing/tests/test_label.py",
+          "new_path": "sklearn/preprocessing/tests/test_label.py",
+          "raw_added": 46,
+          "raw_deleted": 2,
+          "production_metrics": "excluded"
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/utils/_array_api.py",
+          "new_path": "sklearn/utils/_array_api.py",
+          "raw_added": 78,
+          "raw_deleted": 5,
+          "added_prod_loc": 78,
+          "deleted_prod_loc": 5
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/utils/_encode.py",
+          "new_path": "sklearn/utils/_encode.py",
+          "raw_added": 52,
+          "raw_deleted": 31,
+          "added_prod_loc": 52,
+          "deleted_prod_loc": 31
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/utils/tests/test_array_api.py",
+          "new_path": "sklearn/utils/tests/test_array_api.py",
+          "raw_added": 83,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        },
+        {
+          "status": "M",
+          "old_path": "sklearn/utils/tests/test_encode.py",
+          "new_path": "sklearn/utils/tests/test_encode.py",
+          "raw_added": 25,
+          "raw_deleted": 0,
+          "production_metrics": "excluded"
+        }
+      ],
+      "rules": {
+        "extensions": [
+          ".py",
+          ".pyx",
+          ".pxd",
+          ".pxi"
+        ],
+        "loc": "physical lines including comments and blanks; no inline-test AST removal",
+        "excluded": [
+          "metadata tests/exclusions/generated",
+          "vendor/generated/__pycache__ directories"
+        ],
+        "cython": "included in footprint; excluded from Python Sonar and semantic coverage",
+        "rename_detection": "-M20%"
+      },
+      "net_prod_loc": 122,
+      "churn_prod_loc": 272,
+      "cumulative_prod_loc": 205368
+    }
+  },
+  "collection_errors": [],
+  "skill_state": null,
+  "hook_activation_audit": {
+    "native_hook_activation_verified": true,
+    "audit": [
+      {
+        "entrypoint": "ponytail-activate.js",
+        "event": "SessionStart",
+        "exit_code": 0,
+        "mode": "full",
+        "context_chars": 4979,
+        "context_sha256": "f61a9a79d7b17abd1e2da1e717a200d1417871417e4395682e48a4846b788d0c",
+        "full_mode_context": true,
+        "unprivileged_uid": 1000
+      },
+      {
+        "entrypoint": "ponytail-mode-tracker.js",
+        "event": "UserPromptSubmit",
+        "exit_code": 0,
+        "mode": "full",
+        "context_chars": 0,
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_mode_context": false,
+        "unprivileged_uid": 1000
+      }
+    ]
+  },
+  "grading_validity": {
+    "valid": true,
+    "raw_score_preserved": true,
+    "common_base_limitation": "M06 unchanged-base preflight has 78 missing P2P tests; inspect raw counts."
+  },
+  "sonar": {
+    "analysis_ok": true,
+    "new_maintainability_issues": null,
+    "project_key": "coding-experiment-b717d9f38c652396df20e8e57a86fa2a8dcf489b",
+    "task_id": "5137bc0e-fe29-4ca5-8101-80f6b9af9346",
+    "metrics": {
+      "ncloc": 75307,
+      "lines": 185684,
+      "complexity": 12294,
+      "cognitive_complexity": 14776,
+      "duplicated_lines": 1165,
+      "duplicated_lines_density": 0.6,
+      "code_smells": 1906,
+      "sqale_index": 10907,
+      "software_quality_maintainability_issues": 1899,
+      "software_quality_maintainability_remediation_effort": 10865
+    },
+    "missing_metrics": [],
+    "failure_category": null,
+    "server_version": "26.9.0.129388",
+    "snapshot_sha256": "a8100e10f8cdea98df615fd0e7a3f50d8eaacb16405fb4c1f7304e4d68dae899",
+    "scanner_version": "8.1.0.6389",
+    "source_exclusions": [],
+    "snapshot_binding_verified": true,
+    "rust_coverage_verified": false,
+    "new_code_comparison_valid": false,
+    "analysis_id": "a23b6fa7-32a1-4930-a88b-27a33133972a",
+    "duration_seconds": 10.390434867000295,
+    "python_coverage_verified": true,
+    "source_file_count": 264,
+    "protocol_sha256": "0fe6172e3396654c4d65f7d16cfbc8e924906be9e5cc4e99878cec8089b97054",
+    "source_scope": "captured production .py only; Cython excluded",
+    "total_duration_seconds": 74.10514929499914,
+    "delta_vs_common_base": {
+      "ncloc": 110,
+      "lines": 122,
+      "complexity": 25,
+      "cognitive_complexity": 21,
+      "duplicated_lines": 0,
+      "duplicated_lines_density": 0.0,
+      "code_smells": 1,
+      "sqale_index": 7,
+      "software_quality_maintainability_issues": 1,
+      "software_quality_maintainability_remediation_effort": 7
+    },
+    "common_base_comparison_verified": true
+  },
+  "resolved": true,
+  "grader_metrics": {
+    "milestone_id": "M06",
+    "patch_is_None": false,
+    "patch_exists": true,
+    "patch_successfully_applied": true,
+    "resolved": true,
+    "tests_status": {
+      "FAIL_TO_PASS": {
+        "success": [
+          "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y0-array_api_strict-None-None]",
+          "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y2-array_api_strict-None-None]",
+          "sklearn/metrics/tests/test_common.py::test_array_api_compliance[mean_tweedie_deviance-check_array_api_regression_metric-array_api_strict-None-None]",
+          "sklearn/metrics/tests/test_common.py::test_array_api_compliance[d2_tweedie_score-check_array_api_regression_metric-array_api_strict-None-None]",
+          "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y1-array_api_strict-None-None]"
+        ],
+        "failure": []
+      },
+      "NONE_TO_PASS": {
+        "success": [],
+        "failure": [],
+        "missing": 0
+      },
+      "PASS_TO_PASS": {
+        "success_count": 34669,
+        "failure": [],
+        "missing": 0
+      }
+    },
+    "test_summary": {
+      "total": 37666,
+      "passed": 34789,
+      "failed": 56,
+      "error": 0,
+      "skipped": 2677,
+      "fail_to_pass_required": 5,
+      "fail_to_pass_achieved": 5,
+      "none_to_pass_required": 0,
+      "none_to_pass_achieved": 0,
+      "pass_to_pass_required": 34669,
+      "pass_to_pass_achieved": 34669,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "none_to_pass_missing": 0
+    },
+    "base_tag": "milestone-M06-end",
+    "fallback_triggered": false,
+    "end_compile_error": "",
+    "start_compile_error": "",
+    "build_failure_policy": {
+      "fail_closed": false,
+      "partial_test_universe": false,
+      "diagnostics": [],
+      "absent_suites": []
+    },
+    "residue_prune": {
+      "enabled": false,
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cjs",
+        ".cpp",
+        ".cxx",
+        ".go",
+        ".groovy",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx",
+        ".java",
+        ".js",
+        ".jsx",
+        ".kt",
+        ".mjs",
+        ".pxd",
+        ".py",
+        ".pyi",
+        ".pyx",
+        ".rs",
+        ".scala",
+        ".ts",
+        ".tsx"
+      ],
+      "keep_list": [],
+      "policy_source": "metadata-legacy",
+      "policy_sha256": "",
+      "enablement_source": "metadata-legacy",
+      "pruned_files_count": 0,
+      "pruned_files": [],
+      "keep_list_hits": [],
+      "skipped_reason": ""
+    },
+    "snapshot_integrity": {
+      "ok": null,
+      "missing_count": 0,
+      "legacy_unverified": false
+    },
+    "manifest_overlay": {
+      "evaluator_base": "",
+      "evaluator_head": "",
+      "base_reason": "",
+      "merged_count": 0,
+      "agent_exact_count": 0,
+      "agent_added_count": 0,
+      "evaluator_missing_count": 0,
+      "conflict_files_count": 0,
+      "conflict_hunks_count": 0,
+      "conflict_policy": "evaluator-wins",
+      "agent_authoritative_paths": []
+    },
+    "evaluation_environment": {
+      "post_snapshot_script": "",
+      "post_snapshot_script_sha256": "",
+      "jest_ipc_guard": "",
+      "post_snapshot_script_applied": false,
+      "gt_test_graft_suffix": "",
+      "gt_test_graft_removed_count": 0,
+      "gt_test_graft_restored_count": 0,
+      "gt_test_graft_mode": "legacy-test-dirs",
+      "gt_test_graft_fixture_paths": [],
+      "gt_test_graft_unlisted_changed_paths": [],
+      "rust_gt_unplaced_count": 0,
+      "rust_gt_unplaced_tests": [],
+      "manifest_duplicate_key_resolutions": [],
+      "harness_revision": "f4e1a18a1bc1",
+      "fallback_test_graft_policy_binding_mode": "absent-legacy",
+      "fallback_test_graft_policy_sha256": "",
+      "offline_cache_overlay_image": "",
+      "offline_cache_milestone_image_id": "fd3683ec1e5bc8886a7aa483ab1a3d87e11ed28caebf5b5d9422637d59af0a8f",
+      "offline_cache_closure_image_id": "",
+      "offline_cache_effective_image_id": "fd3683ec1e5bc8886a7aa483ab1a3d87e11ed28caebf5b5d9422637d59af0a8f",
+      "repo_config_binding_mode": "trial-pinned",
+      "repo_config_sha256": "d07206f7be4ceb5a86bffa868831035e34804c5e75545cd16d0f73e44697e65b",
+      "runtime_policy_binding_mode": "trial-pinned",
+      "runtime_policy_sha256": "911f91594c30351f403293d3ccca73cd92b2c914d60a8af7f711450acd3f28a7",
+      "runtime_policy_mode": "protected",
+      "snapshot_agent_image_id": "",
+      "snapshot_agent_tag_commit": "",
+      "go_toolchain_expected": "",
+      "go_toolchain_actual": "",
+      "go_toolchain_executable": "",
+      "go_toolchain_goroot": "",
+      "go_module_closure": {
+        "enabled": false,
+        "applied": false,
+        "production_compile_checked": false,
+        "production_compile_error": "",
+        "test_graph_contract_error": "",
+        "test_graph_added_modules": [],
+        "partial_package_filter_applied": false,
+        "partial_package_filter_excluded": [],
+        "partial_package_filter_included": 0,
+        "exact_manifest_projection": true,
+        "projected_absent_removed": [],
+        "local_cache_proxy_used": false,
+        "test_overlay_changed": false,
+        "sum_changed": false,
+        "manifest_sha256_before": "",
+        "manifest_sha256_after": "",
+        "test_graph_sha256_before": "",
+        "test_graph_sha256_after": "",
+        "error": ""
+      }
+    },
+    "scoring_identity": {
+      "policy": "identity-v2",
+      "framework": "pytest",
+      "payload_path": "artifacts/125375/eval_summary.json",
+      "payload_sha256": "f28ef0b3c54c28bea9db4aec4adf420231ee9688309e3a7917dfc1f92958379c",
+      "classification_file": "M06_classification.json",
+      "classification_sha256": "213149460508066b043804acfc7b059ec457c0e2e717f18edf783fa6b09cd981",
+      "collision_count": 0,
+      "collisions": [],
+      "untrusted": false,
+      "match_trace": {
+        "fail_to_pass": {
+          "exact": 5
+        },
+        "pass_to_pass": {
+          "exact": 34669
+        },
+        "none_to_pass": {}
+      }
+    },
+    "infrastructure_failure": "",
+    "scored_failure_reason": "",
+    "infra_invalid": false,
+    "infra_invalid_reason": "",
+    "snapshot_extraction_method": "git_tag",
+    "agent_created_tag": true
+  },
+  "f2p": {
+    "success": [
+      "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y0-array_api_strict-None-None]",
+      "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y2-array_api_strict-None-None]",
+      "sklearn/metrics/tests/test_common.py::test_array_api_compliance[mean_tweedie_deviance-check_array_api_regression_metric-array_api_strict-None-None]",
+      "sklearn/metrics/tests/test_common.py::test_array_api_compliance[d2_tweedie_score-check_array_api_regression_metric-array_api_strict-None-None]",
+      "sklearn/preprocessing/tests/test_label.py::test_label_encoder_array_api_compliance[y1-array_api_strict-None-None]"
+    ],
+    "failure": []
+  },
+  "p2p": {
+    "success_count": 34669,
+    "failure": [],
+    "missing": 0
+  },
+  "n2p": {
+    "success": [],
+    "failure": [],
+    "missing": 0
+  },
+  "failure_category": null,
+  "added_prod_loc": 197,
+  "deleted_prod_loc": 75,
+  "net_prod_loc": 122,
+  "churn_prod_loc": 272,
+  "changed_prod_files": 5,
+  "cumulative_prod_loc": 205368,
+  "new_prod_files": 0,
+  "deleted_prod_files": 0,
+  "renamed_prod_files": 0,
+  "binary_changes": [],
+  "files": [
+    {
+      "status": "M",
+      "old_path": "sklearn/metrics/_regression.py",
+      "new_path": "sklearn/metrics/_regression.py",
+      "raw_added": 43,
+      "raw_deleted": 31,
+      "added_prod_loc": 43,
+      "deleted_prod_loc": 31
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/metrics/pairwise.py",
+      "new_path": "sklearn/metrics/pairwise.py",
+      "raw_added": 10,
+      "raw_deleted": 1,
+      "added_prod_loc": 10,
+      "deleted_prod_loc": 1
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/metrics/tests/test_pairwise.py",
+      "new_path": "sklearn/metrics/tests/test_pairwise.py",
+      "raw_added": 27,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/metrics/tests/test_regression.py",
+      "new_path": "sklearn/metrics/tests/test_regression.py",
+      "raw_added": 71,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/preprocessing/_label.py",
+      "new_path": "sklearn/preprocessing/_label.py",
+      "raw_added": 14,
+      "raw_deleted": 7,
+      "added_prod_loc": 14,
+      "deleted_prod_loc": 7
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/preprocessing/tests/test_label.py",
+      "new_path": "sklearn/preprocessing/tests/test_label.py",
+      "raw_added": 46,
+      "raw_deleted": 2,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/utils/_array_api.py",
+      "new_path": "sklearn/utils/_array_api.py",
+      "raw_added": 78,
+      "raw_deleted": 5,
+      "added_prod_loc": 78,
+      "deleted_prod_loc": 5
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/utils/_encode.py",
+      "new_path": "sklearn/utils/_encode.py",
+      "raw_added": 52,
+      "raw_deleted": 31,
+      "added_prod_loc": 52,
+      "deleted_prod_loc": 31
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/utils/tests/test_array_api.py",
+      "new_path": "sklearn/utils/tests/test_array_api.py",
+      "raw_added": 83,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    },
+    {
+      "status": "M",
+      "old_path": "sklearn/utils/tests/test_encode.py",
+      "new_path": "sklearn/utils/tests/test_encode.py",
+      "raw_added": 25,
+      "raw_deleted": 0,
+      "production_metrics": "excluded"
+    }
+  ],
+  "rules": {
+    "extensions": [
+      ".py",
+      ".pyx",
+      ".pxd",
+      ".pxi"
+    ],
+    "loc": "physical lines including comments and blanks; no inline-test AST removal",
+    "excluded": [
+      "metadata tests/exclusions/generated",
+      "vendor/generated/__pycache__ directories"
+    ],
+    "cython": "included in footprint; excluded from Python Sonar and semantic coverage",
+    "rename_detection": "-M20%"
+  },
+  "verified_snapshot_files": 404
+}
