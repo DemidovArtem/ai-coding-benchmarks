@@ -13,6 +13,14 @@ pinned M11 grader: 1,421,510,719 new compressed bytes, as recorded in the
 [M11 budget](../reports/scikit_v2_m11_image_budget.json). Later graders still
 need separate approval.
 
+## User pause — 28 November 2026
+
+All work and the heartbeat automation are paused by the maintainer. Resume only
+after a new message in this Codex chat explicitly refers to this pause and says
+that it has ended. A general request to continue this roadmap does not end the
+pause. Preserve all checkpoints and retained containers.
+[Pause checkpoint](../reports/experiment_pause.json).
+
 ## Deliverables and order
 
 | Stage | State | Acceptance condition |

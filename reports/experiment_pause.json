@@ -1,0 +1,15 @@
+{
+  "active": true,
+  "requested_on": "2026-11-28",
+  "recorded_at": "2026-11-28T18:13:35.216611+00:00",
+  "resume_condition": "Resume only after a new explicit message in this Codex chat directly refers to this pause and states that the pause has ended. A general request to continue ROADMAP.md is insufficient.",
+  "automation_id": "automation-2",
+  "automation_status": "PAUSED",
+  "no_active_model_processes_verified": true,
+  "trial_controller_finished": true,
+  "retained_container": "m11-scikit_v2_baseline_r01-runner",
+  "checkpoint": "reports/scikit_v2_baseline_r01_s02.json",
+  "completed_steps": 5,
+  "target_steps": 60,
+  "pending_technical_failure": "M11 baseline stopped before inference. Parent bundle contains M06 tag, but Git fetch refused to update checked-out master; frozen helper did not raise on the fetch return code. No recovery or fix performed after pause."
+}
