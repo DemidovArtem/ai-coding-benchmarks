@@ -10,13 +10,14 @@ Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github
 
 [Results](docs/RESULTS.md) · [Methodology](docs/METHODOLOGY.md) · [Reproducibility](docs/REPRODUCIBILITY.md) · [Research brief](docs/RESEARCH_SUMMARY.md) · [Next repository](docs/SECOND_REPOSITORY.md) · [Live experiment register](EXPERIMENT_STATUS.md)
 
-**Current authorized objective (28 November 2026):** audit the completed ripgrep
-ECC pilot, then finish scikit-learn for baseline, Caveman, Ponytail, Serena and
-ECC with two six-task repetitions each (60 planned submissions, three collected).
-Exact recovery of the original scikit-learn runtime is a prerequisite; its image
-is currently absent. Framework consolidation follows completed results, rather
-than changing execution during the experiment. See the [completion roadmap](docs/ROADMAP.md)
-for recovery, notifications, storage and acceptance conditions.
+**Current objective (28 November 2026):** the ripgrep ECC evidence audit is
+complete. Following loss of the original scikit-learn runtime, a
+[fresh five-method cohort](docs/SCIKIT_NEW_COHORT_PLAN.md) is proposed: two six-task
+repetitions each, starting at 0/60. The three original scikit-learn submissions
+remain a separate historical pilot. Only planning is currently authorized;
+downloads, builds and inference await review. Framework consolidation follows
+completed results. See the [completion roadmap](docs/ROADMAP.md) for notifications,
+storage and acceptance conditions.
 
 ## Research questions
 

@@ -4,15 +4,19 @@ Authorized on 28 November 2026. This roadmap records the current objective;
 historical frozen protocols, input hashes and failed attempts remain unchanged.
 The [live register](../EXPERIMENT_STATUS.md) is generated from retained records.
 
+Latest decision: prepare the [fresh-cohort proposal](SCIKIT_NEW_COHORT_PLAN.md).
+This authorizes planning only. Its new 0/60 matrix excludes the three historical
+submissions; downloads, builds and inference remain withheld pending review.
+
 ## Deliverables and order
 
 | Stage | State | Acceptance condition |
 | --- | --- | --- |
 | Durable coordination and Telegram | Schedule and delivery verified | [Preflight evidence](../reports/coordination_preflight.json): persisted roadmap heartbeat, verified private recipient, dry-run, delivered test and sender tests. Reboot/quota recovery remains untested. |
 | Ripgrep ECC audit | Verified without new inference | [Retained evidence audit](../reports/ecc_activation_audit.md) verifies measured activation, native agent tree, memory, usage, source ancestry and checkpoint hashes for all six submissions. |
-| Scikit-learn runtime recovery | Waiting for maintainer decision | [Recovery audit](../reports/scikit_recovery_audit.json): three retained first-step checkpoints verified; original runtime/parents and matching build cache/export not found locally. No substitute or new cohort launched. |
-| Scikit-learn ECC preflight | Withheld until runtime recovery | Reuse the pinned ECC profile; verify Python activation, child-session accounting, complete native-tree restore and trajectory-local memory. |
-| Scikit-learn matrix | 3/60 completed; launches withheld | Five methods, two cold repetitions, six sequential tasks; collect every source/session checkpoint, usage, grading and Sonar result. |
+| Scikit-learn environment | Fresh-cohort proposal awaiting review | [Recovery audit](../reports/scikit_recovery_audit.json): original image absent, three historical checkpoints verified. [New proposal](SCIKIT_NEW_COHORT_PLAN.md) uses one independent common runtime; no acquisition or build started. |
+| Scikit-learn ECC preflight | Withheld until new environment is approved and built | Reuse the pinned ECC profile; verify Python activation, child-session accounting, complete native-tree restore and trajectory-local memory. |
+| Scikit-learn matrix | Historical 3 retained separately; proposed fresh matrix 0/60 | Five methods, two cold repetitions, six sequential tasks; collect every source/session checkpoint, usage, grading and Sonar result. |
 | Results publication | Pending matrix completion | Publish five-method curves, observed sample counts, deviations and missing scores; verify public analysis reproduction. |
 | Framework simplification | Deferred until results are published | Shared CLI and orchestration; configuration-driven tasks/models and profile registry; Rust/Python adapters; fixture-proven extension with less duplicated execution code. |
 
@@ -32,18 +36,18 @@ establishes without replacing the original records.
 Scikit-learn uses baseline, Caveman, Ponytail, Serena and ECC, in that order.
 The task sequence remains M06, M11, M12.1, M12.2, M01, M03. Finish every method on
 a task before advancing; finish repetition one before starting repetition two
-from the identical clean base. Three first-step submissions are retained;
-57 steps remain only if their exact runtime can be restored. Serena's first
-attempt stopped before inference at the old quota gate and needs a separately
-named recovery attempt. It is not an independent repetition.
+from the identical clean base. The original three first-step submissions remain
+a separate historical pilot. The proposed fresh cohort starts all 60 steps from
+zero, without restoring historical source, sessions or memories. Serena's old
+quota failure remains in history; it is neither a new-cohort result nor an
+independent repetition. The fresh cohort is not yet authorized for execution.
 
 Preserve the existing offline ECC 2.2.3 source, official instructions and roles,
 model and reasoning overrides. External MCP, web lookup, remote plugins and
 connected apps remain disabled. Do not upgrade the historical Codex 0.163.0,
-gpt-6.1-sol/high or dataset pins to make recovery pass. Extend the four-method
-protocol through a separate amendment before inference, preserving its original
-hashes. Verify compatibility before joining old and new trajectory segments;
-different fingerprints are not automatically comparable.
+gpt-6.1-sol/high or dataset pins. Freeze a separate five-method protocol and input
+manifest before inference, preserving the original protocol and hashes. Never
+join old and new trajectory segments or pool different cohort fingerprints.
 
 ## Operational rules
 

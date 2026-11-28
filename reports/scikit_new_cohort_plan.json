@@ -1,0 +1,115 @@
+{
+  "prepared_on": "2026-11-28",
+  "state": "proposed_not_executed",
+  "cohort_id": "scikit-five-method-v2",
+  "plan": "docs/SCIKIT_NEW_COHORT_PLAN.md",
+  "planning_authorized": true,
+  "image_download_authorized": false,
+  "build_authorized": false,
+  "model_inference_authorized": false,
+  "measured_submissions_completed": 0,
+  "historical_submissions_excluded": 3,
+  "matrix": {
+    "variants": [
+      "baseline",
+      "caveman",
+      "ponytail",
+      "serena",
+      "ecc"
+    ],
+    "repetitions": 2,
+    "steps_per_trajectory": 6,
+    "total_new_submissions": 60,
+    "milestones": [
+      "M06",
+      "M11",
+      "M12.1",
+      "M12.2",
+      "M01",
+      "M03"
+    ],
+    "order": "repetition, step, method; serial, cold repetition two"
+  },
+  "conditions": {
+    "codex": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "auth": "chatgpt_oauth_only",
+    "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+    "base_digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline@sha256:2b77ce7d7030461e3e7ca67e47d910d7fa0e6784c7520c62f183ebcde837bd0a",
+    "same_runtime_for_all_methods": true,
+    "new_native_sessions_and_memories": true,
+    "old_results_pooled": false,
+    "grader_and_quarantine_unchanged": true,
+    "sonar": "fresh Python common-base scan; Cython outside Sonar coverage"
+  },
+  "runtime": {
+    "recipe_strategy": "One scikit base plus retained local file closures; no deleted historical image dependencies.",
+    "python": "3.13.14",
+    "serena_agent": "1.6.1",
+    "mcp_sdk": "1.28.1",
+    "pyright": "1.1.403",
+    "serena_recorded_distributions_version_matched": 72,
+    "pyright_inventory_entries_verified": 4764,
+    "hook_node": "24.19.0",
+    "ecc_default_node": "24.22.1",
+    "reviewed_local_assets": [
+      {
+        "local_path": "results/ecc_runtime_build/codex-release/bin/codex",
+        "sha256": "399ff69c431c066e40de318fba45c2b07f45a76b19939d247ee4828fc70c4215",
+        "bytes": 296865480
+      },
+      {
+        "local_path": "results/ecc_runtime_build/node",
+        "sha256": "61ab14cd750fc24d5db53490ec5fc40f756e4b6e136b78cf7004265471d9bd1d",
+        "bytes": 126939688
+      },
+      {
+        "local_path": "results/runtime_dependencies/node-v24.19.0",
+        "sha256": "bc17c508ffeed0ec622934f9b7fa72f8e78da65350e63c3eceb56fa688aa5e12",
+        "bytes": 125989464
+      },
+      {
+        "local_path": "results/scikit_runtime_build/pyright_inventory.json",
+        "sha256": "862441ce748610d650533159ab73d8aae31270b301a56a0a9bb120ac0f1a6754",
+        "bytes": 654511
+      }
+    ],
+    "durable_archive_required_before_inference": true,
+    "full_relocated_inventory_pending": true,
+    "apt_package_closure": "Pin sudo/iptables and dependencies before offline build; budget missing package bytes separately."
+  },
+  "resources": {
+    "first_pair_unique_compressed_bytes": 4005763625,
+    "all_images_unique_compressed_bytes": 14464358957,
+    "second_repetition_task_layer_upper_bytes": 13629355227,
+    "two_repetition_traffic_upper_bytes_excluding_packages_and_retries": 28093714184,
+    "estimate_basis": "Retained digest-pinned manifests, not a fresh registry or daemon blob-cache observation.",
+    "first_images": [
+      {
+        "milestone": "base-offline",
+        "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline@sha256:2b77ce7d7030461e3e7ca67e47d910d7fa0e6784c7520c62f183ebcde837bd0a"
+      },
+      {
+        "milestone": "M06",
+        "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m06@sha256:5c3349cede1dee4f18f916958c6da21648a34ed0e400ad583f0b5b6e6097186a"
+      }
+    ],
+    "expanded_peak_verified": false,
+    "docker_observed_free_bytes": 36305735680,
+    "workspace_observed_free_bytes": 73833611264,
+    "docker_reserve_bytes": 12000000000,
+    "workspace_reserve_bytes": 1000000000,
+    "acquisition_strategy": "Common runtime and current task grader only; separately approve each substantial acquisition."
+  },
+  "implementation": "Parameterize existing scikit runner paths/config/schedule and reuse ECC helpers; no duplicate phase runner.",
+  "execution_gates": [
+    "Review proposal and authorize implementation separately.",
+    "Revalidate manifests/cache and approve first image/package download budget.",
+    "Build and archive a single frozen common runtime.",
+    "Pass zero-model runtime/quarantine/MCP/grader/source/Sonar checks.",
+    "Authorize and verify neutral cold/resume activation for all five methods.",
+    "Freeze new protocol/configuration and only then execute 60 measured steps."
+  ],
+  "framework_refactor": "After measured results are complete and published, as originally agreed."
+}
