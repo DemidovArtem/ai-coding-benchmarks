@@ -12,10 +12,11 @@ Public repository: [github.com/DemidovArtem/ai-coding-benchmarks](https://github
 
 **Current objective (28 November 2026):** the ripgrep ECC evidence audit is
 complete. Following loss of the original scikit-learn runtime, a
-[fresh five-method cohort](docs/SCIKIT_NEW_COHORT_PLAN.md) is proposed: two six-task
+[fresh five-method cohort](docs/SCIKIT_NEW_COHORT_PLAN.md) is approved: two six-task
 repetitions each, starting at 0/60. The three original scikit-learn submissions
-remain a separate historical pilot. Only planning is currently authorized;
-downloads, builds and inference await review. Framework consolidation follows
+remain a separate historical pilot. Implementation and the first base + M06
+image pair are authorized; inference follows runtime and activation checks.
+Later grader acquisitions need separate approval. Framework consolidation follows
 completed results. See the [completion roadmap](docs/ROADMAP.md) for notifications,
 storage and acceptance conditions.
 

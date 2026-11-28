@@ -1,0 +1,97 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "authorized_unique_compressed_bytes": 4005763625,
+  "state": "verified",
+  "started_at": "2026-11-28T01:58:09.023242+00:00",
+  "images": [
+    {
+      "milestone": "base-offline",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline@sha256:2b77ce7d7030461e3e7ca67e47d910d7fa0e6784c7520c62f183ebcde837bd0a",
+      "state": "verified",
+      "pull_pid": 51592,
+      "image_id": "sha256:c949d192eedeb8ad49ba7e944b244382188535765d4438bf5f14e43dbc80a4c7",
+      "expanded_image_bytes": 3552688972
+    },
+    {
+      "milestone": "M06",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m06@sha256:5c3349cede1dee4f18f916958c6da21648a34ed0e400ad583f0b5b6e6097186a",
+      "state": "verified",
+      "pull_pid": 51908,
+      "image_id": "sha256:fd3683ec1e5bc8886a7aa483ab1a3d87e11ed28caebf5b5d9422637d59af0a8f",
+      "expanded_image_bytes": 5262872689
+    }
+  ],
+  "disk_observations": [
+    {
+      "at": "2026-11-28T01:58:09.044559+00:00",
+      "docker_free": 36304867328,
+      "workspace_free": 73820110848
+    },
+    {
+      "at": "2026-11-28T01:58:09.046380+00:00",
+      "docker_free": 36304867328,
+      "workspace_free": 73820106752
+    },
+    {
+      "at": "2026-11-28T01:58:19.046759+00:00",
+      "docker_free": 35167907840,
+      "workspace_free": 73820057600
+    },
+    {
+      "at": "2026-11-28T01:58:29.047549+00:00",
+      "docker_free": 34256510976,
+      "workspace_free": 73819992064
+    },
+    {
+      "at": "2026-11-28T01:58:39.048622+00:00",
+      "docker_free": 33833787392,
+      "workspace_free": 73819979776
+    },
+    {
+      "at": "2026-11-28T01:58:49.049541+00:00",
+      "docker_free": 33209733120,
+      "workspace_free": 73819975680
+    },
+    {
+      "at": "2026-11-28T01:58:59.050299+00:00",
+      "docker_free": 33024561152,
+      "workspace_free": 73819975680
+    },
+    {
+      "at": "2026-11-28T01:59:09.074501+00:00",
+      "docker_free": 32479956992,
+      "workspace_free": 72902643712
+    },
+    {
+      "at": "2026-11-28T01:59:09.077433+00:00",
+      "docker_free": 32479956992,
+      "workspace_free": 72902643712
+    },
+    {
+      "at": "2026-11-28T01:59:19.077857+00:00",
+      "docker_free": 31795433472,
+      "workspace_free": 72902606848
+    },
+    {
+      "at": "2026-11-28T01:59:29.078670+00:00",
+      "docker_free": 31427080192,
+      "workspace_free": 72902070272
+    },
+    {
+      "at": "2026-11-28T01:59:39.080334+00:00",
+      "docker_free": 31044079616,
+      "workspace_free": 72902008832
+    },
+    {
+      "at": "2026-11-28T01:59:49.081437+00:00",
+      "docker_free": 30500098048,
+      "workspace_free": 72901996544
+    },
+    {
+      "at": "2026-11-28T01:59:59.106362+00:00",
+      "docker_free": 30498947072,
+      "workspace_free": 72901988352
+    }
+  ],
+  "updated_at": "2026-11-28T01:59:59.106991+00:00"
+}

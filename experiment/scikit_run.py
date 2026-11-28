@@ -20,7 +20,7 @@ from experiment.phase6e import restore_history
 from experiment.python_sonar import scan
 from experiment.quota import read_quota
 from experiment.runner import ROOT, check_quota, save, setup_fingerprint, trial_lock
-from experiment.scikit import CONFIG, PREPARED, WORKSPACE
+from experiment.scikit import CONFIG, WORKSPACE, artifact
 from experiment.scikit_collect import collect, metrics_repository, publish
 from experiment.scikit_profiles import install
 from experiment.security import credential_values, redact, redact_artifacts
@@ -30,13 +30,15 @@ from experiment.skill_trial import assert_no_profile_artifacts
 from experiment.status import main as refresh_status
 
 
-def schedule():
-    return [(repetition, step, variant) for repetition in (1, 2) for step in range(1, 7)
-            for variant in ('baseline', 'caveman', 'ponytail', 'serena')]
+def schedule(config=None):
+    config = config or {}
+    return [(repetition, step, variant) for repetition in range(1, config.get('repetitions', 2) + 1)
+            for step in range(1, len(config.get('benchmark', {}).get('milestones', range(6))) + 1)
+            for variant in config.get('variants', ('baseline', 'caveman', 'ponytail', 'serena'))]
 
 
-def trial_id(variant, repetition, step):
-    return f'scikit_{variant}_r{repetition:02d}_s{step:02d}'
+def trial_id(variant, repetition, step, config=None):
+    return f'{(config or {}).get("trial_prefix", "scikit")}_{variant}_r{repetition:02d}_s{step:02d}'
 
 
 def require_ready(config, milestone):
@@ -51,14 +53,14 @@ def require_ready(config, milestone):
         if subprocess.check_output(['git', '-C', str(ROOT / name), 'rev-parse', 'HEAD'], text=True).strip() != expected:
             raise ValueError('Frozen source checkout changed: ' + name)
     image = config['benchmark']['skill_runtime_image_id']
-    runtime = load(ROOT / 'profiles/scikit_runtime/manifest.json')
+    runtime = load(artifact(config, 'runtime_manifest', 'profiles/scikit_runtime/manifest.json'))
     if runtime.get('image_id') != image or runtime.get('python_lsp_verified') is not True:
         raise ValueError('Python semantic runtime is unverified')
-    if not load(ROOT / 'reports/scikit_grader_preflight.json').get('valid'):
+    if not load(artifact(config, 'grader_preflight', 'reports/scikit_grader_preflight.json')).get('valid'):
         raise ValueError('Original grader preflight is missing')
-    if not load(ROOT / 'results/scikit_preflight/python_sonar_base_attempt02/sonar.json').get('analysis_ok'):
+    if not load(artifact(config, 'sonar_base', 'results/scikit_preflight/python_sonar_base_attempt02') / 'sonar.json').get('analysis_ok'):
         raise ValueError('Python common-base Sonar is missing')
-    hooks = load(ROOT / 'reports/scikit_hook_preflight.json')
+    hooks = load(artifact(config, 'hook_preflight', 'reports/scikit_hook_preflight.json'))
     if any(not hooks[v].get('hook_command_activation_verified') or hooks[v]['image_id'] != image
            for v in ('caveman', 'ponytail')):
         raise ValueError('Hook-command preflight is missing')
@@ -70,25 +72,30 @@ def require_ready(config, milestone):
     check_resources(config)
 
 
-def progress(chain, **changes):
+def progress(chain, config=None, **changes):
     path = ROOT / 'reports/continuous_feasibility.json'
     plan = load(path)
     row = next(r for r in plan['pilot_runs'] if r['trial_id'] == chain)
     row.update(changes)
-    cohort = plan['cohorts']['scikit_replication']
-    complete = sum(r['completed_steps'] for r in plan['pilot_runs'] if r['trial_id'].startswith('scikit_'))
+    config = config or {}
+    cohort = plan['cohorts'][config.get('register_cohort', 'scikit_replication')]
+    prefix = config.get('trial_prefix', 'scikit') + '_'
+    complete = sum(r['completed_steps'] for r in plan['pilot_runs'] if r['trial_id'].startswith(prefix)
+                   and (prefix != 'scikit_' or not r['trial_id'].startswith('scikit_v2_')))
+    total = len(schedule(config))
     stopped = changes.get('state') == 'failed'
     cohort.update(status='stopped' if stopped else 'running' if changes.get('state') == 'running' else 'ready',
-                  label=('Stopped; ' if stopped else '') + f'{complete}/48 measured steps collected',
-                  summary=f'{complete}/48 steps; serial step-first order, four configurations, two cold repetitions. '
-                          'Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. '
+                  label=('Stopped; ' if stopped else '') + f'{complete}/{total} measured steps collected',
+                  summary=f'{complete}/{total} steps; serial step-first order, isolated cold repetitions. '
+                          'Python Sonar excludes Cython; inspect the cohort common-base grader preflight. '
                           'Source, native session and Serena memories checkpointed per trajectory.')
     save(path, plan)
     refresh_status()
 
 
 def restore_source(setup, config, parent):
-    copy_to(setup.container_name, PREPARED / 'repository.bundle', '/tmp/scikit-common.bundle')
+    prepared = artifact(config, 'common_base', 'results/scikit_preflight/common_base')
+    copy_to(setup.container_name, prepared / 'repository.bundle', '/tmp/scikit-common.bundle')
     # This is a new disposable container. Remove its original future-bearing Git history.
     setup.docker_exec(['rm', '-rf', '/testbed/.git'], user='root')
     setup.docker_exec_git('init', '-q')
@@ -106,6 +113,7 @@ def restore_source(setup, config, parent):
 
 
 def checkpoint(runner, output, config):
+    prepared = artifact(config, 'common_base', 'results/scikit_preflight/common_base')
     runner.agent_runner.extract_trace(output / 'log')
     base = config['benchmark']['common_starting_commit']
     current = runner.container_setup.docker_exec_git('rev-parse', 'HEAD').stdout.strip()
@@ -127,10 +135,10 @@ def checkpoint(runner, output, config):
                 subprocess.run(['docker', 'cp', runner.container_name + ':' + source, str(raw / name)],
                                check=True, capture_output=True)
     backup_stores(raw, output / 'native_session_store')
-    repo = metrics_repository(output)
+    repo = metrics_repository(output, config)
     subprocess.run(['git', '-C', str(repo), 'fsck', '--full'], check=True, capture_output=True)
-    save(output / 'checkpoint.json', {'common_base_bundle_required': str((PREPARED / 'repository.bundle').relative_to(ROOT)),
-         'common_base_bundle_sha256': hashlib.sha256((PREPARED / 'repository.bundle').read_bytes()).hexdigest(),
+    save(output / 'checkpoint.json', {'common_base_bundle_required': str((prepared / 'repository.bundle').relative_to(ROOT)),
+         'common_base_bundle_sha256': hashlib.sha256((prepared / 'repository.bundle').read_bytes()).hexdigest(),
          'step_bundle_sha256': hashlib.sha256((output / 'repository.bundle').read_bytes()).hexdigest(),
          'native_session_store_verified': True, 'source_bundle_fsck_verified': True})
     shutil.rmtree(raw)
@@ -163,22 +171,23 @@ def run_one(config, variant, repetition, step):
 
     milestone = config['benchmark']['milestones'][step - 1]
     require_ready(config, milestone)
-    name = trial_id(variant, repetition, step)
+    name = trial_id(variant, repetition, step, config)
     output = ROOT / 'results/trials' / name
     if output.exists() or (ROOT / 'reports' / (name + '.json')).exists():
         raise ValueError('Existing attempt needs explicit recovery; never replay it')
-    parent = load(ROOT / 'reports' / (trial_id(variant, repetition, step - 1) + '.json')) if step > 1 else None
+    parent = load(ROOT / 'reports' / (trial_id(variant, repetition, step - 1, config) + '.json')) if step > 1 else None
     if step > 1 and (not parent or parent['trial_state'] != 'finished' or parent['collection_errors']):
         raise ValueError('Exact previous step is not complete')
     if parent and (parent['variant'] != variant or parent['repetition'] != repetition
-                   or parent['repo'] != config['benchmark']['repo']):
+                   or parent['repo'] != config['benchmark']['repo'] or parent['cohort'] != config['experiment_id']
+                   or parent['setup_fingerprint'] != setup_fingerprint(config)[0]):
         raise ValueError('Parent belongs to a different trajectory')
     output.mkdir(parents=True, mode=0o700)
     task_path = f'/home/fakeroot/scikit-task-{step:02d}.txt'
     task = None
     session = parent['continuous']['executor_session_id'] if parent else None
     memory_before = None
-    chain = f'scikit_{variant}_r{repetition:02d}'
+    chain = name.rsplit('_s', 1)[0]
     metadata = {'phase': 'trial', 'trial_kind': 'continuous_step', 'measured_comparison': True,
         'state': 'running', 'variant': variant, 'repetition': repetition, 'step': step, 'trajectory_id': chain,
         'executor_session_id': session, 'model': config['codex']['model'], 'reasoning_effort': 'high',
@@ -221,7 +230,7 @@ def run_one(config, variant, repetition, step):
         metadata['input_commit'] = restore_source(runner.container_setup, config, parent)
         prior_tags = {}
         for index in range(1, step):
-            previous = load(ROOT / 'reports' / (trial_id(variant, repetition, index) + '.json'))
+            previous = load(ROOT / 'reports' / (trial_id(variant, repetition, index, config) + '.json'))
             tag = 'agent-impl-' + previous['milestone_id']
             if runner._get_tag_hash(tag) != previous['ending_commit']:
                 raise ValueError('Restored previous submission tag differs')
@@ -245,7 +254,7 @@ def run_one(config, variant, repetition, step):
         check_resources(config)
         runner.container_setup.prepare_agent_invocation()
         save(output / 'run_metadata.json', metadata)
-        progress(chain, state='running', active_step=step, completed_steps=step - 1)
+        progress(chain, config, state='running', active_step=step, completed_steps=step - 1)
         execution_started = time.monotonic()
         ok = (runner.agent_runner.resume_session(session, prompt) if parent else runner.agent_runner.run(prompt)[0])
         save(output / 'execution.json', {'duration_seconds': time.monotonic() - execution_started})
@@ -283,7 +292,7 @@ def run_one(config, variant, repetition, step):
         raw = load(output / 'evaluation/evaluation_result.json')
         if raw.get('error_message') or raw.get('infra_invalid') or not raw.get('test_summary', {}).get('total'):
             raise ValueError('Original grader infrastructure failed; do not start the next task')
-        scan(output, output / 'sonar')
+        scan(output, output / 'sonar', protocol_path=artifact(config, 'sonar_protocol', 'profiles/scikit_runtime/sonar_protocol.json'))
         metadata['state'] = 'finished'
     except Exception as caught:
         error = caught
@@ -300,7 +309,7 @@ def run_one(config, variant, repetition, step):
         redact_artifacts(output, credential_values(Path.home() / '.codex/auth.json'))
         record = collect(output, config, parent)
         publish(record)
-        progress(chain, state='failed' if error or record['collection_errors'] else 'ready_next_step',
+        progress(chain, config, state='failed' if error or record['collection_errors'] else 'ready_next_step',
                  completed_steps=step - 1 if error else step, active_step=None, last_step=name,
                  failure_category=metadata.get('failure_category'))
     if error:
@@ -309,21 +318,22 @@ def run_one(config, variant, repetition, step):
         raise RuntimeError('Source/session collection failed; retained container requires review')
     compact(output)
     runner.container_setup.cleanup()
-    if step == 6:
-        progress(chain, state='finished', completed_steps=6)
+    if step == len(config['benchmark']['milestones']):
+        progress(chain, config, state='finished', completed_steps=step)
     return record
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--next', action='store_true', required=True)
-    parser.parse_args()
+    parser.add_argument('--config', type=Path, default=CONFIG)
+    args = parser.parse_args()
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
-    config = load(CONFIG)
+    config = load(args.config)
     lock = trial_lock(ROOT / 'results/scikit_runtime')
     existing = {r['trial_id']: r for r in (json.loads(l) for l in (ROOT / 'results/results.jsonl').read_text().splitlines() if l.strip())}
-    for repetition, step, variant in schedule():
-        name = trial_id(variant, repetition, step)
+    for repetition, step, variant in schedule(config):
+        name = trial_id(variant, repetition, step, config)
         if name in existing:
             if existing[name]['trial_state'] != 'finished' or existing[name]['collection_errors']:
                 raise RuntimeError('An earlier attempt needs explicit recovery; scheduler is stopped')
@@ -331,7 +341,7 @@ def main():
         run_one(config, variant, repetition, step)
         break
     else:
-        print('All 48 planned steps are already collected.')
+        print(f'All {len(schedule(config))} planned steps are already collected.')
 
 
 if __name__ == '__main__':

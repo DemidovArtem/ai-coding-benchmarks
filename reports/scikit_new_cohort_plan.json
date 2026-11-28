@@ -1,12 +1,12 @@
 {
   "prepared_on": "2026-11-28",
-  "state": "proposed_not_executed",
+  "state": "zero_model_preflight",
   "cohort_id": "scikit-five-method-v2",
   "plan": "docs/SCIKIT_NEW_COHORT_PLAN.md",
   "planning_authorized": true,
-  "image_download_authorized": false,
-  "build_authorized": false,
-  "model_inference_authorized": false,
+  "image_download_authorized": true,
+  "build_authorized": true,
+  "model_inference_authorized": true,
   "measured_submissions_completed": 0,
   "historical_submissions_excluded": 3,
   "matrix": {
@@ -76,8 +76,11 @@
       }
     ],
     "durable_archive_required_before_inference": true,
-    "full_relocated_inventory_pending": true,
-    "apt_package_closure": "Pin sudo/iptables and dependencies before offline build; budget missing package bytes separately."
+    "full_relocated_inventory_pending": false,
+    "apt_package_closure": "Pin sudo/iptables and dependencies before offline build; budget missing package bytes separately.",
+    "manifest": "profiles/scikit_runtime_v2/manifest.json",
+    "durable_archive_verified": true,
+    "offline_python_mcp_verified": true
   },
   "resources": {
     "first_pair_unique_compressed_bytes": 4005763625,
@@ -100,7 +103,8 @@
     "workspace_observed_free_bytes": 73833611264,
     "docker_reserve_bytes": 12000000000,
     "workspace_reserve_bytes": 1000000000,
-    "acquisition_strategy": "Common runtime and current task grader only; separately approve each substantial acquisition."
+    "acquisition_strategy": "Common runtime and current task grader only; separately approve each substantial acquisition.",
+    "first_pair_acquisition": "reports/scikit_v2_image_acquisition.json"
   },
   "implementation": "Parameterize existing scikit runner paths/config/schedule and reuse ECC helpers; no duplicate phase runner.",
   "execution_gates": [
@@ -111,5 +115,10 @@
     "Authorize and verify neutral cold/resume activation for all five methods.",
     "Freeze new protocol/configuration and only then execute 60 measured steps."
   ],
-  "framework_refactor": "After measured results are complete and published, as originally agreed."
+  "framework_refactor": "After measured results are complete and published, as originally agreed.",
+  "authorization": {
+    "date": "2026-11-28",
+    "decision": "Разрешаю реализацию и первый пакет образов; план подтверждаю",
+    "scope": "Implementation, activation and 60 measured steps subject to readiness and quota gates; only pinned base + M06 image acquisition authorized, up to 4005763625 unique compressed bytes. Later substantial acquisitions require separate approval."
+  }
 }

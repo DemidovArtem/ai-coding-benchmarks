@@ -4,9 +4,11 @@ Authorized on 28 November 2026. This roadmap records the current objective;
 historical frozen protocols, input hashes and failed attempts remain unchanged.
 The [live register](../EXPERIMENT_STATUS.md) is generated from retained records.
 
-Latest decision: prepare the [fresh-cohort proposal](SCIKIT_NEW_COHORT_PLAN.md).
-This authorizes planning only. Its new 0/60 matrix excludes the three historical
-submissions; downloads, builds and inference remain withheld pending review.
+Latest decision: implement the approved [fresh-cohort plan](SCIKIT_NEW_COHORT_PLAN.md).
+The new 0/60 matrix excludes the three historical submissions. Builds, activation
+and measured inference are authorized subject to readiness and quota gates.
+Only the pinned base + M06 image pair is approved for acquisition (up to
+4,005,763,625 unique compressed bytes); later graders need separate approval.
 
 ## Deliverables and order
 
@@ -14,9 +16,9 @@ submissions; downloads, builds and inference remain withheld pending review.
 | --- | --- | --- |
 | Durable coordination and Telegram | Schedule and delivery verified | [Preflight evidence](../reports/coordination_preflight.json): persisted roadmap heartbeat, verified private recipient, dry-run, delivered test and sender tests. Reboot/quota recovery remains untested. |
 | Ripgrep ECC audit | Verified without new inference | [Retained evidence audit](../reports/ecc_activation_audit.md) verifies measured activation, native agent tree, memory, usage, source ancestry and checkpoint hashes for all six submissions. |
-| Scikit-learn environment | Fresh-cohort proposal awaiting review | [Recovery audit](../reports/scikit_recovery_audit.json): original image absent, three historical checkpoints verified. [New proposal](SCIKIT_NEW_COHORT_PLAN.md) uses one independent common runtime; no acquisition or build started. |
-| Scikit-learn ECC preflight | Withheld until new environment is approved and built | Reuse the pinned ECC profile; verify Python activation, child-session accounting, complete native-tree restore and trajectory-local memory. |
-| Scikit-learn matrix | Historical 3 retained separately; proposed fresh matrix 0/60 | Five methods, two cold repetitions, six sequential tasks; collect every source/session checkpoint, usage, grading and Sonar result. |
+| Scikit-learn environment | Fresh-cohort implementation authorized | [Recovery audit](../reports/scikit_recovery_audit.json): original image absent, three historical checkpoints verified. [New proposal](SCIKIT_NEW_COHORT_PLAN.md) uses one independent common runtime; base + M06 verified; new common runtime built and durably archived, offline Python MCP verified. |
+| Scikit-learn ECC preflight | Zero-model checks underway; native activation pending | Reuse the pinned ECC profile; verify Python activation, child-session accounting, complete native-tree restore and trajectory-local memory. |
+| Scikit-learn matrix | Historical 3 retained separately; authorized fresh matrix 0/60 | Five methods, two cold repetitions, six sequential tasks; collect every source/session checkpoint, usage, grading and Sonar result. |
 | Results publication | Pending matrix completion | Publish five-method curves, observed sample counts, deviations and missing scores; verify public analysis reproduction. |
 | Framework simplification | Deferred until results are published | Shared CLI and orchestration; configuration-driven tasks/models and profile registry; Rust/Python adapters; fixture-proven extension with less duplicated execution code. |
 
@@ -40,7 +42,7 @@ from the identical clean base. The original three first-step submissions remain
 a separate historical pilot. The proposed fresh cohort starts all 60 steps from
 zero, without restoring historical source, sessions or memories. Serena's old
 quota failure remains in history; it is neither a new-cohort result nor an
-independent repetition. The fresh cohort is not yet authorized for execution.
+independent repetition. The fresh cohort is authorized, subject to the recorded readiness gates.
 
 Preserve the existing offline ECC 2.2.3 source, official instructions and roles,
 model and reasoning overrides. External MCP, web lookup, remote plugins and

@@ -7,6 +7,7 @@ import subprocess
 
 from experiment.profiles import activate_profile
 from experiment.runner import ROOT, save
+from experiment.scikit import artifact
 from experiment.serena_continuous import memory_state
 
 
@@ -42,7 +43,7 @@ def install(setup, output, config, variant):
                      manifest_sha256=hashlib.sha256((profile / 'manifest.json').read_bytes()).hexdigest())
     elif variant == 'serena':
         profile = ROOT / 'profiles/scikit_serena'
-        runtime = json.loads((ROOT / 'profiles/scikit_runtime/manifest.json').read_text())
+        runtime = json.loads(artifact(config, 'runtime_manifest', 'profiles/scikit_runtime/manifest.json').read_text())
         if runtime.get('image_id') != actual or runtime.get('python_lsp_verified') is not True:
             raise ValueError('Verified Python MCP runtime is required')
         setup.docker_exec(['mkdir', '-p', '/home/fakeroot/.serena-profile'], user='root')

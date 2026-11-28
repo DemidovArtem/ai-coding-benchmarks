@@ -7,17 +7,20 @@ from pathlib import Path
 import subprocess
 import sys
 
-from experiment.runner import ROOT, save
+from experiment.runner import ROOT, save, trial_lock
 
 REPOSITORY = 'scikit-learn_scikit-learn_1.5.2_1.6.0'
 WORKSPACE = ROOT / 'results/setup/dataset' / REPOSITORY
 CONFIG = ROOT / 'reports/scikit_experiment.json'
-PREPARED = ROOT / 'results/scikit_preflight/common_base'
 
 
-def initial_config():
+def artifact(config, name, default):
+    return ROOT / config.get('artifacts', {}).get(name, default)
+
+
+def initial_config(runtime_manifest='profiles/scikit_runtime/manifest.json'):
     budget = json.loads((ROOT / 'reports/second_repository_preflight.json').read_text())
-    runtime = json.loads((ROOT / 'profiles/scikit_runtime/manifest.json').read_text())
+    runtime = json.loads((ROOT / runtime_manifest).read_text())
     config = {
         'experiment_id': 'scikit-configuration-v1-pilot', 'stage': 'preflight', 'measurement_started': False,
         'codex': {'version': '0.163.0', 'model': 'gpt-6.1-sol', 'reasoning_effort': 'high', 'auth': 'chatgpt_oauth_only'},
@@ -42,35 +45,36 @@ class PreparedBoundary(Exception):
     pass
 
 
-def prepare_base():
+def prepare_base(config=None, config_path=CONFIG):
     from harness.e2e.run_milestone import MilestoneRunner
     from experiment.profiles import activate_profile
     from experiment.python_metrics import verify_snapshot
 
-    if PREPARED.exists():
+    config = config if config is not None else initial_config()
+    prepared = artifact(config, 'common_base', 'results/scikit_preflight/common_base')
+    if prepared.exists():
         raise ValueError('Preflight output already exists; do not overwrite an attempt')
-    config = initial_config()
-    save(CONFIG, config)
+    save(config_path, config)
 
     class PrepareRunner(MilestoneRunner):
         def _load_prompt(self):
-            proof = activate_profile(self.container_setup, PREPARED, config)
+            proof = activate_profile(self.container_setup, prepared, config)
             tree = self.container_setup.docker_exec_git('rev-parse', 'HEAD^{tree}').stdout.strip()
             proof['starting_tree'] = tree
-            save(PREPARED / 'effective_profile.json', proof)
+            save(prepared / 'effective_profile.json', proof)
             self.container_setup.docker_exec_git('tag', 'agent-impl-M06')
             snapshot = self._extract_snapshot(proof['starting_commit'])
             self.container_setup.docker_exec_git('bundle', 'create', '/tmp/scikit-preflight.bundle', '--all')
             subprocess.run(['docker', 'cp', self.container_name + ':/tmp/scikit-preflight.bundle',
-                            str(PREPARED / 'repository.bundle')], check=True, capture_output=True)
-            subprocess.run(['git', 'clone', '--bare', '--quiet', str(PREPARED / 'repository.bundle'),
-                            str(PREPARED / 'metrics_repository')], check=True, capture_output=True)
-            sidecar = json.loads((PREPARED / 'evaluation/source_snapshot.integrity.json').read_text())
-            manifest = verify_snapshot(snapshot, sidecar, PREPARED / 'metrics_repository')
-            save(PREPARED / 'source_manifest.json', manifest)
+                            str(prepared / 'repository.bundle')], check=True, capture_output=True)
+            subprocess.run(['git', 'clone', '--bare', '--quiet', str(prepared / 'repository.bundle'),
+                            str(prepared / 'metrics_repository')], check=True, capture_output=True)
+            sidecar = json.loads((prepared / 'evaluation/source_snapshot.integrity.json').read_text())
+            manifest = verify_snapshot(snapshot, sidecar, prepared / 'metrics_repository')
+            save(prepared / 'source_manifest.json', manifest)
             config['benchmark'].update(common_starting_tree=tree, common_starting_commit=proof['starting_commit'])
-            save(CONFIG, config)
-            save(PREPARED / 'preparation.json', {'state': 'prepared', 'model_calls': 0,
+            save(config_path, config)
+            save(prepared / 'preparation.json', {'state': 'prepared', 'model_calls': 0,
                  'container': self.container_name, 'runtime_image_id': config['benchmark']['skill_runtime_image_id'],
                  'source_manifest_files': len(manifest), 'starting_tree': tree,
                  'quarantine_verified': True, 'baseline_profile_verified': True,
@@ -79,9 +83,9 @@ def prepare_base():
             raise PreparedBoundary()
 
     runner = PrepareRunner(workspace_root=WORKSPACE, milestone_id='M06', srs_path=WORKSPACE / 'srs/M06/SRS.md',
-        output_dir=PREPARED, image_name=config['benchmark']['skill_runtime_image_id'], agent_name='codex',
+        output_dir=prepared, image_name=config['benchmark']['skill_runtime_image_id'], agent_name='codex',
         agent_version='0.163.0', model=config['codex']['model'], reasoning_effort='high', main_branch='main',
-        keep_container=True, trial_name='scikit_preflight_common_base', max_retries=1)
+        keep_container=True, trial_name=config.get('trial_prefix', 'scikit') + '_preflight_common_base', max_retries=1)
     try:
         runner.run()
     except PreparedBoundary:
@@ -90,22 +94,24 @@ def prepare_base():
         raise RuntimeError('Preflight must stop before inference')
 
 
-def grade_base():
+def grade_base(config=None):
     from harness.e2e.evaluator import PatchEvaluator
-    output = ROOT / 'results/scikit_preflight/base_grader'
+    config = config or {}
+    prepared = artifact(config, 'common_base', 'results/scikit_preflight/common_base')
+    output = artifact(config, 'base_grader', 'results/scikit_preflight/base_grader')
     output.mkdir(parents=True, exist_ok=False)
     evaluator = PatchEvaluator(workspace_root=WORKSPACE, milestone_id='M06',
-        patch_file=PREPARED / 'evaluation/source_snapshot.tar',
+        patch_file=prepared / 'evaluation/source_snapshot.tar',
         baseline_classification=WORKSPACE / 'test_results/M06/M06_classification.json', output_dir=output,
-        repo_config_path=PREPARED / 'repo_config.yaml',
-        repo_config_sha256=hashlib.sha256((PREPARED / 'repo_config.yaml').read_bytes()).hexdigest(),
-        runtime_policy_path=PREPARED / 'runtime_policy.yaml',
-        runtime_policy_sha256=hashlib.sha256((PREPARED / 'runtime_policy.yaml').read_bytes()).hexdigest(),
+        repo_config_path=prepared / 'repo_config.yaml',
+        repo_config_sha256=hashlib.sha256((prepared / 'repo_config.yaml').read_bytes()).hexdigest(),
+        runtime_policy_path=prepared / 'runtime_policy.yaml',
+        runtime_policy_sha256=hashlib.sha256((prepared / 'runtime_policy.yaml').read_bytes()).hexdigest(),
         runtime_policy_mode='protected')
     result = evaluator.evaluate().to_dict()
     save(output / 'evaluation_result.json', result)
     valid = not result.get('infra_invalid') and bool(result.get('test_summary', {}).get('total'))
-    save(ROOT / 'reports/scikit_grader_preflight.json', {'valid': valid, 'model_calls': 0,
+    save(artifact(config, 'grader_preflight', 'reports/scikit_grader_preflight.json'), {'valid': valid, 'model_calls': 0,
          'kind': 'unchanged_common_base_infrastructure_probe', 'raw_resolved': result.get('resolved'),
          'test_summary': result.get('test_summary'), 'error_message': result.get('error_message'),
          'raw_artifacts': str(output.relative_to(ROOT))})
@@ -119,9 +125,12 @@ def main():
     actions = parser.add_mutually_exclusive_group(required=True)
     actions.add_argument('--prepare-base', action='store_true')
     actions.add_argument('--grade-base', action='store_true')
+    parser.add_argument('--config', type=Path, default=CONFIG)
     args = parser.parse_args()
     sys.path.insert(0, str(ROOT / 'vendor/SWE-Milestone'))
-    prepare_base() if args.prepare_base else grade_base()
+    config = json.loads(args.config.read_text()) if args.config.exists() else None
+    with trial_lock(ROOT / 'results/scikit_runtime'):
+        prepare_base(config, args.config) if args.prepare_base else grade_base(config)
 
 
 if __name__ == '__main__':

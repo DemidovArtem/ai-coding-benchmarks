@@ -5,10 +5,33 @@ import unittest
 from unittest.mock import patch
 
 from experiment.scikit_collect import metrics_repository
-from experiment.scikit_run import schedule
+from experiment.scikit_run import schedule, trial_id
+from experiment.scikit import artifact
 
 
 class ScikitCheckpointTests(unittest.TestCase):
+    def test_v2_schedule_and_ids_do_not_reuse_historical_attempts(self):
+        config = {'variants': ['baseline', 'caveman', 'ponytail', 'serena', 'ecc'],
+                  'repetitions': 2, 'benchmark': {'milestones': ['M06', 'M11', 'M12.1', 'M12.2', 'M01', 'M03']},
+                  'trial_prefix': 'scikit_v2'}
+        rows = schedule(config)
+        self.assertEqual(len(rows), 60)
+        self.assertEqual(len(set(rows)), 60)
+        self.assertEqual(rows[4], (1, 1, 'ecc'))
+        self.assertEqual(rows[29:31], [(1, 6, 'ecc'), (2, 1, 'baseline')])
+        old = {trial_id(v, r, s) for r, s, v in schedule()}
+        self.assertFalse(old & {trial_id(v, r, s, config) for r, s, v in rows})
+
+    def test_new_cohort_uses_its_own_base_bundle(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            config = {'artifacts': {'common_base': 'results/scikit_v2_preflight/common_base'}}
+            with patch('experiment.scikit.ROOT', root):
+                self.assertEqual(artifact(config, 'common_base', 'old'), root / config['artifacts']['common_base'])
+                with patch('experiment.scikit_collect.ROOT', root), patch('experiment.scikit_collect.subprocess.run') as run:
+                    metrics_repository(root / 'trial', config)
+                self.assertEqual(run.call_args.args[0][4], str(root / config['artifacts']['common_base'] / 'repository.bundle'))
+
     def test_step_first_order_and_cold_second_repetition(self):
         rows = schedule()
         self.assertEqual(len(rows), 48)
@@ -37,7 +60,7 @@ class ScikitCheckpointTests(unittest.TestCase):
                 git('tag', 'agent-impl-M06')
                 run = root / f'r{repetition}'; run.mkdir()
                 git('bundle', 'create', str(run / 'repository.bundle'), '--all', 'HEAD', '^' + base)
-                with patch('experiment.scikit_collect.ROOT', root):
+                with patch('experiment.scikit_collect.ROOT', root), patch('experiment.scikit.ROOT', root):
                     repo = metrics_repository(run)
                 actual = subprocess.check_output(['git', '-C', str(repo), 'show', 'agent-impl-M06:value.py']).decode()
                 self.assertEqual(actual, f'value = {repetition}\n')

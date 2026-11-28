@@ -36,12 +36,12 @@ def current_protocol(client):
             'clippy': 'not applicable; no external linter imports'}
 
 
-def scan(run, output, kind='solution'):
+def scan(run, output, kind='solution', protocol_path=PROTOCOL, project_prefix=None):
     started = time.monotonic()
     output.mkdir(parents=True, exist_ok=False)
     private = load(ROOT / 'results/sonar/private/credentials.json')
     client = SonarClient('http://127.0.0.1:9000', private['token'])
-    protocol = load(PROTOCOL)
+    protocol = load(protocol_path)
     if current_protocol(client) != protocol:
         raise ValueError('Python Sonar analyzer, default profile, or active rules changed')
     sidecar = load(run / 'evaluation/source_snapshot.integrity.json')
@@ -62,7 +62,7 @@ def scan(run, output, kind='solution'):
     with tarfile.open(run / 'evaluation/source_snapshot.tar') as archive:
         extract(archive, stage)
     identity = sidecar['snapshot_sha256']
-    key = project_key('scikit-common-base' if kind == 'base' else run.name, identity)
+    key = project_key(project_prefix or ('scikit-common-base' if kind == 'base' else run.name), identity)
     existing = client.get('/api/projects/search', projects=key)['components']
     if not existing:
         request(private['password'], '/api/projects/create', project=key, name=key, visibility='private')
@@ -73,7 +73,7 @@ def scan(run, output, kind='solution'):
     report = {'analysis_ok': False, 'metrics': None, 'failure_category': 'sonar_analysis_failure'}
     binding = {'kind': kind, 'trial_id': run.name, 'project_key': key, 'snapshot_sha256': identity,
                'submission_commit': sidecar['agent_tag_commit'], 'source_files': files,
-               'protocol_sha256': hashlib.sha256(PROTOCOL.read_bytes()).hexdigest(),
+               'protocol_sha256': hashlib.sha256(protocol_path.read_bytes()).hexdigest(),
                'source_scope': protocol['coverage']}
     save(output / 'binding.json', binding)
     try:

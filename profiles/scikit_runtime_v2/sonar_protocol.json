@@ -1,0 +1,18 @@
+{
+  "server_version": "26.9.0.129388",
+  "plugin": {
+    "key": "python",
+    "version": "5.31 (build 36502)",
+    "hash": "cd860626dfc10508e137b76540cfc64e"
+  },
+  "profile": {
+    "key": "a99a4bff-7d74-4daa-b599-064cde2e3293",
+    "name": "Sonar way",
+    "language": "py",
+    "activeRuleCount": 398
+  },
+  "active_rules_sha256": "6c29dc50cbd74bae220040050bbaf812613721d0fa8c65738da7ec65bab18199",
+  "python_version": "3.11",
+  "coverage": "captured production .py only; Cython excluded",
+  "clippy": "not applicable; no external linter imports"
+}

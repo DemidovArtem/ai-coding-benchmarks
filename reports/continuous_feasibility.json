@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Review fresh scikit-five-method-v2 proposal; no download/build/inference authorized yet. Preserve original three-step pilot separately.",
+  "next_step": "Implement authorized scikit-five-method-v2: acquire pinned base + M06, build and archive common runtime, then readiness checks before new measured dispatch.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -1211,9 +1211,9 @@
     },
     "scikit_five_method_completion": {
       "title": "Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2\u00d76",
-      "status": "waiting_user",
-      "label": "\u0418\u0441\u0445\u043e\u0434\u043d\u044b\u0439 \u043f\u043b\u0430\u043d \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d: 3/60; \u043e\u0431\u0441\u0443\u0436\u0434\u0430\u0435\u0442\u0441\u044f \u043d\u043e\u0432\u0430\u044f \u043a\u043e\u0433\u043e\u0440\u0442\u0430",
-      "summary": "\u0422\u0440\u0438 \u0438\u0441\u0445\u043e\u0434\u043d\u044b\u0445 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e; \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0437\u0430\u043f\u0440\u043e\u0441\u0438\u043b \u0442\u043e\u043b\u044c\u043a\u043e \u043f\u043b\u0430\u043d \u043d\u043e\u0432\u043e\u0439 \u0441\u0440\u0435\u0434\u044b. \u041f\u043e\u0434\u043c\u0435\u043d\u0430 runtime \u0438 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0435 \u0441\u0442\u0430\u0440\u043e\u0439 \u043a\u043e\u0433\u043e\u0440\u0442\u044b \u043d\u0435 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u044b.",
+      "status": "stopped_historical",
+      "label": "\u0418\u0441\u0442\u043e\u0440\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0438\u043b\u043e\u0442 \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d: 3 \u0448\u0430\u0433\u0430 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b",
+      "summary": "\u0418\u0441\u0445\u043e\u0434\u043d\u044b\u0439 runtime \u0443\u0442\u0440\u0430\u0447\u0435\u043d; \u0442\u0440\u0438 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 \u0438 \u043d\u0435\u0443\u0434\u0430\u0447\u0438 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e. \u0420\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0430 \u043d\u043e\u0432\u0430\u044f \u043a\u043e\u0433\u043e\u0440\u0442\u0430 v2 \u0441 \u043d\u0443\u043b\u044f, \u0431\u0435\u0437 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u044f \u0438\u043b\u0438 \u0443\u0441\u0440\u0435\u0434\u043d\u0435\u043d\u0438\u044f \u0441\u0442\u0430\u0440\u043e\u0433\u043e \u043f\u0438\u043b\u043e\u0442\u0430.",
       "protocol": "docs/ROADMAP.md"
     },
     "operational_preservation": {
@@ -1224,10 +1224,10 @@
       "protocol": "reports/storage_cleanup_20261128.md"
     },
     "scikit_five_method_v2": {
-      "title": "\u041f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435: \u043d\u043e\u0432\u0430\u044f scikit-learn \u043a\u043e\u0433\u043e\u0440\u0442\u0430, \u043f\u044f\u0442\u044c \u043c\u0435\u0442\u043e\u0434\u043e\u0432, 2\u00d76",
-      "status": "proposed_not_executed",
-      "label": "\u041f\u043b\u0430\u043d \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043b\u0435\u043d; 0/60 \u043d\u043e\u0432\u044b\u0445 \u0448\u0430\u0433\u043e\u0432",
-      "summary": "\u041e\u0434\u0438\u043d \u043d\u043e\u0432\u044b\u0439 \u043e\u0431\u0449\u0438\u0439 runtime \u0438\u0437 scikit base \u0438 \u0441\u043e\u0445\u0440\u0430\u043d\u0451\u043d\u043d\u044b\u0445 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u043e\u0432; \u0441\u0442\u0430\u0440\u044b\u0435 \u0442\u0440\u0438 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 \u043d\u0435 \u0432\u0445\u043e\u0434\u044f\u0442. \u0421\u0431\u043e\u0440\u043a\u0430, \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u0438 model inference \u043f\u043e\u043a\u0430 \u043d\u0435 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u044b.",
+      "title": "Scikit-learn v2: five methods, 2\u00d76",
+      "status": "runtime_preparation",
+      "label": "Runtime \u0438 \u0430\u0440\u0445\u0438\u0432 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d\u044b; preflight; 0/60",
+      "summary": "\u041e\u0431\u0449\u0430\u044f \u0441\u0440\u0435\u0434\u0430 \u0441\u043e\u0431\u0440\u0430\u043d\u0430 offline; \u0430\u0440\u0445\u0438\u0432 4,52 \u0413\u0411 \u043f\u0440\u043e\u0432\u0435\u0440\u0435\u043d \u0432\u043d\u0435 Docker-\u043a\u044d\u0448\u0430. \u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0439 Python MCP \u0432\u044b\u0437\u043e\u0432 Serena \u043f\u0440\u043e\u0448\u0451\u043b \u0431\u0435\u0437 \u0441\u0435\u0442\u0438 \u0438 credentials. \u0418\u0434\u0451\u0442 zero-model \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 source/quarantine; \u0434\u0430\u043b\u0435\u0435 grader, Sonar \u0438 activation \u0432\u0441\u0435\u0445 \u043f\u044f\u0442\u0438.",
       "protocol": "docs/SCIKIT_NEW_COHORT_PLAN.md"
     }
   },
@@ -1244,7 +1244,7 @@
   ],
   "scope_authorization": "2026-10-28: User explicitly requests original fifth SWE task, no replacement: one continuation each method first, then second repetition; Serena only once.",
   "new_trials_require_explicit_user_signal": false,
-  "latest_authorization": "2026-11-28: Approved completion roadmap: audit existing six-step ripgrep ECC without new ripgrep runs; complete scikit-learn five methods, two cold repetitions, six steps; stop if exact runtime recovery fails; simplify framework after results publication.",
+  "latest_authorization": "2026-11-28: Fresh scikit-five-method-v2 implementation, activation and 60 measured steps approved; first pinned base + M06 package approved up to 4005763625 unique compressed bytes. Later graders require separate approval; historical pilot remains separate.",
   "publication": {
     "github_url": "https://github.com/DemidovArtem/ai-coding-benchmarks",
     "state": "published_public_main_verified",
@@ -1256,29 +1256,30 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "waiting_plan_review",
+    "status": "implementing_new_cohort",
     "scikit_target_steps": 60,
-    "scikit_collected_steps": 3,
-    "scikit_remaining_steps": 57,
+    "scikit_collected_steps": 0,
+    "scikit_remaining_steps": 60,
     "ripgrep_new_trials_authorized": false,
     "technical_recovery_only": true,
     "decisions_in": "this Codex chat",
     "notification_channel": "existing OpenClaw Telegram bot",
     "runtime_substitution_authorized": false,
     "framework_refactor_after": "completed results publication",
-    "blocker": "Exact original scikit runtime absent; no matching cache/export found locally. Await archive location or a separate cohort decision.",
+    "blocker": null,
     "checkpoint_audit": "reports/retained_checkpoint_audit.json",
     "coordination_preflight": "reports/coordination_preflight.json",
     "runtime_recovery_audit": "reports/scikit_recovery_audit.json",
     "storage_cleanup": "reports/storage_cleanup_20261128.json",
     "telegram_delivery_verified": true,
-    "decision_requested": true,
+    "decision_requested": false,
     "blocker_notification_delivered": true,
-    "latest_user_decision": "2026-11-28: Prepare a plan for a new environment and a separate cohort; not execution authorization.",
+    "latest_user_decision": "2026-11-28: Fresh scikit-five-method-v2 implementation, activation and 60 measured steps approved; first pinned base + M06 package approved up to 4005763625 unique compressed bytes. Later graders require separate approval; historical pilot remains separate.",
     "new_cohort_plan": "reports/scikit_new_cohort_plan.json",
-    "new_cohort_execution_authorized": false,
+    "new_cohort_execution_authorized": true,
     "proposed_new_target_steps": 60,
     "proposed_new_collected_steps": 0,
-    "proposed_historical_steps_excluded": 3
+    "proposed_historical_steps_excluded": 3,
+    "historical_scikit_steps_excluded": 3
   }
 }

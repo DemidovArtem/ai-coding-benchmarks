@@ -1,8 +1,11 @@
-# Proposed fresh scikit-learn cohort
+# Approved fresh scikit-learn cohort
 
 Prepared on 28 November 2026 following the maintainer's request to plan a new
-environment and a separate cohort. **Planning only:** image acquisition, builds,
-activation inference and measured trials have not been authorized by this plan.
+environment and a separate cohort. The maintainer subsequently approved
+implementation, the common runtime, activation and 60 new measured steps,
+subject to the readiness gates below. The pinned base + M06 pair is approved
+up to 4,005,763,625 unique compressed bytes. Later substantial acquisitions
+require separate approval.
 
 ## Cohort boundary
 
@@ -62,7 +65,7 @@ With task-by-task eviction, total image traffic may approach 28.1 GB across two
 repetitions, before package downloads or failed transfers. These values are not
 expanded disk or peak-usage guarantees. Do not acquire the complete set at once.
 
-First request only the pinned base/M06 pair and any missing small package closure,
+The pinned base/M06 pair is approved. Budget any missing small package closure,
 with exact digests, sizes and local-cache deductions. Keep the common runtime and
 current-task grader. Before later tasks, budget the next grader, expansion,
 active agent/evaluator writable layers, analysis staging and archive space.

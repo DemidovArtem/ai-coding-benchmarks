@@ -11,13 +11,15 @@ from experiment.metrics import codex_usage, normalize_grader
 from experiment.python_metrics import footprint, verify_snapshot
 from experiment.report import export
 from experiment.runner import ROOT, save
+from experiment.scikit import artifact
 
 
-def metrics_repository(run):
+def metrics_repository(run, config=None):
+    config = config if config is not None else load(run / 'experiment.json', {})
     repo = run / 'metrics_repository'
     if not repo.exists():
         subprocess.run(['git', 'clone', '--bare', '--quiet',
-                        str(ROOT / 'results/scikit_preflight/common_base/repository.bundle'), str(repo)],
+                        str(artifact(config, 'common_base', 'results/scikit_preflight/common_base') / 'repository.bundle'), str(repo)],
                        check=True, capture_output=True)
         if (run / 'repository.bundle').exists():
             subprocess.run(['git', '-C', str(repo), 'fetch', '--quiet', '--update-head-ok',
@@ -51,7 +53,7 @@ def collect(run, config, parent=None):
         usage = {k: None for k in ('input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens')}
     valid = bool(raw.get('test_summary', {}).get('total')) and not raw.get('infra_invalid') and not raw.get('error_message')
     initial = config['benchmark']['common_starting_commit']
-    record = {'experiment_id': config['experiment_id'], 'cohort': 'scikit-configuration-v1-pilot',
+    record = {'experiment_id': config['experiment_id'], 'cohort': config['experiment_id'],
         'trial_id': run.name, 'trial_kind': 'continuous_step', 'measured_comparison': True,
         'repo': config['benchmark']['repo'], 'milestone_id': config['benchmark']['milestones'][metadata['step'] - 1],
         'variant': metadata['variant'], 'repetition': metadata['repetition'], 'trial_state': metadata['state'],
@@ -83,7 +85,7 @@ def collect(run, config, parent=None):
     record['failure_category'] = record.get('failure_category') or metadata.get('failure_category')
     if sidecar and (run / 'repository.bundle').exists():
         try:
-            repo = metrics_repository(run)
+            repo = metrics_repository(run, config)
             captured = verify_snapshot(run / 'evaluation/source_snapshot.tar', sidecar, repo)
             filters = load(ROOT / config['benchmark']['dataset_root'] / config['benchmark']['repo'] / 'metadata.json')
             record.update(footprint(repo, initial, sidecar['agent_tag_commit'], filters))
@@ -96,7 +98,7 @@ def collect(run, config, parent=None):
                         or sonar['snapshot_sha256'] != record['snapshot_sha256']
                         or binding['submission_commit'] != record['ending_commit']):
                     raise ValueError('Python Sonar source binding failed')
-                base = load(ROOT / 'results/scikit_preflight/python_sonar_base_attempt02/sonar.json')
+                base = load(artifact(config, 'sonar_base', 'results/scikit_preflight/python_sonar_base_attempt02') / 'sonar.json')
                 if base['protocol_sha256'] != sonar['protocol_sha256']:
                     raise ValueError('Python Sonar common-base protocol differs')
                 sonar['delta_vs_common_base'] = {k: v - base['metrics'][k] if v is not None and base['metrics'].get(k) is not None

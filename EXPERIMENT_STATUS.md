@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 02:49:01**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 03:09:30**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -25,9 +25,9 @@
 | Phase 6g: седьмая правка как продолжение | Среда подготовлена; 0/7 продолжений, измерения не начаты | JSON replacement и grader согласованы; образ загружен по digest, offline closure и Serena CLI bootstrap проверены без model calls. Нужны заморозка входов и fresh runtime/quota preflight; первые шесть шагов не переигрываются. [Протокол](reports/phase6g_protocol.md) |
 | Second repository: scikit-learn, four methods, 2×6 | Stopped; 3/48 measured steps collected | 3/48 steps; serial step-first order, four configurations, two cold repetitions. Python Sonar excludes Cython; common-base M06 grading has 78 missing P2P tests. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_protocol.md) |
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
-| Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исходный план остановлен: 3/60; обсуждается новая когорта | Три исходных результата сохранены отдельно; пользователь запросил только план новой среды. Подмена runtime и продолжение старой когорты не разрешены. [Протокол](docs/ROADMAP.md) |
+| Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест доставлен через прежнего бота; защищённый sender сохраняет receipts и неопределённые доставки. Три завершённых ECC smoke-контейнера удалены после проверки архивов. Recovery после reboot/квоты ещё не проверен. [Протокол](reports/storage_cleanup_20261128.md) |
-| Предложение: новая scikit-learn когорта, пять методов, 2×6 | План подготовлен; 0/60 новых шагов | Один новый общий runtime из scikit base и сохранённых локальных компонентов; старые три результата не входят. Сборка, загрузки и model inference пока не разрешены. [Протокол](docs/SCIKIT_NEW_COHORT_PLAN.md) |
+| Scikit-learn v2: five methods, 2×6 | Runtime и архив проверены; preflight; 0/60 | Общая среда собрана offline; архив 4,52 ГБ проверен вне Docker-кэша. Реальный Python MCP вызов Serena прошёл без сети и credentials. Идёт zero-model подготовка source/quarantine; далее grader, Sonar и activation всех пяти. [Протокол](docs/SCIKIT_NEW_COHORT_PLAN.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
