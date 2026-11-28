@@ -1,0 +1,30 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "trial_id": "scikit_v2_baseline_r01_s01",
+  "state": "quota_recovery_verified_model_step_complete_evaluation_running",
+  "observed_at": "2026-11-28T04:36:41.188704+00:00",
+  "session_id": "01a22011-3f5c-7f40-a49f-ac6f8571acc5",
+  "native_invocations": 2,
+  "distinct_native_sessions": 1,
+  "execution_seconds_including_quota_wait": 6102.645265949002,
+  "quota_wait_seconds": 5610.754719281002,
+  "execution_seconds_excluding_quota_wait": 491.89054666800075,
+  "checkpoint_checks": {
+    "common_base_bundle_required": "results/scikit_v2_preflight/common_base/repository.bundle",
+    "common_base_bundle_sha256": "7371aea15ce5f6deea3e6d2808f6141ad25c1469a421c301ba35d486015a71ab",
+    "step_bundle_sha256": "0cfcb34817e19a9f0449c87250f6e62169aff030697d7b4049ae3253a45876f9",
+    "native_session_store_verified": true,
+    "source_bundle_fsck_verified": true
+  },
+  "evidence_sha256": {
+    "results/trials/scikit_v2_baseline_r01_s01/execution.json": "a7d40b9bc29df4d448c951070289bfa9c9017fce81138ced6279ea74c543dbe4",
+    "results/trials/scikit_v2_baseline_r01_s01/checkpoint.json": "63f737ff3efdef2e017e5a6c83d3105aa4b7d0edce1528a707c467bf02dfe52f",
+    "results/trials/scikit_v2_baseline_r01_s01/quota_wait.json": "d739e9c726a86bf09383b3281e96bb44dd882f0703eb8daf9c8f540e52f8919d",
+    "results/trials/scikit_v2_baseline_r01_s01/log/agent_stdout.txt": "dd5132c8d1e1411b9ae82b58c66a8988b20f06ee558de15ce357ceb9a42213ad"
+  },
+  "limits": [
+    "Original grader/Sonar collection still pending at observation.",
+    "Reboot recovery has not been tested.",
+    "The retained quota interruption is not an independent repetition."
+  ]
+}
