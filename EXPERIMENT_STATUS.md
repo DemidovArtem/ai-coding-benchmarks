@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 03:29:45**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 03:49:21**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест доставлен через прежнего бота; защищённый sender сохраняет receipts и неопределённые доставки. Три завершённых ECC smoke-контейнера удалены после проверки архивов. Recovery после reboot/квоты ещё не проверен. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | Activation: caveman running; 0/60 | Zero-model runtime/archive, source/quarantine, Python MCP, hook commands, unchanged-source grader and 264-file Sonar checks passed. Native cold/disposable-resume activation is in progress; historical pilot stays separate. Measured: 0/60. [Протокол](reports/scikit_v2_protocol.md) |
+| Scikit-learn v2: five methods, 2×6 | Frozen; all five native continuation checks passed; 0/60 | Independent v2 runtime/archive, zero-model checks and all five cold/disposable-resume checks verified. Ready for serial M06 dispatch; three historical submissions remain separate. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков

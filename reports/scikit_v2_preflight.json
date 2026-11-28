@@ -106,7 +106,7 @@
     }
   },
   "sonar_transport_recovery": "First attempt failed before analysis because retained localhost relay was stopped; attempt02 scanned the identical snapshot after relay restart.",
-  "activation_inference": "Separate cold/resume checks in progress; excluded from measured results.",
+  "activation_inference": "All five neutral cold/disposable-resume checks passed; excluded from measured results.",
   "native_process_probe": {
     "method": "Python procfs inspection; no procps dependency",
     "actual_image_idle_probe_verified": true,

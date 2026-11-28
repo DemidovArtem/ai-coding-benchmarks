@@ -59,6 +59,9 @@ def collect(run, config, parent=None):
         errors.append(str(error))
         usage = {k: None for k in ('input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens')}
     valid = bool(raw.get('test_summary', {}).get('total')) and not raw.get('infra_invalid') and not raw.get('error_message')
+    execution = load(run / 'execution.json', {})
+    elapsed = execution.get('duration_seconds')
+    quota_wait = execution.get('quota_wait_seconds', 0)
     initial = config['benchmark']['common_starting_commit']
     record = {'experiment_id': config['experiment_id'], 'cohort': config['experiment_id'],
         'trial_id': run.name, 'trial_kind': 'continuous_step', 'measured_comparison': True,
@@ -71,9 +74,10 @@ def collect(run, config, parent=None):
         'ending_commit': sidecar.get('agent_tag_commit'), 'snapshot_sha256': sidecar.get('snapshot_sha256'),
         'artifacts_path': str(run), 'effective_profile': profile, 'setup_fingerprint': metadata['setup_fingerprint'],
         'implementation_commit': metadata['implementation_commit'], 'duration_seconds': metadata.get('duration_seconds'),
-        'durations_seconds': {'executor': load(run / 'execution.json', {}).get('duration_seconds'),
+        'durations_seconds': {'planner': 0, 'executor': elapsed - quota_wait if elapsed is not None else None,
                               'evaluation': load(run / 'durations.json', {}).get('evaluation'),
                               'sonar': load(run / 'sonar/sonar.json', {}).get('duration_seconds')},
+        'quota_wait_seconds': quota_wait,
         'usage': {'planner': {'used': False, 'input_tokens': 0, 'cached_input_tokens': 0, 'output_tokens': 0},
                   'executor': usage, 'executor_cumulative': cumulative,
                   'total': {k: usage.get(k) for k in ('input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens')}},

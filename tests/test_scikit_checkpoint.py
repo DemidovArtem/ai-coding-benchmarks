@@ -33,6 +33,7 @@ class ScikitCheckpointTests(unittest.TestCase):
                 {'type': 'turn.completed', 'usage': {'input_tokens': 100, 'cached_input_tokens': 50, 'output_tokens': 10}}])))
             native = {'total': {'input_tokens': 130, 'cached_input_tokens': 60, 'output_tokens': 15, 'reasoning_output_tokens': None}}
             (run / 'ecc_usage.json').write_text(json.dumps(native))
+            (run / 'execution.json').write_text(json.dumps({'duration_seconds': 100, 'quota_wait_seconds': 60}))
             config = {'experiment_id': 'v2', 'benchmark': {'common_starting_commit': 'base', 'common_starting_tree': 'tree',
                       'repo': 'repo', 'milestones': ['M06'], 'version': 'v1.0.2'},
                       'codex': {'model': 'gpt-6.1-sol', 'reasoning_effort': 'high'},
@@ -42,6 +43,8 @@ class ScikitCheckpointTests(unittest.TestCase):
             self.assertEqual(result['usage']['executor']['input_tokens'], 130)
             self.assertEqual(result['usage']['parent_cumulative']['input_tokens'], 100)
             self.assertIsNone(result['usage']['executor']['reasoning_output_tokens'])
+            self.assertEqual(result['durations_seconds']['executor'], 40)
+            self.assertEqual(result['durations_seconds']['planner'], 0)
 
     def test_v2_schedule_and_ids_do_not_reuse_historical_attempts(self):
         config = {'variants': ['baseline', 'caveman', 'ponytail', 'serena', 'ecc'],

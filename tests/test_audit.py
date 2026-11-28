@@ -50,6 +50,14 @@ class AuditTests(unittest.TestCase):
             (root / "asset").write_bytes(b"changed")
             self.assertEqual(check_pins(root, pins), ["file_pin_mismatch:asset"])
 
+    def test_absent_optional_input_cannot_appear_after_freeze(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pins = {'file_sha256': {}, 'git_commits': {}, 'absent_files': ['optional.csv']}
+            self.assertEqual(check_pins(root, pins), [])
+            (root / 'optional.csv').write_text('new input')
+            self.assertEqual(check_pins(root, pins), ['unexpected_pinned_file:optional.csv'])
+
     def test_dirty_pinned_checkout_fails(self):
         with patch("experiment.audit.command", side_effect=["commit", " M evaluator.py"]):
             failures = check_pins(Path("."), {"file_sha256": {}, "git_commits": {"vendor": "commit"}})

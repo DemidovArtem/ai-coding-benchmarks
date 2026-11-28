@@ -12,7 +12,7 @@ import sys
 import tarfile
 import time
 
-from experiment.audit import PAID_KEYS
+from experiment.audit import PAID_KEYS, check_pins
 from experiment.checkpoint_restore import copy_to, active_model_processes
 from experiment.collect import load
 from experiment.continuous import assert_boundary, check_resources, events_from, verify_dispatch
@@ -63,12 +63,9 @@ def require_ready(config, milestone):
         raise ValueError('Freeze the new cohort before model execution')
     if any(os.environ.get(k) for k in (*PAID_KEYS, 'OPENAI_BASE_URL', 'UNIFIED_BASE_URL')):
         raise ValueError('Only the retained ChatGPT OAuth route is authorized')
-    for name, expected in config['pins']['file_sha256'].items():
-        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
-            raise ValueError('Frozen cohort input changed: ' + name)
-    for name, expected in config['pins'].get('git_commits', {}).items():
-        if subprocess.check_output(['git', '-C', str(ROOT / name), 'rev-parse', 'HEAD'], text=True).strip() != expected:
-            raise ValueError('Frozen source checkout changed: ' + name)
+    failures = check_pins(ROOT, config['pins'])
+    if failures:
+        raise ValueError('Frozen cohort inputs changed: ' + ', '.join(failures))
     image = config['benchmark']['skill_runtime_image_id']
     runtime = load(artifact(config, 'runtime_manifest', 'profiles/scikit_runtime/manifest.json'))
     if runtime.get('image_id') != image or runtime.get('python_lsp_verified') is not True:
@@ -300,6 +297,10 @@ def run_one(config, variant, repetition, step):
         prompt = runner._load_prompt()
         check_resources(config)
         runner.container_setup.prepare_agent_invocation()
+        if config['resources'].get('wait_for_quota'):
+            from experiment.quota import wait_for_quota
+            save(output / 'quota_before_model.json', wait_for_quota(output,
+                on_wait=lambda state: progress(chain, config, state=state, active_step=step)))
         save(output / 'run_metadata.json', metadata)
         progress(chain, config, state='running', active_step=step, completed_steps=step - 1)
         execution_started = time.monotonic()
@@ -309,7 +310,8 @@ def run_one(config, variant, repetition, step):
             ok = resume_after_quota(runner.agent_runner, runner.container_setup, output,
                 runner.agent_runner.resume_session,
                 lambda state: progress(chain, config, state=state, active_step=step))
-        save(output / 'execution.json', {'duration_seconds': time.monotonic() - execution_started})
+        save(output / 'execution.json', {'duration_seconds': time.monotonic() - execution_started,
+             'quota_wait_seconds': getattr(runner.agent_runner, 'quota_wait_seconds', 0)})
         session = runner.agent_runner.session_id
         metadata['executor_session_id'] = session
         save(output / 'run_metadata.json', metadata)

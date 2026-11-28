@@ -15,9 +15,54 @@
       "artifacts": "results/scikit_v2_preflight/activation/baseline"
     },
     "caveman": {
-      "state": "running",
-      "success": false,
+      "state": "passed",
+      "success": true,
+      "source_unchanged": true,
+      "native_resume_verified": true,
+      "disposable_container_restore_verified": true,
+      "session_id": "01a21ffc-1095-76e2-8e45-e5252287fd9c",
       "artifacts": "results/scikit_v2_preflight/activation/caveman"
+    },
+    "ponytail": {
+      "state": "passed",
+      "success": true,
+      "source_unchanged": true,
+      "native_resume_verified": true,
+      "disposable_container_restore_verified": true,
+      "session_id": "01a21ffe-d2eb-7ed3-b709-3bcc74346aef",
+      "artifacts": "results/scikit_v2_preflight/activation/ponytail"
+    },
+    "serena": {
+      "state": "passed",
+      "success": true,
+      "source_unchanged": true,
+      "native_resume_verified": true,
+      "disposable_container_restore_verified": true,
+      "session_id": "01a22001-9e05-70a1-ac45-471c91f1502b",
+      "artifacts": "results/scikit_v2_preflight/activation/serena",
+      "cold_mcp": {
+        "observed_mcp_tool_calls": 9,
+        "semantic_calls": 1,
+        "memory_files_before": 0,
+        "memory_files_after": 6,
+        "retained_memory_read_verified": null
+      },
+      "warm_mcp": {
+        "observed_mcp_tool_calls": 5,
+        "semantic_calls": 1,
+        "memory_files_before": 6,
+        "memory_files_after": 6,
+        "retained_memory_read_verified": true
+      }
+    },
+    "ecc": {
+      "state": "passed",
+      "success": true,
+      "source_unchanged": true,
+      "native_resume_verified": true,
+      "disposable_container_restore_verified": true,
+      "session_id": "01a22006-6416-73e0-b0ad-397cb56a9deb",
+      "artifacts": "results/scikit_v2_preflight/activation/ecc"
     }
   },
   "controller_sha256": "f3723579eefa456c0ed4e2f3d92b2865dc917bd444d2de9f06c735d9f767eb90",
@@ -47,6 +92,14 @@
       "variant": "baseline",
       "recovery": "Restore original cold native rollout, then continue only the previously unstarted warm turn",
       "session_id": "01a21ff7-c45f-7342-8fdd-c55f3ab77ab1"
+    },
+    {
+      "state": "stopped_before_model",
+      "success": false,
+      "artifacts": "results/scikit_v2_preflight/activation/ecc_attempt01",
+      "variant": "ecc",
+      "model_calls": 0,
+      "reason": "Reload procfs inspection; verified zero native rollouts and no pending model invocation. Four completed methods retained."
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "kind": "activation_smoke_not_measured",
+  "variant": "ecc",
+  "success": true,
+  "source_commit": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
+  "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+  "codex": "0.163.0",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "runtime_verified": true,
+  "effective_config_sha256": "ad2d022c3756cc8ee4939eb86df6dca2a898248c508764b08b9877617dc12518",
+  "native_hook_activation_verified": true,
+  "skill_activation_verified": true,
+  "subagent_activation_verified": true,
+  "parent_excludes_child_usage_verified": true,
+  "usage": {
+    "root_session_id": "01a22006-6416-73e0-b0ad-397cb56a9deb",
+    "sessions": {
+      "01a22006-6416-73e0-b0ad-397cb56a9deb": {
+        "id": "01a22006-6416-73e0-b0ad-397cb56a9deb",
+        "parent_thread_id": null,
+        "agent_role": null,
+        "cli_version": "0.163.0"
+      },
+      "01a22006-9113-7bf1-a43a-9574298ff9fc": {
+        "id": "01a22006-9113-7bf1-a43a-9574298ff9fc",
+        "parent_thread_id": "01a22006-6416-73e0-b0ad-397cb56a9deb",
+        "agent_role": "explorer",
+        "cli_version": "0.163.0"
+      }
+    },
+    "per_thread": {
+      "01a22006-6416-73e0-b0ad-397cb56a9deb": {
+        "input_tokens": 112198,
+        "cached_input_tokens": 88832,
+        "output_tokens": 311,
+        "reasoning_output_tokens": 26
+      },
+      "01a22006-9113-7bf1-a43a-9574298ff9fc": {
+        "input_tokens": 65114,
+        "cached_input_tokens": 43008,
+        "output_tokens": 129,
+        "reasoning_output_tokens": 30
+      }
+    },
+    "total": {
+      "input_tokens": 177312,
+      "cached_input_tokens": 131840,
+      "output_tokens": 440,
+      "reasoning_output_tokens": 56
+    },
+    "response_count": 8,
+    "counter_semantics": "sum unique native response usage per thread; parent excludes children"
+  },
+  "limitations": [
+    "Native subagent sandbox inherits the isolated invocation bypass; role instructions remain read-only.",
+    "Model self-report did not identify SessionStart; native developer context proves execution.",
+    "Upstream newest-rollout session selection returned the child; ECC overrides it using root metadata."
+  ]
+}

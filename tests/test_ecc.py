@@ -101,7 +101,7 @@ class ECCTests(unittest.TestCase):
 
     def test_quota_recovery_keeps_root_waits_for_children_and_never_retries_other_errors(self):
         from experiment.ecc import resume_after_quota
-        agent = SimpleNamespace(_last_rate_limit=True, _last_fatal_error=None, session_id='parent', quota_wait_seconds=0)
+        agent = SimpleNamespace(_last_rate_limit=True, _last_fatal_error=None, session_id='parent')
         setup = Mock()
         sleeps, states = [], []
         resume = Mock(return_value=True)

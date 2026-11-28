@@ -51,6 +51,9 @@ def host_summary(home, environ):
 
 def check_pins(root, pins):
     failures = []
+    for name in pins.get('absent_files', []):
+        if (root / name).exists() or (root / name).is_symlink():
+            failures.append(f'unexpected_pinned_file:{name}')
     for name, expected in pins["file_sha256"].items():
         path = root / name
         actual = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None

@@ -1,6 +1,6 @@
 # Scikit-learn five-method v2 protocol
 
-Status: implementation and preflight; **not frozen for measured dispatch yet**.
+Status: **frozen for measured dispatch on 28 November 2026**.
 Execution is authorized by the maintainer's 28 November 2026 decision, subject
 to the [readiness gates](../docs/SCIKIT_NEW_COHORT_PLAN.md). The first image pair
 is approved; later substantial grader acquisitions require separate approval.

@@ -24,7 +24,7 @@
   ],
   "external_incoming_prerequisites": [],
   "blocking_integration": "Bounded host-driven dispatch is implemented and verified on 12 task executions. The original background watcher integration remains out of scope.",
-  "next_step": "Implement authorized scikit-five-method-v2: acquire pinned base + M06, build and archive common runtime, then readiness checks before new measured dispatch.",
+  "next_step": "Run M06 once for baseline/Caveman/Ponytail/Serena/ECC from the frozen v2 configuration, then request the next grader acquisition. All five neutral cold/resume checks passed; historical pilot remains separate.",
   "estimate_engineer_days": {
     "subset_and_stop_contract": [
       0.5,
@@ -1333,9 +1333,9 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "runtime_preparation",
-      "label": "Activation: caveman running; 0/60",
-      "summary": "Zero-model runtime/archive, source/quarantine, Python MCP, hook commands, unchanged-source grader and 264-file Sonar checks passed. Native cold/disposable-resume activation is in progress; historical pilot stays separate. Measured: 0/60.",
+      "status": "ready",
+      "label": "Frozen; all five native continuation checks passed; 0/60",
+      "summary": "Independent v2 runtime/archive, zero-model checks and all five cold/disposable-resume checks verified. Ready for serial M06 dispatch; three historical submissions remain separate.",
       "protocol": "reports/scikit_v2_protocol.md"
     }
   },
@@ -1364,7 +1364,7 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "implementing_new_cohort",
+    "status": "benchmarks_ready",
     "scikit_target_steps": 60,
     "scikit_collected_steps": 0,
     "scikit_remaining_steps": 60,

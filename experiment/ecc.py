@@ -41,7 +41,7 @@ def resume_after_quota(agent, setup, output, resume, on_state, sleep=time.sleep)
             if not active_model_processes(setup.container_name):
                 break
             sleep(60)
-        agent.quota_wait_seconds += time.monotonic() - started
+        agent.quota_wait_seconds = getattr(agent, 'quota_wait_seconds', 0) + time.monotonic() - started
         on_state('running')
         if resume(agent.session_id, 'Quota is available again. Continue the same dispatched task from the retained code and history. '
                   'Preserve all prior work and tags; do not start another task.'):

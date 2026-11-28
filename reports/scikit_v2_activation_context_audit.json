@@ -1,0 +1,36 @@
+{
+  "kind": "retained_native_developer_context_audit",
+  "model_calls": 0,
+  "variants": {
+    "baseline": {
+      "cold": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "76074da921c7fe1435d3674f7860705a9afe00c7a7067621cb281ed000950ae8"
+      },
+      "warm": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "df53d57101f29f3abf938a9a14e45889ab17f271a32755306532406eca453051"
+      }
+    },
+    "caveman": {
+      "cold": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "97ff4d46d278e40d7751a3738b64e9737bce96ecbbbd6972789877b6c25c9ea1"
+      },
+      "warm": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "30bb39397f45f629092abbaec67870cc599559f3443bb552100db1e6d10f5e49"
+      }
+    },
+    "ponytail": {
+      "cold": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "edee014bdfccb9ce3798189c6fa3bf2e9ff6e2722282f702712ff93534d5bede"
+      },
+      "warm": {
+        "native_developer_context_verified": true,
+        "rollout_sha256": "cd57854cda0e124821a1f79c24906a0739d547bb0a18f7552c0455a834fcd881"
+      }
+    }
+  }
+}
