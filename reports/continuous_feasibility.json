@@ -1397,7 +1397,7 @@
     "storage_cleanup": "reports/storage_cleanup_20261128.json",
     "telegram_delivery_verified": true,
     "decision_requested": true,
-    "blocker_notification_delivered": false,
+    "blocker_notification_delivered": true,
     "latest_user_decision": "2026-11-28: Fresh scikit-five-method-v2 implementation, activation and 60 measured steps approved; first pinned base + M06 package approved up to 4005763625 unique compressed bytes. Later graders require separate approval; historical pilot remains separate.",
     "new_cohort_plan": "reports/scikit_new_cohort_plan.json",
     "new_cohort_execution_authorized": true,
@@ -1406,7 +1406,7 @@
     "proposed_historical_steps_excluded": 3,
     "historical_scikit_steps_excluded": 3,
     "active_cohort": "scikit-five-method-v2",
-    "latest_notification_status": "New Serena blocker notification in flight; receipt retained, do not duplicate.",
+    "latest_notification_status": "Serena M06 blocker notification delivery confirmed, message267; decision pending in this Codex chat.",
     "blocker_report": "reports/scikit_v2_serena_m06_blocker.json"
   }
 }

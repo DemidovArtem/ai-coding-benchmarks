@@ -24,5 +24,11 @@
   "decision_options": [
     "Separate recovery attempt in the same root, retaining failed attempt and deviation.",
     "Keep failure and stop Serena trajectory."
-  ]
+  ],
+  "telegram": {
+    "event": "scikit-v2-serena-m06-model-policy-blocker",
+    "delivery_confirmed": true,
+    "message_id": "267",
+    "decisions_in": "this Codex chat"
+  }
 }
