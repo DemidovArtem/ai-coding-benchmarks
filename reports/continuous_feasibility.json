@@ -1350,9 +1350,9 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "ready",
-      "label": "5/60 collected; M11 grader and continuation preflight verified",
-      "summary": "M06 accepted for all five methods. One approved pinned M11 grader acquired with reserves preserved; five exact source/native/memory parents verified without model calls. Serena uses the approved recovery checkpoint; original failure retained. M11 r01 proceeds serially; later graders require separate approval.",
+      "status": "running",
+      "label": "5/60 collected; M11 r01 running",
+      "summary": "M11 grader digest/alias verified and five exact M06 source/native/memory parents checked. Serial baseline/Caveman/Ponytail/Serena/ECC M11 queue active with quota gates; no unfinished metrics reported. Serena uses its authorized recovery checkpoint; original failure retained. Stop before M12.1 acquisition.",
       "protocol": "reports/scikit_v2_protocol.md",
       "completed_steps": 5,
       "target_steps": 60
@@ -1383,7 +1383,7 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "m11_ready",
+    "status": "m11_running",
     "scikit_target_steps": 60,
     "scikit_collected_steps": 5,
     "scikit_remaining_steps": 55,
