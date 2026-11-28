@@ -1060,12 +1060,12 @@
       "trial_id": "scikit_v2_serena_r01",
       "variant": "serena",
       "repetition": 1,
-      "state": "running",
-      "completed_steps": 0,
+      "state": "ready_next_step",
+      "completed_steps": 1,
       "total_steps": 6,
       "cohort": "scikit-five-method-v2",
-      "active_step": 1,
-      "last_step": "scikit_v2_serena_r01_s01",
+      "active_step": null,
+      "last_step": "scikit_v2_serena_r01_s01_recovery01",
       "failure_category": null,
       "resumed_attempt": "scikit_v2_serena_r01_s01_recovery01"
     },
@@ -1350,11 +1350,11 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "running",
-      "label": "4/60 measured steps collected",
-      "summary": "4/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory.",
+      "status": "awaiting_user_decision",
+      "label": "5/60 collected; M06 complete; M11 image approval pending",
+      "summary": "M06 accepted for all five methods: 5/5 F2P and 34669/34669 P2P each. Serena used one authorized same-session recovery; original failure, partial code and memories retained, with stopped-turn costs included once. Source/native checkpoints and Sonar verified. One first-step sample per method; no significance claim. M11 grader needs separate approval.",
       "protocol": "reports/scikit_v2_protocol.md",
-      "completed_steps": 4,
+      "completed_steps": 5,
       "target_steps": 60
     }
   },
@@ -1383,23 +1383,23 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "serena_recovery_running",
+    "status": "awaiting_m11_image_approval",
     "scikit_target_steps": 60,
-    "scikit_collected_steps": 4,
-    "scikit_remaining_steps": 56,
+    "scikit_collected_steps": 5,
+    "scikit_remaining_steps": 55,
     "ripgrep_new_trials_authorized": false,
     "technical_recovery_only": true,
     "decisions_in": "this Codex chat",
     "notification_channel": "existing OpenClaw Telegram bot",
     "runtime_substitution_authorized": false,
     "framework_refactor_after": "completed results publication",
-    "blocker": null,
+    "blocker": "M06 finished for all five methods, including the authorized Serena same-session recovery. M11 grader acquisition approval remains pending.",
     "checkpoint_audit": "reports/retained_checkpoint_audit.json",
     "coordination_preflight": "reports/coordination_preflight.json",
     "runtime_recovery_audit": "reports/scikit_recovery_audit.json",
     "storage_cleanup": "reports/storage_cleanup_20261128.json",
     "telegram_delivery_verified": true,
-    "decision_requested": false,
+    "decision_requested": true,
     "blocker_notification_delivered": true,
     "latest_user_decision": "2026-11-28: Authorize a separate Serena M06 recovery attempt in the same retained session, keeping the failed attempt and recording the deviation.",
     "new_cohort_plan": "reports/scikit_new_cohort_plan.json",
@@ -1409,7 +1409,7 @@
     "proposed_historical_steps_excluded": 3,
     "historical_scikit_steps_excluded": 3,
     "active_cohort": "scikit-five-method-v2",
-    "latest_notification_status": "Serena M06 blocker notification delivery confirmed, message267; decision pending in this Codex chat.",
+    "latest_notification_status": "M11 approval notification uncertain; do not resend before reconciliation. Original Serena blocker notification confirmed earlier.",
     "blocker_report": "reports/scikit_v2_serena_m06_blocker.json",
     "ecc_checkpoint_recovery": "reports/scikit_v2_ecc_checkpoint_recovery.json",
     "pending_download_approval": {
@@ -1417,6 +1417,7 @@
       "budget": "reports/scikit_v2_m11_image_budget.json",
       "new_unique_compressed_bytes": 1421510719,
       "gate": "Only after successful M06 recovery; question pending in this Codex chat."
-    }
+    },
+    "recovery_checkpoint_selection": "reports/scikit_v2_checkpoint_selection.json"
   }
 }

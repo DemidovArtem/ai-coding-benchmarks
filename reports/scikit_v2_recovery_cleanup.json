@@ -1,0 +1,14 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "at": "2026-11-28T11:30:26.900889+00:00",
+  "container": "m06-scikit_v2_serena_r01-runner",
+  "scope": "Completed authorized Serena M06 recovery container only. No image, volume, archive or unrelated resource removed.",
+  "writable_bytes": 343533211,
+  "verification_report": "reports/scikit_v2_serena_m06_recovery_checkpoint.json",
+  "verification_sha256": "42ce6091a16eb291555b4de8eb102fa00c825339a5cdb1ef73aff4c9b0d2f5ab",
+  "source_native_memories_and_original_failure_retained": true,
+  "native_model_processes": 0,
+  "docker_free_bytes_before": 29729103872,
+  "removed": true,
+  "docker_free_bytes_after": 30080294912
+}

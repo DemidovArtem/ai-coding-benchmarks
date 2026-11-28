@@ -1,0 +1,34 @@
+{
+  "recovery_trial": "scikit_v2_serena_r01_s01_recovery01",
+  "recovery_of": "scikit_v2_serena_r01_s01",
+  "model_step_complete": true,
+  "evaluation_pending": false,
+  "original_native_prefix_byte_exact": true,
+  "native_rollout_sha256": "ddbfa1521ae8aec202bf30fb86d28559f8df6b3a7e30a9f521641d189edc540d",
+  "native_sqlite_hashes_and_integrity_verified": true,
+  "source_bundle_sha256_verified": true,
+  "native_turns": 2,
+  "session_ids": [
+    "01a22093-79c6-7732-9801-fd419d5e6767"
+  ],
+  "usage_includes_stopped_turn_once": true,
+  "retained_memory_reuse_verified": true,
+  "original_failure_preserved": true,
+  "evaluation_valid": true,
+  "grader_resolved": true,
+  "sonar_bound_to_snapshot_verified": true,
+  "native_turn_boundaries_after": [
+    {
+      "id": "01a22093-8da0-7e13-bf1d-49e3a8258cd1",
+      "status": "completed"
+    },
+    {
+      "id": "01a221dd-df7d-70c3-86be-51bb6c90ee89",
+      "status": "completed"
+    }
+  ],
+  "native_history_prefix_preserved": true,
+  "all_five_first_step_analysis_verified": true,
+  "original_failure_excluded_from_curve_but_retained": true,
+  "verified_at": "2026-11-28T11:29:47.118039+00:00"
+}
