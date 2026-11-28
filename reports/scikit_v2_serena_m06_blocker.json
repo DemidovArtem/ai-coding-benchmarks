@@ -2,7 +2,7 @@
   "cohort": "scikit-five-method-v2",
   "trial_id": "scikit_v2_serena_r01_s01",
   "observed_at": "2026-11-28T05:26:18.738811+00:00",
-  "state": "awaiting_user_recovery_decision",
+  "state": "recovery_authorized",
   "cause": "Model stopped under Serena edit-guard policy after a replacement expected one match but found two; partial source, no completion tag.",
   "retained_container": "m06-scikit_v2_serena_r01-runner",
   "retained_partial": "results/trials/scikit_v2_serena_r01_s01/retained_partial",
@@ -30,5 +30,11 @@
     "delivery_confirmed": true,
     "message_id": "267",
     "decisions_in": "this Codex chat"
-  }
+  },
+  "user_decision": {
+    "date": "2026-11-28",
+    "decision": "Continue the same session as a separate recovery attempt; preserve the original failure and mark the deviation.",
+    "location": "this Codex chat"
+  },
+  "recovery_preflight": "reports/scikit_v2_serena_m06_recovery_preflight.json"
 }

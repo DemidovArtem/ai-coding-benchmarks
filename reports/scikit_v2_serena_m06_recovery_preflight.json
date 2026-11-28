@@ -1,0 +1,52 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "recovery_of": "scikit_v2_serena_r01_s01",
+  "recovery_trial": "scikit_v2_serena_r01_s01_recovery01",
+  "authorized_on": "2026-11-28",
+  "authorization": "Maintainer approved a separate recovery attempt in the same session in this Codex chat.",
+  "adapter_sha256": "00713964278eed3300c1d3886bf07a3b51b223c0f407239d8e1cec4c31b1ff9f",
+  "session_id": "01a22093-79c6-7732-9801-fd419d5e6767",
+  "history_before": [
+    {
+      "id": "01a22093-8da0-7e13-bf1d-49e3a8258cd1",
+      "status": "completed"
+    }
+  ],
+  "retained_partial_manifest_sha256": "c1be7f8d80b4e158400ded2b82e4e1a87c3cd2f9c07e3c266c5a792a1c7436a0",
+  "partial_work_unchanged": true,
+  "memory_before": {
+    "files": {
+      "conventions.md": {
+        "sha256": "e3808d4fc8add243b572ce612a3e54510bb0880958a1800f4da6749867fdcb36",
+        "bytes": 363
+      },
+      "core.md": {
+        "sha256": "7a6f7d3e3fd9a0ab054ffa188c7ef2f13c884797b3b5e5a7b1dcd9663bac0b73",
+        "bytes": 717
+      },
+      "memory_maintenance.md": {
+        "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+        "bytes": 2043
+      },
+      "suggested_commands.md": {
+        "sha256": "2feb3bc43f1cc11aae92a31b727c47be8214a5ef3ec9af956fce8c76abb7f473",
+        "bytes": 403
+      },
+      "task_completion.md": {
+        "sha256": "b1621cfbc6c4dd057919831b79bbe5568eb086c21815a58c39ac4726bed1a9e6",
+        "bytes": 424
+      },
+      "tech_stack.md": {
+        "sha256": "1af0dc6b1152bbb9f404862bee6ef2e97424167537e69d68c8f6ac0780dbe586",
+        "bytes": 318
+      }
+    },
+    "count": 6,
+    "bytes": 4268
+  },
+  "profile_runtime_quarantine_verified": true,
+  "new_model_calls_during_preflight": 0,
+  "original_failed_attempt_preserved": true,
+  "deviation": "One authorized additional model turn after the original edit-guard policy stop; not an independent repetition.",
+  "native_preservation": "Keep original private native bytes; redact curated public records only to avoid known text-redaction corruption."
+}

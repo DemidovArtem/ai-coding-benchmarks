@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 06:48:06**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 12:14:30**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест Telegram доставлен; новые отправки без ACK сохраняются как неопределённые и не повторяются. После квотной паузы baseline v2 продолжил ту же native session; исходники и закрытый checkpoint проверены. Recovery после reboot ещё не проверен. Три завершённых ECC smoke-контейнера удалены после проверки архивов. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | 4/60 collected; Serena recovery decision pending | M06 accepted for baseline/Caveman/Ponytail/ECC (5/5 F2P, 34669/34669 P2P each). Serena stopped under edit-guard policy; partial source, native session and six memories retained. Queue stopped before M11; recovery decision pending in Codex. ECC full native tree verified after byte-exact technical rollout restoration. [Протокол](reports/scikit_v2_protocol.md) |
+| Scikit-learn v2: five methods, 2×6 | 4/60 collected; Serena recovery authorized | M06 accepted for baseline/Caveman/Ponytail/ECC. Maintainer authorized one separate Serena recovery in the same retained session; zero-model preflight verifies unchanged partial code, memories, runtime and quarantine. Original failure remains in history; no M11 dispatch or unapproved download. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
