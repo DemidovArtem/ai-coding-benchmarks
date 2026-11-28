@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 05:37:05**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 05:45:20**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -27,7 +27,7 @@
 | ECC: ripgrep, six sequential edits | Completed 6/6; one recovered trajectory | Six snapshots and Sonar scans collected. Grader: 2 accepted, 3 rejected, 1 unavailable (known grader dependency). DNS/OAuth/quota/analysis interruptions preserved; same root session and checkpoint hashes verified. n=1; no significance claim. Retained-evidence audit (2026-11-28) verifies measured skill/subagent usage and all six source/native checkpoints; original false installation fields remain unchanged. [Протокол](reports/ecc_protocol.md) |
 | Scikit-learn: baseline / Caveman / Ponytail / Serena / ECC, 2×6 | Исторический пилот остановлен: 3 шага сохранены | Исходный runtime утрачен; три результата и неудачи сохранены отдельно. Разрешена новая когорта v2 с нуля, без продолжения или усреднения старого пилота. [Протокол](docs/ROADMAP.md) |
 | Продолжение цели, Telegram и очистка | Telegram и сохранённое расписание проверены; освобождено ≈2,17 ГБ | Тест Telegram доставлен; новые отправки без ACK сохраняются как неопределённые и не повторяются. После квотной паузы baseline v2 продолжил ту же native session; исходники и закрытый checkpoint проверены. Recovery после reboot ещё не проверен. Три завершённых ECC smoke-контейнера удалены после проверки архивов. [Протокол](reports/storage_cleanup_20261128.md) |
-| Scikit-learn v2: five methods, 2×6 | 0/60 measured steps collected | 0/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_v2_protocol.md) |
+| Scikit-learn v2: five methods, 2×6 | 1/60 measured steps collected | 1/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory. [Протокол](reports/scikit_v2_protocol.md) |
 | Дальнейшее расширение: больший repo / full chain | Не запускалось; отдельное согласование | Сначала определить scope, проверить квоту и бюджет новых образов/диска |
 
 ## Последовательный пилот: план запусков
@@ -108,8 +108,8 @@
 | ecc_ecc_r01 | ecc | 1 | 6/6 | Завершён |
 | scikit_ecc_r01 | ecc | 1 | 0/6 | Исключён из новых запусков |
 | scikit_ecc_r02 | ecc | 2 | 0/6 | Исключён из новых запусков |
-| scikit_v2_baseline_r01 | baseline | 1 | 0/6 | Выполняется |
-| scikit_v2_caveman_r01 | caveman | 1 | 0/6 | Запланирован |
+| scikit_v2_baseline_r01 | baseline | 1 | 1/6 | ready_next_step |
+| scikit_v2_caveman_r01 | caveman | 1 | 0/6 | Выполняется |
 | scikit_v2_ponytail_r01 | ponytail | 1 | 0/6 | Запланирован |
 | scikit_v2_serena_r01 | serena | 1 | 0/6 | Запланирован |
 | scikit_v2_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
@@ -217,7 +217,8 @@
 | ecc_ecc_r01_s04_auth_recovery01 | ecc | Завершён; grader не принят | 210 | 32 | 178 | 242 | 6 |
 | ecc_ecc_r01_s05 | ecc | Завершён; score недоступен: дефект grader | 230 | 39 | 191 | 269 | 8 |
 | ecc_ecc_r01_s06 | ecc | Завершён; grader не принят | 514 | 46 | 468 | 560 | 10 |
-| scikit_v2_baseline_r01_s01 | baseline | Выполняется | — | — | — | — | — |
+| scikit_v2_baseline_r01_s01 | baseline | Завершён; grader принят | 201 | 82 | 119 | 283 | 5 |
+| scikit_v2_caveman_r01_s01 | caveman | Выполняется | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
@@ -318,7 +319,8 @@ Input уже включает cached input: эти столбцы не скла�
 | ecc_ecc_r01_s04_auth_recovery01 | 5 086 994 | 4 793 344 | 14 307 | 0 | 292.6 | 107.0 | 30.0 | 427.0 |
 | ecc_ecc_r01_s05 | 7 346 095 | 7 239 296 | 18 500 | 0 | 362.8 | 94.1 | 29.8 | 484.4 |
 | ecc_ecc_r01_s06 | 13 621 901 | 13 433 984 | 38 858 | 0 | 585.1 | 98.4 | 27.2 | 711.4 |
-| scikit_v2_baseline_r01_s01 | — | — | — | — | — | — | — | — |
+| scikit_v2_baseline_r01_s01 | 1 955 708 | 1 892 224 | 19 674 | 0 | 491.9 | 245.7 | 11.4 | 6549.4 |
+| scikit_v2_caveman_r01_s01 | — | — | — | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
@@ -419,7 +421,8 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | ecc_ecc_r01_s04_auth_recovery01 | Готов | 31 337 | 2 426 | 280 | 1 428 | — | — |
 | ecc_ecc_r01_s05 | Готов | 31 415 | 2 432 | 280 | 1 428 | — | — |
 | ecc_ecc_r01_s06 | Готов | 31 677 | 2 533 | 283 | 1 445 | — | — |
-| scikit_v2_baseline_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| scikit_v2_baseline_r01_s01 | Готов | 75 301 | 14 772 | 1 896 | 10 848 | — | — |
+| scikit_v2_caveman_r01_s01 | Не выполнен | — | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
