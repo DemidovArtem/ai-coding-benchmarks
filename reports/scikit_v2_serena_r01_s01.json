@@ -1,0 +1,270 @@
+{
+  "experiment_id": "scikit-five-method-v2",
+  "cohort": "scikit-five-method-v2",
+  "trial_id": "scikit_v2_serena_r01_s01",
+  "trial_kind": "continuous_step",
+  "measured_comparison": true,
+  "repo": "scikit-learn_scikit-learn_1.5.2_1.6.0",
+  "milestone_id": "M06",
+  "variant": "serena",
+  "repetition": 1,
+  "trial_state": "failed",
+  "trial_failure_category": "scikit_step_failure",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "dataset_version": "v1.0.2",
+  "dataset_commit": "3500478e740d42583277c2658aa7729eb36e10f4",
+  "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+  "starting_tree": "cde0ed02139a37b0100420927921aab8a4bb9d0c",
+  "ending_commit": null,
+  "snapshot_sha256": null,
+  "artifacts_path": "/home/artem-demidov/PycharmProjects/AI/ai-coding-benchmarks/results/trials/scikit_v2_serena_r01_s01",
+  "effective_profile": {
+    "config_sha256": "64c9ac26a803620f4e6ba32328debe4a37bc3b6f05b23ce692de58637fc59c87",
+    "effective_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "danger-full-access",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "instruction_audit": "clean",
+    "serena_memories": 0,
+    "profile_config": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "forced_login_method": "chatgpt",
+      "web_search": "disabled",
+      "approval_policy": "never",
+      "sandbox_mode": "read-only",
+      "features": {
+        "apps": false,
+        "browser_use": false,
+        "browser_use_external": false,
+        "browser_use_full_cdp_access": false,
+        "computer_use": false,
+        "image_generation": false,
+        "in_app_browser": false,
+        "plugins": false,
+        "remote_plugin": false
+      }
+    },
+    "cli_overrides": {
+      "sandbox_bypass_inside_isolated_container": true,
+      "web_search": "disabled"
+    },
+    "quarantine": "protected",
+    "requested_cli_version": "0.163.0",
+    "actual_cli_version": "0.163.0",
+    "starting_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+    "host_mounts": [
+      {
+        "destination": "/tmp/host-codex/auth.json",
+        "read_only": true
+      }
+    ],
+    "variant": "serena",
+    "image_id": "sha256:04da41c7315501c9f349476285e7037dec0057909115f38d1b2be16daac2b1d2",
+    "skill": "serena",
+    "serena_version": "1.6.1",
+    "python_lsp_verified": true,
+    "memory_policy": "cold repetition; exact trajectory memories restored between steps",
+    "continuous_policy_sha256": "49e90a20c3312b1b179ab16edc84722061ce0c7ed665c05b5375f497105e6f2e"
+  },
+  "setup_fingerprint": "a2f88bec865b22df2f839c160b63f2c2e38f704e1e36a1ed889dc67967baedb7",
+  "implementation_commit": "52ea5e22b0b35562615fd18f0a36064d845e0cb6",
+  "duration_seconds": 278.89981713799716,
+  "durations_seconds": {
+    "planner": 0,
+    "executor": 176.29386967200116,
+    "evaluation": null,
+    "sonar": null
+  },
+  "quota_wait_seconds": 0,
+  "usage": {
+    "planner": {
+      "used": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0
+    },
+    "executor": {
+      "input_tokens": 486475,
+      "output_tokens": 6688,
+      "cached_input_tokens": 434432,
+      "reasoning_output_tokens": 1206,
+      "session_ids": [
+        "01a22093-79c6-7732-9801-fd419d5e6767"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 4,
+        "serena": 66
+      },
+      "anomalies": [],
+      "counter_semantics": "difference of cumulative thread totals at consecutive step boundaries"
+    },
+    "executor_cumulative": {
+      "input_tokens": 486475,
+      "output_tokens": 6688,
+      "cached_input_tokens": 434432,
+      "reasoning_output_tokens": 1206,
+      "session_ids": [
+        "01a22093-79c6-7732-9801-fd419d5e6767"
+      ],
+      "turns": 1,
+      "tool_calls": {
+        "shell": 4,
+        "serena": 66
+      },
+      "anomalies": [],
+      "counter_semantics": "last cumulative totals per thread; fields as reported"
+    },
+    "total": {
+      "input_tokens": 486475,
+      "cached_input_tokens": 434432,
+      "output_tokens": 6688,
+      "reasoning_output_tokens": 1206
+    }
+  },
+  "quota": {
+    "before": {
+      "observed_at": "2026-11-28T05:12:43.453461+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 26,
+            "windowDurationMins": 300,
+            "resetsAt": 1795858209
+          },
+          "secondary": {
+            "usedPercent": 32,
+            "windowDurationMins": 10080,
+            "resetsAt": 1796281931
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    },
+    "after": {
+      "observed_at": "2026-11-28T05:17:22.355043+00:00",
+      "source": "codex app-server account/rateLimits/read",
+      "approximate": true,
+      "status": "observed",
+      "rate_limits": {
+        "codex": {
+          "primary": {
+            "usedPercent": 30,
+            "windowDurationMins": 300,
+            "resetsAt": 1795858209
+          },
+          "secondary": {
+            "usedPercent": 33,
+            "windowDurationMins": 10080,
+            "resetsAt": 1796281931
+          },
+          "rateLimitReachedType": null,
+          "spendControlReached": false
+        }
+      }
+    }
+  },
+  "continuous": {
+    "trajectory_id": "scikit_v2_serena_r01",
+    "step": 1,
+    "repetition": 1,
+    "executor_session_id": "01a22093-79c6-7732-9801-fd419d5e6767",
+    "input_commit": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4"
+  },
+  "collection_errors": [
+    "Source checkpoint or snapshot missing"
+  ],
+  "skill_state": {
+    "required_usage_verified": true,
+    "observed_mcp_tool_calls": 65,
+    "semantic_calls": 34,
+    "onboarding_observed": true,
+    "memory_write_observed": true,
+    "memory_mode": "cold",
+    "memory_files_before": 0,
+    "memory_files_after": 6,
+    "memory_bytes_before": 0,
+    "memory_bytes_after": 4268,
+    "measured_mcp_tool_calls": 65,
+    "usage_policy": "required cold onboarding; required retained-memory reuse on warm turns",
+    "before": {
+      "files": {},
+      "count": 0,
+      "bytes": 0
+    },
+    "after": {
+      "files": {
+        "conventions.md": {
+          "sha256": "e3808d4fc8add243b572ce612a3e54510bb0880958a1800f4da6749867fdcb36",
+          "bytes": 363
+        },
+        "core.md": {
+          "sha256": "7a6f7d3e3fd9a0ab054ffa188c7ef2f13c884797b3b5e5a7b1dcd9663bac0b73",
+          "bytes": 717
+        },
+        "memory_maintenance.md": {
+          "sha256": "09d514088a02af6dd4487f6538011e398601f5397a8e68b901c0d7cf29a30177",
+          "bytes": 2043
+        },
+        "suggested_commands.md": {
+          "sha256": "2feb3bc43f1cc11aae92a31b727c47be8214a5ef3ec9af956fce8c76abb7f473",
+          "bytes": 403
+        },
+        "task_completion.md": {
+          "sha256": "b1621cfbc6c4dd057919831b79bbe5568eb086c21815a58c39ac4726bed1a9e6",
+          "bytes": 424
+        },
+        "tech_stack.md": {
+          "sha256": "1af0dc6b1152bbb9f404862bee6ef2e97424167537e69d68c8f6ac0780dbe586",
+          "bytes": 318
+        }
+      },
+      "count": 6,
+      "bytes": 4268
+    }
+  },
+  "hook_activation_audit": null,
+  "grading_validity": {
+    "valid": false,
+    "raw_score_preserved": true,
+    "common_base_limitation": "M06 unchanged-base preflight has 78 missing P2P tests; inspect raw counts."
+  },
+  "sonar": {
+    "analysis_ok": null,
+    "metrics": null,
+    "status": "not_run"
+  },
+  "resolved": null,
+  "grader_metrics": {},
+  "f2p": null,
+  "p2p": null,
+  "n2p": null,
+  "failure_category": "scikit_step_failure",
+  "added_prod_loc": null,
+  "deleted_prod_loc": null,
+  "net_prod_loc": null,
+  "churn_prod_loc": null,
+  "changed_prod_files": null,
+  "cumulative_prod_loc": null
+}

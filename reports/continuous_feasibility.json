@@ -1060,20 +1060,23 @@
       "trial_id": "scikit_v2_serena_r01",
       "variant": "serena",
       "repetition": 1,
-      "state": "running",
+      "state": "failed",
       "completed_steps": 0,
       "total_steps": 6,
       "cohort": "scikit-five-method-v2",
-      "active_step": 1
+      "active_step": null,
+      "last_step": "scikit_v2_serena_r01_s01",
+      "failure_category": "scikit_step_failure"
     },
     {
       "trial_id": "scikit_v2_ecc_r01",
       "variant": "ecc",
       "repetition": 1,
-      "state": "planned",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 6,
-      "cohort": "scikit-five-method-v2"
+      "cohort": "scikit-five-method-v2",
+      "active_step": 1
     },
     {
       "trial_id": "scikit_v2_baseline_r02",
@@ -1377,7 +1380,7 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "benchmarks_ready",
+    "status": "awaiting_serena_decision_peer_m06_running",
     "scikit_target_steps": 60,
     "scikit_collected_steps": 3,
     "scikit_remaining_steps": 57,
@@ -1387,14 +1390,14 @@
     "notification_channel": "existing OpenClaw Telegram bot",
     "runtime_substitution_authorized": false,
     "framework_refactor_after": "completed results publication",
-    "blocker": null,
+    "blocker": "Serena M06 stopped under edit-guard policy; preserved partial source/native/memories. ECC M06 may finish; no M11 until user decision.",
     "checkpoint_audit": "reports/retained_checkpoint_audit.json",
     "coordination_preflight": "reports/coordination_preflight.json",
     "runtime_recovery_audit": "reports/scikit_recovery_audit.json",
     "storage_cleanup": "reports/storage_cleanup_20261128.json",
     "telegram_delivery_verified": true,
-    "decision_requested": false,
-    "blocker_notification_delivered": true,
+    "decision_requested": true,
+    "blocker_notification_delivered": false,
     "latest_user_decision": "2026-11-28: Fresh scikit-five-method-v2 implementation, activation and 60 measured steps approved; first pinned base + M06 package approved up to 4005763625 unique compressed bytes. Later graders require separate approval; historical pilot remains separate.",
     "new_cohort_plan": "reports/scikit_new_cohort_plan.json",
     "new_cohort_execution_authorized": true,
@@ -1403,6 +1406,7 @@
     "proposed_historical_steps_excluded": 3,
     "historical_scikit_steps_excluded": 3,
     "active_cohort": "scikit-five-method-v2",
-    "latest_notification_status": "uncertain; previous setup deliveries verified, newest stage ACK absent; do not resend before reconciliation"
+    "latest_notification_status": "New Serena blocker notification in flight; receipt retained, do not duplicate.",
+    "blocker_report": "reports/scikit_v2_serena_m06_blocker.json"
   }
 }

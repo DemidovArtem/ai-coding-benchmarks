@@ -1,0 +1,28 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "trial_id": "scikit_v2_serena_r01_s01",
+  "observed_at": "2026-11-28T05:26:18.738811+00:00",
+  "state": "awaiting_user_recovery_decision",
+  "cause": "Model stopped under Serena edit-guard policy after a replacement expected one match but found two; partial source, no completion tag.",
+  "retained_container": "m06-scikit_v2_serena_r01-runner",
+  "retained_partial": "results/trials/scikit_v2_serena_r01_s01/retained_partial",
+  "session_id": "01a22093-79c6-7732-9801-fd419d5e6767",
+  "head": "a5cf4cea0f753dcf649520f68c0c0f27d73dc1d4",
+  "native_idle_verified": true,
+  "partial_file_count": 14,
+  "partial_manifest_sha256": "c1be7f8d80b4e158400ded2b82e4e1a87c3cd2f9c07e3c266c5a792a1c7436a0",
+  "source_and_native_preserved": true,
+  "same_root_history_api_available": true,
+  "serena_usage": {
+    "mcp_calls": 65,
+    "semantic_calls": 34,
+    "memory_files": 6
+  },
+  "model_calls_during_preservation": 0,
+  "next_task_blocked": true,
+  "peer_ecc_m06_may_continue": true,
+  "decision_options": [
+    "Separate recovery attempt in the same root, retaining failed attempt and deviation.",
+    "Keep failure and stop Serena trajectory."
+  ]
+}

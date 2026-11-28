@@ -1,6 +1,6 @@
 # Эксперименты: результаты и текущий статус
 
-Обновлено: **2026-11-28 06:15:08**, Europe/Zurich. Это основной живой реестр проекта.
+Обновлено: **2026-11-28 06:27:08**, Europe/Zurich. Это основной живой реестр проекта.
 
 Источник чисел — сохранённые grader/Git/usage/Sonar records. Документ обновляется после запуска, завершения, ошибки или изменения плана. Промежуточный trial не получает вымышленный результат; «—» означает, что данных нет.
 
@@ -111,8 +111,8 @@
 | scikit_v2_baseline_r01 | baseline | 1 | 1/6 | ready_next_step |
 | scikit_v2_caveman_r01 | caveman | 1 | 1/6 | ready_next_step |
 | scikit_v2_ponytail_r01 | ponytail | 1 | 1/6 | ready_next_step |
-| scikit_v2_serena_r01 | serena | 1 | 0/6 | Выполняется |
-| scikit_v2_ecc_r01 | ecc | 1 | 0/6 | Запланирован |
+| scikit_v2_serena_r01 | serena | 1 | 0/6 | Ошибка; данные сохранены |
+| scikit_v2_ecc_r01 | ecc | 1 | 0/6 | Выполняется |
 | scikit_v2_baseline_r02 | baseline | 2 | 0/6 | Запланирован |
 | scikit_v2_caveman_r02 | caveman | 2 | 0/6 | Запланирован |
 | scikit_v2_ponytail_r02 | ponytail | 2 | 0/6 | Запланирован |
@@ -220,7 +220,8 @@
 | scikit_v2_baseline_r01_s01 | baseline | Завершён; grader принят | 201 | 82 | 119 | 283 | 5 |
 | scikit_v2_caveman_r01_s01 | caveman | Завершён; grader принят | 190 | 76 | 114 | 266 | 5 |
 | scikit_v2_ponytail_r01_s01 | ponytail | Завершён; grader принят | 197 | 75 | 122 | 272 | 5 |
-| scikit_v2_serena_r01_s01 | serena | Выполняется | — | — | — | — | — |
+| scikit_v2_serena_r01_s01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
+| scikit_v2_ecc_r01_s01 | ecc | Выполняется | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | serena | Ошибка; результат сохранён | — | — | — | — | — |
 
 Net = добавлено − удалено; churn = добавлено + удалено. Тесты/generated/vendor и inline Rust tests исключены из production LOC. Полные raw grader decisions, new/deleted/renamed files и cumulative LOC сохранены в JSONL.
@@ -324,7 +325,8 @@ Input уже включает cached input: эти столбцы не скла�
 | scikit_v2_baseline_r01_s01 | 1 955 708 | 1 892 224 | 19 674 | 0 | 491.9 | 245.7 | 11.4 | 6549.4 |
 | scikit_v2_caveman_r01_s01 | 2 823 493 | 2 731 136 | 19 726 | 0 | 490.8 | 250.2 | 9.5 | 940.7 |
 | scikit_v2_ponytail_r01_s01 | 2 105 905 | 2 006 016 | 20 313 | 0 | 492.7 | 233.4 | 10.4 | 1011.3 |
-| scikit_v2_serena_r01_s01 | — | — | — | — | — | — | — | — |
+| scikit_v2_serena_r01_s01 | 486 475 | 434 432 | 6 688 | 0 | 176.3 | — | — | 278.9 |
+| scikit_v2_ecc_r01_s01 | — | — | — | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | — | — | — | — | — | — | — | — |
 
 Trial total включает setup и служебные операции; Sonar выполняется отдельно. Goal_plan продолжен после quota pause: active time указан без всей паузы, полное wall time есть в JSON. Время описательное: host postprocessing частично пересекался с setup следующего trial.
@@ -428,7 +430,8 @@ Sonar измеряет raw graded snapshot, включая различающи�
 | scikit_v2_baseline_r01_s01 | Готов | 75 301 | 14 772 | 1 896 | 10 848 | — | — |
 | scikit_v2_caveman_r01_s01 | Готов | 75 297 | 14 774 | 1 898 | 10 858 | — | — |
 | scikit_v2_ponytail_r01_s01 | Готов | 75 307 | 14 776 | 1 899 | 10 865 | — | — |
-| scikit_v2_serena_r01_s01 | Не выполнен | — | — | — | — | — | — |
+| scikit_v2_serena_r01_s01 | Не выполнен | — | — | — | — | — | 6 |
+| scikit_v2_ecc_r01_s01 | Не выполнен | — | — | — | — | — | — |
 | phase6e_serena_r01_s05_quota01 | Не выполнен | — | — | — | — | — | — |
 
 Подробные F2P/P2P/N2P, failures и skipped сохранены в canonical grader records. F2P — исправленные обязательные проверки, P2P — сохранённые проходившие проверки, N2P — новые проверки. Snapshot/collection failures отражаются в статусах. Native-hook audit и отдельный MCP smoke проверяют активацию, а natural usage показывает фактическое использование. Активационные smokes и их неуспешные попытки — setup overhead, не task A/B.
