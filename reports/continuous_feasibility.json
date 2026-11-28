@@ -1060,13 +1060,14 @@
       "trial_id": "scikit_v2_serena_r01",
       "variant": "serena",
       "repetition": 1,
-      "state": "failed",
+      "state": "running",
       "completed_steps": 0,
       "total_steps": 6,
       "cohort": "scikit-five-method-v2",
-      "active_step": null,
+      "active_step": 1,
       "last_step": "scikit_v2_serena_r01_s01",
-      "failure_category": "scikit_step_failure"
+      "failure_category": null,
+      "resumed_attempt": "scikit_v2_serena_r01_s01_recovery01"
     },
     {
       "trial_id": "scikit_v2_ecc_r01",
@@ -1349,9 +1350,9 @@
     },
     "scikit_five_method_v2": {
       "title": "Scikit-learn v2: five methods, 2\u00d76",
-      "status": "ready",
-      "label": "4/60 collected; Serena recovery authorized",
-      "summary": "M06 accepted for baseline/Caveman/Ponytail/ECC. Maintainer authorized one separate Serena recovery in the same retained session; zero-model preflight verifies unchanged partial code, memories, runtime and quarantine. Original failure remains in history; no M11 dispatch or unapproved download.",
+      "status": "running",
+      "label": "4/60 measured steps collected",
+      "summary": "4/60 steps; serial step-first order, isolated cold repetitions. Python Sonar excludes Cython; inspect the cohort common-base grader preflight. Source, native session and Serena memories checkpointed per trajectory.",
       "protocol": "reports/scikit_v2_protocol.md",
       "completed_steps": 4,
       "target_steps": 60
@@ -1382,7 +1383,7 @@
   "long_term_goal": {
     "authorized_on": "2026-11-28",
     "roadmap": "docs/ROADMAP.md",
-    "status": "serena_recovery_ready",
+    "status": "serena_recovery_running",
     "scikit_target_steps": 60,
     "scikit_collected_steps": 4,
     "scikit_remaining_steps": 56,
@@ -1410,6 +1411,12 @@
     "active_cohort": "scikit-five-method-v2",
     "latest_notification_status": "Serena M06 blocker notification delivery confirmed, message267; decision pending in this Codex chat.",
     "blocker_report": "reports/scikit_v2_serena_m06_blocker.json",
-    "ecc_checkpoint_recovery": "reports/scikit_v2_ecc_checkpoint_recovery.json"
+    "ecc_checkpoint_recovery": "reports/scikit_v2_ecc_checkpoint_recovery.json",
+    "pending_download_approval": {
+      "milestone": "M11",
+      "budget": "reports/scikit_v2_m11_image_budget.json",
+      "new_unique_compressed_bytes": 1421510719,
+      "gate": "Only after successful M06 recovery; question pending in this Codex chat."
+    }
   }
 }

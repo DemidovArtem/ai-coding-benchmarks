@@ -1,0 +1,64 @@
+{
+  "cohort": "scikit-five-method-v2",
+  "milestone": "M11",
+  "title": "Missing value support for ExtraTree estimators",
+  "observed_at": "2026-11-28T11:15:58.731054+00:00",
+  "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m11@sha256:656473750f77656ad9d9adaa173444e6ac698bbe16ae02704d5dc106d3e1cd46",
+  "local_alias": "swe-milestone/scikit-learn_scikit-learn_1.5.2_1.6.0__m11:v1.0.2",
+  "manifest_digest_verified": "sha256:656473750f77656ad9d9adaa173444e6ac698bbe16ae02704d5dc106d3e1cd46",
+  "config_digest_verified": "sha256:a5e3c045b78f6766482845979b72acc463f61db02d67bb848c623721b67b4877",
+  "full_compressed_layer_bytes": 3395185876,
+  "new_unique_compressed_layer_bytes": 1421510719,
+  "new_layers": [
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 129,
+      "digest": "sha256:b1dc04e05c115e6cdc93c6a3d61495b1ce5e5d7f2c9d63bf23dc0b8d085a5b1c",
+      "diff_id": "sha256:1d34c9956c42ce1ae7abcbf9d0442f6911768fd4db12432a061934e9de1d5283"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 1388412428,
+      "digest": "sha256:36165a59d8199b3aff2d1fe62d9d9beed355b137baab627e8d0eb287d3bf7885",
+      "diff_id": "sha256:9076b8681e10572dc7ed8f7a30d8f1e26b633ab0f848516b4b7b3d2100f566f4"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 32281002,
+      "digest": "sha256:a84e37963dbad7ea58ea2c696f36e53cb4156f70673b8456abaf7ef942d15d7e",
+      "diff_id": "sha256:72eb0ac258b7d09be763ce06d130d530cc444389d64380992a00acc2f5961926"
+    },
+    {
+      "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+      "size": 817160,
+      "digest": "sha256:f02c33720b5318545673f3a80d11bf1caf14e31f13d864b72c1f7b4670f231b6",
+      "diff_id": "sha256:a1c3d1019769ef4ae525678296d14a6c4b3783033a2802fce816d4abdc897ee4"
+    }
+  ],
+  "cache_basis": "RootFS diff IDs of the currently present, digest-verified approved base and M06 images; conservative if other cache layers exist.",
+  "verified_cached_images": [
+    {
+      "milestone": "base-offline",
+      "image_id": "sha256:c949d192eedeb8ad49ba7e944b244382188535765d4438bf5f14e43dbc80a4c7",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__base-offline@sha256:2b77ce7d7030461e3e7ca67e47d910d7fa0e6784c7520c62f183ebcde837bd0a"
+    },
+    {
+      "milestone": "M06",
+      "image_id": "sha256:fd3683ec1e5bc8886a7aa483ab1a3d87e11ed28caebf5b5d9422637d59af0a8f",
+      "digest_ref": "hyd2apse/swe-milestone__scikit-learn_scikit-learn_1.5.2_1.6.0__m06@sha256:5c3349cede1dee4f18f916958c6da21648a34ed0e400ad583f0b5b6e6097186a"
+    }
+  ],
+  "expanded_bytes_known": false,
+  "expanded_planning_estimate_bytes": 4264532157,
+  "pull_peak_planning_estimate_bytes": 5686042876,
+  "planning_estimate_basis": "3x new compressed bytes for expansion, plus one compressed copy; estimate, not an upper bound. Monitor actual free space during pull.",
+  "docker_free_bytes": 29743673344,
+  "workspace_free_bytes": 67499347968,
+  "required_docker_reserve_bytes": 12000000000,
+  "required_workspace_reserve_bytes": 1000000000,
+  "planning_headroom_after_peak_and_reserve_bytes": 12057630468,
+  "layers_downloaded": false,
+  "registry_metadata_only": true,
+  "download_authorized": false,
+  "dispatch_gate": "Finish Serena M06 recovery and obtain separate maintainer approval before image acquisition or M11 inference."
+}
